@@ -1,5 +1,5 @@
 import 'dart:io';
-// import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:choice/util/Utility.dart';
 import 'package:choice/util/strings.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,7 @@ class _ViewPdfApprovedSecurityState extends State<ViewPdfApprovedSecurity> {
               child: Container(
                 child: connectivity
                     ? widget.url != null
-                        ? Text("::")/*PDFDocument.fromURL(widget.url)*/
+                        ? PDFDocument.fromURL(widget.url)
                         : Center(child: Text(Strings.no_data))
                     : Utility.showToastMessage(Strings.no_internet_message),
               ),

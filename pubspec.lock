@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.11"
+  advance_pdf_viewer:
+    dependency: "direct main"
+    description:
+      name: advance_pdf_viewer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   another_flushbar:
     dependency: "direct main"
     description:
@@ -384,6 +391,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_cache_manager:
+    dependency: transitive
+    description:
+      name: flutter_cache_manager
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.1"
   flutter_downloader:
     dependency: "direct main"
     description:
@@ -665,6 +679,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.6.2"
+  infinite_listview:
+    dependency: transitive
+    description:
+      name: infinite_listview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   intl:
     dependency: "direct main"
     description:
@@ -770,6 +791,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
+  numberpicker:
+    dependency: transitive
+    description:
+      name: numberpicker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.2"
   numerus:
     dependency: transitive
     description:
@@ -1118,6 +1146,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
+  sqflite:
+    dependency: transitive
+    description:
+      name: sqflite
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3+1"
+  sqflite_common:
+    dependency: transitive
+    description:
+      name: sqflite_common
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.4.0"
   stack_trace:
     dependency: transitive
     description:
@@ -1139,6 +1181,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0+3"
   term_glyph:
     dependency: transitive
     description:

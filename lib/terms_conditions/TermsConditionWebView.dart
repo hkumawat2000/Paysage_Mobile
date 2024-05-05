@@ -3,7 +3,7 @@ import 'package:choice/util/Preferences.dart';
 import 'package:choice/util/Colors.dart';
 import 'package:choice/util/Utility.dart';
 import 'package:flutter/material.dart';
-// import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:choice/util/AssetsImagePath.dart';
 import 'package:choice/widgets/WidgetCommon.dart';
@@ -23,7 +23,7 @@ class TermsConditionWebView extends StatefulWidget {
 
 class TermsConditionWebViewScreenState extends State<TermsConditionWebView> {
   var connectivity = true;
-  // PDFDocument? document;
+  PDFDocument? document;
   Preferences preferences = Preferences();
   String? privacyURL;
 
@@ -37,7 +37,7 @@ class TermsConditionWebViewScreenState extends State<TermsConditionWebView> {
   void checkNetwork() async {
     var network = await Utility.isNetworkConnection();
     String url = await preferences.getPrivacyPolicyUrl();
-    // document = await PDFDocument.fromURL(widget.isForPrivacyPolity ? url : widget.url);
+    document = await PDFDocument.fromURL(widget.isForPrivacyPolity ? url : widget.url);
     setState(() {
       connectivity = network;
     });
@@ -72,9 +72,9 @@ class TermsConditionWebViewScreenState extends State<TermsConditionWebView> {
           Expanded(
             child: Container(
               child: widget.url != null
-                  ? /*document != null
+                  ? document != null
                     ? PDFViewer(document: document!, zoomSteps: 1, scrollDirection: Axis.vertical)
-                    :*/ Center(child: CircularProgressIndicator())
+                    : Center(child: CircularProgressIndicator())
                   : Center(child: Text("No Data"))
             ),
           ),
