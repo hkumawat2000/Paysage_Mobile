@@ -1,0 +1,167 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "69e8963ff8b84051c7d286c116644764cd74b549996270884732ee64e22fcee0"
+build_start_time: [1672817537, 911715030]
+build_end_time: [1672817537, 937433958]
+inputs:
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/ContextMenuOptions.swift"
+  : !dirty [1671596364, 851875305]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/CredentialDatabase.swift"
+  : !dirty [1671596364, 925631046]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/CustomeSchemeHandler.swift"
+  : !dirty [1671596365, 214450359]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/FlutterMethodCallDelegate.swift"
+  : !dirty [1671596364, 852924346]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/HeadlessInAppWebView/HeadlessInAppWebView.swift"
+  : !dirty [1671596364, 886363506]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/HeadlessInAppWebView/HeadlessInAppWebViewManager.swift"
+  : !dirty [1671596364, 891440868]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/HttpAuthenticationChallenge.swift"
+  : !dirty [1671596364, 943373680]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppBrowser/InAppBrowserDelegate.swift"
+  : !dirty [1671596365, 9775400]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppBrowser/InAppBrowserManager.swift"
+  : !dirty [1671596364, 976583719]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppBrowser/InAppBrowserNavigationController.swift"
+  : !dirty [1671596365, 8198261]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppBrowser/InAppBrowserOptions.swift"
+  : !dirty [1671596364, 960259914]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppBrowser/InAppBrowserWebViewController.swift"
+  : !dirty [1671596364, 992381572]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppWebView/FlutterWebViewController.swift"
+  : !dirty [1671596364, 788063049]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppWebView/FlutterWebViewFactory.swift"
+  : !dirty [1671596364, 772396326]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppWebView/InAppWebView.swift"
+  : !dirty [1671596364, 755162715]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppWebView/InAppWebViewOptions.swift"
+  : !dirty [1671596364, 803781986]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppWebViewMethodHandler.swift"
+  : !dirty [1671596364, 941774368]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/InAppWebViewStatic.swift"
+  : !dirty [1671596365, 166450500]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/LeakAvoider.swift"
+  : !dirty [1671596365, 197090148]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/MyCookieManager.swift"
+  : !dirty [1671596364, 819342613]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/MyWebStorageManager.swift"
+  : !dirty [1671596364, 870209693]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Options.swift"
+  : !dirty [1671596365, 181541681]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PlatformUtil.swift"
+  : !dirty [1671596365, 213801145]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/CallAsyncJavaScriptBelowIOS14WrapperJS.swift"
+  : !dirty [1671596364, 892306804]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/ConsoleLogJS.swift"
+  : !dirty [1671596364, 900350093]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/EnableViewportScaleJS.swift"
+  : !dirty [1671596364, 904709100]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/FindElementsAtPointJS.swift"
+  : !dirty [1671596364, 898082733]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/FindTextHighlightJS.swift"
+  : !dirty [1671596364, 899723768]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/InterceptAjaxRequestJS.swift"
+  : !dirty [1671596364, 907302379]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/InterceptFetchRequestJS.swift"
+  : !dirty [1671596364, 902022838]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/JavaScriptBridgeJS.swift"
+  : !dirty [1671596364, 901507377]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/LastTouchedAnchorOrImageJS.swift"
+  : !dirty [1671596364, 905658960]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/OnLoadResourceJS.swift"
+  : !dirty [1671596364, 899160385]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/OnWindowBlurEventJS.swift"
+  : !dirty [1671596364, 906142234]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/OnWindowFocusEventJS.swift"
+  : !dirty [1671596364, 898591756]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/OriginalViewPortMetaTagContentJS.swift"
+  : !dirty [1671596364, 903676509]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/PluginScriptsUtil.swift"
+  : !dirty [1671596364, 897440910]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/PrintJS.swift"
+  : !dirty [1671596364, 905204296]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/PromisePolyfillJS.swift"
+  : !dirty [1671596364, 903043270]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/SupportZoomJS.swift"
+  : !dirty [1671596364, 904165744]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/WebMessageChannelJS.swift"
+  : !dirty [1671596364, 900892734]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/WebMessageListenerJS.swift"
+  : !dirty [1671596364, 906746864]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PluginScriptsJS/WindowIdJS.swift"
+  : !dirty [1671596364, 893011569]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PullToRefresh/PullToRefreshControl.swift"
+  : !dirty [1671596364, 751419544]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PullToRefresh/PullToRefreshDelegate.swift"
+  : !dirty [1671596364, 749142169]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/PullToRefresh/PullToRefreshOptions.swift"
+  : !dirty [1671596364, 750346183]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/SafariViewController/ChromeSafariBrowserManager.swift"
+  : !dirty [1671596365, 122092008]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/SafariViewController/SafariBrowserOptions.swift"
+  : !dirty [1671596365, 137473821]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/SafariViewController/SafariViewController.swift"
+  : !dirty [1671596365, 151816368]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/SwiftFlutterPlugin.swift"
+  : !dirty [1671596364, 943984031]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/ClientCertChallenge.swift"
+  : !dirty [1671596365, 118041515]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/DownloadStartRequest.swift"
+  : !dirty [1671596365, 37452936]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/HitTestResult.swift"
+  : !dirty [1671596365, 117574214]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/NSAttributedString.swift"
+  : !dirty [1671596365, 54269313]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/PluginScript.swift"
+  : !dirty [1671596365, 26358127]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/SecCertificate.swift"
+  : !dirty [1671596365, 34901142]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/ServerTrustChallenge.swift"
+  : !dirty [1671596365, 34223079]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/Size2D.swift"
+  : !dirty [1671596365, 99805593]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/SslCertificate.swift"
+  : !dirty [1671596365, 115090370]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/SslError.swift"
+  : !dirty [1671596365, 120512485]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/UIColor.swift"
+  : !dirty [1671596365, 118455886]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/URLAuthenticationChallenge.swift"
+  : !dirty [1671596365, 84617614]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/URLCredential.swift"
+  : !dirty [1671596365, 116067886]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/URLProtectionSpace.swift"
+  : !dirty [1671596365, 33464431]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/URLRequest.swift"
+  : !dirty [1671596365, 120148181]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/URLResponse.swift"
+  : !dirty [1671596365, 116927623]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/UserScript.swift"
+  : !dirty [1671596365, 119326114]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WKContentWorld.swift"
+  : !dirty [1671596365, 28274059]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WKFrameInfo.swift"
+  : !dirty [1671596365, 30089855]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WKNavigationAction.swift"
+  : !dirty [1671596365, 32641887]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WKNavigationResponse.swift"
+  : !dirty [1671596365, 31878232]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WKSecurityOrigin.swift"
+  : !dirty [1671596365, 119762420]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WKUserContentController.swift"
+  : !dirty [1671596365, 36713838]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WKWindowFeatures.swift"
+  : !dirty [1671596365, 69468498]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WebMessage.swift"
+  : !dirty [1671596365, 29230117]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WebMessageChannel.swift"
+  : !dirty [1671596365, 38029193]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WebMessageListener.swift"
+  : !dirty [1671596365, 31146049]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WebMessagePort.swift"
+  : !dirty [1671596365, 27649164]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Types/WebViewTransport.swift"
+  : !dirty [1671596365, 118857860]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/Util.swift"
+  : !dirty [1671596364, 868772506]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.7.2+3/ios/Classes/WKProcessPoolManager.swift"
+  : !dirty [1671596364, 907961368]

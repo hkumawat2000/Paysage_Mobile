@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "23ca3bad4593053f91e09701b84306d9b10ab07c97d92a3abd3231bdeaef17b6"
+build_start_time: [1672817553, 49089908]
+build_end_time: [1672817553, 80058097]
+inputs:
+  "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Runner/AppDelegate.swift": !private [1671425227, 568280696]

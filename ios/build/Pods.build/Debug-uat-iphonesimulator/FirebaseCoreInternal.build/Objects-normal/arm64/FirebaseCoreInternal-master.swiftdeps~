@@ -1,0 +1,27 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "5e8a28757e659db4638aea9b069bbaf2603e0f3bd07c4f06be1065f5723dff44"
+build_start_time: [1672817537, 722288131]
+build_end_time: [1672817537, 743021965]
+inputs:
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Heartbeat.swift"
+  : !dirty [1672817001, 317298889]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatController.swift"
+  : !dirty [1672817001, 318755865]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatStorage.swift"
+  : !dirty [1672817001, 319372653]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsBundle.swift"
+  : !dirty [1672817001, 319509029]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsPayload.swift"
+  : !dirty [1672817001, 319832801]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/RingBuffer.swift"
+  : !dirty [1672817001, 317749023]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Storage.swift"
+  : !dirty [1672817001, 316584587]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/StorageFactory.swift"
+  : !dirty [1672817001, 320507764]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/WeakContainer.swift"
+  : !dirty [1672817001, 319671630]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatController.swift"
+  : !dirty [1672817001, 318553447]
+  ? "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatsPayload.swift"
+  : !dirty [1672817001, 319079875]

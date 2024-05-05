@@ -1,0 +1,11 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "cfff99e0dfcc12b64636fd638531dbc2f11ae5af04e1ca536279eb0b9b6e04c4"
+build_start_time: [1672817538, 299540042]
+build_end_time: [1672817538, 318378925]
+inputs:
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_plus-2.1.0/ios/Classes/ConnectivityProvider.swift"
+  : !dirty [1671596352, 488455295]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_plus-2.1.0/ios/Classes/ReachabilityConnectivityProvider.swift"
+  : !dirty [1671596352, 490238189]
+  ? "/Users/himanshukumawat/desktop/SDK/flutter/.pub-cache/hosted/pub.dartlang.org/connectivity_plus-2.1.0/ios/Classes/SwiftConnectivityPlusPlugin.swift"
+  : !dirty [1671596352, 492125511]

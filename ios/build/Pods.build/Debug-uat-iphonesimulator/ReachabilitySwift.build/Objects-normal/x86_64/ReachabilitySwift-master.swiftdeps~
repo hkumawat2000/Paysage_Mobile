@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "9d338a460856ccb6c99400ce5d8df791d5e4083b1546de1648a5171f82649204"
+build_start_time: [1672817532, 717318058]
+build_end_time: [1672817532, 738301038]
+inputs:
+  "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/ReachabilitySwift/Sources/Reachability.swift": !dirty [1672817001, 851716518]

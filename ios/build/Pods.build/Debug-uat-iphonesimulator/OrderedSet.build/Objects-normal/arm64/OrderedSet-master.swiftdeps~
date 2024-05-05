@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "ef397ef651b3d9e08af6b3f3a285b935133b1264f90e31aecb1ab3906dc65069"
+build_start_time: [1672817532, 716825962]
+build_end_time: [1672817532, 748633861]
+inputs:
+  "/Users/himanshukumawat/Desktop/Projects/choicemobileapp/ios/Pods/OrderedSet/Sources/OrderedSet.swift": !dirty [1672817001, 831081628]
