@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:choice/network/requestbean/LoanStatementRequestBean.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/LoanStatementResponseBean.dart';
-import 'package:choice/network/responsebean/RecentTransactionResponseBean.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/requestbean/LoanStatementRequestBean.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/LoanStatementResponseBean.dart';
+import 'package:lms/network/responsebean/RecentTransactionResponseBean.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 

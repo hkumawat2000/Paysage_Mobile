@@ -1,7 +1,7 @@
-import 'package:choice/contact_us/ContactUSDao.dart';
-import 'package:choice/network/requestbean/ContactUsRequestBean.dart';
-import 'package:choice/network/responsebean/ContactUsResponseBean.dart';
-import 'package:choice/network/responsebean/LoginResponseBean.dart';
+import 'package:lms/contact_us/ContactUSDao.dart';
+import 'package:lms/network/requestbean/ContactUsRequestBean.dart';
+import 'package:lms/network/responsebean/ContactUsResponseBean.dart';
+import 'package:lms/network/responsebean/LoginResponseBean.dart';
 
 class ContactUsRepository {
   final contactusDao = ContactUSDao();

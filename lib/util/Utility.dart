@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

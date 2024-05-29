@@ -2,18 +2,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:choice/complete_kyc/CompleteKYCBloc.dart';
-import 'package:choice/network/requestbean/ValidateBankRequestBean.dart';
-import 'package:choice/network/responsebean/ChoiceBankResponseBean.dart';
-import 'package:choice/new_dashboard/NewDashboardScreen.dart';
-import 'package:choice/nsdl/BankDetailBloc.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/complete_kyc/CompleteKYCBloc.dart';
+import 'package:lms/network/requestbean/ValidateBankRequestBean.dart';
+import 'package:lms/network/responsebean/ChoiceBankResponseBean.dart';
+import 'package:lms/new_dashboard/NewDashboardScreen.dart';
+import 'package:lms/nsdl/BankDetailBloc.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -1004,10 +1004,10 @@ class _BankDetailScreenState extends State<BankDetailScreen> {
         bankDetailBloc.getChoiceBankKYC().then((value) {
           Navigator.pop(context);
           if (value.isSuccessFull!) {
-            if(value.choiceBankData != null){
-              if(value.choiceBankData!.bankAccount != null
-                  && value.choiceBankData!.bankAccount!.isNotEmpty){
-                bankAccount = value.choiceBankData!.bankAccount![0];
+            if(value.atrinaBankData != null){
+              if(value.atrinaBankData!.bankAccount != null
+                  && value.atrinaBankData!.bankAccount!.isNotEmpty){
+                bankAccount = value.atrinaBankData!.bankAccount![0];
                 choiceUserConfirmationDialog();
               }
             }

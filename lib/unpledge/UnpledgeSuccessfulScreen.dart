@@ -1,8 +1,8 @@
-import 'package:choice/new_dashboard/NewDashboardScreen.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/new_dashboard/NewDashboardScreen.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 
 class UnpledgeSuccessfulScreen extends StatefulWidget {

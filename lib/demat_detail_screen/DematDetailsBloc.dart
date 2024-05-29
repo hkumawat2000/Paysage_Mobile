@@ -1,7 +1,7 @@
-import 'package:choice/demat_detail_screen/DematDetailsRepository.dart';
-import 'package:choice/demat_detail_screen/DematDetailsResponse.dart';
-import 'package:choice/network/requestbean/DematDetailNewRequest.dart';
-import 'package:choice/network/responsebean/DematAcResponse.dart';
+import 'package:lms/demat_detail_screen/DematDetailsRepository.dart';
+import 'package:lms/demat_detail_screen/DematDetailsResponse.dart';
+import 'package:lms/network/requestbean/DematDetailNewRequest.dart';
+import 'package:lms/network/responsebean/DematAcResponse.dart';
 
 class DematDetailsBloc{
   final dematDetailsRepository = DematDetailsRepository();

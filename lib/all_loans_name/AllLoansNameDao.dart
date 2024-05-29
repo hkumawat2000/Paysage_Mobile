@@ -1,7 +1,7 @@
-import 'package:choice/network/responsebean/AllLoanNamesResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/responsebean/AllLoanNamesResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class AllLoansNameDao with BaseDio{

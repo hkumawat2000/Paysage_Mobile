@@ -1,9 +1,9 @@
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/WithdrawDetailsResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/WithdrawDetailsResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
 class WithdrawDao with BaseDio{

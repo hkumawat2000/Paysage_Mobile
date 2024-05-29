@@ -1,6 +1,6 @@
-import 'package:choice/forgot_pin/ForgotPinDao.dart';
-import 'package:choice/network/requestbean/ForgotPinRequestBean.dart';
-import 'package:choice/network/responsebean/AuthResponse/AuthLoginResponse.dart';
+import 'package:lms/forgot_pin/ForgotPinDao.dart';
+import 'package:lms/network/requestbean/ForgotPinRequestBean.dart';
+import 'package:lms/network/responsebean/AuthResponse/AuthLoginResponse.dart';
 
 class ForgotPinRepository {
   final forgotPinDao = ForgotPinDao();

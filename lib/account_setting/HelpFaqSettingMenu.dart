@@ -1,8 +1,8 @@
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/webview/CommonWebViewScreen.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/webview/CommonWebViewScreen.dart';
 import 'package:flutter/material.dart';
 
 class HelpFaqSettingMenu extends StatefulWidget {

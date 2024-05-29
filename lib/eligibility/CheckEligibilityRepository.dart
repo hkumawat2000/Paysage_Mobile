@@ -1,5 +1,5 @@
-import 'package:choice/Eligibility/CheckEligibilityDao.dart';
-import 'package:choice/network/responsebean/CheckEligibilityResponseBean.dart';
+import 'package:lms/Eligibility/CheckEligibilityDao.dart';
+import 'package:lms/network/responsebean/CheckEligibilityResponseBean.dart';
 
 class CheckEligibilityRepository {
   final checkEligibilityDao = CheckEligibilityDao();

@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:choice/network/requestbean/LoanStatementRequestBean.dart';
-import 'package:choice/network/responsebean/LoanStatementResponseBean.dart';
-import 'package:choice/network/responsebean/RecentTransactionResponseBean.dart';
-import 'package:choice/account_statement/LoanStatementRepository.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/LoanStatementRequestBean.dart';
+import 'package:lms/network/responsebean/LoanStatementResponseBean.dart';
+import 'package:lms/network/responsebean/RecentTransactionResponseBean.dart';
+import 'package:lms/account_statement/LoanStatementRepository.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class LoanStatementBloc {
   LoanStatementBloc();

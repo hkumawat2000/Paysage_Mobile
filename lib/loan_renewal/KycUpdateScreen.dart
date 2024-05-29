@@ -1,8 +1,8 @@
-import 'package:choice/complete_kyc/CkycConsentScreen1.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/complete_kyc/CkycConsentScreen1.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

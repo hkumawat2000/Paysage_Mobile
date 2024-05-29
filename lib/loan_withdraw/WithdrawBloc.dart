@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/WithdrawDetailsResponse.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/WithdrawDetailsResponse.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'WithdrawRepository.dart';
 
 class WithdrawBloc {

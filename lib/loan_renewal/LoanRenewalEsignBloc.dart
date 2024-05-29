@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:choice/loan_renewal/LoanRenewalEsignRepository.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/ESignResponse.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/loan_renewal/LoanRenewalEsignRepository.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/ESignResponse.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class LoanRenewalEsignBloc {
   LoanRenewalEsignBloc();

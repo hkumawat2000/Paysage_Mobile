@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -38,7 +38,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   Widget appBarTitle = new Text("", style: mediumTextStyle_18_gray_dark);
   LoanApplicationBloc loanApplicationBloc = LoanApplicationBloc();
-  List<Choice> cartViewList = [];
+  List<Atrina> cartViewList = [];
   List<CartItems> catAList = [];
   List<CartItems> catBList = [];
   List<CartItems> catCList = [];
@@ -239,7 +239,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
             return NoDataWidget();
           } else {
             cartViewList.clear();
-            cartViewList.add(Choice(snapshot.data!.cart!.lender, snapshot.data!.roi,
+            cartViewList.add(Atrina(snapshot.data!.cart!.lender, snapshot.data!.roi,
                 snapshot.data!.minSanctionedLimit, snapshot.data!.maxSanctionedLimit));
             return viewVaultScreenBody(snapshot);
           }
@@ -890,7 +890,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              ...cartViewList.map((Choice choice) {
+              ...cartViewList.map((Atrina atrina) {
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5),
                   decoration: BoxDecoration(
@@ -905,7 +905,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(choice.lender!, style: boldTextStyle_18,
+                            Text(atrina.lender!, style: boldTextStyle_18,
                                 overflow: TextOverflow.ellipsis),
                             SizedBox(
                               height: 14,
@@ -914,7 +914,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("${choice.roi!.toStringAsFixed(2)}%"),
+                            scripsValueText("${atrina.roi!.toStringAsFixed(2)}%"),
                             SizedBox(
                               height: 16,
                             ),
@@ -922,7 +922,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("₹${choice.minLimit!.toStringAsFixed(2)}"),
+                            scripsValueText("₹${atrina.minLimit!.toStringAsFixed(2)}"),
                             SizedBox(
                               height: 16,
                             ),
@@ -930,7 +930,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("₹${choice.maxLimit!.toStringAsFixed(2)}"),
+                            scripsValueText("₹${atrina.maxLimit!.toStringAsFixed(2)}"),
                           ],
                         ),
                       ),
@@ -1499,8 +1499,8 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
     );
   }
 }
-class Choice {
-  const Choice(this.lender, this.roi, this.minLimit, this.maxLimit);
+class Atrina {
+  const Atrina(this.lender, this.roi, this.minLimit, this.maxLimit);
 
   final String? lender;
   final double? roi;

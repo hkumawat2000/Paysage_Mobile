@@ -1,10 +1,10 @@
-import 'package:choice/network/requestbean/ValidateBankRequestBean.dart';
-import 'package:choice/network/responsebean/ChoiceBankResponseBean.dart';
-import 'package:choice/network/responsebean/FundAccValidationResponseBean.dart';
-import 'package:choice/nsdl/BankMasterResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/requestbean/ValidateBankRequestBean.dart';
+import 'package:lms/network/responsebean/ChoiceBankResponseBean.dart';
+import 'package:lms/network/responsebean/FundAccValidationResponseBean.dart';
+import 'package:lms/nsdl/BankMasterResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class BankDetailDao with BaseDio {
@@ -202,13 +202,13 @@ class BankDetailDao with BaseDio {
   //   return wrapper;
   // }
 
-  Future<ChoiceBankResponseBean> getChoiceBankKYC() async {
+  Future<AtrinaBankResponseBean> getChoiceBankKYC() async {
     Dio dio = await getBaseDio();
-    ChoiceBankResponseBean wrapper = ChoiceBankResponseBean();
+    AtrinaBankResponseBean wrapper = AtrinaBankResponseBean();
     try {
-      Response response = await dio.post(Constants.choiceBank );
+      Response response = await dio.post(Constants.atrinaBank );
       if (response.statusCode == 200) {
-        wrapper = ChoiceBankResponseBean.fromJson(response.data);
+        wrapper = AtrinaBankResponseBean.fromJson(response.data);
         wrapper.isSuccessFull = true;
       } else {
         wrapper.isSuccessFull = false;

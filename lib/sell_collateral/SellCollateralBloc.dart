@@ -1,7 +1,7 @@
-import 'package:choice/network/requestbean/SellCollateralRequestBean.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/SellCollateralResponseBean.dart';
-import 'package:choice/sell_collateral/SellCollateralRepository.dart';
+import 'package:lms/network/requestbean/SellCollateralRequestBean.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/SellCollateralResponseBean.dart';
+import 'package:lms/sell_collateral/SellCollateralRepository.dart';
 
 class SellCollateralBloc {
   SellCollateralBloc();

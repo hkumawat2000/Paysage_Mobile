@@ -1,14 +1,14 @@
-// import 'package:choice/contact_us/thank_you.dart';
-// import 'package:choice/dummy/constants.dart';
-// import 'package:choice/login/LoginDao.dart';
-// import 'package:choice/network/requestbean/ContactUsRequestBean.dart';
-// import 'package:choice/util/Colors.dart';
-// import 'package:choice/util/Preferences.dart';
-// import 'package:choice/util/Style.dart';
-// import 'package:choice/util/Utility.dart';
-// import 'package:choice/util/strings.dart';
-// import 'package:choice/widgets/LoadingDialogWidget.dart';
-// import 'package:choice/widgets/WidgetCommon.dart';
+// import 'package:lms/contact_us/thank_you.dart';
+// import 'package:lms/dummy/constants.dart';
+// import 'package:lms/login/LoginDao.dart';
+// import 'package:lms/network/requestbean/ContactUsRequestBean.dart';
+// import 'package:lms/util/Colors.dart';
+// import 'package:lms/util/Preferences.dart';
+// import 'package:lms/util/Style.dart';
+// import 'package:lms/util/Utility.dart';
+// import 'package:lms/util/strings.dart';
+// import 'package:lms/widgets/LoadingDialogWidget.dart';
+// import 'package:lms/widgets/WidgetCommon.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 //

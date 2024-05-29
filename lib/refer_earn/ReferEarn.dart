@@ -1,9 +1,9 @@
-// import 'package:choice/common_widgets/constants.dart';
-// // import 'package:choice/dummy/constants.dart';
-// import 'package:choice/refer&earn/ReferEarnBottomView.dart';
-// import 'package:choice/util/AssetsImagePath.dart';
-// import 'package:choice/util/Colors.dart';
-// import 'package:choice/widgets/WidgetCommon.dart';
+// import 'package:lms/common_widgets/constants.dart';
+// // import 'package:lms/dummy/constants.dart';
+// import 'package:lms/refer&earn/ReferEarnBottomView.dart';
+// import 'package:lms/util/AssetsImagePath.dart';
+// import 'package:lms/util/Colors.dart';
+// import 'package:lms/widgets/WidgetCommon.dart';
 // // import 'package:dashed_container/dashed_container.dart';
 // // import 'package:dotted_border/dotted_border.dart';
 // import 'package:dotted_line/dotted_line.dart';

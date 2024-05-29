@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:choice/network/responsebean/LenderResponseBean.dart';
-import 'package:choice/network/responsebean/NotificationResponseBean.dart';
-import 'package:choice/notification/NotificationRepository.dart';
+import 'package:lms/network/responsebean/LenderResponseBean.dart';
+import 'package:lms/network/responsebean/NotificationResponseBean.dart';
+import 'package:lms/notification/NotificationRepository.dart';
 
 class NotificationBloc {
   final notificationRepository = NotificationRepository();

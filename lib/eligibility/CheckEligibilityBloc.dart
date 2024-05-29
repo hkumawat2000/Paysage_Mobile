@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:choice/Eligibility/CheckEligibilityRepository.dart';
-import 'package:choice/network/responsebean/CheckEligibilityResponseBean.dart';
+import 'package:lms/Eligibility/CheckEligibilityRepository.dart';
+import 'package:lms/network/responsebean/CheckEligibilityResponseBean.dart';
 
 class CheckEligibilityBloc {
   final checkEligibilityRepository = CheckEligibilityRepository();

@@ -1,27 +1,27 @@
-import 'package:choice/network/ModelWrapper.dart';
+import 'package:lms/network/ModelWrapper.dart';
 
-class ChoiceBankResponseBean extends ModelWrapper<List<ChoiceBankData>>{
+class AtrinaBankResponseBean extends ModelWrapper<List<AtrinaBankData>>{
   String? message;
-  ChoiceBankData? choiceBankData;
+  AtrinaBankData? atrinaBankData;
 
-  ChoiceBankResponseBean({this.message, this.choiceBankData});
+  AtrinaBankResponseBean({this.message, this.atrinaBankData});
 
-  ChoiceBankResponseBean.fromJson(Map<String, dynamic> json) {
+  AtrinaBankResponseBean.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    choiceBankData = json['data'] != null ? new ChoiceBankData.fromJson(json['data']) : null;
+    atrinaBankData = json['data'] != null ? new AtrinaBankData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
-    if (this.choiceBankData != null) {
-      data['data'] = this.choiceBankData!.toJson();
+    if (this.atrinaBankData != null) {
+      data['data'] = this.atrinaBankData!.toJson();
     }
     return data;
   }
 }
 
-class ChoiceBankData {
+class AtrinaBankData {
   String? name;
   String? owner;
   String? creation;
@@ -41,7 +41,7 @@ class ChoiceBankData {
   String? doctype;
   List<BankAccount>? bankAccount;
 
-  ChoiceBankData(
+  AtrinaBankData(
       {this.name,
         this.owner,
         this.creation,
@@ -61,7 +61,7 @@ class ChoiceBankData {
         this.doctype,
         this.bankAccount});
 
-  ChoiceBankData.fromJson(Map<String, dynamic> json) {
+  AtrinaBankData.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     owner = json['owner'];
     creation = json['creation'];

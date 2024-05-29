@@ -1,5 +1,5 @@
-import 'package:choice/network/ModelWrapper.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/ModelWrapper.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class NewDashboardResponse extends ModelWrapper<NewDashboardData>{
   String? message;

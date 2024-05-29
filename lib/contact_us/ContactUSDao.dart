@@ -1,10 +1,10 @@
-import 'package:choice/network/requestbean/ContactUsRequestBean.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/LoginResponseBean.dart';
-import 'package:choice/network/responsebean/ContactUsResponseBean.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/requestbean/ContactUsRequestBean.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/LoginResponseBean.dart';
+import 'package:lms/network/responsebean/ContactUsResponseBean.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class ContactUSDao with BaseDio {

@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:choice/complete_kyc/CompleteKYCRepository.dart';
-import 'package:choice/network/requestbean/ConsentDetailRequestBean.dart';
-import 'package:choice/network/requestbean/UserKYCRequest.dart';
-import 'package:choice/network/responsebean/CkycDownloadResponse.dart';
-import 'package:choice/network/responsebean/CkycSearchResponse.dart';
-import 'package:choice/network/responsebean/ConsentDetailResponseBean.dart';
-import 'package:choice/network/responsebean/PinCodeResponseBean.dart';
-import 'package:choice/network/responsebean/UserCompleteKYCResponseBean.dart';
-import 'package:choice/network/responsebean/UserKYCResponse.dart';
+import 'package:lms/complete_kyc/CompleteKYCRepository.dart';
+import 'package:lms/network/requestbean/ConsentDetailRequestBean.dart';
+import 'package:lms/network/requestbean/UserKYCRequest.dart';
+import 'package:lms/network/responsebean/CkycDownloadResponse.dart';
+import 'package:lms/network/responsebean/CkycSearchResponse.dart';
+import 'package:lms/network/responsebean/ConsentDetailResponseBean.dart';
+import 'package:lms/network/responsebean/PinCodeResponseBean.dart';
+import 'package:lms/network/responsebean/UserCompleteKYCResponseBean.dart';
+import 'package:lms/network/responsebean/UserKYCResponse.dart';
 
 class CompleteKYCBloc{
   CompleteKYCBloc();

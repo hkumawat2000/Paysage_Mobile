@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:choice/network/responsebean/TermsConditionResponse.dart';
-import 'package:choice/topup/top_up_terms_conditions/TopUpTermsConditionsRepository.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/responsebean/TermsConditionResponse.dart';
+import 'package:lms/topup/top_up_terms_conditions/TopUpTermsConditionsRepository.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class TopUpTermsConditionsBloc {
   TopUpTermsConditionsBloc();

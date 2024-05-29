@@ -1,16 +1,16 @@
 // import 'dart:async';
 //
-// import 'package:choice/completekyc/CompleteKYCScreen.dart';
-// import 'package:choice/completekyc/EditChoiceInformationScreen.dart';
-// import 'package:choice/login/LoginBloc.dart';
-// import 'package:choice/login/LoginDao.dart';
-// import 'package:choice/login/LoginValidationBloc.dart';
-// import 'package:choice/registration/RegistrationScreen.dart';
-// import 'package:choice/util/Colors.dart';
-// import 'package:choice/util/Preferences.dart';
-// import 'package:choice/util/Utility.dart';
-// import 'package:choice/util/strings.dart';
-// import 'package:choice/widgets/LoadingDialogWidget.dart';
+// import 'package:lms/completekyc/CompleteKYCScreen.dart';
+// import 'package:lms/completekyc/EditChoiceInformationScreen.dart';
+// import 'package:lms/login/LoginBloc.dart';
+// import 'package:lms/login/LoginDao.dart';
+// import 'package:lms/login/LoginValidationBloc.dart';
+// import 'package:lms/registration/RegistrationScreen.dart';
+// import 'package:lms/util/Colors.dart';
+// import 'package:lms/util/Preferences.dart';
+// import 'package:lms/util/Utility.dart';
+// import 'package:lms/util/strings.dart';
+// import 'package:lms/widgets/LoadingDialogWidget.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';

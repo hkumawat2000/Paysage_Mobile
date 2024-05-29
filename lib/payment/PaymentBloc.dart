@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:choice/network/requestbean/PaymentRequest.dart';
-import 'package:choice/network/requestbean/RazorPayRequest.dart';
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/PaymentResponse.dart';
-import 'package:choice/payment/PaymentRepository.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/PaymentRequest.dart';
+import 'package:lms/network/requestbean/RazorPayRequest.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/PaymentResponse.dart';
+import 'package:lms/payment/PaymentRepository.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class PaymentBloc {
   PaymentBloc();

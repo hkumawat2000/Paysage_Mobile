@@ -1,5 +1,5 @@
-import 'package:choice/network/responsebean/ConsentTextResponse.dart';
-import 'package:choice/nsdl/BankDetailDao.dart';
+import 'package:lms/network/responsebean/ConsentTextResponse.dart';
+import 'package:lms/nsdl/BankDetailDao.dart';
 import 'package:flutter/material.dart';
 
 import 'ConsentTextDao.dart';

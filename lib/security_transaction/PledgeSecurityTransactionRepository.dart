@@ -1,6 +1,6 @@
 // PledgeSecurityTransactionDao
-import 'package:choice/network/requestbean/LoanStatementRequestBean.dart';
-import 'package:choice/network/responsebean/PledgeSecurityTransactionResponseBean.dart';
+import 'package:lms/network/requestbean/LoanStatementRequestBean.dart';
+import 'package:lms/network/responsebean/PledgeSecurityTransactionResponseBean.dart';
 import 'PledgeSecurityTransactionDao.dart';
 
 class PledgeSecurityTransactionRepository {

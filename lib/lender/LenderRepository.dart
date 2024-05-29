@@ -1,5 +1,5 @@
-import 'package:choice/lender/LenderDao.dart';
-import 'package:choice/network/responsebean/LenderResponseBean.dart';
+import 'package:lms/lender/LenderDao.dart';
+import 'package:lms/network/responsebean/LenderResponseBean.dart';
 
 class LenderRepository{
 

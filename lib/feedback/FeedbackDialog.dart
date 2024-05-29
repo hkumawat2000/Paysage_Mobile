@@ -1,11 +1,11 @@
-import 'package:choice/feedback/FeedbackBloc.dart';
-import 'package:choice/feedback/NewFeedbackScreen.dart';
-import 'package:choice/network/requestbean/FeedbackRequestBean.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/feedback/FeedbackBloc.dart';
+import 'package:lms/feedback/NewFeedbackScreen.dart';
+import 'package:lms/network/requestbean/FeedbackRequestBean.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

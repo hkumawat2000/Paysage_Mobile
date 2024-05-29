@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-import 'package:choice/network/requestbean/MyCartRequestBean.dart';
-import 'package:choice/network/responsebean/MyCartResponseBean.dart';
-import 'package:choice/shares/LoanApplicationBloc.dart';
-import 'package:choice/terms_conditions/TermsConditions.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/ErrorMessageWidget.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/LoadingWidget.dart';
-import 'package:choice/widgets/NoDataWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/MyCartRequestBean.dart';
+import 'package:lms/network/responsebean/MyCartResponseBean.dart';
+import 'package:lms/shares/LoanApplicationBloc.dart';
+import 'package:lms/terms_conditions/TermsConditions.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/ErrorMessageWidget.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/LoadingWidget.dart';
+import 'package:lms/widgets/NoDataWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -59,7 +59,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
     Strings.sorting_list_item_3,
     Strings.sorting_list_item_4
   ];
-  List<Choice> cartViewList = [];
+  List<Atrina> cartViewList = [];
   List<CartItems> catAList = [];
   List<CartItems> catBList = [];
   List<CartItems> catCList = [];
@@ -239,7 +239,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
             return NoDataWidget();
           } else {
             cartViewList.clear();
-            cartViewList.add(Choice(snapshot.data!.cart!.lender, snapshot.data!.roi,
+            cartViewList.add(Atrina(snapshot.data!.cart!.lender, snapshot.data!.roi,
                 snapshot.data!.minSanctionedLimit, snapshot.data!.maxSanctionedLimit));
             return viewVaultScreenBody(snapshot);
           }
@@ -306,7 +306,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              ...cartViewList.map((Choice choice) {
+              ...cartViewList.map((Atrina choice) {
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5),
                   decoration: BoxDecoration(
@@ -1383,8 +1383,8 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
   }
 }
 
-class Choice {
-  const Choice(this.lender, this.roi, this.minLimit, this.maxLimit);
+class Atrina {
+  const Atrina(this.lender, this.roi, this.minLimit, this.maxLimit);
 
   final String? lender;
   final double? roi;

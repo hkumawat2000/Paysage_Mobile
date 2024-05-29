@@ -1,10 +1,10 @@
-import 'package:choice/network/requestbean/LoanStatementRequestBean.dart';
-import 'package:choice/network/responsebean/PledgeSecurityTransactionResponseBean.dart';
-import 'package:choice/security_transaction/PledgeSecurityTransactionBloc.dart';
-import 'package:choice/widgets/ErrorMessageWidget.dart';
-import 'package:choice/widgets/LoadingWidget.dart';
-import 'package:choice/widgets/NoDataWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/LoanStatementRequestBean.dart';
+import 'package:lms/network/responsebean/PledgeSecurityTransactionResponseBean.dart';
+import 'package:lms/security_transaction/PledgeSecurityTransactionBloc.dart';
+import 'package:lms/widgets/ErrorMessageWidget.dart';
+import 'package:lms/widgets/LoadingWidget.dart';
+import 'package:lms/widgets/NoDataWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 
 class PledgeSecurityTransactionScreen extends StatefulWidget {

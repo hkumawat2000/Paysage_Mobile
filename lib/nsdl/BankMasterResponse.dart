@@ -1,4 +1,4 @@
-import 'package:choice/network/ModelWrapper.dart';
+import 'package:lms/network/ModelWrapper.dart';
 
 class BankMasterResponse extends ModelWrapper<List<BankData>>{
   String? message;

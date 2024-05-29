@@ -1,4 +1,4 @@
-import 'package:choice/network/responsebean/UnpledgeDetailsResponse.dart';
+import 'package:lms/network/responsebean/UnpledgeDetailsResponse.dart';
 
 import '../ModelWrapper.dart';
 

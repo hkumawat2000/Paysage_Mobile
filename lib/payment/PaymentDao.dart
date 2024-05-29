@@ -1,12 +1,12 @@
-import 'package:choice/network/requestbean/PaymentRequest.dart';
-import 'package:choice/network/requestbean/RazorPayRequest.dart';
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/PaymentResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/PaymentRequest.dart';
+import 'package:lms/network/requestbean/RazorPayRequest.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/PaymentResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 

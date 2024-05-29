@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:choice/network/requestbean/TermsConditionRequestBean.dart';
-import 'package:choice/network/responsebean/TermsConditionResponse.dart';
-import 'package:choice/network/responsebean/TncResponseBean.dart';
-import 'package:choice/terms_conditions/TnCRepository.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/TermsConditionRequestBean.dart';
+import 'package:lms/network/responsebean/TermsConditionResponse.dart';
+import 'package:lms/network/responsebean/TncResponseBean.dart';
+import 'package:lms/terms_conditions/TnCRepository.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class TnCBloc {
   TnCBloc();

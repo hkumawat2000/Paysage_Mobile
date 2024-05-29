@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class ViewPdfApprovedSecurity extends StatefulWidget {
   final url;

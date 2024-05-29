@@ -1,4 +1,4 @@
-import 'package:choice/network/ModelWrapper.dart';
+import 'package:lms/network/ModelWrapper.dart';
 
 class PaymentResponse extends ModelWrapper<PaymentResponse> {
   String? id;

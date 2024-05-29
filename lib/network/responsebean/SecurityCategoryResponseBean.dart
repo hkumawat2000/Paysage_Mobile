@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:choice/network/ModelWrapper.dart';
+import 'package:lms/network/ModelWrapper.dart';
 
 class SecurityCategoryResponseBean extends ModelWrapper<List<SecurityCategoryModel>> {
   SecurityCategoryResponseBean.fromJson(Map<dynamic, dynamic> parsedJson) {

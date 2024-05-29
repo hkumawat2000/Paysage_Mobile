@@ -1,15 +1,15 @@
 
-import 'package:choice/common_widgets/constants.dart';
-import 'package:choice/network/responsebean/MyLoansResponse.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/ErrorMessageWidget.dart';
-import 'package:choice/widgets/LoadingWidget.dart';
-import 'package:choice/widgets/NoDataWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/common_widgets/constants.dart';
+import 'package:lms/network/responsebean/MyLoansResponse.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/ErrorMessageWidget.dart';
+import 'package:lms/widgets/LoadingWidget.dart';
+import 'package:lms/widgets/NoDataWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:grouped_buttons/grouped_buttons.dart';

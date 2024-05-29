@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:choice/network/requestbean/MFSchemeRequest.dart';
-import 'package:choice/network/responsebean/MFSchemeResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/requestbean/MFSchemeRequest.dart';
+import 'package:lms/network/responsebean/MFSchemeResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class MFSchemeDao extends BaseDio {

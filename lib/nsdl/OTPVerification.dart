@@ -1,12 +1,12 @@
 // import 'dart:async';
 //
-// import 'package:choice/completekyc/CompleteKYCScreen.dart';
-// import 'package:choice/util/Colors.dart';
-// import 'package:choice/util/Utility.dart';
-// import 'package:choice/util/strings.dart';
+// import 'package:lms/completekyc/CompleteKYCScreen.dart';
+// import 'package:lms/util/Colors.dart';
+// import 'package:lms/util/Utility.dart';
+// import 'package:lms/util/strings.dart';
 // import 'package:flutter/material.dart';
-// import 'package:choice/main.dart';
-// import 'package:choice/widgets/WidgetCommon.dart';
+// import 'package:lms/main.dart';
+// import 'package:lms/widgets/WidgetCommon.dart';
 // import 'package:flutter/services.dart';
 // import 'package:path/path.dart';
 // import 'package:pin_code_fields/pin_code_fields.dart';

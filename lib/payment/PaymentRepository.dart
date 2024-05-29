@@ -1,9 +1,9 @@
-import 'package:choice/network/requestbean/PaymentRequest.dart';
-import 'package:choice/network/requestbean/RazorPayRequest.dart';
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/PaymentResponse.dart';
-import 'package:choice/payment/PaymentDao.dart';
+import 'package:lms/network/requestbean/PaymentRequest.dart';
+import 'package:lms/network/requestbean/RazorPayRequest.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/PaymentResponse.dart';
+import 'package:lms/payment/PaymentDao.dart';
 
 class PaymentRepository {
   final paymentDao = PaymentDao();

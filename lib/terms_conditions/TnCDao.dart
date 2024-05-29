@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:choice/network/requestbean/TermsConditionRequestBean.dart';
-import 'package:choice/network/responsebean/TermsConditionResponse.dart';
-import 'package:choice/network/responsebean/TncResponseBean.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/requestbean/TermsConditionRequestBean.dart';
+import 'package:lms/network/responsebean/TermsConditionResponse.dart';
+import 'package:lms/network/responsebean/TncResponseBean.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class TnCDao with BaseDio {

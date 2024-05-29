@@ -1,9 +1,9 @@
-import 'package:choice/demat_detail_screen/DematDetailsResponse.dart';
-import 'package:choice/network/requestbean/DematDetailNewRequest.dart';
-import 'package:choice/network/responsebean/DematAcResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/demat_detail_screen/DematDetailsResponse.dart';
+import 'package:lms/network/requestbean/DematDetailNewRequest.dart';
+import 'package:lms/network/responsebean/DematAcResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class DematDetailsDao with BaseDio{

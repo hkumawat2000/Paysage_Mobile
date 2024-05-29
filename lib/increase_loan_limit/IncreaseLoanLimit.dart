@@ -1,15 +1,15 @@
-import 'package:choice/increase_loan_limit/NewIncreaseLoan.dart';
-import 'package:choice/lender/LenderBloc.dart';
-import 'package:choice/network/requestbean/SecuritiesRequest.dart';
-import 'package:choice/network/responsebean/SecuritiesResponseBean.dart';
-import 'package:choice/shares/LoanApplicationBloc.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/increase_loan_limit/NewIncreaseLoan.dart';
+import 'package:lms/lender/LenderBloc.dart';
+import 'package:lms/network/requestbean/SecuritiesRequest.dart';
+import 'package:lms/network/responsebean/SecuritiesResponseBean.dart';
+import 'package:lms/shares/LoanApplicationBloc.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

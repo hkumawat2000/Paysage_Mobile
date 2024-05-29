@@ -1,7 +1,7 @@
-import 'package:choice/feedback/FeedbackDao.dart';
-import 'package:choice/network/requestbean/FeedbackRequestBean.dart';
-import 'package:choice/network/responsebean/AuthResponse/AuthLoginResponse.dart';
-import 'package:choice/network/responsebean/FeedbackResponse.dart';
+import 'package:lms/feedback/FeedbackDao.dart';
+import 'package:lms/network/requestbean/FeedbackRequestBean.dart';
+import 'package:lms/network/responsebean/AuthResponse/AuthLoginResponse.dart';
+import 'package:lms/network/responsebean/FeedbackResponse.dart';
 
 class FeedbackRepository{
   final feedbackDao = FeedbackDao();

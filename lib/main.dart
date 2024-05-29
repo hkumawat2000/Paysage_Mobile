@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:choice/FlavorConfig.dart';
-import 'package:choice/splash/SplashScreen.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/MyHttp.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/FlavorConfig.dart';
+import 'package:lms/splash/SplashScreen.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/MyHttp.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';

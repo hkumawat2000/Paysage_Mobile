@@ -1,10 +1,10 @@
-import 'package:choice/network/ModelWrapper.dart';
-import 'package:choice/network/requestbean/RegistrationRequestBean.dart';
-import 'package:choice/network/responsebean/AuthResponse/AuthLoginResponse.dart';
-import 'package:choice/network/responsebean/OTPResponseBean.dart';
-import 'package:choice/network/responsebean/RegistrationResponseBean.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/registration/RegistrationDao.dart';
+import 'package:lms/network/ModelWrapper.dart';
+import 'package:lms/network/requestbean/RegistrationRequestBean.dart';
+import 'package:lms/network/responsebean/AuthResponse/AuthLoginResponse.dart';
+import 'package:lms/network/responsebean/OTPResponseBean.dart';
+import 'package:lms/network/responsebean/RegistrationResponseBean.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/registration/RegistrationDao.dart';
 
 class RegistrationRepository {
   final registerDao = RegistrationDao();

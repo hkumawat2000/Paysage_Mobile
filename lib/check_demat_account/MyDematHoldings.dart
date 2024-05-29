@@ -1,7 +1,7 @@
-// import 'package:choice/checkdemataccount/TransactionListScreen.dart';
-// import 'package:choice/util/Colors.dart';
-// import 'package:choice/util/Style.dart';
-// import 'package:choice/widgets/WidgetCommon.dart';
+// import 'package:lms/checkdemataccount/TransactionListScreen.dart';
+// import 'package:lms/util/Colors.dart';
+// import 'package:lms/util/Style.dart';
+// import 'package:lms/widgets/WidgetCommon.dart';
 // import 'package:flutter/material.dart';
 //
 // class MyDematHoldingsScreen extends StatefulWidget {

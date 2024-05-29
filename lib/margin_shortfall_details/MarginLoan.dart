@@ -1,7 +1,7 @@
-import 'package:choice/margin_shortfall_details/MarginActiveLoan.dart';
-import 'package:choice/margin_shortfall_details/MarginInactiveLoan.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/margin_shortfall_details/MarginActiveLoan.dart';
+import 'package:lms/margin_shortfall_details/MarginInactiveLoan.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 
 class MarginLoan extends StatefulWidget {

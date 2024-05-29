@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:choice/network/requestbean/LogoutRequestBean.dart';
-import 'package:choice/network/responsebean/LoginResponseBean.dart';
-import 'package:choice/network/responsebean/ProfileListResponse.dart';
-import 'package:choice/network/responsebean/ProfileResposoneBean.dart';
-import 'package:choice/network/responsebean/TncResponseBean.dart';
-import 'package:choice/profile/ProfileRepository.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/LogoutRequestBean.dart';
+import 'package:lms/network/responsebean/LoginResponseBean.dart';
+import 'package:lms/network/responsebean/ProfileListResponse.dart';
+import 'package:lms/network/responsebean/ProfileResposoneBean.dart';
+import 'package:lms/network/responsebean/TncResponseBean.dart';
+import 'package:lms/profile/ProfileRepository.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class ProfileBloc {
   ProfileBloc();

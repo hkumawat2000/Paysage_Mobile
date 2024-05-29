@@ -1,10 +1,10 @@
-import 'package:choice/login/LoginDao.dart';
-import 'package:choice/network/responsebean/AuthResponse/AuthLoginResponse.dart';
-import 'package:choice/network/responsebean/AuthResponse/GetTermsandPrivacyResponse.dart';
-import 'package:choice/network/responsebean/GetProfileSetAlertResponseBean.dart';
-import 'package:choice/network/responsebean/OTPResponseBean.dart';
-import 'package:choice/network/responsebean/RegistrationResponseBean.dart';
-import 'package:choice/network/responsebean/LoginResponseBean.dart';
+import 'package:lms/login/LoginDao.dart';
+import 'package:lms/network/responsebean/AuthResponse/AuthLoginResponse.dart';
+import 'package:lms/network/responsebean/AuthResponse/GetTermsandPrivacyResponse.dart';
+import 'package:lms/network/responsebean/GetProfileSetAlertResponseBean.dart';
+import 'package:lms/network/responsebean/OTPResponseBean.dart';
+import 'package:lms/network/responsebean/RegistrationResponseBean.dart';
+import 'package:lms/network/responsebean/LoginResponseBean.dart';
 
 class LoginRepository{
   final loginDao = LoginDao();

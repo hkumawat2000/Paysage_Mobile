@@ -1,5 +1,5 @@
-import 'package:choice/getting_loan/ActiveLoan.dart';
-import 'package:choice/getting_loan/InactiveLoan.dart';
+import 'package:lms/getting_loan/ActiveLoan.dart';
+import 'package:lms/getting_loan/InactiveLoan.dart';
 import 'package:flutter/material.dart';
 
 class Loan extends StatefulWidget {

@@ -1,7 +1,7 @@
-import 'package:choice/network/requestbean/LoanStatementRequestBean.dart';
-import 'package:choice/network/responsebean/LoanStatementResponseBean.dart';
-import 'package:choice/network/responsebean/RecentTransactionResponseBean.dart';
-import 'package:choice/account_statement/LoanStatementDao.dart';
+import 'package:lms/network/requestbean/LoanStatementRequestBean.dart';
+import 'package:lms/network/responsebean/LoanStatementResponseBean.dart';
+import 'package:lms/network/responsebean/RecentTransactionResponseBean.dart';
+import 'package:lms/account_statement/LoanStatementDao.dart';
 
 class LoanStatementRepository {
   final loanStatementDao = LoanStatementDao();

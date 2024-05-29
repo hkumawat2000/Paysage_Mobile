@@ -1,4 +1,4 @@
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';

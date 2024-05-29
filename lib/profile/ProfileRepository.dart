@@ -1,9 +1,9 @@
-import 'package:choice/network/requestbean/LogoutRequestBean.dart';
-import 'package:choice/network/responsebean/LoginResponseBean.dart';
-import 'package:choice/network/responsebean/ProfileListResponse.dart';
-import 'package:choice/network/responsebean/ProfileResposoneBean.dart';
-import 'package:choice/network/responsebean/TncResponseBean.dart';
-import 'package:choice/profile/ProfileDao.dart';
+import 'package:lms/network/requestbean/LogoutRequestBean.dart';
+import 'package:lms/network/responsebean/LoginResponseBean.dart';
+import 'package:lms/network/responsebean/ProfileListResponse.dart';
+import 'package:lms/network/responsebean/ProfileResposoneBean.dart';
+import 'package:lms/network/responsebean/TncResponseBean.dart';
+import 'package:lms/profile/ProfileDao.dart';
 
 class ProfileRespository {
   final profileDao = ProfileDao();

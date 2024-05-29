@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:choice/my_loan/MyLoansRepository.dart';
-import 'package:choice/network/requestbean/MyCartRequestBean.dart';
-import 'package:choice/network/responsebean/ApprovedListResponseBean.dart';
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
-import 'package:choice/network/responsebean/MarginShortfallCartResponse.dart';
-import 'package:choice/network/responsebean/MyLoansResponse.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/my_loan/MyLoansRepository.dart';
+import 'package:lms/network/requestbean/MyCartRequestBean.dart';
+import 'package:lms/network/responsebean/ApprovedListResponseBean.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/network/responsebean/MarginShortfallCartResponse.dart';
+import 'package:lms/network/responsebean/MyLoansResponse.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class MyLoansBloc{
   MyLoansBloc();

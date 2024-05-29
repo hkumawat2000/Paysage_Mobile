@@ -1,7 +1,7 @@
 // import 'dart:async';
 //
-// import 'package:choice/loan_success/LoanSuccessScreen.dart';
-// import 'package:choice/util/Colors.dart';
+// import 'package:lms/loan_success/LoanSuccessScreen.dart';
+// import 'package:lms/util/Colors.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:pin_entry_text_field/pin_entry_text_field.dart';

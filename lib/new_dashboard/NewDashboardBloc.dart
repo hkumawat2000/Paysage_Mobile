@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:choice/network/responsebean/ForceUpdateResponse.dart';
-import 'package:choice/network/responsebean/LoanSummaryResponseBean.dart';
-import 'package:choice/network/responsebean/NewDashboardResponse.dart';
-import 'package:choice/network/responsebean/WeeklyPledgedSecurityResponse.dart';
+import 'package:lms/network/responsebean/ForceUpdateResponse.dart';
+import 'package:lms/network/responsebean/LoanSummaryResponseBean.dart';
+import 'package:lms/network/responsebean/NewDashboardResponse.dart';
+import 'package:lms/network/responsebean/WeeklyPledgedSecurityResponse.dart';
 
 import 'NewDashboardRepository.dart';
 

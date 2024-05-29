@@ -1,6 +1,6 @@
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/ESignResponse.dart';
-import 'package:choice/topup/top_up_esign/TopUpEsignDao.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/ESignResponse.dart';
+import 'package:lms/topup/top_up_esign/TopUpEsignDao.dart';
 
 class TopUpEsignRepository {
   final topUpEsignDao = TopUpEsignDao();

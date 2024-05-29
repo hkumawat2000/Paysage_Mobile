@@ -1,4 +1,4 @@
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 import '../ModelWrapper.dart';
 

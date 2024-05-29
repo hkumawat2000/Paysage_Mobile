@@ -1,7 +1,7 @@
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:choice/FlavorConfig.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/FlavorConfig.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
@@ -113,13 +113,13 @@ class BaseDio {
     String? baseURL = await preferences.getBaseURL();
     String username;
     String password;
-    // if(baseURL == Constants.baseUrlProd){
+    if(baseURL == Constants.baseUrlProd){
        username = 'rzp_live_55JW5NYsUIguyM';
        password = 'J1px4sH9cxxdbY1SfBgIOly0';
-    // } else {
-    //    username = 'rzp_test_Y6V9MAUGbQlOrW';
-    //    password = 'vEnHHmtHpxZvYwDOEfDZmmPZ';
-    // }
+    } else {
+       username = 'rzp_test_PWqvSLj4rnBOaG';
+       password = 'LIegmcvKBxxcxRqiV0H4sWmq';
+    }
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
     BaseOptions options = BaseOptions(
       baseUrl: Constants.payment,
@@ -148,13 +148,13 @@ class BaseDio {
         baseURL = Constants.oldUrlUat;
         break;
       case Flavor.UAT:
-        baseURL = Constants.newUrlUat;
+        baseURL = Constants.oldUrlUat;
         break;
       case Flavor.DEV:
-        baseURL = Constants.newUrlDev;
+        baseURL = Constants.oldUrlUat;
         break;
       default:
-        baseURL = Constants.newUrlDev;
+        baseURL = Constants.oldUrlUat;
         break;
     }
     return baseURL;

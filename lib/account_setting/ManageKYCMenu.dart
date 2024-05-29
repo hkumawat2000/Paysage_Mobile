@@ -1,5 +1,5 @@
-import 'package:choice/network/responsebean/GetProfileSetAlertResponseBean.dart';
-import 'package:choice/util/Colors.dart';
+import 'package:lms/network/responsebean/GetProfileSetAlertResponseBean.dart';
+import 'package:lms/util/Colors.dart';
 import 'package:flutter/material.dart';
 
 class ManageKYCMenu extends StatefulWidget {

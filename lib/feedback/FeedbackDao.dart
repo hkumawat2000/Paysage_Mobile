@@ -1,11 +1,11 @@
-import 'package:choice/login/LoginDao.dart';
-import 'package:choice/network/requestbean/FeedbackRequestBean.dart';
-import 'package:choice/network/responsebean/AuthResponse/AuthLoginResponse.dart';
-import 'package:choice/network/responsebean/FeedbackResponse.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/login/LoginDao.dart';
+import 'package:lms/network/requestbean/FeedbackRequestBean.dart';
+import 'package:lms/network/responsebean/AuthResponse/AuthLoginResponse.dart';
+import 'package:lms/network/responsebean/FeedbackResponse.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class FeedbackDao with BaseDio {

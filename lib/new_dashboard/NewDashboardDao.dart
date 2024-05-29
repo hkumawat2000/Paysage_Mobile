@@ -1,11 +1,11 @@
-import 'package:choice/network/responsebean/CreateContactResponse.dart';
-import 'package:choice/network/responsebean/ForceUpdateResponse.dart';
-import 'package:choice/network/responsebean/LoanSummaryResponseBean.dart';
-import 'package:choice/network/responsebean/NewDashboardResponse.dart';
-import 'package:choice/network/responsebean/WeeklyPledgedSecurityResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/responsebean/CreateContactResponse.dart';
+import 'package:lms/network/responsebean/ForceUpdateResponse.dart';
+import 'package:lms/network/responsebean/LoanSummaryResponseBean.dart';
+import 'package:lms/network/responsebean/NewDashboardResponse.dart';
+import 'package:lms/network/responsebean/WeeklyPledgedSecurityResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class NewDashboardDao with BaseDio{

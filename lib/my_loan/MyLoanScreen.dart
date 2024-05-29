@@ -1,6 +1,6 @@
-import 'package:choice/my_loan/MyAdtiveLoanScreen.dart';
-import 'package:choice/my_loan/MyInActiveLoanScreen.dart';
-import 'package:choice/util/Colors.dart';
+import 'package:lms/my_loan/MyAdtiveLoanScreen.dart';
+import 'package:lms/my_loan/MyInActiveLoanScreen.dart';
+import 'package:lms/util/Colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

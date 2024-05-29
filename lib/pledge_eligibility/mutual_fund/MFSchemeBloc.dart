@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:choice/network/requestbean/MFSchemeRequest.dart';
-import 'package:choice/network/responsebean/MFSchemeResponse.dart';
-import 'package:choice/pledge_eligibility/mutual_fund/MFSchemeRepository.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/MFSchemeRequest.dart';
+import 'package:lms/network/responsebean/MFSchemeResponse.dart';
+import 'package:lms/pledge_eligibility/mutual_fund/MFSchemeRepository.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class MFSchemeBloc {
   MFSchemeBloc();

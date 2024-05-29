@@ -1,6 +1,6 @@
-import 'package:choice/network/requestbean/MFSchemeRequest.dart';
-import 'package:choice/network/responsebean/MFSchemeResponse.dart';
-import 'package:choice/pledge_eligibility/mutual_fund/MFSchemeDao.dart';
+import 'package:lms/network/requestbean/MFSchemeRequest.dart';
+import 'package:lms/network/responsebean/MFSchemeResponse.dart';
+import 'package:lms/pledge_eligibility/mutual_fund/MFSchemeDao.dart';
 
 class MFSchemeRepository {
   final mFSchemeDao = MFSchemeDao();

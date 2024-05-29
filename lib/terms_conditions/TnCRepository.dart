@@ -1,7 +1,7 @@
-import 'package:choice/network/requestbean/TermsConditionRequestBean.dart';
-import 'package:choice/network/responsebean/TermsConditionResponse.dart';
-import 'package:choice/network/responsebean/TncResponseBean.dart';
-import 'package:choice/terms_conditions/TnCDao.dart';
+import 'package:lms/network/requestbean/TermsConditionRequestBean.dart';
+import 'package:lms/network/responsebean/TermsConditionResponse.dart';
+import 'package:lms/network/responsebean/TncResponseBean.dart';
+import 'package:lms/terms_conditions/TnCDao.dart';
 
 class TnCRepository {
   final tncDao = TnCDao();

@@ -1,4 +1,4 @@
-import 'package:choice/network/ModelWrapper.dart';
+import 'package:lms/network/ModelWrapper.dart';
 
 class AllApprovedListResponseBean extends ModelWrapper<List<AllApprovedList>> {
   List<AllApprovedList>? data;

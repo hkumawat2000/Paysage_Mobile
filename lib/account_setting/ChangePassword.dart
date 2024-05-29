@@ -1,12 +1,12 @@
-import 'package:choice/account_setting//AccountSettingBloc.dart';
-import 'package:choice/network/requestbean/UpdateProfileAndPinRequestBean.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/account_setting//AccountSettingBloc.dart';
+import 'package:lms/network/requestbean/UpdateProfileAndPinRequestBean.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

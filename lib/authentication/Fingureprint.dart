@@ -1,9 +1,9 @@
-import 'package:choice/authentication/EnableFingerPrintDialog.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/welcome/NewWelcomeScreen.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/authentication/EnableFingerPrintDialog.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/welcome/NewWelcomeScreen.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
-import 'package:choice/network/responsebean/TermsConditionResponse.dart';
-import 'package:choice/topup/top_up_terms_conditions/TopUpTermsConditionsDao.dart';
+import 'package:lms/network/responsebean/TermsConditionResponse.dart';
+import 'package:lms/topup/top_up_terms_conditions/TopUpTermsConditionsDao.dart';
 
 class TopUpTermsConditionsRepository {
   final topUpTermsConditionsDao = TopUpTermsConditionsDao();

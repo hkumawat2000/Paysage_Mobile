@@ -1,22 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:choice/common_widgets/constants.dart';
-import 'package:choice/network/requestbean/PaymentRequest.dart';
-import 'package:choice/network/requestbean/RazorPayRequest.dart';
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
-import 'package:choice/new_dashboard/NewDashboardScreen.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/ErrorMessageWidget.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/LoadingWidget.dart';
-import 'package:choice/widgets/NoDataWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/common_widgets/constants.dart';
+import 'package:lms/network/requestbean/PaymentRequest.dart';
+import 'package:lms/network/requestbean/RazorPayRequest.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/new_dashboard/NewDashboardScreen.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/ErrorMessageWidget.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/LoadingWidget.dart';
+import 'package:lms/widgets/NoDataWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -490,8 +490,8 @@ class PaymentScreenState extends State<PaymentScreen> {
   void openCheckout(amount, orderID) async {
     String? baseURL = await preferences.getBaseURL();
     var options = {
-      // 'key': baseURL == Constants.baseUrlProd ? 'rzp_live_55JW5NYsUIguyM' : 'rzp_test_Y6V9MAUGbQlOrW',
-      'key': 'rzp_live_55JW5NYsUIguyM',
+      'key': baseURL == Constants.baseUrlProd ? 'rzp_live_55JW5NYsUIguyM' : 'rzp_test_PWqvSLj4rnBOaG',
+      // 'key': 'rzp_live_55JW5NYsUIguyM',
       'amount': amount, //in the smallest currency sub-unit.
       'name': 'Spark.Loans',
       'order_id': orderID, // Generate order_id using Orders API

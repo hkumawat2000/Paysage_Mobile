@@ -1,5 +1,5 @@
-import 'package:choice/account_setting/AccountSettingRepository.dart';
-import 'package:choice/network/responsebean/UpdateProfileAndPinResponseBean.dart';
+import 'package:lms/account_setting/AccountSettingRepository.dart';
+import 'package:lms/network/responsebean/UpdateProfileAndPinResponseBean.dart';
 
 class AccountSettingBloc {
 

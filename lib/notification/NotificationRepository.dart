@@ -1,5 +1,5 @@
-import 'package:choice/network/responsebean/NotificationResponseBean.dart';
-import 'package:choice/notification/NotificationDao.dart';
+import 'package:lms/network/responsebean/NotificationResponseBean.dart';
+import 'package:lms/notification/NotificationDao.dart';
 
 class NotificationRepository{
 

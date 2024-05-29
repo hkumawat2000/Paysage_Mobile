@@ -1,12 +1,12 @@
-import 'package:choice/network/requestbean/MyCartRequestBean.dart';
-import 'package:choice/network/responsebean/ApprovedListResponseBean.dart';
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
-import 'package:choice/network/responsebean/MarginShortfallCartResponse.dart';
-import 'package:choice/network/responsebean/MyLoansResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/MyCartRequestBean.dart';
+import 'package:lms/network/responsebean/ApprovedListResponseBean.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/network/responsebean/MarginShortfallCartResponse.dart';
+import 'package:lms/network/responsebean/MyLoansResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
 class MyLoansDao with BaseDio {

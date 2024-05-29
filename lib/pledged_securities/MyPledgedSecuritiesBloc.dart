@@ -1,4 +1,4 @@
-import 'package:choice/network/responsebean/MyPledgedSecuritiesDetailsRespones.dart';
+import 'package:lms/network/responsebean/MyPledgedSecuritiesDetailsRespones.dart';
 
 import 'MyPledgedSecuritiesRepository.dart';
 

@@ -1,8 +1,8 @@
-import 'package:choice/network/requestbean/ValidateBankRequestBean.dart';
-import 'package:choice/network/responsebean/ChoiceBankResponseBean.dart';
-import 'package:choice/network/responsebean/FundAccValidationResponseBean.dart';
-import 'package:choice/nsdl/BankDetailRepository.dart';
-import 'package:choice/nsdl/BankMasterResponse.dart';
+import 'package:lms/network/requestbean/ValidateBankRequestBean.dart';
+import 'package:lms/network/responsebean/ChoiceBankResponseBean.dart';
+import 'package:lms/network/responsebean/FundAccValidationResponseBean.dart';
+import 'package:lms/nsdl/BankDetailRepository.dart';
+import 'package:lms/nsdl/BankMasterResponse.dart';
 
 
 class BankDetailBloc{

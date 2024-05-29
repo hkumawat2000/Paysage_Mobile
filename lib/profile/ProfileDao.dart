@@ -1,12 +1,12 @@
-import 'package:choice/network/requestbean/LogoutRequestBean.dart';
-import 'package:choice/network/responsebean/LoginResponseBean.dart';
-import 'package:choice/network/responsebean/ProfileListResponse.dart';
-import 'package:choice/network/responsebean/ProfileResposoneBean.dart';
-import 'package:choice/network/responsebean/TncResponseBean.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/LogoutRequestBean.dart';
+import 'package:lms/network/responsebean/LoginResponseBean.dart';
+import 'package:lms/network/responsebean/ProfileListResponse.dart';
+import 'package:lms/network/responsebean/ProfileResposoneBean.dart';
+import 'package:lms/network/responsebean/TncResponseBean.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
 class ProfileDao with BaseDio {

@@ -1,8 +1,8 @@
 // import 'dart:io';
 //
-// import 'package:choice/network/responsebean/TDSListResponseBean.dart';
-// import 'package:choice/network/responsebean/UploadTDSDaoResponseBean.dart';
-// import 'package:choice/tds/UploadTDSDao.dart';
+// import 'package:lms/network/responsebean/TDSListResponseBean.dart';
+// import 'package:lms/network/responsebean/UploadTDSDaoResponseBean.dart';
+// import 'package:lms/tds/UploadTDSDao.dart';
 //
 // class UploadTDSRepository {
 //   final loanApplicationDao = UploadTDSDao();

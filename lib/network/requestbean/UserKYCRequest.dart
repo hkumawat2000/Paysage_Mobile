@@ -1,4 +1,4 @@
-import 'package:choice/network/responsebean/UserKYCResponse.dart';
+import 'package:lms/network/responsebean/UserKYCResponse.dart';
 
 class UserKYCRequest {
   UserKyc? userKyc;

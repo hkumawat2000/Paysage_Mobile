@@ -1,12 +1,12 @@
-import 'package:choice/feedback/FeedbackBloc.dart';
-import 'package:choice/new_dashboard/NewDashboardScreen.dart';
-import 'package:choice/network/requestbean/FeedbackRequestBean.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/feedback/FeedbackBloc.dart';
+import 'package:lms/new_dashboard/NewDashboardScreen.dart';
+import 'package:lms/network/requestbean/FeedbackRequestBean.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 
 class NewFeedbackScreen extends StatefulWidget {

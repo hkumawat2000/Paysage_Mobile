@@ -1,10 +1,10 @@
-import 'package:choice/network/requestbean/UpdateProfileAndPinRequestBean.dart';
-import 'package:choice/network/responsebean/UpdateProfileAndPinResponseBean.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/network/responsebean/AuthResponse/AuthLoginResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
+import 'package:lms/network/requestbean/UpdateProfileAndPinRequestBean.dart';
+import 'package:lms/network/responsebean/UpdateProfileAndPinResponseBean.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/network/responsebean/AuthResponse/AuthLoginResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
 class AccountSettingDao with BaseDio {

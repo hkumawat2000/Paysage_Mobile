@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:choice/login/LoginBloc.dart';
-import 'package:choice/login/LoginValidationBloc.dart';
-import 'package:choice/pledge_eligibility/mutual_fund/MF_WebViewLoginScreen.dart';
-import 'package:choice/shares/LoanApplicationSuccess.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/login/LoginBloc.dart';
+import 'package:lms/login/LoginValidationBloc.dart';
+import 'package:lms/pledge_eligibility/mutual_fund/MF_WebViewLoginScreen.dart';
+import 'package:lms/shares/LoanApplicationSuccess.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';

@@ -1,10 +1,10 @@
-import 'package:choice/my_loan/MyLoansDao.dart';
-import 'package:choice/network/requestbean/MyCartRequestBean.dart';
-import 'package:choice/network/responsebean/ApprovedListResponseBean.dart';
-import 'package:choice/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
-import 'package:choice/network/responsebean/MarginShortfallCartResponse.dart';
-import 'package:choice/network/responsebean/MyCartResponseBean.dart';
-import 'package:choice/network/responsebean/MyLoansResponse.dart';
+import 'package:lms/my_loan/MyLoansDao.dart';
+import 'package:lms/network/requestbean/MyCartRequestBean.dart';
+import 'package:lms/network/responsebean/ApprovedListResponseBean.dart';
+import 'package:lms/network/responsebean/AuthResponse/LoanDetailsResponse.dart';
+import 'package:lms/network/responsebean/MarginShortfallCartResponse.dart';
+import 'package:lms/network/responsebean/MyCartResponseBean.dart';
+import 'package:lms/network/responsebean/MyLoansResponse.dart';
 
 class MyLoansRepository{
   final myLoansDao = MyLoansDao();

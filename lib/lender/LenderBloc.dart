@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:choice/lender/LenderRepository.dart';
-import 'package:choice/network/responsebean/LenderResponseBean.dart';
+import 'package:lms/lender/LenderRepository.dart';
+import 'package:lms/network/responsebean/LenderResponseBean.dart';
 
 class LenderBloc {
   final lenderRepository = LenderRepository();

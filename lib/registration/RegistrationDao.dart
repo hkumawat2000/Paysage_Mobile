@@ -1,6 +1,6 @@
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter_login_facebook/flutter_login_facebook.dart';

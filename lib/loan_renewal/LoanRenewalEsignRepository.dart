@@ -1,6 +1,6 @@
-import 'package:choice/loan_renewal/LoanRenewalEsignDao.dart';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/ESignResponse.dart';
+import 'package:lms/loan_renewal/LoanRenewalEsignDao.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/ESignResponse.dart';
 
 class LoanRenewalEsignRepository {
   final loanRenewalEsignDao = LoanRenewalEsignDao();

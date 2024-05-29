@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:choice/approved_securities/ApprovedSecuritiesRepository.dart';
-import 'package:choice/network/requestbean/ApprovedSecuritiesRequestBean.dart';
-import 'package:choice/network/responsebean/ApprovedSecurityResponseBean.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/approved_securities/ApprovedSecuritiesRepository.dart';
+import 'package:lms/network/requestbean/ApprovedSecuritiesRequestBean.dart';
+import 'package:lms/network/responsebean/ApprovedSecurityResponseBean.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class ApprovedSecuritiesBloc {
   final approvedSecuritiesRepository = ApprovedSecuritiesRepository();

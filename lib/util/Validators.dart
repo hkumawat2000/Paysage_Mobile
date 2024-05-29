@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:choice/util/strings.dart';
+import 'package:lms/util/strings.dart';
 
 class Validators {
   final validateEmail = StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {

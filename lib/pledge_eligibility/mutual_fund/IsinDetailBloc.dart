@@ -1,5 +1,5 @@
-import 'package:choice/network/responsebean/IsinDetailResponseBean.dart';
-import 'package:choice/pledge_eligibility/mutual_fund/IsinDetailRepository.dart';
+import 'package:lms/network/responsebean/IsinDetailResponseBean.dart';
+import 'package:lms/pledge_eligibility/mutual_fund/IsinDetailRepository.dart';
 
 class IsinDetailBloc{
 

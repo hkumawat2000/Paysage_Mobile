@@ -1,11 +1,11 @@
-import 'package:choice/common_widgets/constants.dart';
-import 'package:choice/topup/top_up_loan/TopUpBloc.dart';
-import 'package:choice/topup/top_up_terms_conditions/TopUpTermsConditionsScreen.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/common_widgets/constants.dart';
+import 'package:lms/topup/top_up_loan/TopUpBloc.dart';
+import 'package:lms/topup/top_up_terms_conditions/TopUpTermsConditionsScreen.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

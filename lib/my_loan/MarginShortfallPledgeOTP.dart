@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:choice/login/LoginBloc.dart';
-import 'package:choice/login/LoginValidationBloc.dart';
-import 'package:choice/my_loan/ApplicationSuccess.dart';
-import 'package:choice/shares/LoanApplicationBloc.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Preferences.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/login/LoginBloc.dart';
+import 'package:lms/login/LoginValidationBloc.dart';
+import 'package:lms/my_loan/ApplicationSuccess.dart';
+import 'package:lms/shares/LoanApplicationBloc.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:choice/loan_withdraw/LoanWithdrawScreen.dart';
-import 'package:choice/account_statement/LoanStatement.dart';
-import 'package:choice/util/Colors.dart';
+import 'package:lms/loan_withdraw/LoanWithdrawScreen.dart';
+import 'package:lms/account_statement/LoanStatement.dart';
+import 'package:lms/util/Colors.dart';
 import 'package:flutter/material.dart';
 
 class AccountStatementList extends StatefulWidget {

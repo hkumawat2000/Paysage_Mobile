@@ -1,5 +1,5 @@
-import 'package:choice/account_setting//AccountSettingDao.dart';
-import 'package:choice/network/responsebean/UpdateProfileAndPinResponseBean.dart';
+import 'package:lms/account_setting//AccountSettingDao.dart';
+import 'package:lms/network/responsebean/UpdateProfileAndPinResponseBean.dart';
 
 class AccountSettingRepository {
 

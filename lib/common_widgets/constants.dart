@@ -1,4 +1,4 @@
-import 'package:choice/util/Colors.dart';
+import 'package:lms/util/Colors.dart';
 import 'package:flutter/material.dart';
 
 //const kFontTextStyle = TextStyle(fontStyle: );

@@ -1,4 +1,4 @@
-import 'package:choice/util/strings.dart';
+import 'package:lms/util/strings.dart';
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatefulWidget {

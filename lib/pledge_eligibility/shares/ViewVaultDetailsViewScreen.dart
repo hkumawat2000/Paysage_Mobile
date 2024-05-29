@@ -1,16 +1,16 @@
-import 'package:choice/network/requestbean/MyCartRequestBean.dart';
-import 'package:choice/network/responsebean/DematAcResponse.dart';
-import 'package:choice/network/responsebean/SecuritiesResponseBean.dart';
-import 'package:choice/pledge_eligibility/mutual_fund/MF_ViewVaultDetailsViewScreen.dart';
-import 'package:choice/shares/LoanApplicationBloc.dart';
-import 'package:choice/terms_conditions/TermsConditions.dart';
-import 'package:choice/util/AssetsImagePath.dart';
-import 'package:choice/util/Colors.dart';
-import 'package:choice/util/Style.dart';
-import 'package:choice/util/Utility.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/LoadingDialogWidget.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/MyCartRequestBean.dart';
+import 'package:lms/network/responsebean/DematAcResponse.dart';
+import 'package:lms/network/responsebean/SecuritiesResponseBean.dart';
+import 'package:lms/pledge_eligibility/mutual_fund/MF_ViewVaultDetailsViewScreen.dart';
+import 'package:lms/shares/LoanApplicationBloc.dart';
+import 'package:lms/terms_conditions/TermsConditions.dart';
+import 'package:lms/util/AssetsImagePath.dart';
+import 'package:lms/util/Colors.dart';
+import 'package:lms/util/Style.dart';
+import 'package:lms/util/Utility.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/LoadingDialogWidget.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,7 +46,7 @@ class ViewVaultDetailsViewScreenState
 
 
   List<DropdownMenuItem<String>>? dropDownSortBy;
-  List<Choice> cartViewList = [];
+  List<Atrina> cartViewList = [];
   var sortingList = [
     'Interest (Low to High)',
     'Interest (High to Low)',
@@ -93,7 +93,7 @@ class ViewVaultDetailsViewScreenState
   @override
   void initState() {
     dropDownSortBy = getSortByItems();
-    cartViewList.add(Choice(widget.lenderInfo![0].name,
+    cartViewList.add(Atrina(widget.lenderInfo![0].name,
         widget.lenderInfo![0].rateOfInterest,
         widget.lenderInfo![0].minimumSanctionedLimit,
         widget.lenderInfo![0].maximumSanctionedLimit));
@@ -283,7 +283,7 @@ class ViewVaultDetailsViewScreenState
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              ...cartViewList.map((Choice choice) {
+              ...cartViewList.map((Atrina choice) {
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5),
                   decoration: BoxDecoration(

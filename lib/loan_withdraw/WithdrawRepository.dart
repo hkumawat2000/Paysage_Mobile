@@ -1,5 +1,5 @@
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/WithdrawDetailsResponse.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/WithdrawDetailsResponse.dart';
 import 'WithdrawDao.dart';
 
 class WithdrawRepository {

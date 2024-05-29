@@ -1,6 +1,6 @@
-import 'package:choice/approved_securities/ApprovedSecuritiesDao.dart';
-import 'package:choice/network/requestbean/ApprovedSecuritiesRequestBean.dart';
-import 'package:choice/network/responsebean/ApprovedSecurityResponseBean.dart';
+import 'package:lms/approved_securities/ApprovedSecuritiesDao.dart';
+import 'package:lms/network/requestbean/ApprovedSecuritiesRequestBean.dart';
+import 'package:lms/network/responsebean/ApprovedSecurityResponseBean.dart';
 
 class ApprovedSecuritiesRepository {
   final approvedSecuritiesDao = ApprovedSecuritiesDao();

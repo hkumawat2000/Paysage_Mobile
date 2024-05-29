@@ -1,6 +1,6 @@
-import 'package:choice/all_loans_name/AllLoansNameRepository.dart';
-import 'package:choice/network/responsebean/AllLoanNamesResponse.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/all_loans_name/AllLoansNameRepository.dart';
+import 'package:lms/network/responsebean/AllLoanNamesResponse.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 
 class AllLoansNameBloc{
 

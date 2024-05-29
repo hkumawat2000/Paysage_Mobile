@@ -1,14 +1,14 @@
-// import 'package:choice/dummy/constants.dart';
-// import 'package:choice/network/responsebean/AllApprovedListResponse.dart';
-// import 'package:choice/network/responsebean/SecurityCategoryResponseBean.dart';
-// import 'package:choice/util/AssetsImagePath.dart';
-// import 'package:choice/util/Colors.dart';
-// import 'package:choice/util/Style.dart';
-// import 'package:choice/widgets/ErrorMessageWidget.dart';
-// import 'package:choice/widgets/LoadMoreWidget.dart';
-// import 'package:choice/widgets/LoadingWidget.dart';
-// import 'package:choice/widgets/NoDataWidget.dart';
-// import 'package:choice/widgets/WidgetCommon.dart';
+// import 'package:lms/dummy/constants.dart';
+// import 'package:lms/network/responsebean/AllApprovedListResponse.dart';
+// import 'package:lms/network/responsebean/SecurityCategoryResponseBean.dart';
+// import 'package:lms/util/AssetsImagePath.dart';
+// import 'package:lms/util/Colors.dart';
+// import 'package:lms/util/Style.dart';
+// import 'package:lms/widgets/ErrorMessageWidget.dart';
+// import 'package:lms/widgets/LoadMoreWidget.dart';
+// import 'package:lms/widgets/LoadingWidget.dart';
+// import 'package:lms/widgets/NoDataWidget.dart';
+// import 'package:lms/widgets/WidgetCommon.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 //

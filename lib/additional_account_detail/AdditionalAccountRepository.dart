@@ -1,4 +1,4 @@
-import 'package:choice/additional_account_detail/AdditionalAccountResponse.dart';
+import 'package:lms/additional_account_detail/AdditionalAccountResponse.dart';
 
 import 'AdditionalAccountDao.dart';
 

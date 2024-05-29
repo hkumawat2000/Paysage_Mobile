@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:choice/network/responsebean/CommonResponse.dart';
-import 'package:choice/network/responsebean/ESignResponse.dart';
-import 'package:choice/topup/top_up_esign/TopUpEsignRepository.dart';
+import 'package:lms/network/responsebean/CommonResponse.dart';
+import 'package:lms/network/responsebean/ESignResponse.dart';
+import 'package:lms/topup/top_up_esign/TopUpEsignRepository.dart';
 
 class TopUpEsignBloc {
   TopUpEsignBloc();

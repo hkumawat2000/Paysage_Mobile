@@ -1,5 +1,5 @@
-import 'package:choice/margin_shortfall_details/MarginActiveLoanDetails.dart';
-import 'package:choice/util/Colors.dart';
+import 'package:lms/margin_shortfall_details/MarginActiveLoanDetails.dart';
+import 'package:lms/util/Colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -55,7 +55,7 @@ class Constants {
   static final String kycSearch = "/api/method/lms.user.ckyc_search";
   static final String kycDownload = "/api/method/lms.user.ckyc_download";
   static final String kycDetails = "/api/method/lms.user.ckyc_consent_details";
-  static final String choiceBank = "/api/method/lms.user.get_bank_details";
+  static final String atrinaBank = "/api/method/lms.user.get_bank_details";
   static final String updateProfileAndPin = "/api/method/lms.user.update_profile_pic_and_pin";
   static final String notificationList = "/api/method/lms.user.push_notification_list";
   static final String notificationReadOrClear = "/api/method/lms.user.read_or_clear_notifications";

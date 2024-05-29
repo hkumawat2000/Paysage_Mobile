@@ -1,15 +1,15 @@
-import 'package:choice/network/requestbean/ConsentDetailRequestBean.dart';
-import 'package:choice/network/requestbean/UserKYCRequest.dart';
-import 'package:choice/network/responsebean/CkycDownloadResponse.dart';
-import 'package:choice/network/responsebean/CkycSearchResponse.dart';
-import 'package:choice/network/responsebean/ConsentDetailResponseBean.dart';
-import 'package:choice/network/responsebean/PinCodeResponseBean.dart';
-import 'package:choice/network/responsebean/UserCompleteKYCResponseBean.dart';
-import 'package:choice/network/responsebean/UserKYCResponse.dart';
-import 'package:choice/util/base_dio.dart';
-import 'package:choice/util/constants.dart';
-import 'package:choice/util/strings.dart';
-import 'package:choice/widgets/WidgetCommon.dart';
+import 'package:lms/network/requestbean/ConsentDetailRequestBean.dart';
+import 'package:lms/network/requestbean/UserKYCRequest.dart';
+import 'package:lms/network/responsebean/CkycDownloadResponse.dart';
+import 'package:lms/network/responsebean/CkycSearchResponse.dart';
+import 'package:lms/network/responsebean/ConsentDetailResponseBean.dart';
+import 'package:lms/network/responsebean/PinCodeResponseBean.dart';
+import 'package:lms/network/responsebean/UserCompleteKYCResponseBean.dart';
+import 'package:lms/network/responsebean/UserKYCResponse.dart';
+import 'package:lms/util/base_dio.dart';
+import 'package:lms/util/constants.dart';
+import 'package:lms/util/strings.dart';
+import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
 class CompleteKYCDao with BaseDio {

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:choice/util/Validators.dart';
+import 'package:lms/util/Validators.dart';
 import 'package:rxdart/subjects.dart';
 
 class LoginValidatorBloc with Validators {
