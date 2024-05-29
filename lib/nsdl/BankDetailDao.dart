@@ -1,5 +1,5 @@
 import 'package:lms/network/requestbean/ValidateBankRequestBean.dart';
-import 'package:lms/network/responsebean/ChoiceBankResponseBean.dart';
+import 'package:lms/network/responsebean/AtrinaBankResponseBean.dart';
 import 'package:lms/network/responsebean/FundAccValidationResponseBean.dart';
 import 'package:lms/nsdl/BankMasterResponse.dart';
 import 'package:lms/util/base_dio.dart';

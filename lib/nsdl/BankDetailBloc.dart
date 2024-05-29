@@ -1,5 +1,5 @@
 import 'package:lms/network/requestbean/ValidateBankRequestBean.dart';
-import 'package:lms/network/responsebean/ChoiceBankResponseBean.dart';
+import 'package:lms/network/responsebean/AtrinaBankResponseBean.dart';
 import 'package:lms/network/responsebean/FundAccValidationResponseBean.dart';
 import 'package:lms/nsdl/BankDetailRepository.dart';
 import 'package:lms/nsdl/BankMasterResponse.dart';
@@ -38,8 +38,8 @@ class BankDetailBloc{
   //   return wrapper;
   // }
 
-  Future<ChoiceBankResponseBean> getChoiceBankKYC() async{
-    ChoiceBankResponseBean wrapper = await bankDetailRepository.getChoiceBankKYC();
+  Future<AtrinaBankResponseBean> getChoiceBankKYC() async{
+    AtrinaBankResponseBean wrapper = await bankDetailRepository.getChoiceBankKYC();
     return wrapper;
   }
 

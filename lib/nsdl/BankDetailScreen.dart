@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:lms/complete_kyc/CompleteKYCBloc.dart';
 import 'package:lms/network/requestbean/ValidateBankRequestBean.dart';
-import 'package:lms/network/responsebean/ChoiceBankResponseBean.dart';
+import 'package:lms/network/responsebean/AtrinaBankResponseBean.dart';
 import 'package:lms/new_dashboard/NewDashboardScreen.dart';
 import 'package:lms/nsdl/BankDetailBloc.dart';
 import 'package:lms/util/AssetsImagePath.dart';

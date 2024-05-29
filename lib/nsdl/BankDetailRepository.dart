@@ -1,5 +1,5 @@
 import 'package:lms/network/requestbean/ValidateBankRequestBean.dart';
-import 'package:lms/network/responsebean/ChoiceBankResponseBean.dart';
+import 'package:lms/network/responsebean/AtrinaBankResponseBean.dart';
 import 'package:lms/network/responsebean/FundAccValidationResponseBean.dart';
 import 'package:lms/nsdl/BankDetailDao.dart';
 import 'BankMasterResponse.dart';
@@ -21,6 +21,6 @@ class BankDetailRepository{
 
   // Future<FundAccValidationResponseBean> fundAccValidationByIdAPI(favId, chequeByteImageString) => bankDetailDao.fundAccValidationByIdAPI(favId, chequeByteImageString);
 
-  Future<ChoiceBankResponseBean> getChoiceBankKYC() => bankDetailDao.getChoiceBankKYC();
+  Future<AtrinaBankResponseBean> getChoiceBankKYC() => bankDetailDao.getChoiceBankKYC();
 
 }
