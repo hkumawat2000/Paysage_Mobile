@@ -91,19 +91,23 @@ android {
             dimension "flavors"
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
+            manifestPlaceholders = [appLabelName: "LMS DEV"]
         }
         qa{
             dimension "flavors"
             applicationIdSuffix ".qa"
             versionNameSuffix "-qa"
+            manifestPlaceholders = [appLabelName: "LMS QA"]
         }
         uat{
             dimension "flavors"
             applicationIdSuffix ".uat"
             versionNameSuffix "-uat"
+            manifestPlaceholders = [appLabelName: "LMS UAT"]
         }
         prod{
             dimension "flavors"
+            manifestPlaceholders = [appLabelName: "LMS"]
         }
     }
 }
