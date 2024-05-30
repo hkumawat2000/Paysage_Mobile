@@ -377,7 +377,7 @@ class SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
       securityValue = 0;
       eligibleLoan = 0;
       selectedDematAccount = selectedStatus;
-      if(selectedStatus!.isChoice == 1) {
+      if(selectedStatus!.isAtrina == 1) {
         LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
         _handleSearchEnd();
         isBottomSheetVisible = true;
@@ -450,7 +450,7 @@ class SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
             SizedBox(width: 4),
             Container(
               child: AbsorbPointer(
-                absorbing: selectedDematAccount != null && selectedDematAccount!.isChoice == 1 ? false : true,
+                absorbing: selectedDematAccount != null && selectedDematAccount!.isAtrina == 1 ? false : true,
                 child: FlutterSwitch(
                   value: isToggleOn ? true : false,
                   activeColor: colorWhite,

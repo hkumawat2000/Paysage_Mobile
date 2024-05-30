@@ -202,7 +202,7 @@ class BankDetailDao with BaseDio {
   //   return wrapper;
   // }
 
-  Future<AtrinaBankResponseBean> getChoiceBankKYC() async {
+  Future<AtrinaBankResponseBean> getAtrinaBankKYC() async {
     Dio dio = await getBaseDio();
     AtrinaBankResponseBean wrapper = AtrinaBankResponseBean();
     try {

@@ -151,7 +151,7 @@ class ViewVaultDetailsViewScreenState
     for (int i = 0; i < securityList.length; i++) {
 
       bool isExist = false;
-      if(widget.selectedDematAccount!.isChoice == 1 && !widget.isToggleOn!) {
+      if(widget.selectedDematAccount!.isAtrina == 1 && !widget.isToggleOn!) {
         widget.holdingSecurityList.forEach((element) {
           if(element.iSIN == securityList[i].iSIN){
             isExist = true;
@@ -674,7 +674,7 @@ class ViewVaultDetailsViewScreenState
                                         FocusScope.of(context).unfocus();
                                         String fieldText = schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].category!.toLowerCase().split("_")[0], i)].text.toString();
                                         setState(() {
-                                          if(fieldText.isNotEmpty && widget.selectedDematAccount!.isChoice == 1 && securityList[actualIndex].totalQty != null && (int.parse(fieldText) >= securityList[actualIndex].totalQty!)){
+                                          if(fieldText.isNotEmpty && widget.selectedDematAccount!.isAtrina == 1 && securityList[actualIndex].totalQty != null && (int.parse(fieldText) >= securityList[actualIndex].totalQty!)){
                                             Utility.showToastMessage("${Strings.check_quantity}, This scrip has only ${securityList[actualIndex].totalQty!.toInt()} quantity.");
                                             securityList[actualIndex].quantity = double.parse(fieldText);
                                           } else {
@@ -997,7 +997,7 @@ class ViewVaultDetailsViewScreenState
                           onPressed: () async {
                             Utility.isNetworkConnection().then((isNetwork) {
                               if (isNetwork) {
-                                if(widget.selectedDematAccount!.isChoice == 1){
+                                if(widget.selectedDematAccount!.isAtrina == 1){
                                   createAndProcessCart();
                                 } else {
                                   commonDialog(context, Strings.coming_soon, 5);
@@ -1113,7 +1113,7 @@ class ViewVaultDetailsViewScreenState
                                 onPressed: () async {
                                   Utility.isNetworkConnection().then((isNetwork) {
                                     if (isNetwork) {
-                                      if(widget.selectedDematAccount!.isChoice == 1){
+                                      if(widget.selectedDematAccount!.isAtrina == 1){
                                         createAndProcessCart();
                                       } else {
                                         commonDialog(context, Strings.coming_soon, 0);
