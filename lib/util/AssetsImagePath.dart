@@ -103,7 +103,7 @@ class AssetsImagePath {
   static const drop_down_arrow = 'assets/images/drop_down_arrow_image.png';
   static const pnb_bank_logo = 'assets/images/pnb_bank_logo.png';
   static const lender_tata_capital = 'assets/images/lender_T.png';
-  static const lender_choice_finserv = 'assets/images/lender_C.png';
+  static const lender_finserv = 'assets/images/lender_C.png';
   static const lender_bajaj_finance = 'assets/images/lender_B.png';
   static const down_arrow_image = 'assets/images/down_arrow_image.png';
   static const up_arrow = 'assets/images/up_arrow.png';

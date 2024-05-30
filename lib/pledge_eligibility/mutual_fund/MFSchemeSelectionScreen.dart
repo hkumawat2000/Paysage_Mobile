@@ -1011,12 +1011,12 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
               padding: const EdgeInsets.only(right: 6),
               child: Image.asset(
                 getInitials(lenderIconList[index], 1).toLowerCase() == "c"
-                    ? AssetsImagePath.lender_choice_finserv
+                    ? AssetsImagePath.lender_finserv
                     : getInitials(lenderIconList[index], 1).toLowerCase() == "b"
                         ? AssetsImagePath.lender_bajaj_finance
                         : getInitials(lenderIconList[index], 1).toLowerCase() == "t"
                             ? AssetsImagePath.lender_tata_capital
-                            : AssetsImagePath.lender_choice_finserv,
+                            : AssetsImagePath.lender_finserv,
                 height: 24,
                 width: 24,
               ),

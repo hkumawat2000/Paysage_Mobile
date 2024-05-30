@@ -169,7 +169,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 style: TextStyle(color: colorGrey, fontSize: 14),
                               ),
                               Text(
-                                "Choice KYC",
+                                "KYC",
                                 style: TextStyle(fontSize: 15),
                               ),
                             ],

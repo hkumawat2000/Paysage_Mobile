@@ -65,7 +65,7 @@
 //   List<CartItems> catCList = [];
 //   List<CartItems> catDList = [];
 //   List<CartItems> superCatAList = [];
-//   List<Choice> cartViewList = [];
+//   List<Atrina> cartViewList = [];
 //   bool hideSecurityValue = false;
 //   bool showSecurityValue = true;
 //
@@ -74,7 +74,7 @@
 //     myCartList = widget.myCartData.cart!.items!;
 //     Utility.isNetworkConnection().then((isNetwork) {
 //       if (isNetwork) {
-//         cartViewList.add(Choice(widget.lenderInfo![0].name,
+//         cartViewList.add(Atrina(widget.lenderInfo![0].name,
 //             widget.lenderInfo![0].rateOfInterest,
 //             widget.lenderInfo![0].minimumSanctionedLimit,
 //             widget.lenderInfo![0].maximumSanctionedLimit));

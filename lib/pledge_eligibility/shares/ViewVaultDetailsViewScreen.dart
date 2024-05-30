@@ -283,7 +283,7 @@ class ViewVaultDetailsViewScreenState
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              ...cartViewList.map((Atrina choice) {
+              ...cartViewList.map((Atrina atrina) {
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5),
                   decoration: BoxDecoration(
@@ -298,7 +298,7 @@ class ViewVaultDetailsViewScreenState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(choice.lender!, style: boldTextStyle_18,
+                            Text(atrina.lender!, style: boldTextStyle_18,
                                 overflow: TextOverflow.ellipsis),
                             SizedBox(
                               height: 14,
@@ -307,7 +307,7 @@ class ViewVaultDetailsViewScreenState
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("${choice.roi!.toStringAsFixed(2)}%"),
+                            scripsValueText("${atrina.roi!.toStringAsFixed(2)}%"),
                             SizedBox(
                               height: 16,
                             ),
@@ -315,7 +315,7 @@ class ViewVaultDetailsViewScreenState
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("₹${numberToString(choice.minLimit!.toStringAsFixed(2))}"),
+                            scripsValueText("₹${numberToString(atrina.minLimit!.toStringAsFixed(2))}"),
                             SizedBox(
                               height: 16,
                             ),
@@ -323,7 +323,7 @@ class ViewVaultDetailsViewScreenState
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("₹${numberToString(choice.maxLimit!.toStringAsFixed(2))}"),
+                            scripsValueText("₹${numberToString(atrina.maxLimit!.toStringAsFixed(2))}"),
                           ],
                         ),
                       ),
@@ -629,7 +629,7 @@ class ViewVaultDetailsViewScreenState
                                           }
                                         });
                                       }
-                                      // if(widget.selectedDematAccount!.isChoice == 1 && securityList[actualIndex].totalQty != null && (int.parse(text) >= securityList[actualIndex].totalQty!)){
+                                      // if(widget.selectedDematAccount!.isAtrina == 1 && securityList[actualIndex].totalQty != null && (int.parse(text) >= securityList[actualIndex].totalQty!)){
                                       //   FocusScope.of(context).unfocus();
                                       //   Utility.showToastMessage("${Strings.check_quantity}, This scrip has only ${securityList[actualIndex].totalQty!.toInt()} quantity.");
                                       //   setState(() {

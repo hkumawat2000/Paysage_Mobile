@@ -65,7 +65,7 @@ class Strings {
   static const String terms2 = "Please note that the report doesn't include your messages. If you wish to export your chat history intead, you can learn how in our Help Center.";
   static const String terms3 = "Your report will be available";
   static const String accept_terms_condition = "I accept all Terms & Conditions";
-  static const String edit_kyc_confirm_msg = 'The information is retrieved from CKYC portal and bank details are fetched from Choice Broking database.\n\nYou may enter the desired information which you wish to edit.\n\nAny changes you make to your KYC information will have to be validated by documentary evidence. \n\nYou shall be redirected to our';
+  static const String edit_kyc_confirm_msg = 'The information is retrieved from CKYC portal and bank details are fetched from Broking database.\n\nYou may enter the desired information which you wish to edit.\n\nAny changes you make to your KYC information will have to be validated by documentary evidence. \n\nYou shall be redirected to our';
   static const String kyc_confirm_msg = ' By confirming you are giving your consent to send your data to our bank or NBFC partner for account opening.';
   static const String kyc_update_kyc = 'Your change request has been received. Our support will get in touch with you shortly';
   static const String eligible_loan_bottom_sheet1 = 'You are very close to getting your loan. \nPlease confirm to request OTP';
@@ -523,7 +523,7 @@ class Strings {
   static const String register_with_facebook = 'Register_With_Facebook';
   static const String register_failed = 'Register_Failed';
   static const String email_verification_sent = 'Email_Verification_Sent';
-  static const String get_choice_kyc = 'Get_Choice_KYC';
+  static const String get_choice_kyc = 'Get_KYC';
   static const String kyc_not_found = 'KYC_Not_Found';
   static const String edit_kyc = 'Edit_KYC';
   static const String kyc_done = 'KYC_Done';
@@ -679,7 +679,7 @@ class Strings {
   static const String client_id = 'Client ID';
   static const String edit = 'Edit';
   static const String demat_detail_mismatch = 'There seems to be a mismatch in the demat details and depository type';
-  static const String demat_do_not_provide = 'Currently, we do not provide Loan against Shares to other CDSL client, except Choice Broking.';
+  static const String demat_do_not_provide = 'Currently, we do not provide Loan against Shares to other CDSL client, except Atrina Broking.';
   static const String proceed_with_edited_on = "Do you want to proceed with the edited data?";
   static const String depository = 'Depository';
   static const String account_number_does_not_match_as_above = "Account number doesn't match as above";

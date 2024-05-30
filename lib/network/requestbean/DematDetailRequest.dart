@@ -26,16 +26,16 @@ class DematList {
   String? dpid;
   String? clientId;
   int? timeStamps;
-  int? isChoice;
+  int? isAtrina;
 
-  DematList({this.depository, this.dpid, this.clientId, this.timeStamps, this.isChoice});
+  DematList({this.depository, this.dpid, this.clientId, this.timeStamps, this.isAtrina});
 
   DematList.fromJson(Map<String, dynamic> json) {
     depository = json['depository'];
     dpid = json['dpid'];
     clientId = json['client_id'];
     timeStamps = json['time_stamps'];
-    isChoice = json['is_choice'];
+    isAtrina = json['is_choice'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,7 +44,7 @@ class DematList {
     data['dpid'] = this.dpid;
     data['client_id'] = this.clientId;
     data['time_stamps'] = this.timeStamps;
-    data['is_choice'] = this.isChoice;
+    data['is_choice'] = this.isAtrina;
     return data;
   }
 }

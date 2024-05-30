@@ -112,7 +112,7 @@ class Customer {
   // Null address;
   // Null pennyDrop;
   String? martialStatus;
-  // Null choiceMobile;
+  // Null atrinaMobile;
   // Null loanAccountNo;
   // Null crnNo;
   // Null fatherFirstName;

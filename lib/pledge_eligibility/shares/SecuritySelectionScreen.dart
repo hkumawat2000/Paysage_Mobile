@@ -1156,7 +1156,7 @@ class SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
       children: [
         IconButton(
           icon: Image.asset(
-            AssetsImagePath.lender_choice_finserv,
+            AssetsImagePath.lender_finserv,
             height: 24,
             width: 24,
           ),
