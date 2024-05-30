@@ -1,5 +1,5 @@
 class AssetsImagePath {
-  static const spark_loan_logo = 'assets/images/sparkloans-logo.png';
+  static const spark_loan_logo = 'assets/images/app_logo.png';
   static const back_button = 'assets/images/back_image.png';
   static const search = 'assets/images/search_image.png';
   static const cart = 'assets/images/cart_image.png';
