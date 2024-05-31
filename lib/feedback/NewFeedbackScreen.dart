@@ -124,7 +124,7 @@ class NewFeedbackScreenState extends State<NewFeedbackScreen> {
                 });
               }),
           Expanded(
-            child: Text("Spark.loans have hit the bull's eye with the product",
+            child: Text("LMS have hit the bull's eye with the product",
                 style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
@@ -164,7 +164,7 @@ class NewFeedbackScreenState extends State<NewFeedbackScreen> {
                 });
               }),
           Expanded(
-            child: Text('Spark.loans can do better', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text('LMS can do better', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),

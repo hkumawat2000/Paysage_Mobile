@@ -508,7 +508,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'SPARK Mobile',
+                                'LMS Mobile',
                                 style: TextStyle(color: colorGrey, fontSize: 12),
                               ),
                               SizedBox(

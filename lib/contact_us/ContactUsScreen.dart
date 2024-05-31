@@ -255,7 +255,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               ),
               SizedBox(height: 20),
               Text(
-                Strings.spark_loans,
+                Strings.lms,
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.bold, color: appTheme),
               ),

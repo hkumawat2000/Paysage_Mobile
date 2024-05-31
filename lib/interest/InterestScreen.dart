@@ -371,7 +371,7 @@ class InterestScreenState extends State<InterestScreen> {
       // 'key': baseURL == Constants.baseUrlProd ? 'rzp_live_55JW5NYsUIguyM' : 'rzp_test_Y6V9MAUGbQlOrW',
       'key': 'rzp_live_55JW5NYsUIguyM',
       'amount': amount, //in the smallest currency sub-unit.
-      'name': 'Spark.Loans',
+      'name': 'LMS',
       'order_id': orderID, // Generate order_id using Orders API
       'description': 'Payment',
       'prefill': {'contact': '+91$mobileNumber', 'email': emailId},

@@ -3274,7 +3274,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 4),
                 child:
-                    Text(Strings.understanding_spark, style: boldTextStyle_18),
+                    Text(Strings.understanding_lms, style: boldTextStyle_18),
               ),
               SizedBox(height: 6),
               Container(
@@ -3324,7 +3324,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          Strings.spark_title,
+                          Strings.lms_title,
                           style: TextStyle(
                               fontSize: 22,
                               color: appTheme,
@@ -3332,7 +3332,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          Strings.spark_subtitle,
+                          Strings.lms_subtitle,
                           style: TextStyle(
                               fontSize: 14,
                               color: appTheme,

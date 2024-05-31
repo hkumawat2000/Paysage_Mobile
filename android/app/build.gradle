@@ -103,7 +103,7 @@ android {
             dimension "flavors"
             applicationIdSuffix ".uat"
             versionNameSuffix "-uat"
-            manifestPlaceholders = [appLabelName: "LMS UAT"]
+            manifestPlaceholders = [appLabelName: "LMS"]
         }
         prod{
             dimension "flavors"

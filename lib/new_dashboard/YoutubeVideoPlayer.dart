@@ -254,7 +254,7 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
             },
           ),
           Text(
-            Strings.understanding_spark,
+            Strings.understanding_lms,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
