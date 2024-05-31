@@ -1,4 +1,4 @@
-package com.sparktechnologies.sparkloans
+package loan.atrinatechnologies.lms
 
 import com.google.firebase.inappmessaging.FirebaseInAppMessagingClickListener
 import com.google.firebase.inappmessaging.model.Action

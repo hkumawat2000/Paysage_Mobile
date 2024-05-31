@@ -1,4 +1,4 @@
-package com.sparktechnologies.sparkloans
+package loan.atrinatechnologies.lms
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
@@ -18,7 +18,7 @@ import com.google.firebase.inappmessaging.model.Action
 import com.google.firebase.inappmessaging.model.CampaignMetadata
 import com.google.firebase.inappmessaging.model.InAppMessage
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
-import com.sparktechnologies.sparkloans.MyClickListner
+import loan.atrinatechnologies.lms.MyClickListner
 
 
 class MainActivity : FlutterFragmentActivity () {

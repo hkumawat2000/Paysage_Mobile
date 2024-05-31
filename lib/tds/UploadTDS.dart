@@ -208,7 +208,7 @@
 //                       padding: const EdgeInsets.all(10.0),
 //                       child: Column(
 //                         children: <Widget>[
-//                           Text("$fileName will be uploaded to Spark LAS",
+//                           Text("$fileName will be uploaded to LMS",
 //                               style: TextStyle(
 //                                   fontSize: 16.0, color: Colors.grey)),
 //                         ],

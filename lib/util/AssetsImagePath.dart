@@ -1,5 +1,5 @@
 class AssetsImagePath {
-  static const spark_loan_logo = 'assets/images/app_logo.png';
+  static const lms_logo = 'assets/images/app_logo.png';
   static const back_button = 'assets/images/back_image.png';
   static const search = 'assets/images/search_image.png';
   static const cart = 'assets/images/cart_image.png';
@@ -13,8 +13,8 @@ class AssetsImagePath {
   static const tutorial_4 = 'assets/images/tutorial4.png';
   static const tutorial_5 = 'assets/images/tutorial5.png';
   static const info = 'assets/images/information-circle-outline.png';
-  static const filter = 'assets/images/filter_spark.png';
-  static const pdf = 'assets/images/pdf_spark.png';
+  static const filter = 'assets/images/filter.png';
+  static const pdf = 'assets/imagels/pdf_lms.png';
   static const pdf_white_icon = 'assets/images/pdf_white_icon.png';
   static const calendar = 'assets/images/calendar.png';
   static const bell = 'assets/images/bell.png';

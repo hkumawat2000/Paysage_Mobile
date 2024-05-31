@@ -503,12 +503,12 @@ class Strings {
   static const String clear_all_pop_up = 'Are you sure you want to clear all notifications?';
   static const String channelID = 'channel_ID_1';
   static const String channelName = 'In App Notification';
-  static const String groupKey = 'com.sparktechnologies.sparkloans';
+  static const String groupKey = 'loan.atrinatechnologies.lms';
   static const String select_demat_ac = 'Select your Demat account';
-  static const String ios_prod_package = 'loans.sparktechnologies.spark.loans';
-  static const String ios_qa_package = 'loans.sparktechnologies.spark.loans.qa';
-  static const String ios_uat_package = 'loans.sparktechnologies.spark.loans.uat';
-  static const String ios_dev_package = 'loans.sparktechnologies.spark.loans.dev';
+  static const String ios_prod_package = 'loan.atrinatechnologies.lms';
+  static const String ios_qa_package = 'loan.atrinatechnologies.lms.qa';
+  static const String ios_uat_package = 'loan.atrinatechnologies.lms.uat';
+  static const String ios_dev_package = 'loan.atrinatechnologies.lms.dev';
   static const String photo_permission = 'LMS does not have access to your photos. To enable access,tap Settings and turn on Photos.';
   static const String jailBreak_text = 'This application is not supported on rooted devices.To continue using LMS, we recommend you to use mobile without root/jailbreak.';
 
@@ -603,10 +603,10 @@ class Strings {
   static const String margin_shortFall_pledge_action_success = 'Margin_ShortFall_Pledge_Action_Success';
   static const String margin_shortFall_pledge_action_failed = 'Margin_ShortFall_Pledge_Action_Failed';
   static const String create_loan_transaction = 'Create Loan Transaction';
-  static const String android_dev_package = 'com.sparktechnologies.sparkloans.dev';
-  static const String android_qa_package = 'com.sparktechnologies.sparkloans.qa';
-  static const String android_uat_package = 'com.sparktechnologies.sparkloans.uat';
-  static const String android_prod_package = 'com.sparktechnologies.sparkloans';
+  static const String android_dev_package = 'loan.atrinatechnologies.lms.dev';
+  static const String android_qa_package = 'loan.atrinatechnologies.lms.qa';
+  static const String android_uat_package = 'loan.atrinatechnologies.lms.uat';
+  static const String android_prod_package = 'loan.atrinatechnologies.lms';
 
 
   static const String pin_set = 'Pin_Set';

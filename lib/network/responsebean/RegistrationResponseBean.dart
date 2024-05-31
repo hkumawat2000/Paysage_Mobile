@@ -94,7 +94,7 @@
 //   Null nAssign;
 //   Null nLikedBy;
 //   int? age;
-//   Null sparkMobile;
+//   Null atrinaMobile;
 //   Null bankAccount;
 //   String? gender;
 //   Null fatherMiddleName;

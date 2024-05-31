@@ -249,7 +249,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   width: 100,
                   height: 100,
                   child: Image.asset(
-                    AssetsImagePath.spark_loan_logo,
+                    AssetsImagePath.lms_logo,
                   ),
                 ),
               ),

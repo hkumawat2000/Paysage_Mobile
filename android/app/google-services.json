@@ -191,6 +191,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "526029389755-0l4i1nmos8uv9bbaid6k9mus1ad9fokg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sparktechnologies.sparkloans.qa",
+            "certificate_hash": "72c7ec114f1aaf7ee2788ef104c0030a2a2edea4"
+          }
+        },
+        {
+          "client_id": "526029389755-37p6dmqu332q16nbdgl400ug50uq97md.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sparktechnologies.sparkloans.qa",
+            "certificate_hash": "4faf26577797863f513787985c55c1bbd2a9a0ed"
+          }
+        },
+        {
+          "client_id": "526029389755-qs2qar9rl6910u8ujh4qqonuu33bqh68.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sparktechnologies.sparkloans.qa",
+            "certificate_hash": "57112a986818e7014a5aaca91d59466ce5a41ccf"
+          }
+        },
+        {
           "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -266,6 +290,150 @@
             "certificate_hash": "3cbbf694ed778ad9d6d72bb84c78cea83870717d"
           }
         },
+        {
+          "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSXjuyWLjXYU_MDJF3WsuaAdwv5qbkokw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "526029389755-33rm6c1smqn9f4dte3s3dk59ols6ugr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sparktechnologies.sparkloans"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526029389755:android:391a73b6c7a7bc4020ce9e",
+        "android_client_info": {
+          "package_name": "loan.atrinatechnologies.lms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSXjuyWLjXYU_MDJF3WsuaAdwv5qbkokw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "526029389755-33rm6c1smqn9f4dte3s3dk59ols6ugr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sparktechnologies.sparkloans"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526029389755:android:6ffcec31e697561720ce9e",
+        "android_client_info": {
+          "package_name": "loan.atrinatechnologies.lms.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSXjuyWLjXYU_MDJF3WsuaAdwv5qbkokw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "526029389755-33rm6c1smqn9f4dte3s3dk59ols6ugr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sparktechnologies.sparkloans"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526029389755:android:e7926d150a76764020ce9e",
+        "android_client_info": {
+          "package_name": "loan.atrinatechnologies.lms.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSXjuyWLjXYU_MDJF3WsuaAdwv5qbkokw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "526029389755-33rm6c1smqn9f4dte3s3dk59ols6ugr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sparktechnologies.sparkloans"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526029389755:android:4e51d33f0982c7d720ce9e",
+        "android_client_info": {
+          "package_name": "loan.atrinatechnologies.lms.uat"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
           "client_type": 3

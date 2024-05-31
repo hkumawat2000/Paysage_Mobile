@@ -143,8 +143,8 @@ class _DashBoardState extends State<DashBoard> {
   //   // String packageName = packageInfo.packageName;
   //   // if(packageName == Strings.ios_prod_package || packageName == Strings.android_prod_package){
   //     final newVersion = NewVersion(
-  //         iOSId: 'loans.sparktechnologies.spark.loans',
-  //         androidId: 'com.sparktechnologies.sparkloans',
+  //         iOSId: 'loans.atrinatechnologies.lms',
+  //         androidId: 'loan.atrinatechnologies.lms',
   //         iOSAppStoreCountry: 'IN'
   //     );
   //
