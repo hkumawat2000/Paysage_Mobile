@@ -147,6 +147,9 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
           lenderList.add(value.lenderData![i].name!);
           selectedLenderList.add(value.lenderData![i].name!);
           selectedBoolLenderList.add(true);
+          selectedLevelList.clear();
+          selectedBoolLevelList.clear();
+          levelList.clear();
           levelList.addAll(value.lenderData![0].levels!);
           value.lenderData![0].levels!.forEach((element) {
             selectedLevelList.add(element.toString().split(" ")[1]);
