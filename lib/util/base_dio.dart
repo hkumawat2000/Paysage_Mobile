@@ -142,7 +142,7 @@ class BaseDio {
     String baseURL = "";
     switch(FlavorConfig.instance.flavor){
       case Flavor.PROD:
-        baseURL = Constants.baseUrlProd;
+        baseURL = Constants.oldUrlUat;
         break;
       case Flavor.QA:
         baseURL = Constants.oldUrlUat;
