@@ -346,8 +346,16 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                             itemBuilder: (context, index) {
                               return CheckboxListTile(
                                 contentPadding: EdgeInsets.zero,
-                                onChanged: (val) => null,
-                                value: true,
+                                onChanged: (val) {
+                                  s(() {
+                                    lenderCheckBox[index] = val!;
+                                    if(!lenderCheckBox.contains(true)){
+                                      Utility.showToastMessage("Atleast one lender is mandatory");
+                                      lenderCheckBox[index] = !val;
+                                    }
+                                  });
+                                },
+                                value: lenderCheckBox[index],
                                 title: Text(lenderList[index]),
                               );
                             },
