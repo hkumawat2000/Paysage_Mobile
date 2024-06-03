@@ -8,6 +8,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:526029389755:android:7661fb037da2716d20ce9e",
+        "android_client_info": {
+          "package_name": "com.atrina.lms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSXjuyWLjXYU_MDJF3WsuaAdwv5qbkokw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526029389755-6qeckn1gka61vka4ellshcleu66e03g3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "526029389755-33rm6c1smqn9f4dte3s3dk59ols6ugr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sparktechnologies.sparkloans"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:526029389755:android:3f87c26a717d6e6520ce9e",
         "android_client_info": {
           "package_name": "com.sparktechnologies.sparkloans"
