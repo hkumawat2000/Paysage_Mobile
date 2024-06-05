@@ -144,7 +144,7 @@ class _DashBoardState extends State<DashBoard> {
   //   // if(packageName == Strings.ios_prod_package || packageName == Strings.android_prod_package){
   //     final newVersion = NewVersion(
   //         iOSId: 'loans.atrinatechnologies.lms',
-  //         androidId: 'com.atrina.lms',
+  //         androidId: 'com.atriina.lms',
   //         iOSAppStoreCountry: 'IN'
   //     );
   //
