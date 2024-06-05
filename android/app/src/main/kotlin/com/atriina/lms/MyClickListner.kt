@@ -1,4 +1,4 @@
-package com.atrina.lms
+package com.atriina.lms
 
 import com.google.firebase.inappmessaging.FirebaseInAppMessagingClickListener
 import com.google.firebase.inappmessaging.model.Action

@@ -503,7 +503,7 @@ class Strings {
   static const String clear_all_pop_up = 'Are you sure you want to clear all notifications?';
   static const String channelID = 'channel_ID_1';
   static const String channelName = 'In App Notification';
-  static const String groupKey = 'com.atrina.lms';
+  static const String groupKey = 'com.atriina.lms';
   static const String select_demat_ac = 'Select your Demat account';
   static const String ios_prod_package = 'com.atriina.lms';
   static const String ios_qa_package = 'com.atriina.lms.qa';
@@ -603,10 +603,10 @@ class Strings {
   static const String margin_shortFall_pledge_action_success = 'Margin_ShortFall_Pledge_Action_Success';
   static const String margin_shortFall_pledge_action_failed = 'Margin_ShortFall_Pledge_Action_Failed';
   static const String create_loan_transaction = 'Create Loan Transaction';
-  static const String android_dev_package = 'com.atrina.lms.dev';
-  static const String android_qa_package = 'com.atrina.lms.qa';
-  static const String android_uat_package = 'com.atrina.lms.uat';
-  static const String android_prod_package = 'com.atrina.lms';
+  static const String android_dev_package = 'com.atriina.lms.dev';
+  static const String android_qa_package = 'com.atriina.lms.qa';
+  static const String android_uat_package = 'com.atriina.lms.uat';
+  static const String android_prod_package = 'com.atriina.lms';
 
 
   static const String pin_set = 'Pin_Set';
