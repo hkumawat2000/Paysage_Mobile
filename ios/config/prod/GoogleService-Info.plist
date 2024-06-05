@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>526029389755-t6f3p0r64oi7b8gipkerbhp0geii270d.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.526029389755-t6f3p0r64oi7b8gipkerbhp0geii270d</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>526029389755-04o1ekrd1dcisb5os1sq0dgva8a6u523.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +11,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>loans.sparktechnologies.spark.loans</string>
+	<string>com.atriina.lms</string>
 	<key>PROJECT_ID</key>
 	<string>spark-debug</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +27,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:526029389755:ios:fa916a51ce29f63e20ce9e</string>
+	<string>1:526029389755:ios:a6fe05f0825d486720ce9e</string>
 	<key>DATABASE_URL</key>
 	<string>https://spark-debug.firebaseio.com</string>
 </dict>

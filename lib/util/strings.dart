@@ -505,10 +505,10 @@ class Strings {
   static const String channelName = 'In App Notification';
   static const String groupKey = 'com.sparktechnologies.sparkloans';
   static const String select_demat_ac = 'Select your Demat account';
-  static const String ios_prod_package = 'loans.sparktechnologies.spark.loans';
-  static const String ios_qa_package = 'loans.sparktechnologies.spark.loans.qa';
-  static const String ios_uat_package = 'loans.sparktechnologies.spark.loans.uat';
-  static const String ios_dev_package = 'loans.sparktechnologies.spark.loans.dev';
+  static const String ios_prod_package = 'com.atriina.lms';
+  static const String ios_qa_package = 'com.atriina.lms.qa';
+  static const String ios_uat_package = 'com.atriina.lms.uat';
+  static const String ios_dev_package = 'com.atriina.lms.dev';
   static const String photo_permission = 'Spark.Loans does not have access to your photos. To enable access,tap Settings and turn on Photos.';
   static const String jailBreak_text = 'This application is not supported on rooted devices.To continue using spark.loans, we recommend you to use mobile without root/jailbreak.';
 

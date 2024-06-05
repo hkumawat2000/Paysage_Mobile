@@ -540,7 +540,7 @@
 				);
 				MARKETING_VERSION = 1.1.5;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -700,7 +700,7 @@
 				);
 				MARKETING_VERSION = 1.1.5;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -745,7 +745,7 @@
 				);
 				MARKETING_VERSION = 1.1.5;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -849,7 +849,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-qa-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.qa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -950,7 +950,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-qa-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.qa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -1049,7 +1049,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-qa-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.qa;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -1153,7 +1153,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-uat-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.uat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.uat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1254,7 +1254,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-uat-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.uat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.uat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -1353,7 +1353,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-uat-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.uat;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.uat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -1457,7 +1457,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-dev-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1558,7 +1558,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-dev-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -1657,7 +1657,7 @@
 				);
 				MARKETING_VERSION = "1.1.5-dev-ios";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = loans.sparktechnologies.spark.loans.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
