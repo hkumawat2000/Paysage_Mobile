@@ -493,7 +493,7 @@ class PaymentScreenState extends State<PaymentScreen> {
       'key': baseURL == Constants.baseUrlProd ? 'rzp_live_55JW5NYsUIguyM' : 'rzp_test_PWqvSLj4rnBOaG',
       // 'key': 'rzp_live_55JW5NYsUIguyM',
       'amount': amount, //in the smallest currency sub-unit.
-      'name': 'Spark.Loans',
+      'name': 'LMS',
       'order_id': orderID, // Generate order_id using Orders API
       'description': 'Payment',
       'prefill': {'contact': '+91$mobileNumber', 'email': emailId},

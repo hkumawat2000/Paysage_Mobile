@@ -306,7 +306,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
-              ...cartViewList.map((Atrina choice) {
+              ...cartViewList.map((Atrina atrina) {
                 return Container(
                   margin: EdgeInsets.symmetric(vertical: 15.0, horizontal: 5),
                   decoration: BoxDecoration(
@@ -321,7 +321,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(choice.lender!, style: boldTextStyle_18,
+                            Text(atrina.lender!, style: boldTextStyle_18,
                                 overflow: TextOverflow.ellipsis),
                             SizedBox(
                               height: 14,
@@ -330,7 +330,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("${choice.roi!.toStringAsFixed(2)}%"),
+                            scripsValueText("${atrina.roi!.toStringAsFixed(2)}%"),
                             SizedBox(
                               height: 16,
                             ),
@@ -338,7 +338,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("₹${choice.minLimit!.toStringAsFixed(2)}"),
+                            scripsValueText("₹${atrina.minLimit!.toStringAsFixed(2)}"),
                             SizedBox(
                               height: 16,
                             ),
@@ -346,7 +346,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText("₹${choice.maxLimit!.toStringAsFixed(2)}"),
+                            scripsValueText("₹${atrina.maxLimit!.toStringAsFixed(2)}"),
                           ],
                         ),
                       ),

@@ -147,6 +147,9 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
           lenderList.add(value.lenderData![i].name!);
           selectedLenderList.add(value.lenderData![i].name!);
           selectedBoolLenderList.add(true);
+          selectedLevelList.clear();
+          selectedBoolLevelList.clear();
+          levelList.clear();
           levelList.addAll(value.lenderData![0].levels!);
           value.lenderData![0].levels!.forEach((element) {
             selectedLevelList.add(element.toString().split(" ")[1]);
@@ -346,8 +349,16 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                             itemBuilder: (context, index) {
                               return CheckboxListTile(
                                 contentPadding: EdgeInsets.zero,
-                                onChanged: (val) => null,
-                                value: true,
+                                onChanged: (val) {
+                                  s(() {
+                                    lenderCheckBox[index] = val!;
+                                    if(!lenderCheckBox.contains(true)){
+                                      Utility.showToastMessage("Atleast one lender is mandatory");
+                                      lenderCheckBox[index] = !val;
+                                    }
+                                  });
+                                },
+                                value: lenderCheckBox[index],
                                 title: Text(lenderList[index]),
                               );
                             },
@@ -1011,12 +1022,12 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
               padding: const EdgeInsets.only(right: 6),
               child: Image.asset(
                 getInitials(lenderIconList[index], 1).toLowerCase() == "c"
-                    ? AssetsImagePath.lender_choice_finserv
+                    ? AssetsImagePath.lender_finserv
                     : getInitials(lenderIconList[index], 1).toLowerCase() == "b"
                         ? AssetsImagePath.lender_bajaj_finance
                         : getInitials(lenderIconList[index], 1).toLowerCase() == "t"
                             ? AssetsImagePath.lender_tata_capital
-                            : AssetsImagePath.lender_choice_finserv,
+                            : AssetsImagePath.lender_finserv,
                 height: 24,
                 width: 24,
               ),

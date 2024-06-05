@@ -50,7 +50,7 @@ class Strings {
   static const String dob = 'DOB:DD/MM/YYYY';
   static const String pin = 'Pin';
   static const String confirm_pin = 'Confirm Pin';
-  static const String success_registration = 'Registration Successful ! Welcome to SPARK Loans';
+  static const String success_registration = 'Registration Successful ! Welcome to LMS';
   static const String mobile_not_exists = 'Mobile No. Does not exists';
   static const String next = 'Next';
   static const String selected_security = 'Value of Selected Securities';
@@ -65,7 +65,7 @@ class Strings {
   static const String terms2 = "Please note that the report doesn't include your messages. If you wish to export your chat history intead, you can learn how in our Help Center.";
   static const String terms3 = "Your report will be available";
   static const String accept_terms_condition = "I accept all Terms & Conditions";
-  static const String edit_kyc_confirm_msg = 'The information is retrieved from CKYC portal and bank details are fetched from Choice Broking database.\n\nYou may enter the desired information which you wish to edit.\n\nAny changes you make to your KYC information will have to be validated by documentary evidence. \n\nYou shall be redirected to our';
+  static const String edit_kyc_confirm_msg = 'The information is retrieved from CKYC portal and bank details are fetched from Broking database.\n\nYou may enter the desired information which you wish to edit.\n\nAny changes you make to your KYC information will have to be validated by documentary evidence. \n\nYou shall be redirected to our';
   static const String kyc_confirm_msg = ' By confirming you are giving your consent to send your data to our bank or NBFC partner for account opening.';
   static const String kyc_update_kyc = 'Your change request has been received. Our support will get in touch with you shortly';
   static const String eligible_loan_bottom_sheet1 = 'You are very close to getting your loan. \nPlease confirm to request OTP';
@@ -132,7 +132,7 @@ class Strings {
   static const String set_biometric = 'Set Biometric Lock';
   static const String biometric = 'Biometric Lock';
   static const String set_face_id = 'Please Set Face ID';
-  static const String get_sparked = 'You Got Sparked! ';
+  static const String get_lms = 'You Got LMS! ';
   static const String get_instant_loan = 'Get Loan against Securities!';
   static const String steps_to_complete_process = '4 easy steps to complete your loan process';
   static const String loan_step1 = 'Update your KYC detail';
@@ -164,7 +164,7 @@ class Strings {
   static const String bank_name = 'Bank Name';
   static const String ifsc_code = 'IFSC Code';
   static const String edit_kyc_message = 'You only will be able to add a valid PAN along with the linked DOB. If you think you have made an error, you may edit the same now. Please check your detail carefully before submitting again. You only have one more chance left to make changes.';
-  static const String allow_spark = 'Allow Spark Loans to digitally sync and verify your KYC for account transactions';
+  static const String allow_lms = 'Allow LMS to digitally sync and verify your KYC for account transactions';
   static const String verified_info = 'Great! Your information is successfully verified';
   static const String enable_biometric = 'Enable Biometric';
   static const String enable = 'Enable';
@@ -265,10 +265,10 @@ class Strings {
   static const String check_your_credit_score = 'Check Your Credit Score';
   static const String download_loan_statement = 'Download Loan Statement';
   static const String add_payment_reminder = 'Payment Reminder';
-  static const String spark_title = 'Spark Up & Stay Ahead';
-  static const String spark_subtitle = 'Aden Lee, the StockMan, focusing on the decisions for equity management, buy, hold and sell through this 24 minutes video.';
+  static const String lms_title = 'LMS Up & Stay Ahead';
+  static const String lms_subtitle = 'Aden Lee, the StockMan, focusing on the decisions for equity management, buy, hold and sell through this 24 minutes video.';
   static const String play_video = 'Play Video';
-  static const String referral_subtitle = 'Spark Loans idea is based upon like-minded society. Invite your friends to join Spark.Loans by sharing your referral code and get surprise rewards!';
+  static const String referral_subtitle = 'LMS idea is based upon like-minded society. Invite your friends to join LMS by sharing your referral code and get surprise rewards!';
   static const String active_loan = 'Active loan';
   static const String actionable_loan = 'Actionable loan';
   static const String under_process_loan = 'Under process loan';
@@ -404,8 +404,8 @@ class Strings {
   static const String not_fetch = 'Seems like there are no securities in your DEMAT holding. To get a loan, please buy securities from the approved list.';
   static const String biometric_id_text = 'Would you like to enable Biometric login.';
   static const String face_id_text = 'Would you like to enable Face ID';
-  static const String biometric_id_sub_text = 'Touch ID/Face ID registered on this device enables Biometric access to your spark.loans account. We advice you to disable biometric of any other person rather than yourself.';
-  static const String face_id_sub_text = 'Face ID enables biometric access to SPARK for face id enabled on this device. You are advised to disable the face id of any other person on this device and proceed.';
+  static const String biometric_id_sub_text = 'Touch ID/Face ID registered on this device enables Biometric access to your LMS account. We advice you to disable biometric of any other person rather than yourself.';
+  static const String face_id_sub_text = 'Face ID enables biometric access to LMS for face id enabled on this device. You are advised to disable the face id of any other person on this device and proceed.';
   static const String demat_account = 'Demat Account';
   static const String info_success = 'Your information is successfully';
   static const String back_button_validation = 'If you go back, changes made on this screen will not be saved.';
@@ -441,7 +441,7 @@ class Strings {
   static const String common_issues = 'Common issues';
   static const String view_more = 'View More';
   static const String message = 'Message';
-  static const String spark_loans = 'Spark Loans';
+  static const String lms = 'LMS';
   static const String contact = '+91-9090-909090';
   static const String shortly_touch = 'We`ll be in touch Shortly!';
   static const String thank_you = 'Thank You!';
@@ -490,10 +490,10 @@ class Strings {
   static const String margin_shortfall_sub_heading_scheme = 'There is a margin shortfall due to fall in collateral value. Please take necessary action to mitigate the margin shortfall within the allowed time limit, to avoid forced sale of your schemes. Its advisable to keep 10% buffer margin to avoid regular shortfalls.';
   static const String atleast_one = 'The amount must be atleast INR 1.00';
   static const String forgot_pin_toast = 'OTP is sent on your mobile number';
-  static const String understanding_spark = 'Understanding Spark.Loans';
+  static const String understanding_lms = 'Understanding LMS';
   static const String related_videos = 'Related Videos';
   static const String pending_payment= 'Previous Payment request is pending. Please try again after sometime';
-  static const String kyc_fourth_letter_validation= 'The fourth alphabet of your PAN suggests that it is not associated with an individual. Currently, spark loans offer services to individuals only.';
+  static const String kyc_fourth_letter_validation= 'The fourth alphabet of your PAN suggests that it is not associated with an individual. Currently, LMS offer services to individuals only.';
   static const String email_verification_popup = 'Kindly complete your E-mail Verification process in order to apply for loan.';
   static const String terms_and_privacy = "Terms and Privacy Policy";
   static const String back_pressed = 'User back pressed';
@@ -503,13 +503,13 @@ class Strings {
   static const String clear_all_pop_up = 'Are you sure you want to clear all notifications?';
   static const String channelID = 'channel_ID_1';
   static const String channelName = 'In App Notification';
-  static const String groupKey = 'com.sparktechnologies.sparkloans';
+  static const String groupKey = 'com.atrina.lms';
   static const String select_demat_ac = 'Select your Demat account';
   static const String ios_prod_package = 'com.atriina.lms';
   static const String ios_qa_package = 'com.atriina.lms.qa';
   static const String ios_uat_package = 'com.atriina.lms.uat';
   static const String ios_dev_package = 'com.atriina.lms.dev';
-  static const String photo_permission = 'Spark.Loans does not have access to your photos. To enable access,tap Settings and turn on Photos.';
+  static const String photo_permission = 'LMS does not have access to your photos. To enable access,tap Settings and turn on Photos.';
   static const String jailBreak_text = 'This application is not supported on rooted devices.To continue using spark.loans, we recommend you to use mobile without root/jailbreak.';
 
 
@@ -523,7 +523,7 @@ class Strings {
   static const String register_with_facebook = 'Register_With_Facebook';
   static const String register_failed = 'Register_Failed';
   static const String email_verification_sent = 'Email_Verification_Sent';
-  static const String get_choice_kyc = 'Get_Choice_KYC';
+  static const String get_choice_kyc = 'Get_KYC';
   static const String kyc_not_found = 'KYC_Not_Found';
   static const String edit_kyc = 'Edit_KYC';
   static const String kyc_done = 'KYC_Done';
@@ -603,10 +603,10 @@ class Strings {
   static const String margin_shortFall_pledge_action_success = 'Margin_ShortFall_Pledge_Action_Success';
   static const String margin_shortFall_pledge_action_failed = 'Margin_ShortFall_Pledge_Action_Failed';
   static const String create_loan_transaction = 'Create Loan Transaction';
-  static const String android_dev_package = 'com.sparktechnologies.sparkloans.dev';
-  static const String android_qa_package = 'com.sparktechnologies.sparkloans.qa';
-  static const String android_uat_package = 'com.sparktechnologies.sparkloans.uat';
-  static const String android_prod_package = 'com.sparktechnologies.sparkloans';
+  static const String android_dev_package = 'com.atrina.lms.dev';
+  static const String android_qa_package = 'com.atrina.lms.qa';
+  static const String android_uat_package = 'com.atrina.lms.uat';
+  static const String android_prod_package = 'com.atrina.lms';
 
 
   static const String pin_set = 'Pin_Set';
@@ -679,7 +679,7 @@ class Strings {
   static const String client_id = 'Client ID';
   static const String edit = 'Edit';
   static const String demat_detail_mismatch = 'There seems to be a mismatch in the demat details and depository type';
-  static const String demat_do_not_provide = 'Currently, we do not provide Loan against Shares to other CDSL client, except Choice Broking.';
+  static const String demat_do_not_provide = 'Currently, we do not provide Loan against Shares to other CDSL client, except Atrina Broking.';
   static const String proceed_with_edited_on = "Do you want to proceed with the edited data?";
   static const String depository = 'Depository';
   static const String account_number_does_not_match_as_above = "Account number doesn't match as above";
@@ -720,8 +720,8 @@ class Strings {
   static const String roi = "ROI";
   static const String rate_of_interest = "Rate of Interest (Per Month)";
   static const String sure_go_back = "Are you sure you want to go back?";
-  static const String choice_user_yes_no = "Please allow spark.loans to fetch your default bank details linked to your Choice Broking DEMAT account.";
-  static const String demat_data_prepopulate = "Please allow spark.loans to fetch your demat details linked to your pan number.";
+  static const String choice_user_yes_no = "Please allow LMS to fetch your default bank details linked to your Choice Broking DEMAT account.";
+  static const String demat_data_prepopulate = "Please allow LMS to fetch your demat details linked to your pan number.";
   static const String permanent_address = "PERMANENT ADDRESS";
   static const String corresponding_address = "CORRESPONDING ADDRESS";
   static const String no_holdings = "Note: Your holdings does not consist scrips from the lender's approved list of securities. Kindly turn off My Holdings to view the lender's approved list of securities.";

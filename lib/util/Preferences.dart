@@ -17,7 +17,7 @@ class Preferences {
   static final String keyPhotoConsent = 'photo_consent';
   static final String keyBiometricConsent = 'biometric_consent';
   static final String keyConsentForEmail = 'consent_for_email';
-  static final String keyChoiceUser = 'choice_user';
+  static final String keyAtrinaUser = 'atrina_user';
   static final String keyBaseUrl = 'base_url';
   static final String keyNotificationId = 'notification_id';
   static final String keyNotificationRedirection = 'notification_redirect';
@@ -176,7 +176,7 @@ class Preferences {
 
   Future<bool> getIsChoiceUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool value = prefs.getBool('$keyChoiceUser') ?? false;
+    bool value = prefs.getBool('$keyAtrinaUser') ?? false;
     return value;
   }
 
@@ -215,7 +215,7 @@ class Preferences {
 
   setIsChoiceUser(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('$keyChoiceUser', value);
+    prefs.setBool('$keyAtrinaUser', value);
   }
 
   Future<bool?> getEmailDialogConsent() async {

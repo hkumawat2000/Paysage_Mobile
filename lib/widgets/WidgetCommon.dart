@@ -27,7 +27,7 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      AssetsImagePath.spark_loan_logo,
+      AssetsImagePath.lms_logo,
     );
   }
 }

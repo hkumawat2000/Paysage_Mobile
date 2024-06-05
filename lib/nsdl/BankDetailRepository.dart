@@ -21,6 +21,6 @@ class BankDetailRepository{
 
   // Future<FundAccValidationResponseBean> fundAccValidationByIdAPI(favId, chequeByteImageString) => bankDetailDao.fundAccValidationByIdAPI(favId, chequeByteImageString);
 
-  Future<AtrinaBankResponseBean> getChoiceBankKYC() => bankDetailDao.getChoiceBankKYC();
+  Future<AtrinaBankResponseBean> getChoiceBankKYC() => bankDetailDao.getAtrinaBankKYC();
 
 }

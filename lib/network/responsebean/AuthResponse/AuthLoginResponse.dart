@@ -102,7 +102,7 @@ class Customer {
   String? nAssign;
   String? nLikedBy;
   int? age;
-  // Null sparkMobile;
+  // Null lmsMobile;
   // Null bankAccount;
   String? gender;
   // Null fatherMiddleName;
@@ -112,7 +112,7 @@ class Customer {
   // Null address;
   // Null pennyDrop;
   String? martialStatus;
-  // Null choiceMobile;
+  // Null atrinaMobile;
   // Null loanAccountNo;
   // Null crnNo;
   // Null fatherFirstName;

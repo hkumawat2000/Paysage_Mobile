@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class MyCartRequestBean {
   Securities? securities;
   String? cartName;

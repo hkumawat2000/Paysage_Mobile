@@ -47,7 +47,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.sparktechnologies.sparkloans"
+        applicationId "com.atrina.lms"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
@@ -66,13 +66,9 @@ android {
 
     buildTypes {
         debug {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
 
             minifyEnabled true
@@ -91,19 +87,23 @@ android {
             dimension "flavors"
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
+            manifestPlaceholders = [appLabelName: "Atri LMS DEV"]
         }
         qa{
             dimension "flavors"
             applicationIdSuffix ".qa"
             versionNameSuffix "-qa"
+            manifestPlaceholders = [appLabelName: "Atri LMS QA"]
         }
         uat{
             dimension "flavors"
             applicationIdSuffix ".uat"
             versionNameSuffix "-uat"
+            manifestPlaceholders = [appLabelName: "Atri LMS"]
         }
         prod{
             dimension "flavors"
+            manifestPlaceholders = [appLabelName: "Atri LMS"]
         }
     }
 }

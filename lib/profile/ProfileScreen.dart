@@ -169,7 +169,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 style: TextStyle(color: colorGrey, fontSize: 14),
                               ),
                               Text(
-                                "Choice KYC",
+                                "KYC",
                                 style: TextStyle(fontSize: 15),
                               ),
                             ],
@@ -508,7 +508,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'SPARK Mobile',
+                                'LMS Mobile',
                                 style: TextStyle(color: colorGrey, fontSize: 12),
                               ),
                               SizedBox(

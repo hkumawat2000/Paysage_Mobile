@@ -131,7 +131,7 @@ class PinScreenState extends State<PinScreen> {
   //         stickyAuth: false,
   //         biometricOnly: true,
   //         androidAuthStrings: AndroidAuthMessages(
-  //           signInTitle: "Login to spark.loans",
+  //           signInTitle: "Login to LMS",
   //         )
   //     );
   //   } on PlatformException catch (e) {

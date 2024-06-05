@@ -32,7 +32,7 @@ class RegistrationSuccessfulScreenState extends State<RegistrationSuccessfulScre
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        Strings.get_sparked,
+                        Strings.get_lms,
                         style: extraBoldTextStyle_28,
                       ),
                     ],
