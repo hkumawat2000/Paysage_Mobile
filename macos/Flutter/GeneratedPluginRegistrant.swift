@@ -14,9 +14,9 @@ import firebase_crashlytics
 import firebase_messaging
 import flutter_local_notifications
 import package_info_plus
-import path_provider_macos
+import path_provider_foundation
 import share_plus
-import shared_preferences_macos
+import shared_preferences_foundation
 import sign_in_with_apple
 import sqflite
 import url_launcher_macos
