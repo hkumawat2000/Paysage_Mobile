@@ -2,20 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>526029389755-04o1ekrd1dcisb5os1sq0dgva8a6u523.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC7uWCgC_tqDi1CtuD27rYEfv16j5kgeOs</string>
+	<string>AIzaSyDWaJWkSxrvDLftzF1PHo01Avrw8coznsk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>526029389755</string>
+	<string>466963343865</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.atriina.lms</string>
 	<key>PROJECT_ID</key>
-	<string>spark-debug</string>
+	<string>atri-lms</string>
 	<key>STORAGE_BUCKET</key>
-	<string>spark-debug.appspot.com</string>
+	<string>atri-lms.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -27,8 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:526029389755:ios:a6fe05f0825d486720ce9e</string>
-	<key>DATABASE_URL</key>
-	<string>https://spark-debug.firebaseio.com</string>
+	<string>1:466963343865:ios:da9d74a66b9fc12a7a3528</string>
 </dict>
 </plist>
