@@ -5,7 +5,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class TopUpDao with BaseDio {
+class TopUpDao extends BaseDio {
   Future<TopUpResponse> submitTopUp(TopUpRequest topUpRequest) async {
     Dio dio = await getBaseDio();
     TopUpResponse wrapper = TopUpResponse();

@@ -982,7 +982,7 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
                   ),
                   child: Scrollbar(
                     controller: _permScrollController,
-                    isAlwaysShown: true,
+                    //isAlwaysShown: true,
                     child: ListView.builder(
                       controller: _permScrollController,
                         scrollDirection: Axis.vertical,
@@ -2064,7 +2064,7 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
                 ),
                 child: Scrollbar(
                   controller: _corrScrollController,
-                  isAlwaysShown: true,
+                  //isAlwaysShown: true,
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     controller: _corrScrollController,

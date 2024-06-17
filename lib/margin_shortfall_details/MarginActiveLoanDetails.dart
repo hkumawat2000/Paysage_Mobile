@@ -174,7 +174,8 @@ class MarginActiveLoanDetailsState extends State<MarginActiveLoanDetails> {
                             children: <Widget>[
                               Text(
                                 "Collateral Value",
-                                style: TextStyle(fontSize: 12, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
@@ -190,15 +191,18 @@ class MarginActiveLoanDetailsState extends State<MarginActiveLoanDetails> {
                           SizedBox(
                             width: 70,
                             height: 25,
-                            child: RaisedButton(
-                              color: appTheme,
-                              onPressed: () {},
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: appTheme,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                               ),
+                              onPressed: () {},
                               child: Text(
                                 "Pay Now",
-                                style: TextStyle(fontSize: 8, color: Colors.white),
+                                style:
+                                    TextStyle(fontSize: 8, color: Colors.white),
                               ),
                             ),
                           ),

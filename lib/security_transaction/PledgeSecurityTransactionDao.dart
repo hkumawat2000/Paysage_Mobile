@@ -6,7 +6,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class PledgeSecurityTransactionDao with BaseDio {
+class PledgeSecurityTransactionDao extends BaseDio {
   Future<PledgeSecurityTransactionResponseBean> getPledgeSecurityTransaction(
       LoanStatementRequestBean loanStatementRequestBean) async {
     Dio dio = await getBaseDio();

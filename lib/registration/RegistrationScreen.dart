@@ -99,7 +99,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       if(Platform.isAndroid){
         if (_focusNode.hasFocus) {
           this._overlayEntry = this._createOverlayEntry();
-          Overlay.of(context)!.insert(this._overlayEntry!);
+          Overlay.of(context).insert(this._overlayEntry!);
         } else {
           if (_overlayEntry == null && this._overlayEntry!.mounted) {
             this._overlayEntry!.remove();
@@ -487,7 +487,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                 if (val.length == 0) {
                   if (_focusNode.hasFocus) {
                     this._overlayEntry = this._createOverlayEntry();
-                    Overlay.of(context)!.insert(this._overlayEntry!);
+                    Overlay.of(context).insert(this._overlayEntry!);
                   }
                 } else {
                   if (this._overlayEntry!.mounted)

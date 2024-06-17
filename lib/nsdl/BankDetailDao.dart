@@ -7,7 +7,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class BankDetailDao with BaseDio {
+class BankDetailDao extends BaseDio {
   Future<BankMasterResponse> getBankDetails(ifsc) async {
     Dio dio = await getBaseDio();
     BankMasterResponse wrapper = BankMasterResponse();

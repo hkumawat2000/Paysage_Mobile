@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:lms/util/Validators.dart';
 import 'package:rxdart/subjects.dart';
 
-class LoginValidatorBloc with Validators {
+class LoginValidatorBloc extends Validators {
   final email = BehaviorSubject<String>();
 
   final firstName = BehaviorSubject<String>();

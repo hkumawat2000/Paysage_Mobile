@@ -188,6 +188,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   Widget messageField() {
     final theme = Theme.of(context);
     return StreamBuilder(
+      stream: null,
       builder: (context, AsyncSnapshot<String> snapshot) {
         return Theme(
           data: theme.copyWith(primaryColor: appTheme),

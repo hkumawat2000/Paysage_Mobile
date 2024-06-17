@@ -96,7 +96,6 @@ class AccountStatementListtScreenState extends State<AccountStatementList> {
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
                                                 LoanWithdrawScreen("")));
-
                                   },
                                 ),
                               ],
@@ -113,9 +112,13 @@ class AccountStatementListtScreenState extends State<AccountStatementList> {
                           children: <Widget>[
                             GestureDetector(
                               child: Text("Statement"),
-                              onTap: (){
+                              onTap: () {
                                 Navigator.push(
-                                    context, MaterialPageRoute(builder: (BuildContext context) => LoanStatementScreen("","","","")));
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            LoanStatementScreen(
+                                                "", "", "", "")));
                               },
                             ),
                             verticalDivider(),
@@ -225,7 +228,8 @@ class AccountStatementListtScreenState extends State<AccountStatementList> {
                             children: <Widget>[
                               Text(
                                 "Collateral Value",
-                                style: TextStyle(fontSize: 12, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
@@ -241,15 +245,18 @@ class AccountStatementListtScreenState extends State<AccountStatementList> {
                           SizedBox(
                             width: 70,
                             height: 25,
-                            child: RaisedButton(
-                              color: appTheme,
+                            child: ElevatedButton(
                               onPressed: () {},
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                              style: ElevatedButton.styleFrom(
+                               // co: appTheme,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                               ),
                               child: Text(
                                 "Pay Now",
-                                style: TextStyle(fontSize: 8, color: Colors.white),
+                                style:
+                                    TextStyle(fontSize: 8, color: Colors.white),
                               ),
                             ),
                           ),
@@ -291,7 +298,8 @@ class AccountStatementListtScreenState extends State<AccountStatementList> {
                             children: <Widget>[
                               Text(
                                 "29 June 2020",
-                                style: TextStyle(fontSize: 12, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),

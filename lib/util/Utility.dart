@@ -200,11 +200,11 @@ class Utility {
            title: Text('Update Available!'),
            content:Text("New version of the app is available; Kindly update the app to continue.\n\nWhat's New: \n$storeWhatsNew"),
            actions: <Widget>[
-             isForceUpdate ? SizedBox() : FlatButton(
+             isForceUpdate ? SizedBox() : TextButton(
                child: new Text('Not Now', style: TextStyle(color:Colors.blue),),
                onPressed: () => Navigator.pop(context),
              ),
-             FlatButton(
+             TextButton(
                child: new Text(isForceUpdate ? 'Update Now' : 'Update', style: TextStyle(color:Colors.blue),),
                onPressed: () {
                  Utility.isNetworkConnection().then((isNetwork) async {

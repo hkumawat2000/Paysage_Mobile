@@ -15,7 +15,7 @@ import '../util/constants.dart';
 import '../util/strings.dart';
 import 'dart:io' as Platform;
 
-class RegistrationDao with BaseDio {
+class RegistrationDao extends BaseDio {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn();
   // var facebookLogin = FacebookLogin();

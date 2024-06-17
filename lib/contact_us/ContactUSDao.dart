@@ -7,7 +7,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class ContactUSDao with BaseDio {
+class ContactUSDao extends BaseDio {
   Future<LoginResponseBean> contactUs(ContactUsRequestBean contactUsRequestBean) async {
     Dio dio = await getBaseDio();
     LoginResponseBean wrapper = LoginResponseBean();

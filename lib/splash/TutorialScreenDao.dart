@@ -5,7 +5,7 @@ import '../util/base_dio.dart';
 import '../util/constants.dart';
 import '../util/strings.dart';
 
-class TutorialScreenDao with BaseDio {
+class TutorialScreenDao extends BaseDio {
 
   Future<OnBoardingResponseBean> getOnBoardingData() async {
     Dio dio = await getBaseDio();

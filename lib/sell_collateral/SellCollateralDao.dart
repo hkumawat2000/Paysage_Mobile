@@ -6,7 +6,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class SellCollateralDao with BaseDio {
+class SellCollateralDao extends BaseDio {
   Future<CommonResponse> requestSellCollateralOTP() async {
     Dio dio = await getBaseDio();
     CommonResponse wrapper = CommonResponse();

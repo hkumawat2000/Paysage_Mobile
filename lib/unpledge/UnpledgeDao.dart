@@ -7,7 +7,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class UnpledgeDao with BaseDio {
+class UnpledgeDao extends BaseDio {
 
   Future<UnpledgeDetailsResponse> unpledgeDetails(loanName) async {
     Dio dio = await getBaseDio();

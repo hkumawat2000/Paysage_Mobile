@@ -6,7 +6,7 @@ import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
-class WithdrawDao with BaseDio{
+class WithdrawDao extends BaseDio{
   Future<WithdrawDetailsResponse> getWithdrawDetails(loanName) async {
     Dio dio = await getBaseDio();
     WithdrawDetailsResponse wrapper = WithdrawDetailsResponse();

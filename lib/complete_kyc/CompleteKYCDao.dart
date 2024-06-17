@@ -12,7 +12,7 @@ import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
-class CompleteKYCDao with BaseDio {
+class CompleteKYCDao extends BaseDio {
 
   Future<UserCompleteKYCResponseBean> saveUserKYC(UserKYCRequest userKYCRequest) async {
     Dio dio = await getBaseDio();

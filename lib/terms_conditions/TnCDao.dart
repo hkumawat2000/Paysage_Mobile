@@ -8,7 +8,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class TnCDao with BaseDio {
+class TnCDao extends BaseDio {
   Future<TnCResponseBean> getTnCList() async {
     Dio dio = await getBaseDio();
     TnCResponseBean wrapper = TnCResponseBean();

@@ -1,7 +1,7 @@
 class Constants {
   static final int noInternet = 999;
   static final int customError = 888;
-  static final int connectionTimeOut = 900000;
+  static final Duration connectionTimeOut = Duration(milliseconds: 900000);
   static final String baseUrlProd = "https://spark.loans/";
   static final String baseUrlDev = "https://dev.sparklms.atritechnocrat.in/";
   static final String newUrlDev = "https://dev.spark.atriina.com/";

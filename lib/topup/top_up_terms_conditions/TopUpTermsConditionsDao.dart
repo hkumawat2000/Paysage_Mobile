@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class TopUpTermsConditionsDao with BaseDio {
+class TopUpTermsConditionsDao extends BaseDio {
   Future<TermsConditionResponse> getTopUpTermsCondition(loan_name, double topup_amount) async {
     Dio dio = await getBaseDio();
     TermsConditionResponse wrapper = TermsConditionResponse();

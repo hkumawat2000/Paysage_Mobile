@@ -30,7 +30,8 @@ class TermsConditionWebViewScreenState extends State<TermsConditionWebView> {
   @override
   void initState() {
     checkNetwork();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    //TODO : Make changes
+   // if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
     super.initState();
   }
 

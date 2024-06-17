@@ -73,13 +73,13 @@ class FingureprintScreenState extends State<FingureprintScreen> {
         SizedBox(
           height: 30,
         ),
-        FlatButton(
-          color: appTheme,
-          textColor: Colors.white,
-          disabledColor: Colors.grey,
-          disabledTextColor: Colors.black,
-          padding: EdgeInsets.all(8.0),
-          splashColor: Colors.blueAccent,
+        TextButton(
+          // color: appTheme,
+          // textColor: Colors.white,
+          // disabledColor: Colors.grey,
+          // disabledTextColor: Colors.black,
+          // padding: EdgeInsets.all(8.0),
+          // splashColor: Colors.blueAccent,
           onPressed: () async {
             bool consentForBiometric = await preferences.getBiometricConsent();
             if(!consentForBiometric) {

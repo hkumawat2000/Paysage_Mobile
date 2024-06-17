@@ -34,7 +34,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -76,8 +76,8 @@ android {
             signingConfig signingConfigs.release
 
             minifyEnabled true
-            useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //useProguard true
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         innerTest {
             //...
@@ -106,6 +106,7 @@ android {
             dimension "flavors"
         }
     }
+    namespace 'com.sparktechnologies.sparkloans'
 }
 
 flutter {

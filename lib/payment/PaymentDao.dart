@@ -10,7 +10,7 @@ import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-class PaymentDao with BaseDio {
+class PaymentDao extends BaseDio {
   Future<PaymentResponse> createOrderID(PaymentRequest request) async {
     Dio dio = await getBaseDioAuth();
     PaymentResponse wrapper = PaymentResponse();

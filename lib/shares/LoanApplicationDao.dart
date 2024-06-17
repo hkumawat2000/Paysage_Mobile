@@ -11,7 +11,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class LoanApplicationDao with BaseDio {
+class LoanApplicationDao extends BaseDio {
   Future<ProcessCartResponse> createLoanApplication(cartName, otp, fileId, pledgorBoid) async {
     Dio dio = await getBaseDio();
     ProcessCartResponse wrapper = ProcessCartResponse();

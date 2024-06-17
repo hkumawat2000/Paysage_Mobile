@@ -5,7 +5,7 @@ import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 import 'package:lms/util/base_dio.dart';
 
-class ForgotPinDao with BaseDio{
+class ForgotPinDao extends BaseDio{
 
   Future<AuthLoginResponse> forgotOtpRequest(String email) async {
     Dio dio = await getBaseDio();

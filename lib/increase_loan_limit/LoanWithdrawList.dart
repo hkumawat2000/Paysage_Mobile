@@ -265,8 +265,13 @@ class LoanWithdrawListScreenState extends State<LoanWithdrawListScreen> {
                         SizedBox(
                           width: 70,
                           height: 25,
-                          child: RaisedButton(
-                            color: appTheme,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: appTheme,
+                               shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            ),
                             onPressed: () {
                               Navigator.push(
                                   context,
@@ -274,9 +279,7 @@ class LoanWithdrawListScreenState extends State<LoanWithdrawListScreen> {
                                       builder: (BuildContext context) =>
                                           TermsConditionsScreen("", "", "","", "", "")));
                             },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                           
                             child: Text(
                               "Get Now",
                               style: TextStyle(fontSize: 8, color: Colors.white),
@@ -343,12 +346,15 @@ class LoanWithdrawListScreenState extends State<LoanWithdrawListScreen> {
                           SizedBox(
                             width: 70,
                             height: 25,
-                            child: RaisedButton(
-                              color: appTheme,
-                              onPressed: () {},
-                              shape: RoundedRectangleBorder(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: appTheme,
+                                 shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
+                              ),
+                              onPressed: () {},
+                             
                               child: Text(
                                 "Pay Now",
                                 style: TextStyle(fontSize: 8, color: Colors.white),

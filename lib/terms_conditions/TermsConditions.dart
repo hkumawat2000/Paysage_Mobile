@@ -27,7 +27,8 @@ class TermsConditionsScreen extends StatefulWidget {
   @override
   _TermsConditionsScreenState createState() => _TermsConditionsScreenState();
 
-  TermsConditionsScreen(this.eligibleLoan, this.cartName, this.stockAt, this.isComingFor, this.loanRenewalName, this.loanType);
+  TermsConditionsScreen(this.eligibleLoan, this.cartName, this.stockAt,
+      this.isComingFor, this.loanRenewalName, this.loanType);
 }
 
 class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
@@ -45,16 +46,28 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
 
   @override
   void initState() {
-    if(widget.isComingFor == Strings.loanRenewal){
-      _tncBloc.saveTnCList(TermsConditionRequestBean(cartName: "", loanName: "", loanRenewalName: widget.loanRenewalName, topupAmount: 0.0)).then((value) {
+    if (widget.isComingFor == Strings.loanRenewal) {
+      _tncBloc
+          .saveTnCList(TermsConditionRequestBean(
+              cartName: "",
+              loanName: "",
+              loanRenewalName: widget.loanRenewalName,
+              topupAmount: 0.0))
+          .then((value) {
         if (!value.isSuccessFull!) {
           if (value.errorCode == 403) {
             commonDialog(context, Strings.session_timeout, 4);
           }
         }
       });
-    }else {
-      _tncBloc.saveTnCList(TermsConditionRequestBean(cartName: widget.cartName,loanName: "", loanRenewalName: "", topupAmount: 0.0)).then((value) {
+    } else {
+      _tncBloc
+          .saveTnCList(TermsConditionRequestBean(
+              cartName: widget.cartName,
+              loanName: "",
+              loanRenewalName: "",
+              topupAmount: 0.0))
+          .then((value) {
         if (!value.isSuccessFull!) {
           if (value.errorCode == 403) {
             commonDialog(context, Strings.session_timeout, 4);
@@ -73,7 +86,7 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
         body: SafeArea(child: getTnCList()));
   }
 
-  Widget appBar(AsyncSnapshot<TermsConditionResponse> snapshot){
+  Widget appBar(AsyncSnapshot<TermsConditionResponse> snapshot) {
     return AppBar(
       backgroundColor: colorBg,
       elevation: 0,
@@ -108,8 +121,9 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
     );
   }
 
-  void _launchURL(_url) async =>
-      await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+  void _launchURL(_url) async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw 'Could not launch $_url';
 
   Widget getTnCList() {
     return StreamBuilder(
@@ -131,8 +145,11 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
   }
 
   Widget termsConditionWidget(AsyncSnapshot<TermsConditionResponse> snapshot) {
-    for(int i=0; i<snapshot.data!.termsConditionData!.tncCheckboxes!.length; i++){
-      if(checkBoxValue.length != snapshot.data!.termsConditionData!.tncCheckboxes!.length){
+    for (int i = 0;
+        i < snapshot.data!.termsConditionData!.tncCheckboxes!.length;
+        i++) {
+      if (checkBoxValue.length !=
+          snapshot.data!.termsConditionData!.tncCheckboxes!.length) {
         checkBoxValue.add(false);
       }
     }
@@ -150,42 +167,48 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
               SizedBox(height: 10),
               Html(
                   data: snapshot.data!.termsConditionData!.tncHeader,
-                  onLinkTap: (url, _, __, ___) {
-                    Utility.isNetworkConnection().then((isNetwork) {
-                      if (isNetwork) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => TermsConditionWebView(url!, false, Strings.terms_and_condition)));
-                      } else {
-                        Utility.showToastMessage(Strings.no_internet_message);
-                      }
-                    });
-                  }),
+                  onLinkTap: (url, attributes, element) =>
+                      Utility.isNetworkConnection().then((isNetwork) {
+                        if (isNetwork) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TermsConditionWebView(
+                                      url!,
+                                      false,
+                                      Strings.terms_and_condition)));
+                        } else {
+                          Utility.showToastMessage(Strings.no_internet_message);
+                        }
+                      })),
               SizedBox(height: 10),
               ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: snapshot.data!.termsConditionData!.tncCheckboxes!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      children: [
-                        Checkbox(
-                            value: checkBoxValue[index],
-                            activeColor: appTheme,
-                            onChanged: (bool? newValue) {
-                              setState(() {
-                                checkBoxValue[index] = newValue!;
-                              });
-                            },
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                itemCount:
+                    snapshot.data!.termsConditionData!.tncCheckboxes!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Row(
+                    children: [
+                      Checkbox(
+                        value: checkBoxValue[index],
+                        activeColor: appTheme,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            checkBoxValue[index] = newValue!;
+                          });
+                        },
+                      ),
+                      Expanded(
+                        child: Html(
+                          data: snapshot
+                              .data!.termsConditionData!.tncCheckboxes![index],
                         ),
-                        Expanded(
-                          child: Html(
-                            data: snapshot.data!.termsConditionData!.tncCheckboxes![index],
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                      ),
+                    ],
+                  );
+                },
               ),
               SizedBox(height: 10),
               Html(
@@ -199,11 +222,14 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                     height: 45,
                     width: 100,
                     child: Material(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
                       elevation: 1.0,
-                      color: checkBoxValue.contains(false) ? colorGrey : appTheme,
+                      color:
+                          checkBoxValue.contains(false) ? colorGrey : appTheme,
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(35)),
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
                           Preferences preferences = Preferences();
@@ -216,41 +242,62 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                               if (isNetwork) {
                                 Navigator.pop(context);
                                 // Firebase Event
-                                Map<String, dynamic> parameter = new Map<String, dynamic>();
+                                Map<String, dynamic> parameter =
+                                    new Map<String, dynamic>();
                                 parameter[Strings.mobile_no] = mobile;
                                 parameter[Strings.email] = email;
                                 parameter[Strings.cart_name] = widget.cartName;
                                 parameter[Strings.demat_ac_no] = widget.stockAt;
-                                parameter[Strings.eligible_loan_prm] = widget.eligibleLoan;
-                                parameter[Strings.date_time] = getCurrentDateAndTime();
-                                if(widget.isComingFor == Strings.loan) {
+                                parameter[Strings.eligible_loan_prm] =
+                                    widget.eligibleLoan;
+                                parameter[Strings.date_time] =
+                                    getCurrentDateAndTime();
+                                if (widget.isComingFor == Strings.loan) {
                                   firebaseEvent(Strings.accept_tnc, parameter);
-                                } else if(widget.isComingFor == Strings.increase_loan || widget.isComingFor == Strings.mf_increase_loan) {
-                                  firebaseEvent(Strings.increase_loan_accept_tnc, parameter);
-                                }else if(widget.isComingFor == Strings.loanRenewal) {
-                                  firebaseEvent(Strings.loan_renewal_accept_tnc, parameter);
+                                } else if (widget.isComingFor ==
+                                        Strings.increase_loan ||
+                                    widget.isComingFor ==
+                                        Strings.mf_increase_loan) {
+                                  firebaseEvent(
+                                      Strings.increase_loan_accept_tnc,
+                                      parameter);
+                                } else if (widget.isComingFor ==
+                                    Strings.loanRenewal) {
+                                  firebaseEvent(Strings.loan_renewal_accept_tnc,
+                                      parameter);
                                 }
-                                if(widget.isComingFor == Strings.loanRenewal){
+                                if (widget.isComingFor == Strings.loanRenewal) {
                                   loanRenewalOTP();
                                   showModalBottomSheet(
                                       backgroundColor: Colors.transparent,
                                       context: context,
                                       isScrollControlled: true,
                                       builder: (BuildContext bc) {
-                                        return LoanOTPVerification(widget.cartName,"file id", widget.stockAt, widget.isComingFor, widget.loanRenewalName, widget.isComingFor);
+                                        return LoanOTPVerification(
+                                            widget.cartName,
+                                            "file id",
+                                            widget.stockAt,
+                                            widget.isComingFor,
+                                            widget.loanRenewalName,
+                                            widget.isComingFor);
                                       });
-                                }else{
+                                } else {
                                   showModalBottomSheet(
                                       backgroundColor: Colors.transparent,
                                       context: context,
                                       isScrollControlled: true,
                                       builder: (BuildContext context) {
-                                        return EligibleCDialog(widget.eligibleLoan.toString(),
-                                            widget.cartName, "fileId", widget.stockAt, widget.isComingFor);
+                                        return EligibleCDialog(
+                                            widget.eligibleLoan.toString(),
+                                            widget.cartName,
+                                            "fileId",
+                                            widget.stockAt,
+                                            widget.isComingFor);
                                       });
                                 }
                               } else {
-                                Utility.showToastMessage(Strings.no_internet_message);
+                                Utility.showToastMessage(
+                                    Strings.no_internet_message);
                                 // Navigator.pop(context);
                               }
                             });
@@ -258,7 +305,8 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
                         },
                         child: Text(
                           Strings.accept,
-                          style: TextStyle(color: colorWhite, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: colorWhite, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -325,8 +373,8 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
     String? mobile = await preferences.getMobile();
     String? email = await preferences.getEmail();
 
-    loanApplicationBloc.loanRenewalOTP(widget.loanRenewalName).then((value){
-      if(value.isSuccessFull!){
+    loanApplicationBloc.loanRenewalOTP(widget.loanRenewalName).then((value) {
+      if (value.isSuccessFull!) {
         Utility.showToastMessage(Strings.success_otp_sent);
         // Firebase Event
         Map<String, dynamic> parameter = new Map<String, dynamic>();
@@ -336,20 +384,18 @@ class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
         parameter[Strings.demat_ac_no] = widget.stockAt;
         parameter[Strings.eligible_loan_prm] = widget.eligibleLoan;
         parameter[Strings.date_time] = getCurrentDateAndTime();
-        if(widget.isComingFor == Strings.loan) {
+        if (widget.isComingFor == Strings.loan) {
           firebaseEvent(Strings.pledge_otp_sent, parameter);
-        } else if(widget.isComingFor == Strings.increase_loan) {
+        } else if (widget.isComingFor == Strings.increase_loan) {
           firebaseEvent(Strings.increase_loan_otp_sent, parameter);
-        }else if(widget.isComingFor == Strings.loanRenewal) {
+        } else if (widget.isComingFor == Strings.loanRenewal) {
           firebaseEvent(Strings.loan_renewal_otp_sent, parameter);
         }
-
       } else if (value.errorCode == 403) {
         commonDialog(context, Strings.session_timeout, 4);
-      } else{
+      } else {
         showErrorMessage(value.errorMessage!);
       }
     });
   }
-
 }

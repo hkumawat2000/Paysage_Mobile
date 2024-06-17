@@ -23,20 +23,73 @@ class CommonWebViewScreenState extends State<CommonWebViewScreen> {
   Preferences preferences = Preferences();
   WebViewController? _myController;
   String? baseURL;
+  late final WebViewController controller;
 
   @override
   void initState() {
     super.initState();
     getData();
+    getURL();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            debugPrint('Page started loading: $url');
+          },
+          onPageFinished: (String url) async {
+            var title = await controller.getTitle();
+            if (title!.isEmpty) {
+              _myController!.reload();
+            }
+
+            debugPrint('Page finished loading: $url');
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('''
+Page resource error:
+  code: ${error.errorCode}
+  description: ${error.description}
+  errorType: ${error.errorType}
+  isForMainFrame: ${error.isForMainFrame}
+          ''');
+          },
+          onNavigationRequest: (NavigationRequest action) {
+            if (action.url.endsWith('.pdf') ||
+                action.url.startsWith('mailto:')) {
+              _launchURL(Uri.parse(action.url));
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(_url ?? "https://play.google.com/store/apps/details?id=com.choiceequitybroking.jiffy" ));
   }
 
-  void getData() async {
+  Future<void> getData() async {
     String? baseUrl = await preferences.getBaseURL();
     setState(() {
       baseURL = baseUrl;
     });
   }
 
+  Future<void> getURL() async {
+    if (widget.redirectionNumber == 1) {
+      _url = baseURL! + 'help?webview';
+    } else if (widget.redirectionNumber == 2) {
+      _url = baseURL! + 'privacy-policy?webview';
+    } else if (widget.redirectionNumber == 3) {
+      _url = baseURL! + 'terms-of-use?webview';
+    } else {
+      _url =
+          "https://play.google.com/store/apps/details?id=com.choiceequitybroking.jiffy";
+    }
+  }
 
   Future<bool> _willPopCallback() async {
     Navigator.pop(context, "cancel");
@@ -45,21 +98,25 @@ class CommonWebViewScreenState extends State<CommonWebViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    return WillPopScope(
-      onWillPop: _willPopCallback,
+    return PopScope(
+      onPopInvoked: (_) {
+        _willPopCallback();
+      },
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              icon: ArrowToolbarBackwardNavigation(),
-              onPressed: () => Navigator.pop(context, "cancel"),
+            icon: ArrowToolbarBackwardNavigation(),
+            onPressed: () => Navigator.pop(context, "cancel"),
           ),
           backgroundColor: colorBg,
           elevation: 0.0,
           centerTitle: true,
-          title: Text(widget.title != null ? widget.title! : "", style: TextStyle(color: appTheme)),
+          title: Text(widget.title != null ? widget.title! : "",
+              style: TextStyle(color: appTheme)),
         ),
-        body: baseURL == null ? Center(child: Text(Strings.please_wait)) : getPrivacyPolicyUrl(),
+        body: baseURL == null
+            ? Center(child: Text(Strings.please_wait))
+            : getPrivacyPolicyUrl(),
       ),
     );
   }
@@ -68,42 +125,35 @@ class CommonWebViewScreenState extends State<CommonWebViewScreen> {
     //1 = FAQ,
     //2 = Privacy Policy
     //3 = Terms of Use
-    if(widget.redirectionNumber ==1){
-      _url = baseURL! +'help?webview';
-    } else if(widget.redirectionNumber ==2){
-      _url = baseURL! +'privacy-policy?webview';
-    } else if(widget.redirectionNumber ==3){
-      _url = baseURL! +'terms-of-use?webview';
-    } else {
-      _url = "https://play.google.com/store/apps/details?id=com.choiceequitybroking.jiffy";
-    }
 
     return Column(
       children: [
         Expanded(
-          child: WebView(
-            key: _key,
-            javascriptMode: JavascriptMode.unrestricted,
-            initialUrl: _url,
-            onWebViewCreated: (controller) {
-              _myController = controller;
-            },
-            onPageFinished: (url) async {
-              if (_myController != null) {
-                var title = await _myController!.getTitle();
-                if (title!.isEmpty) {
-                  _myController!.reload();
-                }
-              }
-            },
-            navigationDelegate: (action) {
-              if (action.url.endsWith('.pdf') || action.url.startsWith('mailto:')) {
-                _launchURL(Uri.parse(action.url));
-                return NavigationDecision.prevent;
-              }
-              return NavigationDecision.navigate;
-            },
-          ),
+          child: WebViewWidget(controller: controller),
+          //  WebView(
+          //   key: _key,
+          //   javascriptMode: JavascriptMode.unrestricted,
+          //   initialUrl: _url,
+          //   onWebViewCreated: (controller) {
+          //     _myController = controller;
+          //   },
+          //   onPageFinished: (url) async {
+          //     if (_myController != null) {
+          //       var title = await _myController!.getTitle();
+          //       if (title!.isEmpty) {
+          //         _myController!.reload();
+          //       }
+          //     }
+          //   },
+          //   navigationDelegate: (action) {
+          //     if (action.url.endsWith('.pdf') ||
+          //         action.url.startsWith('mailto:')) {
+          //       _launchURL(Uri.parse(action.url));
+          //       return NavigationDecision.prevent;
+          //     }
+          //     return NavigationDecision.navigate;
+          //   },
+          // ),
         ),
       ],
     );

@@ -4,7 +4,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class AdditionalAccountDao with BaseDio{
+class AdditionalAccountDao extends BaseDio{
   Future<AdditionalAccountResponse> camsAccountAPI(emailID) async{
     Dio dio = await getBaseDio();
     AdditionalAccountResponse wrapper = AdditionalAccountResponse();

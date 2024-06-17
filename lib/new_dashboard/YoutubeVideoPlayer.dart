@@ -194,8 +194,8 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
           resizeToAvoidBottomInset: false,
           backgroundColor: colorBg,
           body: ScrollConfiguration(
-            behavior: new ScrollBehavior()
-              ..buildViewportChrome(context, Container(), AxisDirection.down),
+            behavior: new ScrollBehavior(),
+             // ..buildViewportChrome(context, Container(), AxisDirection.down),
             child: NestedScrollView(
               physics: NeverScrollableScrollPhysics(),
               headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -310,10 +310,11 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
   }
 
   Widget relatedVideoListItem(playingVID, videoID, title) {
-    return FlatButton(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10)
-      ),
+    return TextButton(
+      //TODO:
+      // shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(10)
+      // ),
       onPressed: () {
         Utility.isNetworkConnection().then((isNetwork) {
           if (isNetwork) {
@@ -335,8 +336,9 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
           }
         });
       },
-      padding: EdgeInsets.all(0),
-      splashColor: Colors.transparent,
+      //TODO:
+      // padding: EdgeInsets.all(0),
+      // splashColor: Colors.transparent,
       child: Container(
         height: 65,
         margin: EdgeInsets.fromLTRB(0, 2, 0, 2),

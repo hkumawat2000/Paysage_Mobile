@@ -900,10 +900,14 @@ void showSnackBar(final GlobalKey<ScaffoldState> _scaffoldKey) {
     content: Text(Strings.no_internet_message),
     action: SnackBarAction(
         label: Strings.ok,
-        onPressed: _scaffoldKey.currentState!.hideCurrentSnackBar),
+        onPressed: (){
+          null;
+        }
+       // _scaffoldKey.currentState!.hideCurrentSnackBar
+        ),
     duration: Duration(seconds: 10),
   );
-  _scaffoldKey.currentState!.showSnackBar(snackBarContent);
+  //_scaffoldKey.currentState!.showSnackBar(snackBarContent);
 }
 
 //Show SnackBar for dynamic message
@@ -913,10 +917,14 @@ void showSnackBarWithMessage(
     content: Text(message),
     action: SnackBarAction(
         label: Strings.ok,
-        onPressed: _scaffoldKey.currentState!.hideCurrentSnackBar),
+        onPressed: (){
+          null;
+        },
+      //  _scaffoldKey.currentState!.hideCurrentSnackBar
+        ),
     duration: Duration(days: 365),
   );
-  _scaffoldKey.currentState!.showSnackBar(snackBarContent);
+ // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
 }
 
 class onBackPressDialog extends StatefulWidget {

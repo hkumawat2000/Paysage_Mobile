@@ -263,8 +263,8 @@ class _MFRevokeQuantityState extends State<MFRevokeScreen> {
 
   Widget allUnpledgeData(){
     return ScrollConfiguration(
-      behavior: new ScrollBehavior()
-        ..buildViewportChrome(context, Container(), AxisDirection.down),
+      behavior: new ScrollBehavior(),
+        //..buildViewportChrome(context, Container(), AxisDirection.down),
       child: NestedScrollView(
         physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {

@@ -6,7 +6,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class DematDetailsDao with BaseDio{
+class DematDetailsDao extends BaseDio{
   Future<DematDetailsResponse> dematDetails(DematDetailNewRequest dematDetailNewRequest) async{
     Dio dio = await getBaseDio();
     DematDetailsResponse wrapper = DematDetailsResponse();

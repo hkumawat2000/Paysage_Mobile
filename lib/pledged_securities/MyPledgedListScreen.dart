@@ -30,7 +30,6 @@ import '../network/responsebean/AuthResponse/LoanDetailsResponse.dart';
 class MyPledgeSecurityScreen extends StatefulWidget {
   @override
   MyPledgeSecurityScreenState createState() => MyPledgeSecurityScreenState();
-
 }
 
 class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
@@ -73,10 +72,10 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
     super.dispose();
   }
 
-  void getAllLoansName() async{
-    allLoansNameBloc.allLoansName().then((value){
-      if(value.isSuccessFull!){
-        if(value.data != null){
+  void getAllLoansName() async {
+    allLoansNameBloc.allLoansName().then((value) {
+      if (value.isSuccessFull!) {
+        if (value.data != null) {
           setState(() {
             loanName = value.data![0].name;
           });
@@ -98,8 +97,9 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
   }
 
   getMyPledgedSecuritiesDetails(loan_name) async {
-    pledgedResponse = await myPledgedSecuritiesBloc.myPledgedSecuritiesDetails(loan_name);
-    if(pledgedResponse!.isSuccessFull!){
+    pledgedResponse =
+        await myPledgedSecuritiesBloc.myPledgedSecuritiesDetails(loan_name);
+    if (pledgedResponse!.isSuccessFull!) {
       setState(() {
         loanType = pledgedResponse!.data!.instrumentType;
         schemeType = pledgedResponse!.data!.schemeType;
@@ -109,46 +109,56 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
         loanBalance = pledgedResponse!.data!.balance;
         // allPledgedSecurities = pledgedResponse.data.allPledgedSecurities;
 
-        for(int i=0; i< pledgedResponse!.data!.allPledgedSecurities!.length; i++){
-          if(pledgedResponse!.data!.instrumentType == Strings.shares) {
-            if (pledgedResponse!.data!.allPledgedSecurities![i].pledgedQuantity!.toInt() != 0) {
-              allPledgedSecurities.add(pledgedResponse!.data!.allPledgedSecurities![i]);
+        for (int i = 0;
+            i < pledgedResponse!.data!.allPledgedSecurities!.length;
+            i++) {
+          if (pledgedResponse!.data!.instrumentType == Strings.shares) {
+            if (pledgedResponse!.data!.allPledgedSecurities![i].pledgedQuantity!
+                    .toInt() !=
+                0) {
+              allPledgedSecurities
+                  .add(pledgedResponse!.data!.allPledgedSecurities![i]);
             }
           } else {
-            if (pledgedResponse!.data!.allPledgedSecurities![i].pledgedQuantity! >= 0.001) {
-              allPledgedSecurities.add(pledgedResponse!.data!.allPledgedSecurities![i]);
+            if (pledgedResponse!
+                    .data!.allPledgedSecurities![i].pledgedQuantity! >=
+                0.001) {
+              allPledgedSecurities
+                  .add(pledgedResponse!.data!.allPledgedSecurities![i]);
             }
           }
         }
 
         selectedScrips = allPledgedSecurities.length.toString();
 
-        if(pledgedResponse!.data!.increaseLoan != null){
+        if (pledgedResponse!.data!.increaseLoan != null) {
           isIncreaseLoan = true;
         } else {
           isIncreaseLoan = false;
         }
 
-        if(pledgedResponse!.data!.unpledge != null){
+        if (pledgedResponse!.data!.unpledge != null) {
           isUnpledge = true;
-          if(pledgedResponse!.data!.unpledge!.unpledgeMsgWhileMarginShortfall != null) {
-            unPledgeMarginShortFallMsg = pledgedResponse!.data!.unpledge!.unpledgeMsgWhileMarginShortfall;
+          if (pledgedResponse!
+                  .data!.unpledge!.unpledgeMsgWhileMarginShortfall !=
+              null) {
+            unPledgeMarginShortFallMsg = pledgedResponse!
+                .data!.unpledge!.unpledgeMsgWhileMarginShortfall;
           }
         } else {
           isUnpledge = false;
         }
 
-        if(pledgedResponse!.data!.sellCollateral != null){
+        if (pledgedResponse!.data!.sellCollateral != null) {
           isSellCollateral = true;
         } else {
           isSellCollateral = false;
         }
-        if(pledgedResponse!.data!.isSellTriggered == 1){
+        if (pledgedResponse!.data!.isSellTriggered == 1) {
           isSellTriggered = true;
         } else {
           isSellTriggered = false;
         }
-
       });
     } else if (pledgedResponse!.errorCode == 403) {
       commonDialog(context, Strings.session_timeout, 4);
@@ -170,9 +180,12 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
         backgroundColor: colorBg,
         elevation: 0,
         centerTitle: true,
-        title: Text(loanName != null ? loanName : "", style: mediumTextStyle_18_gray_dark),
+        title: Text(loanName != null ? loanName : "",
+            style: mediumTextStyle_18_gray_dark),
       ),
-      body: pledgedResponse != null ? myPledgedSecuritiesBody() : Center(child: Text(responseText)),
+      body: pledgedResponse != null
+          ? myPledgedSecuritiesBody()
+          : Center(child: Text(responseText)),
     );
   }
 
@@ -185,7 +198,10 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
             padding: const EdgeInsets.only(right: 16, left: 15),
             child: Row(
               children: [
-                Expanded(child: headingText(loanType == Strings.shares ? "My Pledged Securities" : "My Pledged Schemes")),
+                Expanded(
+                    child: headingText(loanType == Strings.shares
+                        ? "My Pledged Securities"
+                        : "My Pledged Schemes")),
               ],
             ),
           ),
@@ -195,7 +211,8 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
             padding: const EdgeInsets.fromLTRB(14, 20, 15, 8),
             child: Row(
               children: [
-                Text(loanType == Strings.shares ? 'Security' : 'Schemes', style:boldTextStyle_18),
+                Text(loanType == Strings.shares ? 'Security' : 'Schemes',
+                    style: boldTextStyle_18),
               ],
             ),
           ),
@@ -213,8 +230,7 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
         margin: EdgeInsets.symmetric(vertical: 15.0),
         decoration: BoxDecoration(
           color: colorLightBlue,
-          borderRadius: BorderRadius.all(
-              Radius.circular(30.0)),
+          borderRadius: BorderRadius.all(Radius.circular(30.0)),
         ),
         child: Column(
           children: <Widget>[
@@ -223,9 +239,10 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(totalValue < 0
-                      ? negativeValue(totalValue)
-                      : '₹${numberToString(totalValue.toStringAsFixed(2))}',
+                  Text(
+                      totalValue < 0
+                          ? negativeValue(totalValue)
+                          : '₹${numberToString(totalValue.toStringAsFixed(2))}',
                       style: subHeadingValue),
                   // Text('₹${numberToString(totalValue.toStringAsFixed(2))}',
                   //     style: subHeadingValue),
@@ -254,7 +271,11 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 3.0),
-                                child: Text(loanType == Strings.shares ? Strings.scrips : Strings.schemes, style: subHeading),
+                                child: Text(
+                                    loanType == Strings.shares
+                                        ? Strings.scrips
+                                        : Strings.schemes,
+                                    style: subHeading),
                               ),
                             ],
                           ),
@@ -267,9 +288,10 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
                         Expanded(
                           child: Column(
                             children: <Widget>[
-                              Text(drawingPower < 0
-                                  ? negativeValue(drawingPower)
-                                  : '₹${numberToString(drawingPower.toStringAsFixed(2))}',
+                              Text(
+                                drawingPower < 0
+                                    ? negativeValue(drawingPower)
+                                    : '₹${numberToString(drawingPower.toStringAsFixed(2))}',
                                 style: subHeadingValue,
                               ),
                               // Text('₹${numberToString(drawingPower.toStringAsFixed(2))}',
@@ -277,7 +299,8 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
                               // ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 3.0),
-                                child: Text(Strings.drawing_power, style: subHeading),
+                                child: Text(Strings.drawing_power,
+                                    style: subHeading),
                               ),
                             ],
                           ),
@@ -292,32 +315,37 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: RaisedButton(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white, backgroundColor: appTheme, shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: Radius.circular(20.0),
+                                bottomRight: Radius.circular(20.0))),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 18.0),
                         child: Text(
-                          loanType == Strings.shares ?
-                          Strings.pledged_securities_transaction : Strings.pledged_schemes_transaction,
+                          loanType == Strings.shares
+                              ? Strings.pledged_securities_transaction
+                              : Strings.pledged_schemes_transaction,
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.only(
-                              bottomLeft: Radius.circular(20.0),
-                              bottomRight: Radius.circular(20.0))),
-                      textColor: Colors.white,
-                      color: appTheme,
                       onPressed: () {
                         Utility.isNetworkConnection().then((isNetwork) {
                           if (isNetwork) {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (BuildContext context) => MyPledgeTransactionScreen(loanName,
-                                        loanBalance,
-                                        drawingPower, loanType)));
+                                    builder: (BuildContext context) =>
+                                        MyPledgeTransactionScreen(
+                                            loanName,
+                                            loanBalance,
+                                            drawingPower,
+                                            loanType)));
                           } else {
-                            Utility.showToastMessage(Strings.no_internet_message);
+                            Utility.showToastMessage(
+                                Strings.no_internet_message);
                           }
                         });
                       },
@@ -343,30 +371,44 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
           children: <Widget>[
             GestureDetector(
               child: ReusableIconTextContainerCard(
-                cardIcon: Image.asset(AssetsImagePath.unpledge, height: 35, width: 35, color: colorGreen),
-                cardText: loanType == Strings.shares ? Strings.unpledge : Strings.revoke,
+                cardIcon: Image.asset(AssetsImagePath.unpledge,
+                    height: 35, width: 35, color: colorGreen),
+                cardText: loanType == Strings.shares
+                    ? Strings.unpledge
+                    : Strings.revoke,
                 circleColor: colorLightGreen,
               ),
-              onTap: (){
+              onTap: () {
                 Utility.isNetworkConnection().then((isNetwork) {
                   if (isNetwork) {
-                    if(unPledgeMarginShortFallMsg == null){
-                      if(isUnpledge){
-                        if(loanType == Strings.shares) {
+                    if (unPledgeMarginShortFallMsg == null) {
+                      if (isUnpledge) {
+                        if (loanType == Strings.shares) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => UnpledgeSharesScreen(loanName, Strings.all, "", loanType!)));
+                                  builder: (BuildContext context) =>
+                                      UnpledgeSharesScreen(loanName,
+                                          Strings.all, "", loanType!)));
                         } else {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (BuildContext context) =>
-                                  MFRevokeScreen(loanName, Strings.all, "", "")));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      MFRevokeScreen(
+                                          loanName, Strings.all, "", "")));
                         }
                       } else {
-                        commonDialog(context, loanType == Strings.shares ? Strings.unpledge_request_pending : Strings.revoke_request_pending, 0);
+                        commonDialog(
+                            context,
+                            loanType == Strings.shares
+                                ? Strings.unpledge_request_pending
+                                : Strings.revoke_request_pending,
+                            0);
                       }
                     } else {
-                      commonDialog(context, unPledgeMarginShortFallMsg.toString(), 0);
+                      commonDialog(
+                          context, unPledgeMarginShortFallMsg.toString(), 0);
                     }
                   } else {
                     Utility.showToastMessage(Strings.no_internet_message);
@@ -393,64 +435,81 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
                           shape: BoxShape.circle,
                           color: colorWhite,
                         ),
-                        child: Image.asset(AssetsImagePath.increase_loan_icon, height: 58, width: 58, fit: BoxFit.cover),
+                        child: Image.asset(AssetsImagePath.increase_loan_icon,
+                            height: 58, width: 58, fit: BoxFit.cover),
                       ),
-                      Text(
-                        'Pledge More', style: subHeading
-                      ),
+                      Text('Pledge More', style: subHeading),
                     ],
                   ),
                 ),
               ),
-              onTap: (){
+              onTap: () {
                 Utility.isNetworkConnection().then((isNetwork) {
                   if (isNetwork) {
-                    if(loanType == Strings.mutual_fund){
+                    if (loanType == Strings.mutual_fund) {
                       if (isIncreaseLoan) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext context) => MFIncreaseLoan(loanName, Strings.increase_loan, null, loanType!, schemeType!)));
+                                builder: (BuildContext context) =>
+                                    MFIncreaseLoan(
+                                        loanName,
+                                        Strings.increase_loan,
+                                        null,
+                                        loanType!,
+                                        schemeType!)));
                       } else {
-                        commonDialog(context, Strings.increase_loan_request_pending, 0);
+                        commonDialog(
+                            context, Strings.increase_loan_request_pending, 0);
                       }
                     } else {
-                      if(isIncreaseLoan){
-                        if(pledgedResponse!.data!.topUpApplication == 1){
-                          LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+                      if (isIncreaseLoan) {
+                        if (pledgedResponse!.data!.topUpApplication == 1) {
+                          LoadingDialogWidget.showDialogLoading(
+                              context, Strings.please_wait);
                           myLoansBloc.getLoanDetails(loanName).then((value) {
                             Navigator.pop(context);
                             if (value.isSuccessFull!) {
                               if (value.data!.loan != null) {
-                                if(value.data!.increaseLoan == 1){
+                                if (value.data!.increaseLoan == 1) {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (BuildContext context) => IncreaseLoanLimit(
-                                              value.data!.loan!.drawingPower,
-                                              value.data!.loan!.totalCollateralValue,
-                                              value.data!.loan!.name,
-                                              value.data!.loan!.drawingPowerStr,
-                                              value.data!.loan!.totalCollateralValueStr,
-                                              value.data!.pledgorBoid
-                                          )));
+                                          builder: (BuildContext context) =>
+                                              IncreaseLoanLimit(
+                                                  value
+                                                      .data!.loan!.drawingPower,
+                                                  value.data!.loan!
+                                                      .totalCollateralValue,
+                                                  value.data!.loan!.name,
+                                                  value.data!.loan!
+                                                      .drawingPowerStr,
+                                                  value.data!.loan!
+                                                      .totalCollateralValueStr,
+                                                  value.data!.pledgorBoid)));
                                 } else {
-                                  commonDialog(context, Strings.increase_loan_request_pending, 0);
+                                  commonDialog(context,
+                                      Strings.increase_loan_request_pending, 0);
                                 }
                               } else {
-                                commonDialog(context, 'Something went wrong! Try Again', 0);
+                                commonDialog(context,
+                                    'Something went wrong! Try Again', 0);
                               }
-                            } else if(value.errorCode == 403) {
+                            } else if (value.errorCode == 403) {
                               commonDialog(context, Strings.session_timeout, 4);
                             } else {
                               commonDialog(context, value.errorMessage, 0);
                             }
                           });
-                        }else{
-                          commonDialog(context, "Your top-up application: ${pledgedResponse!.data!.topUpApplicationName} is pending", 0);
+                        } else {
+                          commonDialog(
+                              context,
+                              "Your top-up application: ${pledgedResponse!.data!.topUpApplicationName} is pending",
+                              0);
                         }
                       } else {
-                        commonDialog(context, Strings.increase_loan_request_pending, 0);
+                        commonDialog(
+                            context, Strings.increase_loan_request_pending, 0);
                       }
                     }
                   } else {
@@ -462,35 +521,42 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
             SizedBox(width: 10),
             GestureDetector(
               child: ReusableIconTextContainerCard(
-                cardIcon: Image.asset(AssetsImagePath.sell_collateral, height: 36, width: 36,color: red),
-                cardText: loanType == Strings.shares ? Strings.sell : Strings.invoke,
+                cardIcon: Image.asset(AssetsImagePath.sell_collateral,
+                    height: 36, width: 36, color: red),
+                cardText:
+                    loanType == Strings.shares ? Strings.sell : Strings.invoke,
                 circleColor: colorLightRed,
               ),
-              onTap: (){
+              onTap: () {
                 Utility.isNetworkConnection().then((isNetwork) {
                   if (isNetwork) {
-                    if(isSellCollateral){
-                      if(!isSellTriggered){
-                        if(loanType == Strings.shares){
+                    if (isSellCollateral) {
+                      if (!isSellTriggered) {
+                        if (loanType == Strings.shares) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       SellCollateralScreen(loanName,
                                           Strings.all, "", loanType!)));
-                        }else{
+                        } else {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      MFInvokeScreen(loanName,
-                                          Strings.all, "", "")));
+                                      MFInvokeScreen(
+                                          loanName, Strings.all, "", "")));
                         }
                       } else {
                         commonDialog(context, Strings.sale_triggered_small, 0);
                       }
-                    } else{
-                      commonDialog(context, loanType == Strings.shares ? Strings.sell_collateral_request_pending : Strings.invoke_request_pending, 0);
+                    } else {
+                      commonDialog(
+                          context,
+                          loanType == Strings.shares
+                              ? Strings.sell_collateral_request_pending
+                              : Strings.invoke_request_pending,
+                          0);
                     }
                   } else {
                     Utility.showToastMessage(Strings.no_internet_message);
@@ -510,7 +576,7 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
       shrinkWrap: true,
       itemCount: allPledgedSecurities.length,
       itemBuilder: (context, index) {
-        for(int i = 0; i<allPledgedSecurities.length; i++){
+        for (int i = 0; i < allPledgedSecurities.length; i++) {
           pressDownList.add(false);
         }
         return Card(
@@ -520,270 +586,350 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
           ),
           margin: const EdgeInsets.fromLTRB(15, 2, 15, 10),
           child: Padding(
-              padding: EdgeInsets.only(left: 20.0, top: 5, right: 20, bottom: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(loanType == Strings.shares
+            padding: EdgeInsets.only(left: 20.0, top: 5, right: 20, bottom: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            loanType == Strings.shares
                                 ? allPledgedSecurities[index].securityName!
                                 : "${allPledgedSecurities[index].securityName!} [${allPledgedSecurities[index].folio}]",
-                              style: TextStyle(
-                                  color: appTheme,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 4),
-                            Text("${allPledgedSecurities[index].securityCategory!} (LTV: ${allPledgedSecurities[index].eligiblePercentage!.toStringAsFixed(2)}%)",
-                                style: boldTextStyle_12_gray),
-                          ],
-                        ),
-                      ),
-                      allPledgedSecurities[index].pledgedQuantity! >= 0.001 && allPledgedSecurities[index].amount! >= 0.001 ?
-                      IconButton(
-                        icon: Icon(
-                          pressDownList[index] == true
-                              ? Icons.keyboard_arrow_up
-                              : Icons.keyboard_arrow_down,
-                          size: 30.0,
-                          color: colorGrey,
-                        ),
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          setState(() {
-                            pressDownList[index] == true
-                                ? pressDownList[index] = false
-                                : pressDownList[index] = true;
-                          });
-                        },
-                      ) : SizedBox(height: 40)
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(bottom: 4.0),
-                  //   child: Row(
-                  //     children: <Widget>[
-                  //       Icon(
-                  //         Icons.check_circle_outline,
-                  //         size: 20.0,
-                  //         color: Colors.green,
-                  //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.only(left: 8.0),
-                  //         child: Text(
-                  //           allPledgedSecurities[index].securityCategory!,
-                  //           style: TextStyle(
-                  //               fontSize: 15.0,
-                  //               color: Colors.green,
-                  //               fontWeight: FontWeight.bold),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  Table(children: [
-                    TableRow(children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          scripsValueText(loanType == Strings.shares
-                              ? allPledgedSecurities[index].pledgedQuantity!.toInt().toString()
-                              : allPledgedSecurities[index].pledgedQuantity!.toString()),
-                          SizedBox(
-                            height: 5,
+                            style: TextStyle(
+                                color: appTheme,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
-                          mediumHeadingText(loanType == Strings.shares ? Strings.qty : Strings.units),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          scripsValueText(loanType == Strings.shares
-                              ? allPledgedSecurities[index].price!.toStringAsFixed(2)
-                              : allPledgedSecurities[index].price!.toString()),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          mediumHeadingText(loanType == Strings.shares ? Strings.price : Strings.nav),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          scripsValueText(loanType == Strings.shares
-                              ? allPledgedSecurities[index].amount!.toStringAsFixed(2)
-                              : allPledgedSecurities[index].amount!.toString()),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          mediumHeadingText(Strings.value),
-                        ],
-                      ),
-                    ]),
-                  ]),
-                  Visibility(
-                    visible: pressDownList[index],
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: RaisedButton(
-                              child: Text(loanType == Strings.shares ? 'Unpledge' : "Revoke",
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(40.0),
-                              ),
-                              textColor: Colors.white,
-                              color: appTheme,
-                              onPressed: () {
-                                Utility.isNetworkConnection().then((isNetwork) {
-                                  if (isNetwork) {
-                                    if(unPledgeMarginShortFallMsg == null){
-                                      if(isUnpledge){
-                                        if(loanType == Strings.shares) {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContext context) => UnpledgeSharesScreen(loanName, Strings.single, allPledgedSecurities[index].isin!, loanType!)));
-                                        } else {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContext context) => MFRevokeScreen(loanName, Strings.single, allPledgedSecurities[index].isin!, allPledgedSecurities[index].folio!)));
-                                        }
-                                      } else {
-                                        commonDialog(context, loanType == Strings.shares ? Strings.unpledge_request_pending : Strings.revoke_request_pending, 0);
-                                      }
-                                    } else {
-                                      commonDialog(context, unPledgeMarginShortFallMsg.toString(), 0);
-                                    }
-                                    // LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-                                    // unpledgeBloc.unpledgeDetails(loanName).then((value) {
-                                    //   if(value.isSuccessFull){
-                                    //     if(value.data.unpledge != null){
-                                    //       unPledgeList.clear();
-                                    //       unPledgeList.add(new UnPledgeList(
-                                    //           isin: allPledgedSecurities[index].isin,
-                                    //           quantity: double.parse(allPledgedSecurities[index].pledgedQuantity.toString())
-                                    //       ));
-                                    //       unpledgeBloc.requestUnpledgeOTP().then((value) {
-                                    //         Navigator.pop(context);
-                                    //         if (value.isSuccessFull) {
-                                    //           Utility.showToastMessage(value.message);
-                                    //           showModalBottomSheet(
-                                    //               backgroundColor: Colors.transparent,
-                                    //               context: context,
-                                    //               isScrollControlled: true,
-                                    //               isDismissible: false,
-                                    //               enableDrag: false,
-                                    //               builder: (BuildContext bc) {
-                                    //                 return UnpledgeOTPVerificationScreen(unPledgeList, loanName);
-                                    //               });
-                                    //         } else {
-                                    //           Utility.showToastMessage(value.errorMessage);
-                                    //         }
-                                    //       });
-                                    //     } else {
-                                    //       Navigator.pop(context);
-                                    //       commonDialog(context, 'Previous Unpledge Request is pending. Please Try Again After Sometime.', 0);
-                                    //     }
-                                    //   } else {
-                                    //     Navigator.pop(context);
-                                    //     Utility.showToastMessage(value.errorMessage);
-                                    //   }
-                                    // });
-                                  } else {
-                                    Utility.showToastMessage(Strings.no_internet_message);
-                                  }
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20.0,
-                          ),
-                          Expanded(
-                            child: RaisedButton(
-                              child: Text(loanType == Strings.shares ? 'Sell' : Strings.invoke,
-                                style: TextStyle(fontSize: 12.0),
-                              ),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(40.0),
-                              ),
-                              textColor: Colors.white,
-                              color: red,
-                              onPressed: () {
-                                Utility.isNetworkConnection().then((isNetwork) {
-                                  if (isNetwork) {
-                                    if(isSellCollateral){
-                                      if(!isSellTriggered) {
-                                        if(loanType == Strings.shares){
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContext context) => SellCollateralScreen(loanName, Strings.single, allPledgedSecurities[index].isin!, loanType!)));
-                                        }else{
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContext context) => MFInvokeScreen(loanName, Strings.single, allPledgedSecurities[index].isin!,allPledgedSecurities[index].folio!)));
-                                        }
-                                      } else {
-                                        commonDialog(context, Strings.sale_triggered_small, 0);
-                                      }
-                                    } else {
-                                      commonDialog(context, loanType == Strings.shares ? Strings.sell_collateral_request_pending : Strings.invoke_request_pending, 0);
-                                    }
-                                    // LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-                                    // sellList.clear();
-                                    // sellList.add(new SellList(
-                                    //     isin: allPledgedSecurities[index].isin,
-                                    //     quantity: double.parse(allPledgedSecurities[index].pledgedQuantity.toString())
-                                    // ));
-                                    // sellCollateralBloc.requestSellCollateralOTP().then((value) {
-                                    //   Navigator.pop(context);
-                                    //   if (value.isSuccessFull) {
-                                    //     Utility.showToastMessage(Strings.enter_otp);
-                                    //     showModalBottomSheet(
-                                    //       backgroundColor: Colors.transparent,
-                                    //       context: context,
-                                    //       isScrollControlled: true,
-                                    //       isDismissible: false,
-                                    //       enableDrag: false,
-                                    //       builder: (BuildContext bc) {
-                                    //         return SellCollateralOTPScreen(loanName, sellList);
-                                    //       },
-                                    //     );
-                                    //   } else {
-                                    //     Utility.showToastMessage(value.errorMessage);
-                                    //   }
-                                    // });
-                                  } else {
-                                    Utility.showToastMessage(Strings.no_internet_message);
-                                  }
-                                });
-                              },
-                            ),
-                          ),
+                          SizedBox(height: 4),
+                          Text(
+                              "${allPledgedSecurities[index].securityCategory!} (LTV: ${allPledgedSecurities[index].eligiblePercentage!.toStringAsFixed(2)}%)",
+                              style: boldTextStyle_12_gray),
                         ],
                       ),
                     ),
-                  )
-                ],
-              ),
+                    allPledgedSecurities[index].pledgedQuantity! >= 0.001 &&
+                            allPledgedSecurities[index].amount! >= 0.001
+                        ? IconButton(
+                            icon: Icon(
+                              pressDownList[index] == true
+                                  ? Icons.keyboard_arrow_up
+                                  : Icons.keyboard_arrow_down,
+                              size: 30.0,
+                              color: colorGrey,
+                            ),
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              setState(() {
+                                pressDownList[index] == true
+                                    ? pressDownList[index] = false
+                                    : pressDownList[index] = true;
+                              });
+                            },
+                          )
+                        : SizedBox(height: 40)
+                  ],
+                ),
+                SizedBox(height: 4),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 4.0),
+                //   child: Row(
+                //     children: <Widget>[
+                //       Icon(
+                //         Icons.check_circle_outline,
+                //         size: 20.0,
+                //         color: Colors.green,
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.only(left: 8.0),
+                //         child: Text(
+                //           allPledgedSecurities[index].securityCategory!,
+                //           style: TextStyle(
+                //               fontSize: 15.0,
+                //               color: Colors.green,
+                //               fontWeight: FontWeight.bold),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                Table(children: [
+                  TableRow(children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        scripsValueText(loanType == Strings.shares
+                            ? allPledgedSecurities[index]
+                                .pledgedQuantity!
+                                .toInt()
+                                .toString()
+                            : allPledgedSecurities[index]
+                                .pledgedQuantity!
+                                .toString()),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        mediumHeadingText(loanType == Strings.shares
+                            ? Strings.qty
+                            : Strings.units),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        scripsValueText(loanType == Strings.shares
+                            ? allPledgedSecurities[index]
+                                .price!
+                                .toStringAsFixed(2)
+                            : allPledgedSecurities[index].price!.toString()),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        mediumHeadingText(loanType == Strings.shares
+                            ? Strings.price
+                            : Strings.nav),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        scripsValueText(loanType == Strings.shares
+                            ? allPledgedSecurities[index]
+                                .amount!
+                                .toStringAsFixed(2)
+                            : allPledgedSecurities[index].amount!.toString()),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        mediumHeadingText(Strings.value),
+                      ],
+                    ),
+                  ]),
+                ]),
+                Visibility(
+                  visible: pressDownList[index],
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(40.0),
+                              ),
+                              onPrimary: Colors.white,
+                              primary: appTheme,
+                            ),
+                            child: Text(
+                              loanType == Strings.shares
+                                  ? 'Unpledge'
+                                  : "Revoke",
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                            onPressed: () {
+                              Utility.isNetworkConnection().then((isNetwork) {
+                                if (isNetwork) {
+                                  if (unPledgeMarginShortFallMsg == null) {
+                                    if (isUnpledge) {
+                                      if (loanType == Strings.shares) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext
+                                                        context) =>
+                                                    UnpledgeSharesScreen(
+                                                        loanName,
+                                                        Strings.single,
+                                                        allPledgedSecurities[
+                                                                index]
+                                                            .isin!,
+                                                        loanType!)));
+                                      } else {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext
+                                                        context) =>
+                                                    MFRevokeScreen(
+                                                        loanName,
+                                                        Strings.single,
+                                                        allPledgedSecurities[
+                                                                index]
+                                                            .isin!,
+                                                        allPledgedSecurities[
+                                                                index]
+                                                            .folio!)));
+                                      }
+                                    } else {
+                                      commonDialog(
+                                          context,
+                                          loanType == Strings.shares
+                                              ? Strings.unpledge_request_pending
+                                              : Strings.revoke_request_pending,
+                                          0);
+                                    }
+                                  } else {
+                                    commonDialog(
+                                        context,
+                                        unPledgeMarginShortFallMsg.toString(),
+                                        0);
+                                  }
+                                  // LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+                                  // unpledgeBloc.unpledgeDetails(loanName).then((value) {
+                                  //   if(value.isSuccessFull){
+                                  //     if(value.data.unpledge != null){
+                                  //       unPledgeList.clear();
+                                  //       unPledgeList.add(new UnPledgeList(
+                                  //           isin: allPledgedSecurities[index].isin,
+                                  //           quantity: double.parse(allPledgedSecurities[index].pledgedQuantity.toString())
+                                  //       ));
+                                  //       unpledgeBloc.requestUnpledgeOTP().then((value) {
+                                  //         Navigator.pop(context);
+                                  //         if (value.isSuccessFull) {
+                                  //           Utility.showToastMessage(value.message);
+                                  //           showModalBottomSheet(
+                                  //               backgroundColor: Colors.transparent,
+                                  //               context: context,
+                                  //               isScrollControlled: true,
+                                  //               isDismissible: false,
+                                  //               enableDrag: false,
+                                  //               builder: (BuildContext bc) {
+                                  //                 return UnpledgeOTPVerificationScreen(unPledgeList, loanName);
+                                  //               });
+                                  //         } else {
+                                  //           Utility.showToastMessage(value.errorMessage);
+                                  //         }
+                                  //       });
+                                  //     } else {
+                                  //       Navigator.pop(context);
+                                  //       commonDialog(context, 'Previous Unpledge Request is pending. Please Try Again After Sometime.', 0);
+                                  //     }
+                                  //   } else {
+                                  //     Navigator.pop(context);
+                                  //     Utility.showToastMessage(value.errorMessage);
+                                  //   }
+                                  // });
+                                } else {
+                                  Utility.showToastMessage(
+                                      Strings.no_internet_message);
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20.0,
+                        ),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(40.0),
+                              ),
+                              onPrimary: Colors.white,
+                              primary: red,
+                            ),
+                            child: Text(
+                              loanType == Strings.shares
+                                  ? 'Sell'
+                                  : Strings.invoke,
+                              style: TextStyle(fontSize: 12.0),
+                            ),
+                            onPressed: () {
+                              Utility.isNetworkConnection().then((isNetwork) {
+                                if (isNetwork) {
+                                  if (isSellCollateral) {
+                                    if (!isSellTriggered) {
+                                      if (loanType == Strings.shares) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext
+                                                        context) =>
+                                                    SellCollateralScreen(
+                                                        loanName,
+                                                        Strings.single,
+                                                        allPledgedSecurities[
+                                                                index]
+                                                            .isin!,
+                                                        loanType!)));
+                                      } else {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (BuildContext
+                                                        context) =>
+                                                    MFInvokeScreen(
+                                                        loanName,
+                                                        Strings.single,
+                                                        allPledgedSecurities[
+                                                                index]
+                                                            .isin!,
+                                                        allPledgedSecurities[
+                                                                index]
+                                                            .folio!)));
+                                      }
+                                    } else {
+                                      commonDialog(context,
+                                          Strings.sale_triggered_small, 0);
+                                    }
+                                  } else {
+                                    commonDialog(
+                                        context,
+                                        loanType == Strings.shares
+                                            ? Strings
+                                                .sell_collateral_request_pending
+                                            : Strings.invoke_request_pending,
+                                        0);
+                                  }
+                                  // LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+                                  // sellList.clear();
+                                  // sellList.add(new SellList(
+                                  //     isin: allPledgedSecurities[index].isin,
+                                  //     quantity: double.parse(allPledgedSecurities[index].pledgedQuantity.toString())
+                                  // ));
+                                  // sellCollateralBloc.requestSellCollateralOTP().then((value) {
+                                  //   Navigator.pop(context);
+                                  //   if (value.isSuccessFull) {
+                                  //     Utility.showToastMessage(Strings.enter_otp);
+                                  //     showModalBottomSheet(
+                                  //       backgroundColor: Colors.transparent,
+                                  //       context: context,
+                                  //       isScrollControlled: true,
+                                  //       isDismissible: false,
+                                  //       enableDrag: false,
+                                  //       builder: (BuildContext bc) {
+                                  //         return SellCollateralOTPScreen(loanName, sellList);
+                                  //       },
+                                  //     );
+                                  //   } else {
+                                  //     Utility.showToastMessage(value.errorMessage);
+                                  //   }
+                                  // });
+                                } else {
+                                  Utility.showToastMessage(
+                                      Strings.no_internet_message);
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-          );
+          ),
+        );
       },
     );
   }

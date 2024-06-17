@@ -5,7 +5,7 @@ import 'package:lms/util/AssetsImagePath.dart';
 import 'package:lms/util/Colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_entry_text_field/pin_entry_text_field.dart';
+//import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 
 class AadharVerificationScreen extends StatefulWidget {
   String eligibleLoan,cartName;
@@ -126,11 +126,12 @@ class AadharVerificationScreenState extends State<AadharVerificationScreen>
                       alignment: Alignment.center,
                       child:Column(
                         children: <Widget>[
-                          PinEntryTextField(
-                            fields: 4,
-                            showFieldAsBox: false,
-                            onSubmit: (String otp) {}, // end onSubmit
-                          ),
+                          //TODO : Replay package
+                          // PinEntryTextField(
+                          //   fields: 4,
+                          //   showFieldAsBox: false,
+                          //   onSubmit: (String otp) {}, // end onSubmit
+                          // ),
                           SizedBox(
                             height: 20,
                           ),

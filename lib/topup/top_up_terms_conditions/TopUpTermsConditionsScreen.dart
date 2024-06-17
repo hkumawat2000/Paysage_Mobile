@@ -27,10 +27,12 @@ class TopUpTermsConditionsScreen extends StatefulWidget {
   TopUpTermsConditionsScreen(this.loanName, this.topAmount);
 
   @override
-  TopUpTermsConditionsScreenState createState() => TopUpTermsConditionsScreenState();
+  TopUpTermsConditionsScreenState createState() =>
+      TopUpTermsConditionsScreenState();
 }
 
-class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> {
+class TopUpTermsConditionsScreenState
+    extends State<TopUpTermsConditionsScreen> {
   final topUpBloc = TopUpBloc();
   final topUpTermsConditionsBloc = TopUpTermsConditionsBloc();
   final topUpEsignBloc = TopUpEsignBloc();
@@ -48,16 +50,15 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
 
   @override
   void initState() {
-    topUpTermsConditionsBloc.getTopUpTermsCondition(widget.loanName, widget.topAmount);
+    topUpTermsConditionsBloc.getTopUpTermsCondition(
+        widget.loanName, widget.topAmount);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: colorBg,
-        body: getTnCList());
+        key: _scaffoldKey, backgroundColor: colorBg, body: getTnCList());
   }
 
   Widget appBar(AsyncSnapshot<TermsConditionResponse> snapshot) {
@@ -96,8 +97,8 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
   }
 
   _launchURL(url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
@@ -123,8 +124,11 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
   }
 
   Widget termsConditionWidget(AsyncSnapshot<TermsConditionResponse> snapshot) {
-    for(int i=0; i<snapshot.data!.termsConditionData!.tncCheckboxes!.length; i++){
-      if(checkBoxValue.length != snapshot.data!.termsConditionData!.tncCheckboxes!.length){
+    for (int i = 0;
+        i < snapshot.data!.termsConditionData!.tncCheckboxes!.length;
+        i++) {
+      if (checkBoxValue.length !=
+          snapshot.data!.termsConditionData!.tncCheckboxes!.length) {
         checkBoxValue.add(false);
       }
     }
@@ -142,24 +146,30 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                 ),
                 SizedBox(height: 10),
                 Html(
-                    data: snapshot.data!.termsConditionData!.tncHeader,
-                    onLinkTap: (url, _, __, ___) {
-                      Utility.isNetworkConnection().then((isNetwork) {
-                        if (isNetwork) {
-                          printLog("URL ==> $url");
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => TermsConditionWebView(url!, false, Strings.terms_and_condition)));
-                        } else {
-                          Utility.showToastMessage(Strings.no_internet_message);
-                        }
-                      });
-                    }),
+                  data: snapshot.data!.termsConditionData!.tncHeader,
+                  onLinkTap:(url, attributes, element) => 
+                  // (url, _, __, ___) {
+                    Utility.isNetworkConnection().then((isNetwork) {
+                      if (isNetwork) {
+                        printLog("URL ==> $url");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TermsConditionWebView(
+                                    url!, false, Strings.terms_and_condition)));
+                      } else {
+                        Utility.showToastMessage(Strings.no_internet_message);
+                      }
+                    })
+                  // },
+                ),
                 SizedBox(height: 10),
                 ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: snapshot.data!.termsConditionData!.tncCheckboxes!.length,
+                  itemCount:
+                      snapshot.data!.termsConditionData!.tncCheckboxes!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Row(
                       children: [
@@ -174,7 +184,8 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                         ),
                         Expanded(
                           child: Html(
-                            data: snapshot.data!.termsConditionData!.tncCheckboxes![index],
+                            data: snapshot.data!.termsConditionData!
+                                .tncCheckboxes![index],
                           ),
                         ),
                       ],
@@ -193,11 +204,15 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                       height: 45,
                       width: 100,
                       child: Material(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(35)),
                         elevation: 1.0,
-                        color: checkBoxValue.contains(false) ? colorGrey : appTheme,
+                        color: checkBoxValue.contains(false)
+                            ? colorGrey
+                            : appTheme,
                         child: MaterialButton(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
                           minWidth: MediaQuery.of(context).size.width,
                           onPressed: () async {
                             if (checkBoxValue.contains(false)) {
@@ -207,7 +222,8 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                                 if (isNetwork) {
                                   submitTopUp();
                                 } else {
-                                  Utility.showToastMessage(Strings.no_internet_message);
+                                  Utility.showToastMessage(
+                                      Strings.no_internet_message);
                                   Navigator.pop(context);
                                 }
                               });
@@ -215,7 +231,8 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                           },
                           child: Text(
                             Strings.accept,
-                            style: TextStyle(color: colorWhite, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: colorWhite, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -237,17 +254,18 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
     String email = await preferences.getEmail();
 
     LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-    TopUpRequest topUpRequest = TopUpRequest(loanName: widget.loanName, topupAmount: widget.topAmount);
+    TopUpRequest topUpRequest =
+        TopUpRequest(loanName: widget.loanName, topupAmount: widget.topAmount);
     topUpBloc.submitTopUp(topUpRequest).then((value) {
       Navigator.pop(context);
       if (value.isSuccessFull!) {
-
         // Firebase Event
         Map<String, dynamic> parameter = new Map<String, dynamic>();
         parameter[Strings.mobile_no] = mobile;
         parameter[Strings.email] = email;
         parameter[Strings.loan_number] = widget.loanName;
-        parameter[Strings.top_up_application] = value.topUpData!.topupApplicationName;
+        parameter[Strings.top_up_application] =
+            value.topUpData!.topupApplicationName;
         parameter[Strings.top_up_amount_prm] = widget.topAmount;
         parameter[Strings.date_time] = getCurrentDateAndTime();
         firebaseEvent(Strings.top_up_application_created, parameter);
@@ -308,14 +326,20 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
 
   void eSignVerification(String topUpApplicationName) {
     LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-    topUpEsignBloc.topUpEsignVerification(topUpApplicationName).then((value) async {
+    topUpEsignBloc
+        .topUpEsignVerification(topUpApplicationName)
+        .then((value) async {
       Navigator.pop(context);
       if (value.isSuccessFull!) {
-        if(value.data!.fileId != null) {
-          eSignProcess(topUpApplicationName, value.data!.esignUrl!, value.data!.fileId!);
+        if (value.data!.fileId != null) {
+          eSignProcess(
+              topUpApplicationName, value.data!.esignUrl!, value.data!.fileId!);
         } else {
           Utility.showToastMessage(Strings.top_up_e_sign_file_if_null);
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => DashBoard()));
         }
       } else {
         Utility.showToastMessage(value.message!);
@@ -328,8 +352,11 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
     String? mobile = await preferences.getMobile();
     String email = await preferences.getEmail();
 
-    String result = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => WebViewScreenWidget(value, fileId, Strings.top_up)));
+    String result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                WebViewScreenWidget(value, fileId, Strings.top_up)));
 
     // Firebase Event
     Map<String, dynamic> parameter = new Map<String, dynamic>();
@@ -376,7 +403,8 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           content: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -397,16 +425,21 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                   height: 40,
                   width: 100,
                   child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         Navigator.pop(context);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    DashBoard()));
                       },
                       child: Text(
                         Strings.ok,
@@ -430,7 +463,8 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           content: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -451,16 +485,21 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                   height: 40,
                   width: 100,
                   child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         Navigator.pop(context);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    DashBoard()));
                       },
                       child: Text(
                         Strings.ok,
@@ -484,7 +523,8 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
           content: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -505,16 +545,21 @@ class TopUpTermsConditionsScreenState extends State<TopUpTermsConditionsScreen> 
                   height: 40,
                   width: 100,
                   child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         Navigator.pop(context);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    DashBoard()));
                       },
                       child: Text(
                         Strings.ok,

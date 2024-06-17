@@ -4,7 +4,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class AllLoansNameDao with BaseDio{
+class AllLoansNameDao extends BaseDio{
 
   Future<AllLoanNamesResponse> allLoansName() async {
     Dio dio = await getBaseDio();

@@ -4,7 +4,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class MyPledgedSecuritiesDao with BaseDio{
+class MyPledgedSecuritiesDao extends BaseDio{
   Future<MyPledgedSecuritiesDetailsRespones> myPledgedSecuritiesDetails(loanName) async {
     Dio dio = await getBaseDio();
     MyPledgedSecuritiesDetailsRespones wrapper = MyPledgedSecuritiesDetailsRespones();

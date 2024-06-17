@@ -8,7 +8,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class FeedbackDao with BaseDio {
+class FeedbackDao extends BaseDio {
 
   Future<AuthLoginResponse> submitFeedback(FeedbackRequestBean feedbackPopUpRequestBean) async {
     Dio dio = await getBaseDio();

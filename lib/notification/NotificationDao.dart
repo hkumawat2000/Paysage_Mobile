@@ -4,7 +4,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class NotificationDao with BaseDio {
+class NotificationDao extends BaseDio {
 
   Future<NotificationResponseBean> getNotificationList() async {
     Dio dio = await getBaseDio();

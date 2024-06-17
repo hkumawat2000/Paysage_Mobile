@@ -357,17 +357,20 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
                             Expanded(
                               child: SizedBox(
                                 height: 29,
-                                child: RaisedButton(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.only(
+                                          bottomLeft: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0))),
+                                  onPrimary: Colors.white,
+                                  primary: appTheme,
+                                  ),
                                   child: Text(
                                     "Select",
                                     textAlign: TextAlign.center,
                                   ),
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.only(
-                                          bottomLeft: Radius.circular(10.0),
-                                          bottomRight: Radius.circular(10.0))),
-                                  textColor: Colors.white,
-                                  color: appTheme,
+                                  
                                   onPressed: () {
                                     Utility.isNetworkConnection().then((isNetwork) {
                                       if (isNetwork) {

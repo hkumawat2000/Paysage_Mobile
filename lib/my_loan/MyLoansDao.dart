@@ -9,7 +9,7 @@ import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
-class MyLoansDao with BaseDio {
+class MyLoansDao extends BaseDio {
   Future<MyLoansResponse> myActiveLoans() async {
     Dio dio = await getBaseDio();
     MyLoansResponse wrapper = MyLoansResponse();

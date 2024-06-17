@@ -4,7 +4,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class LenderDao with BaseDio {
+class LenderDao extends BaseDio {
   Future<LenderResponseBean> getLenders() async {
     Dio dio = await getBaseDio();
     LenderResponseBean wrapper = LenderResponseBean();

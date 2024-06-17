@@ -23,7 +23,8 @@ class _ViewPdfApprovedSecurityState extends State<ViewPdfApprovedSecurity> {
   @override
   void initState() {
     checkNetwork();
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    //TODO: change and handle for android view controller which
+    //if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
     super.initState();
   }
 

@@ -148,8 +148,8 @@ class _SettingMenuState extends State<SettingMenu> {
     return ClipRRect(
       borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       child: ScrollConfiguration(
-        behavior: new ScrollBehavior()
-          ..buildViewportChrome(context,Container(), AxisDirection.down),
+        behavior: new ScrollBehavior(),
+          //..buildViewportChrome(context,Container(), AxisDirection.down),
         child: NestedScrollView(
           physics: NeverScrollableScrollPhysics(),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -663,13 +663,13 @@ class _SettingMenuState extends State<SettingMenu> {
             Strings.message_sign_out,
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: const Text(Strings.alert_button_no),
               onPressed: () {
                 Navigator.of(context).pop(Strings.alert_button_no);
               },
             ),
-            FlatButton(
+            TextButton(
               child: const Text(Strings.alert_button_yes),
               onPressed: () {
                 preferences.clearPreferences();

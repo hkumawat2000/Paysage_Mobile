@@ -10,7 +10,7 @@ import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 
-class LoanStatementDao with BaseDio {
+class LoanStatementDao extends BaseDio {
 
   Future<LoanStatementResponseBean> getLoanStatements(
       LoanStatementRequestBean loanStatementRequestBean) async {

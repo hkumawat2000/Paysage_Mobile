@@ -9,7 +9,7 @@ import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
-class ProfileDao with BaseDio {
+class ProfileDao extends BaseDio {
   Future<ProfileListResponse> getProfile() async {
     Dio dio = await getBaseDio();
     ProfileListResponse wrapper = ProfileListResponse();

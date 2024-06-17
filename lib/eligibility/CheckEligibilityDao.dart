@@ -5,7 +5,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class CheckEligibilityDao with BaseDio {
+class CheckEligibilityDao extends BaseDio {
 
   Future<CheckEligibilityResponseBean> getEligibility(String lender, String searchData) async {
     Dio dio = await getBaseDio();

@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io' as Platform;
 
-class LoginDao with BaseDio {
+class LoginDao extends BaseDio {
   Preferences preferences = new Preferences();
 
   Future<AuthLoginResponse> loginSubmit(mobileNumber, firebase_token, acceptTerms) async {

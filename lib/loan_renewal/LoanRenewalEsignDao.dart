@@ -6,7 +6,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class LoanRenewalEsignDao with BaseDio {
+class LoanRenewalEsignDao extends BaseDio {
   Future<ESignResponse> loanRenewalEsignVerification(String loanRenewalApplicationName) async {
     Dio dio = await getBaseDio();
     ESignResponse wrapper = ESignResponse();

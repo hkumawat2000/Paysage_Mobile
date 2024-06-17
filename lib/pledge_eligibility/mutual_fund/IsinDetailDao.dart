@@ -4,7 +4,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class IsinDetailDao with BaseDio {
+class IsinDetailDao extends BaseDio {
   Future<IsinDetailResponseBean> isinDetails(isin) async {
     Dio dio = await getBaseDio();
     IsinDetailResponseBean wrapper = IsinDetailResponseBean();

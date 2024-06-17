@@ -234,8 +234,8 @@ class _SellCollateralScreenState extends State<SellCollateralScreen> {
 
   Widget sellCollateralBody() {
     return ScrollConfiguration(
-      behavior: new ScrollBehavior()
-        ..buildViewportChrome(context, Container(), AxisDirection.down),
+      behavior: new ScrollBehavior(),
+       // ..buildViewportChrome(context, Container(), AxisDirection.down),
       child: NestedScrollView(
         physics: NeverScrollableScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {

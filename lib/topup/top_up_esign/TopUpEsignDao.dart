@@ -5,7 +5,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class TopUpEsignDao with BaseDio {
+class TopUpEsignDao extends BaseDio {
   Future<ESignResponse> topUpEsignVerification(String topUpApplicationName) async {
     Dio dio = await getBaseDio();
     ESignResponse wrapper = ESignResponse();

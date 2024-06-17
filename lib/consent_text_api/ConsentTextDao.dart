@@ -5,7 +5,7 @@ import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:dio/dio.dart';
 
-class ConsentTextDao with BaseDio {
+class ConsentTextDao extends BaseDio {
   Future<ConsentTextResponse> getConsentText(consentFor) async {
     Dio dio = await getBaseDio();
     ConsentTextResponse wrapper = ConsentTextResponse();

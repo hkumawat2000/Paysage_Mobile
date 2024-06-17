@@ -10,9 +10,9 @@ class AppExpansionTile extends StatefulWidget {
     required this.title,
     required this.backgroundColor,
     required this.onExpansionChanged,
-    this.children: const <Widget>[],
+    this.children = const <Widget>[],
     required this.trailing,
-    this.initiallyExpanded: false,
+    this.initiallyExpanded = false,
   })
       : assert(initiallyExpanded != null),
         super(key: key);
@@ -53,7 +53,7 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
     _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation!);
     _backgroundColor = new ColorTween();
 
-    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context).readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded)
       _controller!.value = 1.0;
   }
@@ -88,7 +88,7 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
               // Rebuild without widget.children.
             });
           });
-        PageStorage.of(context)?.writeState(context, _isExpanded);
+        PageStorage.of(context).writeState(context, _isExpanded);
       });
       if (widget.onExpansionChanged != null) {
         widget.onExpansionChanged(_isExpanded);
@@ -148,10 +148,10 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
     _borderColor!.end = theme.dividerColor;
     _headerColor!
       ..begin = theme.textTheme.subtitle1!.color
-      ..end = theme.accentColor;
+      ..end = theme.primaryColor;
     _iconColor!
       ..begin = theme.unselectedWidgetColor
-      ..end = theme.accentColor;
+      ..end = theme.primaryColor;
     _backgroundColor!.end = widget.backgroundColor;
 
     final bool closed = !_isExpanded && _controller!.isDismissed;

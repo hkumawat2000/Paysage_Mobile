@@ -8,7 +8,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class NewDashboardDao with BaseDio{
+class NewDashboardDao extends BaseDio{
 
   Future<NewDashboardResponse> getDashboardData() async {
     Dio dio = await getBaseDio();

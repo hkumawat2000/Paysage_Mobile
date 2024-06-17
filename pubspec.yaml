@@ -15,40 +15,40 @@ description: A new Flutter project.
 version: 1.1.7+36
 
 environment:
-  sdk: ">=2.17.5 <3.0.0"
+  sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   rxdart: ^0.27.7 # Reactive dart programming.
-  dio: ^4.0.6 # Network API library
-  fluttertoast: ^8.1.2 # Toast
+  dio: ^5.4.3+1 # Network API library
+  fluttertoast: ^8.2.5 # Toast
   shared_preferences: ^2.0.15 # Shared Preferences
-  cookie_jar: ^3.0.1 # Manage Cookiesbuild rea
+  cookie_jar: ^4.0.8 # Manage Cookiesbuild rea
   path_provider: ^2.0.11 # Open device path storage
 #  sqflite: ^2.2.2 # Local Database
 #  android_intent: ^2.0.2 # Open Location Service
-  permission_handler: ^10.2.0 # Flutter Permission handler Plugin
-  device_info_plus: 8.0.0 # Get Android and iOS device info.
-  connectivity_plus: ^2.1.0 # Check Network Connectivity
-  intl: ^0.17.0
+  permission_handler: ^11.3.1 # Flutter Permission handler Plugin
+  device_info_plus: ^9.1.2 # Get Android and iOS device info.
+  connectivity_plus: ^6.0.3 # Check Network Connectivity
+  intl: ^0.18.1
   path: ^1.8.1
-  flutter_keyboard_visibility: ^5.0.0
-  flutter_typeahead: ^4.1.1
-  dio_cookie_manager: ^2.0.0
-  google_sign_in: ^5.4.2 #Login with google using firebase
+  flutter_keyboard_visibility: ^6.0.0
+  flutter_typeahead: ^5.2.0
+  dio_cookie_manager: ^3.1.1
+  google_sign_in: ^6.2.1 #Login with google using firebase
   firebase_auth: ^4.2.3 #Firebase authentication
   # flutter_facebook_login: ^3.0.0 #Login with facebook
 #  flutter_facebook_auth: ^5.0.6
-  http: ^0.13.5
-  pin_entry_text_field: ^0.1.4
+  http: ^1.2.0
+  #pin_entry_text_field: ^0.1.4
   #  passcode_screen: ^1.2.0
-  pin_code_fields: ^7.4.0
+  pin_code_fields: ^8.0.1
   solid_bottom_sheet: ^0.1.10
   url_launcher: ^6.1.7
   introduction_screen: ^3.1.1
   another_flushbar: ^1.12.29
-  sign_in_with_apple: ^4.3.0
+  sign_in_with_apple: ^5.0.0
   flutter_keychain: ^2.2.1
 #  mobile_number: ^1.0.2
 #  search_widget: ^1.0.2
@@ -62,7 +62,7 @@ dependencies:
   firebase_analytics: ^10.0.8
   firebase_crashlytics: ^3.0.8
   firebase_core: ^2.4.0
-  flutter_local_notifications: ^9.1.4
+  flutter_local_notifications: ^17.1.2
 #  step_progress_indicator: ^1.0.1 9.1.2+1
 #  sliding_up_panel: ^2.0.0+1
   #  flutter_svg: ^0.17.0
@@ -71,15 +71,15 @@ dependencies:
   #  sms_autofill: ^1.2.4
   #  sms_otp_auto_verify: ^1.2.2
 #  dotted_border: ^2.0.0+1
-  package_info_plus: ^3.0.2 # Package Info
+  package_info_plus: ^5.0.1 # Package Info
   dotted_line: ^3.1.0
-  webview_flutter: ^2.8.0
-  sms_autofill: ^2.2.0
+  webview_flutter: ^4.5.0
+  sms_autofill: ^2.4.0
   # grouped_buttons: ^1.0.4
 #  documents_picker: ^1.0.0 #need_to_remove
   razorpay_flutter: ^1.3.0
-  flutter_html: ^2.1.5
-  device_preview: ^1.1.0
+  flutter_html: ^3.0.0-beta.2
+ # device_preview: ^1.1.0
 #  syncfusion_flutter_charts: ^19.2.55+1
 #  syncfusion_flutter_pdfviewer: ^20.3.61-beta
   flutter_downloader: ^1.9.1
@@ -92,27 +92,27 @@ dependencies:
 #    ref: master
 #    publish_to: none #need_to_remove
 #  charts_flutter: ^0.11.0
-  shimmer: ^2.0.0
+  shimmer: ^3.0.0
   flutter_switch: ^0.3.2
 #  slide_countdown_clock: ^1.0.3
 #  flutter_jailbreak_detection: ^1.7.0
   safe_device: ^1.1.2
-  youtube_player_flutter: ^8.1.1
-  share_plus: ^6.3.0
-  image_picker: ^0.8.6
-  image_cropper: ^3.0.1
-  flutter_slidable: ^2.0.0
+  youtube_player_flutter: ^9.0.1
+  share_plus: ^7.2.2
+  image_picker: ^1.0.8
+  image_cropper: ^5.0.1
+  flutter_slidable: ^3.1.0
 #  flutter_login_facebook: ^1.1.0
 #  device_apps: ^2.1.1
 #  sms_autofill: ^2.0.1
-  cron: ^0.5.1
+  cron: ^0.6.0
 #  new_version: ^0.3.1
   firebase_in_app_messaging: ^0.7.0+9
   page_indicator: ^0.4.1
 #  simple_tooltip: ^1.0.0
 #  flutter_inappwebview: ^5.1.0+4
   uni_links: ^0.5.1
-  advance_pdf_viewer: 2.0.0
+  advance_pdf_viewer: ^2.0.1
 #  awesome_dropdown:
 #    git:
 #      url: https://github.com/aayushkedawat1/Flutter-CustomizableDropDown.git
@@ -121,6 +121,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
 
 # For information on the generic Dart part of this file, see the

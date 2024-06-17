@@ -5,7 +5,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class ApprovedSecuritiesDao with BaseDio {
+class ApprovedSecuritiesDao extends BaseDio {
   Future<ApprovedSecurityResponseBean> getApprovedSecurities(ApprovedSecuritiesRequestBean approvedSecuritiesRequestBean) async {
     Dio dio = await getBaseDio();
     ApprovedSecurityResponseBean wrapper = ApprovedSecurityResponseBean();

@@ -1107,14 +1107,14 @@ class MoreScreenState extends State<MoreScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        FlatButton(
+                        TextButton(
                           child: const Text(Strings.alert_button_no,
                               style: TextStyle(color: colorLightAppTheme)),
                           onPressed: () {
                             Navigator.of(context).pop(Strings.alert_button_no);
                           },
                         ),
-                        FlatButton(
+                        TextButton(
                           child: const Text(Strings.alert_button_yes,
                               style: TextStyle(color: colorLightAppTheme)),
                           onPressed: () {

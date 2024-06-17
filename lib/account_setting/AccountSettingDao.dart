@@ -7,7 +7,7 @@ import 'package:lms/util/constants.dart';
 import 'package:lms/util/strings.dart';
 import 'package:dio/dio.dart';
 
-class AccountSettingDao with BaseDio {
+class AccountSettingDao extends BaseDio {
 
   Future<UpdateProfileAndPinResponseBean> setProfileAndPin(updateProfileAndPinRequestBean) async {
     Dio dio = await getBaseDio();
