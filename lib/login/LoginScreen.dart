@@ -246,7 +246,6 @@ class LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin 
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         Utility.isNetworkConnection().then((isNetwork) async {
-                          print("HELLOW>.......$isNetwork");
                           if (isNetwork) {
                             login();
                           } else {

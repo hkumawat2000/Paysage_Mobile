@@ -250,13 +250,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   width: 100,
                   height: 100,
                   child: Image.asset(
-                    AssetsImagePath.spark_loan_logo,
+                    AssetsImagePath.lms_logo,
                   ),
                 ),
               ),
               SizedBox(height: 20),
               Text(
-                Strings.spark_loans,
+                Strings.lms,
                 style: TextStyle(
                     fontSize: 20, fontWeight: FontWeight.bold, color: appTheme),
               ),

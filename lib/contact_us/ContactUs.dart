@@ -33,7 +33,7 @@
 //     'Account opening',
 //     'Apply for a new loan',
 //     'Logins and Permissions',
-//     'Spark Loans',
+//     'LMS',
 //     'Fees and Charges',
 //     'Loan Management',
 //     'Manage Profile',
@@ -253,7 +253,7 @@
 //             height: 20,
 //           ),
 //           Text(
-//             'Spark Loans',
+//             'LMS',
 //             style: TextStyle(
 //                 fontSize: 17,
 //                 fontWeight: FontWeight.bold,

@@ -153,7 +153,7 @@ class _ForgotPinScreenState extends State<ForgotPinScreen> with CodeAutoFill{
               width: 140,
               height: 140,
               child: Image.asset(
-                AssetsImagePath.spark_loan_logo,
+                AssetsImagePath.lms_logo,
               ),
             ),
           ],

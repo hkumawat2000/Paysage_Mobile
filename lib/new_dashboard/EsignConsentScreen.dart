@@ -76,13 +76,13 @@ class EsignConsentScreenState extends State<EsignConsentScreen> {
                 children: [
                   SizedBox(height: 20),
                   Text(
-                      "By Clicking on Yes, I authorize Spark Financial Technologies Private Limited to -"),
+                      "By Clicking on Yes, I authorize Atrina Financial Technologies Private Limited to -"),
                   SizedBox(height: 20),
                   Text(
-                      "1. Use my Aadhaar / Virtual ID details (as applicable) for the purpose of digitally signing of loan documents for/with lending partner(s) of Spark Financial Technologies Private Limited and authenticate my identity through the Aadhaar Authentication system (Aadhaar based e-KYC services of UIDAI) in accordance with the provisions of the Aadhaar (Targeted Delivery of Financial and other Subsidies, Benefits and Services) Act, 2016 and the allied rules and regulations notified thereunder and for no other purpose."),
+                      "1. Use my Aadhaar / Virtual ID details (as applicable) for the purpose of digitally signing of loan documents for/with lending partner(s) of Atrina Financial Technologies Private Limited and authenticate my identity through the Aadhaar Authentication system (Aadhaar based e-KYC services of UIDAI) in accordance with the provisions of the Aadhaar (Targeted Delivery of Financial and other Subsidies, Benefits and Services) Act, 2016 and the allied rules and regulations notified thereunder and for no other purpose."),
                   SizedBox(height: 10),
                   Text(
-                      "2. Authenticate my Aadhaar/Virtual ID through OTP or Biometric for authenticating my identity through the Aadhaar Authentication system for obtaining my e-KYC through Aadhaar based e-KYC services of UIDAI and use my Photo and Demographic details (Name, Gender, Date of Birth and Address) for the purpose of digitally signing of loan documents for/with lending partner(s) of Spark Financial Technologies Private Limited."),
+                      "2. Authenticate my Aadhaar/Virtual ID through OTP or Biometric for authenticating my identity through the Aadhaar Authentication system for obtaining my e-KYC through Aadhaar based e-KYC services of UIDAI and use my Photo and Demographic details (Name, Gender, Date of Birth and Address) for the purpose of digitally signing of loan documents for/with lending partner(s) of Atrina Financial Technologies Private Limited."),
                   SizedBox(height: 10),
                   Text(
                       "3. I understand that Security and confidentiality of personal identity data provided, for the purpose of Aadhaar based authentication is ensured by NSDL e-Gov and the data will be stored by NSDL e-Gov till such time as mentioned in guidelines from UIDAI from time to time."),

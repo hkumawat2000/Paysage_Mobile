@@ -57,26 +57,25 @@ import 'package:url_launcher/url_launcher.dart';
 import '../mf_increase_loan/MFIncreaseLoan.dart';
 
 class DashBoard extends StatefulWidget {
+
   final int selectedIndex;
   final bool isFromPinScreen;
 
   DashBoard({this.selectedIndex = 0, this.isFromPinScreen = false});
 
   @override
-  _DashBoardState createState() => _DashBoardState(
-      selectedIndex: selectedIndex, isFromPinScreen: isFromPinScreen);
+  _DashBoardState createState() => _DashBoardState(selectedIndex: selectedIndex, isFromPinScreen: isFromPinScreen);
 }
 
 class _DashBoardState extends State<DashBoard> {
+
   int selectedIndex;
   bool isFromPinScreen;
   _DashBoardState({this.selectedIndex = 0, this.isFromPinScreen = false});
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  final FirebaseInAppMessaging _firebaseInAppMessaging =
-      FirebaseInAppMessaging.instance;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  final FirebaseInAppMessaging _firebaseInAppMessaging = FirebaseInAppMessaging.instance;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   Preferences preferences = Preferences();
   static var notificationId, messageId;
@@ -101,19 +100,18 @@ class _DashBoardState extends State<DashBoard> {
     super.initState();
   }
 
-  forceUpdate() {
+  forceUpdate(){
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
         PackageInfo packageInfo = await PackageInfo.fromPlatform();
         String packageName = packageInfo.packageName;
         String localVersion = packageInfo.version;
-        if (packageName == Strings.ios_prod_package ||
-            packageName == Strings.android_prod_package) {
+        if(packageName == Strings.ios_prod_package || packageName == Strings.android_prod_package){
           await newDashboardBloc.forceUpdate().then((value) async {
             if (value.isSuccessFull!) {
-              if (value.updateData != null) {
+              if(value.updateData != null){
                 String storeURL, storeWhatsNew, storeVersion;
-                if (Platform.isAndroid) {
+                if(Platform.isAndroid) {
                   storeURL = value.updateData!.playStoreLink!;
                   storeVersion = value.updateData!.androidVersion!;
                 } else {
@@ -121,16 +119,12 @@ class _DashBoardState extends State<DashBoard> {
                   storeVersion = value.updateData!.iosVersion!;
                 }
                 storeWhatsNew = value.updateData!.whatsNew!;
-                bool canUpdateValue = await Utility()
-                    .canUpdateVersion(storeVersion, localVersion);
+                bool canUpdateValue = await Utility().canUpdateVersion(storeVersion, localVersion);
                 printLog("storeVersion ==> $storeVersion");
                 printLog("localVersion ==> $localVersion");
                 printLog("canUpdateValue ==> $canUpdateValue");
-                if (canUpdateValue != null &&
-                    canUpdateValue &&
-                    value.updateData!.forceUpdate == 1) {
-                  Utility()
-                      .forceUpdatePopUp(context, true, storeURL, storeWhatsNew);
+                if(canUpdateValue != null && canUpdateValue && value.updateData!.forceUpdate == 1){
+                  Utility().forceUpdatePopUp(context, true, storeURL, storeWhatsNew);
                 }
               }
             } else {
@@ -149,8 +143,8 @@ class _DashBoardState extends State<DashBoard> {
   //   // String packageName = packageInfo.packageName;
   //   // if(packageName == Strings.ios_prod_package || packageName == Strings.android_prod_package){
   //     final newVersion = NewVersion(
-  //         iOSId: 'loans.sparktechnologies.spark.loans',
-  //         androidId: 'com.sparktechnologies.sparkloans',
+  //         iOSId: 'loans.atrinatechnologies.lms',
+  //         androidId: 'com.atriina.lms',
   //         iOSAppStoreCountry: 'IN'
   //     );
   //
@@ -180,12 +174,13 @@ class _DashBoardState extends State<DashBoard> {
   //   // }
   // }
 
+
   redirectNotification() async {
     String screenToOpen = await preferences.getNotificationRedirect();
     String notificationLoan = await preferences.getNotificationLoan();
     printLog("screenToOpen for notification ====>> $screenToOpen");
     printLog("notificationLoan ====>> $notificationLoan");
-    if (screenToOpen != "") {
+    if(screenToOpen != ""){
       await notificationNavigator(context, screenToOpen, notificationLoan);
       await preferences.setNotificationRedirect("");
       await preferences.setNotificationLoan("");
@@ -195,7 +190,7 @@ class _DashBoardState extends State<DashBoard> {
   redirectSms() async {
     String screenToOpen = await preferences.getSmsRedirection();
     printLog("screenToOpen for sms ====>> $screenToOpen");
-    if (screenToOpen != null && screenToOpen.isNotEmpty) {
+    if(screenToOpen != null && screenToOpen.isNotEmpty){
       await smsNavigator(context, screenToOpen);
       await preferences.setSmsRedirection("");
     }
@@ -241,8 +236,7 @@ class _DashBoardState extends State<DashBoard> {
       sound: true,
     );
 
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
+    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null && isFromPinScreen) {
       _handleMessageOnLaunch(initialMessage);
     }
@@ -252,9 +246,8 @@ class _DashBoardState extends State<DashBoard> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       printLog("==================> FCM <==================");
       printLog("onMessage :: ${json.encode(message.data)}");
-      if (message.messageId != messageId) {
-        if (message.notification != null &&
-            message.notification!.title != null) {
+      if (message.messageId != messageId){
+        if(message.notification != null && message.notification!.title != null) {
           preferences.setNotificationId(message.messageId!);
           messageId = message.messageId!;
           int id = int.parse(message.data['notification_id'].toString());
@@ -266,14 +259,14 @@ class _DashBoardState extends State<DashBoard> {
           );
         }
       }
-    });
+    }
+    );
 
-    _firebaseMessaging.requestPermission(
-        sound: true, badge: false, alert: true);
+    _firebaseMessaging.requestPermission(sound: true, badge: false, alert: true);
   }
 
   void _handleMessageOnLaunch(RemoteMessage message) async {
-    if (message.notification != null && message.notification!.title != null) {
+    if(message.notification != null && message.notification!.title != null) {
       if (notificationId != message.data['notification_id']) {
         printLog("==================> FCM <==================");
         printLog("onLaunch :: ${json.encode(message.data)}");
@@ -282,14 +275,11 @@ class _DashBoardState extends State<DashBoard> {
         Future.delayed(const Duration(milliseconds: 100), () {});
         if (mounted) {
           LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-          notificationBloc
-              .deleteOrClearNotification(1, 0, message.data["name"])
-              .then((value) async {
+          notificationBloc.deleteOrClearNotification(1, 0, message.data["name"]).then((value) async {
             Navigator.pop(context);
             if (value.isSuccessFull!) {
-              await notificationNavigator(
-                  context, message.data["screen"], message.data["loan_no"]);
-            } else if (value.errorCode == 403) {
+              await notificationNavigator(context, message.data["screen"], message.data["loan_no"]);
+            } else if(value.errorCode == 403) {
               commonDialog(context, Strings.session_timeout, 4);
             } else {
               Utility.showToastMessage(value.errorMessage!);
@@ -301,7 +291,7 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   void _handleMessageOnResume(RemoteMessage message) async {
-    if (message.notification != null && message.notification!.title != null) {
+    if(message.notification != null && message.notification!.title != null) {
       if (notificationId != message.data['notification_id']) {
         printLog("==================> FCM <==================");
         printLog("onResume :: ${json.encode(message.data)}");
@@ -312,16 +302,13 @@ class _DashBoardState extends State<DashBoard> {
         Future.delayed(const Duration(milliseconds: 100), () {});
         if (mounted) {
           LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-          notificationBloc
-              .deleteOrClearNotification(1, 0, message.data["name"])
-              .then((value) async {
+          notificationBloc.deleteOrClearNotification(1, 0, message.data["name"]).then((value) async {
             Navigator.pop(context);
             if (value.isSuccessFull!) {
-              await notificationNavigator(
-                  context, message.data["screen"], message.data["loan_no"]);
+              await notificationNavigator(context, message.data["screen"], message.data["loan_no"]);
               await preferences.setNotificationRedirect("");
               await preferences.setNotificationLoan("");
-            } else if (value.errorCode == 403) {
+            } else if(value.errorCode == 403) {
               commonDialog(context, Strings.session_timeout, 4);
             } else {
               Utility.showToastMessage(value.errorMessage!);
@@ -332,8 +319,9 @@ class _DashBoardState extends State<DashBoard> {
     }
   }
 
+
   Future selectNotification(String? payload) async {
-    if (payload != null) {
+    if (payload != null){
       printLog("payload ===>> $payload");
       String screen = payload.split("&")[0];
       String loan = payload.split("&")[1];
@@ -342,13 +330,11 @@ class _DashBoardState extends State<DashBoard> {
       printLog("Loan ===>> $loan");
       printLog("Name ===>> $name");
       LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-      notificationBloc
-          .deleteOrClearNotification(1, 0, name)
-          .then((value) async {
+      notificationBloc.deleteOrClearNotification(1, 0, name).then((value) async {
         Navigator.pop(context);
         if (value.isSuccessFull!) {
           await notificationNavigator(context, screen, loan);
-        } else if (value.errorCode == 403) {
+        } else if(value.errorCode == 403) {
           commonDialog(context, Strings.session_timeout, 4);
         } else {
           Utility.showToastMessage(value.errorMessage!);
@@ -357,40 +343,35 @@ class _DashBoardState extends State<DashBoard> {
     }
   }
 
-  void showSimpleNotification(
-      int id, String title, String body, String payload) async {
-    AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-      Strings.channelID,
-      Strings.channelName,
-      importance: Importance.high,
-      priority: Priority.high,
-      groupKey: Strings.groupKey,
-      playSound: true,
-      styleInformation: BigTextStyleInformation(''),
+  void showSimpleNotification(int id, String title, String body, String payload) async{
+    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+        Strings.channelID,
+        Strings.channelName,
+        importance: Importance.high,
+        priority: Priority.high,
+        groupKey: Strings.groupKey,
+        playSound: true,
+        styleInformation: BigTextStyleInformation(''),
     );
 
-    NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
+    NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
 
-    await flutterLocalNotificationsPlugin
-        .show(id, title, body, notificationDetails, payload: payload);
+    await flutterLocalNotificationsPlugin.show(id, title, body, notificationDetails, payload: payload);
 
-    if (Platform.isAndroid) {
+    if(Platform.isAndroid) {
       NotificationDetails groupNotification = getGroupNotifier(id);
-      await flutterLocalNotificationsPlugin
-          .show(0, title, body, groupNotification, payload: payload);
+      await flutterLocalNotificationsPlugin.show(0, title, body, groupNotification, payload: payload);
     }
   }
 
-  NotificationDetails getGroupNotifier(int id) {
-    InboxStyleInformation inboxStyleInformation = InboxStyleInformation([],
-        contentTitle: 'new notifications', summaryText: '');
+  NotificationDetails getGroupNotifier(int id){
+    InboxStyleInformation inboxStyleInformation = InboxStyleInformation(
+        [],
+        contentTitle: 'new notifications',
+        summaryText: '');
 
-    AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-      Strings.channelID,
-      Strings.channelName,
+    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(
+      Strings.channelID, Strings.channelName,
       styleInformation: inboxStyleInformation,
       groupKey: Strings.groupKey,
       playSound: false,
@@ -400,6 +381,7 @@ class _DashBoardState extends State<DashBoard> {
 
     return NotificationDetails(android: androidNotificationDetails);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -423,10 +405,9 @@ class _DashBoardState extends State<DashBoard> {
 
   Future<bool> _onBackPressed() async {
     return await showDialog(
-          context: context,
-          builder: (context) => onBackPressDialog(1, Strings.exit_app),
-        ) ??
-        false;
+      context: context,
+      builder: (context) => onBackPressDialog(1, Strings.exit_app),
+    ) ?? false;
   }
 
   void _onItemTapped(int index) {
@@ -599,18 +580,15 @@ class _NewDashboardScreenState extends State<HomeScreen> {
   List<ActiveLoans> activeLoanList = <ActiveLoans>[];
   List<ActionableLoan> actionableLoanList = <ActionableLoan>[];
   List<UnderProcessLa> underProcessLoanList = <UnderProcessLa>[];
-  List<UnderProcessLoanRenewalApp> underProcessLoanRenewalList =
-      <UnderProcessLoanRenewalApp>[];
+  List<UnderProcessLoanRenewalApp> underProcessLoanRenewalList = <UnderProcessLoanRenewalApp>[];
   List<TopupList> topUpList = <TopupList>[];
   List<InterestLoanList> interestLoanNameList = <InterestLoanList>[];
-  List<LoanWithMarginShortfallList> marginShortfallList =
-      <LoanWithMarginShortfallList>[];
+  List<LoanWithMarginShortfallList> marginShortfallList = <LoanWithMarginShortfallList>[];
   List<SellCollateralList> pendingSellCollateralList = <SellCollateralList>[];
   List<UnpledgeList> pendingUnPledgeList = <UnpledgeList>[];
   List<String> videoIDList = <String>[];
   List<String> videoNameList = <String>[];
-  List<SellCollateralTopupAndUnpledgeList> sellCollateralTopUpAndUnpledgeList =
-      <SellCollateralTopupAndUnpledgeList>[];
+  List<SellCollateralTopupAndUnpledgeList> sellCollateralTopUpAndUnpledgeList = <SellCollateralTopupAndUnpledgeList>[];
   String userFullName = '', loanName = '';
   int shortFallHours = 0, shortFallMin = 0, shortFallSec = 0;
   var timerDays = 0, timerHours = 0, timerMin = 0, timerSec = 0;
@@ -655,18 +633,16 @@ class _NewDashboardScreenState extends State<HomeScreen> {
       }
     });
     _hideButtonController.addListener(() {
-      if (_hideButtonController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
+      if (_hideButtonController.position.userScrollDirection == ScrollDirection.reverse) {
         setState(() {
-          if (isUpdateRequired) {
+          if(isUpdateRequired) {
             isUpdateFlushVisible = false;
           }
         });
       }
-      if (_hideButtonController.position.userScrollDirection ==
-          ScrollDirection.forward) {
+      if (_hideButtonController.position.userScrollDirection == ScrollDirection.forward) {
         setState(() {
-          if (isUpdateRequired) {
+          if(isUpdateRequired) {
             isUpdateFlushVisible = true;
           }
         });
@@ -677,10 +653,10 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   getData() async {
     String? privacyPolicyUrl;
-    var base_url = await preferences!.getBaseURL();
-    setState(() {
-      baseURL = base_url;
-    });
+      var base_url = await preferences!.getBaseURL();
+      setState(() {
+        baseURL = base_url;
+      });
     privacyPolicyUrl = await preferences!.getPrivacyPolicyUrl();
     isClicked = await preferences!.getOkClicked();
     // isVisitedCams = await preferences!.getIsVisitedCams();
@@ -690,16 +666,13 @@ class _NewDashboardScreenState extends State<HomeScreen> {
     //   Navigator.push(context, MaterialPageRoute(
     //       builder: (context) => DematDetailScreen(1,"", "", "", "")));
     // }
-    if (isClicked!) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  AdditionalAccountDetailScreen(2, "", "", "")));
+    if(isClicked!){
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) => AdditionalAccountDetailScreen(2, "", "", "")));
     }
   }
 
-  runClone() {
+  runClone(){
     cron.schedule(new Schedule.parse('0 0 * * *'), () async {
       callDashBoardApi();
       callLoanStatementApi();
@@ -712,143 +685,121 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   callDashBoardApi() async {
     newDashboardBloc.getDashboardData().then((value) {
-      if (mounted) {
-        if (value.isSuccessFull!) {
-          setState(() {
-            isDashBoardAPIResponded = true;
-            isTimerDone = false;
-            marginShortfallList.clear();
-            interestLoanNameList.clear();
-            videoIDList.clear();
-            eSignLoanList.clear();
-            eSignLoanRenewalList.clear();
-            eSignIncreaseLoanList.clear();
-            topUpESignLoanList.clear();
-            if (isDashBoardAPIResponded && isLoanAPIResponded) {
-              isAPIResponded = true;
-            }
-            // if(value.data!.userKyc != null){
-            //   kycStatus = value.data!.userKyc!.kycStatus!;
-            // }else{
-            //   kycStatus = "New";
-            // }
-            if (value.newDashboardData!.customer != null) {
-              isViewProgressBarIndicator = true;
-              isViewCategoryItem = true;
-              isViewPlayVideoCard = true;
-              isViewInviteCard = true;
-              customer = value.newDashboardData!.customer;
-              // preferences!.setLoanOpen(customer!.loanOpen!);
-              viewEmailVisible = customer!.isEmailVerified == 1 ? false : true;
-              // isKYCUpdatePending = customer!.kycUpdate == 0 ? true : false;
-              isKYCComplete = customer!.kycUpdate == 1 ? true : false;
-              // preferences!.setUserKYC(isKYCComplete);
-            }
+      if(mounted) {
+      if (value.isSuccessFull!) {
+        setState(() {
+          isDashBoardAPIResponded = true;
+          isTimerDone = false;
+          marginShortfallList.clear();
+          interestLoanNameList.clear();
+          videoIDList.clear();
+          eSignLoanList.clear();
+          eSignLoanRenewalList.clear();
+          eSignIncreaseLoanList.clear();
+          topUpESignLoanList.clear();
+          if (isDashBoardAPIResponded && isLoanAPIResponded) {
+            isAPIResponded = true;
+          }
+          // if(value.data!.userKyc != null){
+          //   kycStatus = value.data!.userKyc!.kycStatus!;
+          // }else{
+          //   kycStatus = "New";
+          // }
+          if (value.newDashboardData!.customer != null) {
+            isViewProgressBarIndicator = true;
+            isViewCategoryItem = true;
+            isViewPlayVideoCard = true;
+            isViewInviteCard = true;
+            customer = value.newDashboardData!.customer;
+            // preferences!.setLoanOpen(customer!.loanOpen!);
+            viewEmailVisible = customer!.isEmailVerified == 1 ? false : true;
+            // isKYCUpdatePending = customer!.kycUpdate == 0 ? true : false;
+            isKYCComplete = customer!.kycUpdate == 1 ? true : false;
+            // preferences!.setUserKYC(isKYCComplete);
+          }
 
             if (value.data!.userKyc != null) {
               kycDocName = value.data!.userKyc!.name;
               String kycType = value.data!.userKyc!.kycType!;
               kycStatus = value.data!.userKyc!.kycStatus!;
-              if (kycType == "CHOICE") {
+              if(kycType == "CHOICE"){
                 preferences!.setIsChoiceUser(true);
-              } else {
+              }else{
                 preferences!.setIsChoiceUser(false);
               }
-              if (kycStatus == "Pending" || kycStatus == "Rejected") {
+              if(kycStatus == "Pending" || kycStatus == "Rejected"){
                 userFullName = value.data!.customer!.fullName!;
-              } else {
+              }else{
                 userFullName = value.data!.userKyc!.fullname!;
               }
 
-              if (value.data!.userKyc!.bankAccount != null &&
-                  value.data!.userKyc!.bankAccount!.length != 0) {
-                bankStatus = value.data!.userKyc!.bankAccount![0].bankStatus;
-                if (bankStatus != null && bankStatus!.isEmpty) {
-                  bankStatus = "New";
-                }
-              } else {
-                bankStatus = "New";
-              }
+            if(value.data!.userKyc!.bankAccount != null && value.data!.userKyc!.bankAccount!.length != 0){
+               bankStatus = value.data!.userKyc!.bankAccount![0].bankStatus;
+               if(bankStatus != null && bankStatus!.isEmpty){
+                 bankStatus = "New";
+               }
             } else {
-              kycStatus = "New";
-              if (value.data!.customer != null) {
-                userFullName = value.data!.customer!.fullName!;
-              }
+              bankStatus = "New";
             }
+          } else {
+            kycStatus = "New";
+            if (value.data!.customer != null) {
+              userFullName = value.data!.customer!.fullName!;
+            }
+          }
 
-            if (value.data!.marginShortfallCard!.loanWithMarginShortfallList !=
-                null) {
+            if (value.data!.marginShortfallCard!.loanWithMarginShortfallList != null) {
               isViewMarginShortFallCard = true;
-              value.data!.marginShortfallCard!.loanWithMarginShortfallList!
-                  .forEach((v) {
+              value.data!.marginShortfallCard!.loanWithMarginShortfallList!.forEach((v) {
                 marginShortfallList.add(v);
               });
               // getMarginShortFallPreferenceValue();
-              if (value
-                  .data!.marginShortfallCard!.earliestDeadline!.isNotEmpty) {
-                if (value.data!.marginShortfallCard!.earliestDeadline ==
-                        "00:00:00" ||
-                    value.data!.marginShortfallCard!
-                            .loanWithMarginShortfallList![0].status ==
-                        "Request Pending") {
+              if (value.data!.marginShortfallCard!.earliestDeadline!.isNotEmpty) {
+                if (value.data!.marginShortfallCard!.earliestDeadline == "00:00:00"
+                    || value.data!.marginShortfallCard!.loanWithMarginShortfallList![0].status == "Request Pending") {
                   isTimerDone = true;
                 }
-                shortFallHours = int.parse(value
-                    .data!.marginShortfallCard!.earliestDeadline!
-                    .split(":")[0]);
-                shortFallMin = int.parse(value
-                    .data!.marginShortfallCard!.earliestDeadline!
-                    .split(":")[1]);
-                shortFallSec = int.parse(value
-                    .data!.marginShortfallCard!.earliestDeadline!
-                    .split(":")[2]);
+                shortFallHours = int.parse(value.data!.marginShortfallCard!.earliestDeadline!.split(":")[0]);
+                shortFallMin = int.parse(value.data!.marginShortfallCard!.earliestDeadline!.split(":")[1]);
+                shortFallSec = int.parse(value.data!.marginShortfallCard!.earliestDeadline!.split(":")[2]);
               }
-              isTodayHoliday = value.data!.marginShortfallCard!
-                  .loanWithMarginShortfallList![0].isTodayHoliday!;
+              isTodayHoliday = value.data!.marginShortfallCard!.loanWithMarginShortfallList![0].isTodayHoliday!;
             } else {
               isViewMarginShortFallCard = false;
             }
 
             if (value.data!.totalInterestAllLoansCard != null &&
-                value.data!.totalInterestAllLoansCard!.loansInterestDueDate !=
-                    null) {
+                value.data!.totalInterestAllLoansCard!.loansInterestDueDate != null) {
               isViewInterestCard = true;
-              totalInterestAmount =
-                  value.data!.totalInterestAllLoansCard!.totalInterestAmount!;
-              dpdText = value.data!.totalInterestAllLoansCard!
-                  .loansInterestDueDate!.dpdTxt;
-              interestDueDate = value.data!.totalInterestAllLoansCard!
-                  .loansInterestDueDate!.dueDate!;
-              value.data!.totalInterestAllLoansCard!.interestLoanList!
-                  .forEach((v) {
+              totalInterestAmount = value.data!.totalInterestAllLoansCard!.totalInterestAmount!;
+              dpdText = value.data!.totalInterestAllLoansCard!.loansInterestDueDate!.dpdTxt;
+              interestDueDate = value.data!.totalInterestAllLoansCard!.loansInterestDueDate!.dueDate!;
+              value.data!.totalInterestAllLoansCard!.interestLoanList!.forEach((v) {
                 interestLoanNameList.add(v);
               });
             } else {
               isViewInterestCard = false;
             }
 
-            if (value.data!.pendingEsignsList!.laPendingEsigns != null &&
-                value.data!.pendingEsignsList!.laPendingEsigns!.length != 0) {
-              if (value.data!.pendingEsignsList!.laPendingEsigns![0]
-                      .increaseLoanMessage ==
-                  null) {
-                value.data!.pendingEsignsList!.laPendingEsigns!.forEach((v) {
-                  eSignLoanList.add(v);
-                });
-                isViewPledgedESignCard = true;
-              } else {
-                value.data!.pendingEsignsList!.laPendingEsigns!.forEach((v) {
-                  eSignIncreaseLoanList.add(v);
-                });
-                isViewIncreaseESignCard = true;
-              }
+          if (value.data!.pendingEsignsList!.laPendingEsigns != null &&
+              value.data!.pendingEsignsList!.laPendingEsigns!.length != 0) {
+            if (value.data!.pendingEsignsList!.laPendingEsigns![0].increaseLoanMessage == null) {
+              value.data!.pendingEsignsList!.laPendingEsigns!.forEach((v) {
+                eSignLoanList.add(v);
+              });
+              isViewPledgedESignCard = true;
+            } else {
+              value.data!.pendingEsignsList!.laPendingEsigns!.forEach((v) {
+                eSignIncreaseLoanList.add(v);
+              });
+              isViewIncreaseESignCard = true;
             }
+          }
 
-            // printLog("topupesig${jsonEncode(value.data!.pendingEsignsList!.topupPendingEsigns)}");
+          // printLog("topupesig${jsonEncode(value.data!.pendingEsignsList!.topupPendingEsigns)}");
 
             if (value.data!.pendingEsignsList!.topupPendingEsigns != null &&
-                value.data!.pendingEsignsList!.topupPendingEsigns!.length !=
-                    0) {
+                value.data!.pendingEsignsList!.topupPendingEsigns!.length != 0) {
               value.data!.pendingEsignsList!.topupPendingEsigns!.forEach((v) {
                 topUpESignLoanList.add(v);
               });
@@ -857,30 +808,30 @@ class _NewDashboardScreenState extends State<HomeScreen> {
               isViewTopUpESignCard = false;
             }
 
-            if (value.data!.pendingEsignsList!.loanRenewalEsigns != null &&
-                value.data!.pendingEsignsList!.loanRenewalEsigns!.length != 0) {
-              value.data!.pendingEsignsList!.loanRenewalEsigns!.forEach((v) {
-                eSignLoanRenewalList.add(v);
-              });
-              isViewLoanRenewalESignCard = true;
-            } else {
-              isViewLoanRenewalESignCard = false;
-            }
-          });
-
-          if (value.data!.profilePhotoUrl != null) {
-            profilePhotoUrl = value.data!.profilePhotoUrl!;
-          }
-
-          if (value.data!.fCMUnreadCount != null) {
-            notificationCount = value.data!.fCMUnreadCount!;
-          }
-
-          if (value.data!.youtubeID != null) {
-            // videoNameList.clear();
-            value.data!.youtubeID!.forEach((v) {
-              videoIDList.add(v);
+          if (value.data!.pendingEsignsList!.loanRenewalEsigns != null &&
+              value.data!.pendingEsignsList!.loanRenewalEsigns!.length != 0) {
+            value.data!.pendingEsignsList!.loanRenewalEsigns!.forEach((v) {
+              eSignLoanRenewalList.add(v);
             });
+            isViewLoanRenewalESignCard = true;
+          } else {
+            isViewLoanRenewalESignCard = false;
+          }
+        });
+
+        if(value.data!.profilePhotoUrl != null) {
+          profilePhotoUrl = value.data!.profilePhotoUrl!;
+        }
+
+        if (value.data!.fCMUnreadCount != null) {
+          notificationCount = value.data!.fCMUnreadCount!;
+        }
+
+        if (value.data!.youtubeID != null) {
+          // videoNameList.clear();
+          value.data!.youtubeID!.forEach((v) {
+            videoIDList.add(v);
+          });
 
             for (int i = 0; i < videoIDList.length; i++) {
               videoNameList.add("");
@@ -908,32 +859,27 @@ class _NewDashboardScreenState extends State<HomeScreen> {
   callLoanStatementApi() {
     loanRenewal!.clear();
     isTimerShow = true;
-    newDashboardBloc.getLoanSummaryData().then((value) async {
+    newDashboardBloc.getLoanSummaryData().then((value) async{
       if (mounted) {
         if (value.isSuccessFull!) {
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
           String packageName = packageInfo.packageName;
           String localVersion = packageInfo.version;
           String storeVersion;
-          if (packageName == Strings.ios_prod_package ||
-              packageName == Strings.android_prod_package) {
-            if (Platform.isAndroid) {
+          if(packageName == Strings.ios_prod_package || packageName == Strings.android_prod_package) {
+            if(Platform.isAndroid) {
               storeURL = value.loanSummaryData!.versionDetails!.playStoreLink!;
-              storeVersion =
-                  value.loanSummaryData!.versionDetails!.androidVersion!;
+              storeVersion = value.loanSummaryData!.versionDetails!.androidVersion!;
             } else {
               storeURL = value.loanSummaryData!.versionDetails!.appStoreLink!;
               storeVersion = value.loanSummaryData!.versionDetails!.iosVersion!;
             }
             storeWhatsNew = value.loanSummaryData!.versionDetails!.whatsNew!;
-            bool canUpdateValue =
-                await Utility().canUpdateVersion(storeVersion, localVersion);
+            bool canUpdateValue = await Utility().canUpdateVersion(storeVersion, localVersion);
             printLog("storeVersion2 ==> $storeVersion");
             printLog("localVersion2 ==> $localVersion");
             printLog("canUpdateValue2 ==> $canUpdateValue");
-            if (canUpdateValue != null &&
-                canUpdateValue &&
-                value.loanSummaryData!.versionDetails!.forceUpdate == 0) {
+            if(canUpdateValue != null && canUpdateValue && value.loanSummaryData!.versionDetails!.forceUpdate == 0){
               isUpdateRequired = true;
               isUpdateFlushVisible = true;
             }
@@ -942,31 +888,18 @@ class _NewDashboardScreenState extends State<HomeScreen> {
           setState(() {
             loanType = value.loanSummaryData!.instrumentType;
             schemeType = value.loanSummaryData!.schemeType;
-            if (value.loanSummaryData!.loanRenewalApplication != null &&
-                value.loanSummaryData!.loanRenewalApplication!.length != 0) {
-              loanRenewal!
-                  .addAll(value.loanSummaryData!.loanRenewalApplication!);
-              if (loanRenewal![0].isExpired == 1) {
+            if(value.loanSummaryData!.loanRenewalApplication != null && value.loanSummaryData!.loanRenewalApplication!.length != 0){
+              loanRenewal!.addAll(value.loanSummaryData!.loanRenewalApplication!);
+              if(loanRenewal![0].isExpired == 1){
                 isExpired = true;
-                if (loanRenewal![0].actionStatus == "Pending") {
+                if(loanRenewal![0].actionStatus == "Pending"){
                   isTimerShow = false;
                 }
-                if (loanRenewal![0].timeRemaining != null) {
-                  timerDays = int.parse(value.loanSummaryData!
-                      .loanRenewalApplication![0].timeRemaining!
-                      .split(":")[0][0]); // 5D:12h:35m:20s
-                  timerHours = int.parse((value.loanSummaryData!
-                          .loanRenewalApplication![0].timeRemaining!
-                          .split(":")[1])
-                      .substring(0, 2));
-                  timerMin = int.parse((value.loanSummaryData!
-                          .loanRenewalApplication![0].timeRemaining!
-                          .split(":")[2])
-                      .substring(0, 2));
-                  timerSec = int.parse((value.loanSummaryData!
-                          .loanRenewalApplication![0].timeRemaining!
-                          .split(":")[3])
-                      .substring(0, 2));
+                if(loanRenewal![0].timeRemaining != null){
+                  timerDays = int.parse(value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[0][0]); // 5D:12h:35m:20s
+                  timerHours = int.parse((value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[1]).substring(0, 2));
+                  timerMin = int.parse((value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[2]).substring(0, 2));
+                  timerSec = int.parse((value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[3]).substring(0, 2));
                 }
               }
             }
@@ -980,8 +913,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
             if (value.loanSummaryData!.activeLoans!.length != 0 ||
                 value.loanSummaryData!.actionableLoan!.length != 0 ||
                 value.loanSummaryData!.underProcessLa!.length != 0 ||
-                value.loanSummaryData!.underProcessLoanRenewalApp!.length !=
-                    0) {
+                value.loanSummaryData!.underProcessLoanRenewalApp!.length != 0) {
               isViewLoanSummaryCard = true;
             }
           });
@@ -996,8 +928,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   getTitle(String vid, int index) async {
     String videoUrl = 'https://www.youtube.com/watch?v=$vid';
-    var embedUrl =
-        Uri.parse("https://www.youtube.com/oembed?url=$videoUrl&format=json");
+    var embedUrl = Uri.parse("https://www.youtube.com/oembed?url=$videoUrl&format=json");
     String title;
     var res = await http.get(embedUrl);
     try {
@@ -1091,9 +1022,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
       bottomSheet: Visibility(
         visible: isUpdateFlushVisible,
         child: Padding(
-          padding: EdgeInsets.only(
-              left: 15,
-              right: 15,
+          padding: EdgeInsets.only(left: 15, right: 15,
               bottom: Platform.isAndroid
                   ? MediaQuery.of(context).size.height * 0.1
                   : MediaQuery.of(context).size.height * 0.1 + 28),
@@ -1110,14 +1039,9 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                 ),
                 height: 25,
                 minWidth: 10,
-                child: Text("UPDATE",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12)),
+                child: Text("UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                 onPressed: () {
-                  Utility().forceUpdatePopUp(
-                      context, false, storeURL!, storeWhatsNew!);
+                  Utility().forceUpdatePopUp(context, false, storeURL!, storeWhatsNew!);
                 },
               ),
             ),
@@ -1125,8 +1049,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("New app version available!",
-                    style: TextStyle(
-                        color: colorWhite, fontWeight: FontWeight.w300)),
+                    style: TextStyle(color: colorWhite, fontWeight: FontWeight.w300)),
               ],
             ),
 
@@ -1190,13 +1113,13 @@ class _NewDashboardScreenState extends State<HomeScreen> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
+            decoration:
+            BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(26.0)),
             ),
             child: CircleAvatar(
               backgroundColor: colorLightBlue,
-              backgroundImage: profilePhotoUrl!.isNotEmpty
-                  ? NetworkImage(profilePhotoUrl!)
+              backgroundImage: profilePhotoUrl!.isNotEmpty ? NetworkImage(profilePhotoUrl!)
                   : AssetImage(AssetsImagePath.profile) as ImageProvider,
               radius: 26.0,
             ),
@@ -1220,8 +1143,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
           GestureDetector(
             child: notificationCount == 0
                 ? Image.asset(AssetsImagePath.bell, width: 22.0, height: 22.0)
-                : Image.asset(AssetsImagePath.notification_icon,
-                    width: 25.0, height: 25.0),
+                : Image.asset(AssetsImagePath.notification_icon, width: 25.0, height: 25.0),
             onTap: () {
               Utility.isNetworkConnection().then((isNetwork) async {
                 if (isNetwork) {
@@ -1231,8 +1153,8 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                       builder: (context) => NotificationScreen(),
                     ),
                   );
-                  if (notificationResult != null) {
-                    if (notificationCount != 0) {
+                  if(notificationResult != null) {
+                    if(notificationCount != 0){
                       pullRefresh();
                     }
                   }
@@ -1251,21 +1173,21 @@ class _NewDashboardScreenState extends State<HomeScreen> {
               color: appTheme,
             ),
             onTap: () {
-              Utility.isNetworkConnection().then((isNetwork) async {
-                if (isNetwork) {
-                  final result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AccountSettingScreen()));
-                  if (result != null) {
-                    if (profilePhotoUrl!.isEmpty) {
-                      pullRefresh();
-                    }
-                  }
-                } else {
-                  Utility.showToastMessage(Strings.no_internet_message);
-                }
-              });
+             Utility.isNetworkConnection().then((isNetwork) async {
+               if (isNetwork) {
+                final result = await Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                         builder: (context) => AccountSettingScreen()));
+                 if(result != null) {
+                   if (profilePhotoUrl!.isEmpty) {
+                     pullRefresh();
+                   }
+                 }
+               } else {
+                 Utility.showToastMessage(Strings.no_internet_message);
+               }
+             });
             },
           ),
         ],
@@ -1439,256 +1361,184 @@ class _NewDashboardScreenState extends State<HomeScreen> {
   Widget marginShortFallCard() {
     return Visibility(
       visible: isViewMarginShortFallCard,
-      child: marginShortfallList.length != 0
-          ? Column(
-              children: [
-                Card(
-                  elevation: 2.0,
-                  color: colorWhite,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 14, 10, 14),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+      child: marginShortfallList.length != 0 ? Column(
+        children: [
+          Card(
+            elevation: 2.0,
+            color: colorWhite,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 14, 10, 14),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(AssetsImagePath.warning_icon,
+                      height: 35, width: 35, color: red),
+                  SizedBox(width: 6),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(AssetsImagePath.warning_icon,
-                            height: 35, width: 35, color: red),
-                        SizedBox(width: 6),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(Strings.margin_shortfall,
-                                  style: TextStyle(
-                                      color: red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14)),
-                              Text(Strings.margin_shortfall_text1,
-                                  style:
-                                      TextStyle(color: appTheme, fontSize: 10)),
-                              Text(Strings.margin_shortfall_text2,
-                                  style: TextStyle(
-                                      color: appTheme,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 6),
-                        Container(
-                          width: 75,
-                          decoration: BoxDecoration(
-                              border: Border.all(
+                        Text(Strings.margin_shortfall,
+                            style: TextStyle(
+                                color: red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14)),
+                        Text(Strings.margin_shortfall_text1,
+                            style: TextStyle(color: appTheme, fontSize: 10)),
+                        Text(Strings.margin_shortfall_text2,
+                            style: TextStyle(
                                 color: appTheme,
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(6))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Column(
-                              children: [
-                                !isTimerDone
-                                    ? isTodayHoliday == 1
-                                        ? Column(
-                                            children: [
-                                              Text(Strings.time_remaining,
-                                                  style: TextStyle(
-                                                      fontSize: 9,
-                                                      color: Colors.indigo)),
-                                              Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 5),
-                                                  child: Text(
-                                                      '${marginShortfallList[0].deadline}',
-                                                      textAlign: TextAlign
-                                                          .center,
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.red))),
-                                            ],
-                                          )
-                                        : TweenAnimationBuilder<Duration>(
-                                            duration: Duration(
-                                                hours: shortFallHours,
-                                                minutes: shortFallMin,
-                                                seconds: shortFallSec),
-                                            tween: Tween(
-                                                begin: Duration(
-                                                    hours: shortFallHours,
-                                                    minutes: shortFallMin,
-                                                    seconds: shortFallSec),
-                                                end: Duration.zero),
-                                            onEnd: () {
-                                              setState(() {
-                                                isTimerDone = true;
-                                              });
-                                            },
-                                            builder: (BuildContext context,
-                                                Duration? value,
-                                                Widget? child) {
-                                              final hours =
-                                                  (value!.inHours).toString();
-                                              final minutes =
-                                                  (value.inMinutes % 60)
-                                                      .toString()
-                                                      .padLeft(2, '0');
-                                              final seconds =
-                                                  (value.inSeconds % 60)
-                                                      .toString()
-                                                      .padLeft(2, '0');
-                                              String hour = '';
-                                              if (hours == '0') {
-                                                hour = '';
-                                              } else {
-                                                hour = '$hours:';
-                                              }
-                                              return Column(
-                                                children: [
-                                                  Text(Strings.time_remaining,
-                                                      style: TextStyle(
-                                                          fontSize: 9,
-                                                          color:
-                                                              Colors.indigo)),
-                                                  Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 5),
-                                                      child: Text(
-                                                          '$hour$minutes:$seconds',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.red))),
-                                                ],
-                                              );
-                                            })
-                                    : marginShortfallList[0].status ==
-                                            "Request Pending"
-                                        ? Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5),
-                                            child: Text('Action Taken',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: red,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 12)),
-                                          )
-                                        : Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5),
-                                            child: Text(Strings.sale_triggered,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: red,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 11)),
-                                          ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 4),
-                        GestureDetector(
-                          child: CircleAvatar(
-                            backgroundColor: appTheme,
-                            child: Image.asset(AssetsImagePath.right_arrow_icon,
-                                color: colorWhite),
-                            radius: 20.0,
-                          ),
-                          onTap: () async {
-                            Utility.isNetworkConnection().then((isNetwork) {
-                              if (isNetwork) {
-                                LoadingDialogWidget.showDialogLoading(
-                                    context, Strings.please_wait);
-                                myLoansBloc
-                                    .getLoanDetails(marginShortfallList[0].name)
-                                    .then((value) async {
-                                  Navigator.pop(context);
-                                  if (value.isSuccessFull!) {
-                                    Preferences preferences = Preferences();
-                                    // await preferences.setPledgorBoid(value.data!.pledgorBoid!);
-                                    if (value.data!.sellCollateral == null) {
-                                      isMarginSellCollateral = true;
-                                    } else {
-                                      isMarginSellCollateral = false;
-                                    }
-
-                                    String? mobile =
-                                        await preferences.getMobile();
-                                    String email = await preferences.getEmail();
-                                    // Firebase Event
-                                    Map<String, dynamic> parameter =
-                                        new Map<String, dynamic>();
-                                    parameter[Strings.mobile_no] = mobile;
-                                    parameter[Strings.email] = email;
-                                    parameter[Strings.margin_shortfall_name] =
-                                        value.data!.marginShortfall!.name;
-                                    parameter[Strings.loan_number] =
-                                        value.data!.loan!.name;
-                                    parameter[Strings.margin_shortfall_status] =
-                                        marginShortfallList[0].status;
-                                    parameter[Strings.date_time] =
-                                        getCurrentDateAndTime();
-                                    firebaseEvent(
-                                        Strings.margin_shortFall_click,
-                                        parameter);
-
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                MarginShortfallScreen(
-                                                    value.data!,
-                                                    value.data!.pledgorBoid!,
-                                                    isMarginSellCollateral,
-                                                    marginShortfallList[0]
-                                                                .status ==
-                                                            "Sell Triggered"
-                                                        ? true
-                                                        : false,
-                                                    marginShortfallList[0]
-                                                                .status ==
-                                                            "Request Pending"
-                                                        ? true
-                                                        : false,
-                                                    value.data!.marginShortfall!
-                                                            .actionTakenMsg ??
-                                                        "",
-                                                    loanType!,
-                                                    schemeType!)));
-                                  } else if (value.errorCode == 403) {
-                                    commonDialog(
-                                        context, Strings.session_timeout, 4);
-                                  } else {
-                                    commonDialog(
-                                        context, value.errorMessage, 0);
-                                  }
-                                });
-                              } else {
-                                Utility.showToastMessage(
-                                    Strings.no_internet_message);
-                              }
-                            });
-                          },
-                        ),
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-              ],
-            )
-          : SizedBox(),
+                  SizedBox(width: 6),
+                  Container(
+                    width: 75,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: appTheme,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(6))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Column(
+                        children: [
+                          !isTimerDone
+                              ? isTodayHoliday == 1
+                                ? Column(
+                                    children: [
+                                      Text(Strings.time_remaining, style: TextStyle(fontSize: 9, color: Colors.indigo)),
+                                      Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 5),
+                                          child: Text('${marginShortfallList[0].deadline}', textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red))),],
+                                )
+                                : TweenAnimationBuilder<Duration>(
+                                  duration: Duration(hours: shortFallHours, minutes: shortFallMin, seconds: shortFallSec),
+                                  tween: Tween(
+                                      begin: Duration(hours: shortFallHours, minutes: shortFallMin, seconds: shortFallSec),
+                                      end: Duration.zero),
+                                  onEnd: () {
+                                    setState(() {
+                                      isTimerDone = true;
+                                    });
+                                  },
+                                  builder: (BuildContext context, Duration? value, Widget? child) {
+                                    final hours = (value!.inHours).toString();
+                                    final minutes = (value.inMinutes % 60).toString().padLeft(2, '0');
+                                    final seconds = (value.inSeconds % 60).toString().padLeft(2, '0');
+                                    String hour = '';
+                                    if (hours == '0') {
+                                      hour = '';
+                                    } else {
+                                      hour = '$hours:';
+                                    }
+                                    return Column(
+                                      children: [
+                                        Text(Strings.time_remaining,
+                                            style: TextStyle(fontSize: 9, color: Colors.indigo)),
+                                        Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 5),
+                                            child: Text('$hour$minutes:$seconds', textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red))),
+                                      ],
+                                    );
+                                  })
+                              : marginShortfallList[0].status == "Request Pending"
+                                  ? Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 5),
+                                      child: Text('Action Taken',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: red,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12)),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 5),
+                                      child: Text(Strings.sale_triggered,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: red,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 11)),
+                                    ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  GestureDetector(
+                    child: CircleAvatar(
+                      backgroundColor: appTheme,
+                      child: Image.asset(AssetsImagePath.right_arrow_icon,
+                          color: colorWhite),
+                      radius: 20.0,
+                    ),
+                    onTap: () async {
+                      Utility.isNetworkConnection().then((isNetwork) {
+                        if (isNetwork) {
+                          LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+                          myLoansBloc.getLoanDetails(marginShortfallList[0].name).then((value) async {
+                            Navigator.pop(context);
+                            if (value.isSuccessFull!) {
+                              Preferences preferences = Preferences();
+                              // await preferences.setPledgorBoid(value.data!.pledgorBoid!);
+                              if (value.data!.sellCollateral == null) {
+                                isMarginSellCollateral = true;
+                              } else {
+                                isMarginSellCollateral = false;
+                              }
+
+
+                              String? mobile = await preferences.getMobile();
+                              String email = await preferences.getEmail();
+                              // Firebase Event
+                              Map<String, dynamic> parameter = new Map<String, dynamic>();
+                              parameter[Strings.mobile_no] = mobile;
+                              parameter[Strings.email] = email;
+                              parameter[Strings.margin_shortfall_name] = value.data!.marginShortfall!.name;
+                              parameter[Strings.loan_number] = value.data!.loan!.name;
+                              parameter[Strings.margin_shortfall_status] = marginShortfallList[0].status;
+                              parameter[Strings.date_time] = getCurrentDateAndTime();
+                              firebaseEvent(Strings.margin_shortFall_click, parameter);
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (BuildContext context) =>
+                                          MarginShortfallScreen(
+                                              value.data!,
+                                              value.data!.pledgorBoid!,
+                                              isMarginSellCollateral,
+                                              marginShortfallList[0].status == "Sell Triggered" ? true : false,
+                                              marginShortfallList[0].status == "Request Pending" ? true : false,
+                                              value.data!.marginShortfall!.actionTakenMsg ?? "",
+                                          loanType!,schemeType!)));
+                            } else if (value.errorCode == 403) {
+                              commonDialog(context, Strings.session_timeout, 4);
+                            } else {
+                              commonDialog(context, value.errorMessage, 0);
+                            }
+                          });
+                        } else {
+                          Utility.showToastMessage(Strings.no_internet_message);
+                        }
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+        ],
+      ) : SizedBox(),
     );
   }
 
@@ -1736,15 +1586,13 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "Days Past Due - ",
+                            Text("Days Past Due - ",
                               style: TextStyle(
                                   color: colorLightGreen,
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Text(
-                              "$dpdText",
+                            Text("$dpdText",
                               style: TextStyle(
                                   color: colorWhite,
                                   fontSize: 12,
@@ -1844,8 +1692,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                   underProcessLoanList.add(v);
                 });
               }
-              if (value.data!.underProcessLoanRenewalApp != null &&
-                  value.data!.underProcessLoanRenewalApp!.length != 0) {
+              if (value.data!.underProcessLoanRenewalApp != null && value.data!.underProcessLoanRenewalApp!.length != 0) {
                 value.data!.underProcessLoanRenewalApp!.forEach((v) {
                   underProcessLoanRenewalList.add(v);
                 });
@@ -1862,15 +1709,11 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
             if (value.data!.sellCollateralList!.length != 0) {
               for (int i = 0; i < value.data!.sellCollateralList!.length; i++) {
-                if (value
-                        .data!.sellCollateralList![i].sellCollateralAvailable !=
-                    null) {
-                  pendingSellCollateralList
-                      .add(value.data!.sellCollateralList![i]);
+                if (value.data!.sellCollateralList![i].sellCollateralAvailable != null) {
+                  pendingSellCollateralList.add(value.data!.sellCollateralList![i]);
                 }
               }
-              if (value.data!.sellCollateralList![0].sellCollateralAvailable ==
-                  null) {
+              if (value.data!.sellCollateralList![0].sellCollateralAvailable == null) {
                 isSellCollateral = true;
                 loanName = value.data!.sellCollateralList![0].loanName!;
               } else {
@@ -1885,8 +1728,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
             }
             if (value.data!.unpledgeList!.length != 0) {
               for (int i = 0; i < value.data!.unpledgeList!.length; i++) {
-                if (value.data!.unpledgeList![i].unpledgeApplicationAvailable !=
-                    null) {
+                if (value.data!.unpledgeList![i].unpledgeApplicationAvailable != null) {
                   pendingUnPledgeList.add(value.data!.unpledgeList![i]);
                 }
               }
@@ -1937,77 +1779,79 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               shrinkWrap: true,
                               physics: ScrollPhysics(),
                               itemCount:
-                                  sellCollateralTopUpAndUnpledgeList.length,
+                              sellCollateralTopUpAndUnpledgeList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 if (sellCollateralTopUpAndUnpledgeList[index]
-                                            .unpledgeApplicationAvailable !=
+                                    .unpledgeApplicationAvailable !=
+                                    null &&
+                                    sellCollateralTopUpAndUnpledgeList[index]
+                                        .sellCollateralAvailable ==
                                         null &&
                                     sellCollateralTopUpAndUnpledgeList[index]
-                                            .sellCollateralAvailable ==
-                                        null &&
-                                    sellCollateralTopUpAndUnpledgeList[index]
-                                            .existingTopupApplication ==
+                                        .existingTopupApplication ==
                                         null) {
                                   return LoanSummaryTile(
                                       acNo: sellCollateralTopUpAndUnpledgeList[
-                                              index]
+                                      index]
                                           .loanName!,
                                       status: Strings.unpledge,
                                       withdrawal:
-                                          sellCollateralTopUpAndUnpledgeList[
-                                                  index]
-                                              .unpledgeApplicationAvailable!
-                                              .workflowState!,
+                                      sellCollateralTopUpAndUnpledgeList[
+                                      index]
+                                          .unpledgeApplicationAvailable!
+                                          .workflowState!,
                                       odBalance: '',
                                       pendingUnPledge:
-                                          sellCollateralTopUpAndUnpledgeList[
-                                                  index]
-                                              .unpledgeApplicationAvailable!,
-                                      loanType: loanType);
-                                } else if (sellCollateralTopUpAndUnpledgeList[index].sellCollateralAvailable !=
+                                      sellCollateralTopUpAndUnpledgeList[
+                                      index]
+                                          .unpledgeApplicationAvailable!,
+                                  loanType: loanType);
+                                } else if (sellCollateralTopUpAndUnpledgeList[
+                                index]
+                                    .sellCollateralAvailable !=
+                                    null &&
+                                    sellCollateralTopUpAndUnpledgeList[index]
+                                        .unpledgeApplicationAvailable ==
                                         null &&
                                     sellCollateralTopUpAndUnpledgeList[index]
-                                            .unpledgeApplicationAvailable ==
-                                        null &&
-                                    sellCollateralTopUpAndUnpledgeList[index]
-                                            .existingTopupApplication ==
+                                        .existingTopupApplication ==
                                         null) {
                                   return LoanSummaryTile(
                                       acNo: sellCollateralTopUpAndUnpledgeList[
-                                              index]
+                                      index]
                                           .loanName!,
                                       status: Strings.sell_collateral,
                                       withdrawal:
-                                          sellCollateralTopUpAndUnpledgeList[
-                                                  index]
-                                              .sellCollateralAvailable!
-                                              .workflowState!,
+                                      sellCollateralTopUpAndUnpledgeList[
+                                      index]
+                                          .sellCollateralAvailable!
+                                          .workflowState!,
                                       odBalance: '',
                                       pendingSellCollateral:
-                                          sellCollateralTopUpAndUnpledgeList[
-                                                  index]
-                                              .sellCollateralAvailable!,
+                                      sellCollateralTopUpAndUnpledgeList[
+                                      index]
+                                          .sellCollateralAvailable!,
                                       loanType: loanType);
                                 } else if (sellCollateralTopUpAndUnpledgeList[
-                                                index]
-                                            .existingTopupApplication !=
+                                index]
+                                    .existingTopupApplication !=
+                                    null &&
+                                    sellCollateralTopUpAndUnpledgeList[index]
+                                        .sellCollateralAvailable ==
                                         null &&
                                     sellCollateralTopUpAndUnpledgeList[index]
-                                            .sellCollateralAvailable ==
-                                        null &&
-                                    sellCollateralTopUpAndUnpledgeList[index]
-                                            .unpledgeApplicationAvailable ==
+                                        .unpledgeApplicationAvailable ==
                                         null) {
                                   return LoanSummaryTile(
                                       acNo: sellCollateralTopUpAndUnpledgeList[
-                                              index]
+                                      index]
                                           .loanName!,
                                       status: Strings.top_up,
                                       withdrawal:
-                                          sellCollateralTopUpAndUnpledgeList[
-                                                  index]
-                                              .existingTopupApplication!
-                                              .workflowState!,
+                                      sellCollateralTopUpAndUnpledgeList[
+                                      index]
+                                          .existingTopupApplication!
+                                          .workflowState!,
                                       odBalance: '',
                                       loanType: loanType);
                                 } else {
@@ -2024,7 +1868,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                     acNo: underProcessLoanList[index].name!,
                                     status: Strings.under_process_loan,
                                     withdrawal:
-                                        underProcessLoanList[index].status!,
+                                    underProcessLoanList[index].status!,
                                     odBalance: '',
                                     loanType: loanType);
                               }),
@@ -2035,12 +1879,10 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               itemCount: underProcessLoanRenewalList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return LoanSummaryTile(
-                                    acNo: underProcessLoanRenewalList[index]
-                                        .name!,
+                                    acNo: underProcessLoanRenewalList[index].name!,
                                     status: Strings.loanRenewal,
                                     withdrawal:
-                                        underProcessLoanRenewalList[index]
-                                            .status!,
+                                    underProcessLoanRenewalList[index].status!,
                                     odBalance: '',
                                     loanType: loanType);
                               }),
@@ -2061,12 +1903,10 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                         actionableLoanList[index]
                                             .balance!
                                             .toStringAsFixed(2)),
-                                    odBalanceisNegative:
-                                        (actionableLoanList[index].balance! <
-                                                0.0)
-                                            ? true
-                                            : false,
-                                    loanType: loanType);
+                                    odBalanceisNegative: (actionableLoanList[index]
+                                        .balance! < 0.0) ? true : false,
+                                    loanType: loanType
+                                );
                               }),
                           ListView.builder(
                               scrollDirection: Axis.vertical,
@@ -2085,11 +1925,11 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                         activeLoanList[index]
                                             .balance!
                                             .toStringAsFixed(2)),
-                                    odBalanceisNegative:
-                                        (activeLoanList[index].balance! < 0)
-                                            ? true
-                                            : false,
-                                    loanType: loanType);
+                                    odBalanceisNegative: (activeLoanList[index]
+                                        .balance! < 0) ? true : false,
+                                    loanType: loanType
+                                );
+
                               }),
                         ],
                       ),
@@ -2240,42 +2080,28 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               children: [
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                      child: Text(
-                                        Strings.sanction_letter,
-                                        style: buttonTextRed,
-                                      ),
-                                      onTap: () {
-                                        Utility.isNetworkConnection()
-                                            .then((isNetwork) {
-                                          if (isNetwork) {
-                                            _launchURL(eSignLoanList[0]
-                                                .sanctionLetter!
-                                                .sanctionLetter);
-                                          } else {
-                                            Utility.showToastMessage(
-                                                Strings.no_internet_message);
-                                          }
-                                        });
+                                        child: Text(Strings.sanction_letter, style: buttonTextRed,),
+                                      onTap: (){
+                                          Utility.isNetworkConnection().then((isNetwork){
+                                            if(isNetwork){
+                                              _launchURL(eSignLoanList[0].sanctionLetter!.sanctionLetter);
+                                            }else{
+                                              Utility.showToastMessage(Strings.no_internet_message);
+                                            }
+                                          });
                                       },
                                     ),
                                     GestureDetector(
-                                      child: Text(
-                                        loanType == Strings.shares
-                                            ? Strings.pledged_security
-                                            : "Lien Schemes",
+                                      child: Text(loanType == Strings.shares ? Strings.pledged_security : "Lien Schemes",
                                         style: buttonTextRed,
                                       ),
                                       onTap: () {
-                                        Utility.isNetworkConnection()
-                                            .then((isNetwork) {
+                                        Utility.isNetworkConnection().then((isNetwork) {
                                           if (isNetwork) {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
+                                            Navigator.push(context, MaterialPageRoute(
                                                 builder: (BuildContextcontext) =>
                                                     PledgedSecuritiesListScreen(
                                                         eSignLoanList[0]
@@ -2289,8 +2115,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                                             .totalCollateralValue!,
                                                         eSignLoanList[0]
                                                             .loanApplication!
-                                                            .drawingPower!,
-                                                        loanType),
+                                                            .drawingPower!, loanType),
                                               ),
                                             );
                                           } else {
@@ -2311,14 +2136,12 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                     style: subHeading),
                                 SizedBox(height: 10),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           scripsNameText(
                                               '₹${numberToString(eSignLoanList[0].loanApplication!.drawingPower!.toStringAsFixed(2))}'),
@@ -2329,8 +2152,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                     ),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           scripsNameText(
                                               '₹${numberToString(eSignLoanList[0].loanApplication!.totalCollateralValue!.toStringAsFixed(2))}'),
@@ -2366,66 +2188,30 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      String? mobile =
-                                          await preferences!.getMobile();
-                                      String email =
-                                          await preferences!.getEmail();
-                                      Utility.isNetworkConnection()
-                                          .then((isNetwork) {
+                                      String? mobile = await preferences!.getMobile();
+                                      String email = await preferences!.getEmail();
+                                      Utility.isNetworkConnection().then((isNetwork) {
                                         if (isNetwork) {
                                           // Firebase Event
-                                          Map<String, dynamic> parameter =
-                                              new Map<String, dynamic>();
+                                          Map<String, dynamic> parameter = new Map<String, dynamic>();
                                           parameter[Strings.mobile_no] = mobile;
                                           parameter[Strings.email] = email;
-                                          parameter[Strings
-                                                  .loan_application_no_prm] =
-                                              eSignLoanList[0]
-                                                  .loanApplication!
-                                                  .name;
-                                          parameter[Strings
-                                                  .total_collateral_value_prm] =
-                                              numberToString(eSignLoanList[0]
-                                                  .loanApplication!
-                                                  .totalCollateralValue!
-                                                  .toStringAsFixed(2));
-                                          parameter[Strings
-                                                  .sanctioned_limit_prm] =
-                                              numberToString(eSignLoanList[0]
-                                                  .loanApplication!
-                                                  .drawingPower!
-                                                  .toStringAsFixed(2));
-                                          parameter[Strings.date_time] =
-                                              getCurrentDateAndTime();
-                                          firebaseEvent(
-                                              Strings.loan_e_sign_click,
-                                              parameter);
+                                          parameter[Strings.loan_application_no_prm] = eSignLoanList[0].loanApplication!.name;
+                                          parameter[Strings.total_collateral_value_prm] = numberToString(eSignLoanList[0].loanApplication!.totalCollateralValue!.toStringAsFixed(2));
+                                          parameter[Strings.sanctioned_limit_prm] = numberToString(eSignLoanList[0].loanApplication!.drawingPower!.toStringAsFixed(2));
+                                          parameter[Strings.date_time] = getCurrentDateAndTime();
+                                          firebaseEvent(Strings.loan_e_sign_click, parameter);
 
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContextcontext) =>
-                                                      EsignConsentScreen(
-                                                          eSignLoanList[0]
-                                                              .loanApplication!
-                                                              .name!,
-                                                          0,
-                                                          Strings.pledge,
-                                                          numberToString(eSignLoanList[
-                                                                  0]
-                                                              .loanApplication!
-                                                              .totalCollateralValue!
-                                                              .toStringAsFixed(
-                                                                  2)),
-                                                          numberToString(
-                                                              eSignLoanList[0]
-                                                                  .loanApplication!
-                                                                  .drawingPower!
-                                                                  .toStringAsFixed(
-                                                                      2)))));
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (BuildContextcontext) =>
+                                                  EsignConsentScreen(
+                                                      eSignLoanList[0].loanApplication!.name!,
+                                                      0,
+                                                      Strings.pledge,
+                                                      numberToString(eSignLoanList[0].loanApplication!.totalCollateralValue!.toStringAsFixed(2)),
+                                                      numberToString(eSignLoanList[0].loanApplication!.drawingPower!.toStringAsFixed(2)))));
                                         } else {
-                                          Utility.showToastMessage(
-                                              Strings.no_internet_message);
+                                          Utility.showToastMessage(Strings.no_internet_message);
                                         }
                                       });
                                     },
@@ -2635,48 +2421,32 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                               Strings.loan_e_sign_click,
                                               parameter);
 
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContextcontext) => EsignConsentScreen(
-                                                      eSignLoanRenewalList[0]
-                                                          .loanRenewalApplicationDoc!
-                                                          .name!,
-                                                      2,
-                                                      Strings.loanRenewal,
-                                                      numberToString(
-                                                          eSignLoanRenewalList[
-                                                                  0]
-                                                              .loanRenewalApplicationDoc!
-                                                              .totalCollateralValue!
-                                                              .toStringAsFixed(
-                                                                  2)),
-                                                      numberToString(
-                                                          eSignLoanRenewalList[
-                                                                  0]
-                                                              .loanRenewalApplicationDoc!
-                                                              .drawingPower!
-                                                              .toStringAsFixed(
-                                                                  2)))));
-                                        } else {
-                                          Utility.showToastMessage(
-                                              Strings.no_internet_message);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ],
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (BuildContextcontext) =>
+                                            EsignConsentScreen(
+                                                eSignLoanRenewalList[0].loanRenewalApplicationDoc!.name!,
+                                                2,
+                                                Strings.loanRenewal,
+                                                numberToString(eSignLoanRenewalList[0].loanRenewalApplicationDoc!.totalCollateralValue!.toStringAsFixed(2)),
+                                                numberToString(eSignLoanRenewalList[0].loanRenewalApplicationDoc!.drawingPower!.toStringAsFixed(2)))));
+                                  } else {
+                                    Utility.showToastMessage(Strings.no_internet_message);
+                                  }
+                                });
+                              },
                             ),
                           ),
                         ],
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
+                      ),
+                    ),
+                  ],
+                )
               ],
-            )
+            ),
+          ),
+          SizedBox(height: 10),
+        ],
+      )
           : SizedBox(),
     );
   }
@@ -2727,38 +2497,27 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               children: [
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
-                                      child: Text(
-                                        Strings.sanction_letter,
-                                        style: buttonTextRed,
-                                      ),
-                                      onTap: () {
-                                        Utility.isNetworkConnection()
-                                            .then((isNetwork) {
-                                          if (isNetwork) {
-                                            _launchURL(eSignIncreaseLoanList[0]
-                                                .sanctionLetter!
-                                                .sanctionLetter);
-                                          } else {
-                                            Utility.showToastMessage(
-                                                Strings.no_internet_message);
+                                      child: Text(Strings.sanction_letter, style: buttonTextRed,),
+                                      onTap: (){
+                                        Utility.isNetworkConnection().then((isNetwork){
+                                          if(isNetwork){
+                                            _launchURL(eSignIncreaseLoanList[0].sanctionLetter!.sanctionLetter);
+                                          }else{
+                                            Utility.showToastMessage(Strings.no_internet_message);
                                           }
                                         });
                                       },
                                     ),
                                     GestureDetector(
                                       child: Text(
-                                        loanType == Strings.shares
-                                            ? Strings.pledged_security
-                                            : "Pledged Scheme",
+                                        loanType == Strings.shares ? Strings.pledged_security : "Pledged Scheme",
                                         style: buttonTextRed,
                                       ),
                                       onTap: () {
-                                        Utility.isNetworkConnection()
-                                            .then((isNetwork) {
+                                        Utility.isNetworkConnection().then((isNetwork) {
                                           if (isNetwork) {
                                             Navigator.push(
                                               context,
@@ -2766,24 +2525,23 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                                 builder: (BuildContext
                                                         context) =>
                                                     PledgedSecuritiesListScreen(
-                                                        eSignIncreaseLoanList[0]
-                                                            .loanApplication!
-                                                            .items!,
-                                                        eSignIncreaseLoanList[0]
-                                                            .loanApplication!
-                                                            .name!,
-                                                        eSignIncreaseLoanList[0]
-                                                            .loanApplication!
-                                                            .totalCollateralValue!,
-                                                        eSignIncreaseLoanList[0]
-                                                            .loanApplication!
-                                                            .drawingPower!,
-                                                        loanType),
+                                                  eSignIncreaseLoanList[0]
+                                                      .loanApplication!
+                                                      .items!,
+                                                  eSignIncreaseLoanList[0]
+                                                      .loanApplication!
+                                                      .name!,
+                                                  eSignIncreaseLoanList[0]
+                                                      .loanApplication!
+                                                      .totalCollateralValue!,
+                                                  eSignIncreaseLoanList[0]
+                                                      .loanApplication!
+                                                      .drawingPower!, loanType
+                                                ),
                                               ),
                                             );
                                           } else {
-                                            Utility.showToastMessage(
-                                                Strings.no_internet_message);
+                                            Utility.showToastMessage(Strings.no_internet_message);
                                           }
                                         });
                                       },
@@ -2888,70 +2646,29 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                       onPrimary: Colors.white,
                                     ),
                                     onPressed: () async {
-                                      String? mobile =
-                                          await preferences!.getMobile();
-                                      String email =
-                                          await preferences!.getEmail();
-                                      Utility.isNetworkConnection()
-                                          .then((isNetwork) {
+                                      String? mobile = await preferences!.getMobile();
+                                      String email = await preferences!.getEmail();
+                                      Utility.isNetworkConnection().then((isNetwork) {
                                         if (isNetwork) {
                                           // Firebase Event
-                                          Map<String, dynamic> parameter =
-                                              new Map<String, dynamic>();
+                                          Map<String, dynamic> parameter = new Map<String, dynamic>();
                                           parameter[Strings.mobile_no] = mobile;
                                           parameter[Strings.email] = email;
-                                          parameter[Strings
-                                                  .increase_loan_application_no] =
-                                              eSignIncreaseLoanList[0]
-                                                  .loanApplication!
-                                                  .name;
-                                          parameter[Strings
-                                                  .existing_total_collateral_value] =
-                                              numberToString(
-                                                  eSignIncreaseLoanList[0]
-                                                      .increaseLoanMessage!
-                                                      .existingCollateralValue!
-                                                      .toStringAsFixed(2));
-                                          parameter[Strings
-                                                  .new_total_collateral_value] =
-                                              numberToString(
-                                                  eSignIncreaseLoanList[0]
-                                                      .increaseLoanMessage!
-                                                      .newCollateralValue!
-                                                      .toStringAsFixed(2));
-                                          parameter[Strings.date_time] =
-                                              getCurrentDateAndTime();
-                                          firebaseEvent(
-                                              Strings
-                                                  .increase_loan_e_sign_click,
-                                              parameter);
+                                          parameter[Strings.increase_loan_application_no] = eSignIncreaseLoanList[0].loanApplication!.name;
+                                          parameter[Strings.existing_total_collateral_value] = numberToString(eSignIncreaseLoanList[0].increaseLoanMessage!.existingCollateralValue!.toStringAsFixed(2));
+                                          parameter[Strings.new_total_collateral_value] = numberToString(eSignIncreaseLoanList[0].increaseLoanMessage!.newCollateralValue!.toStringAsFixed(2));
+                                          parameter[Strings.date_time] = getCurrentDateAndTime();
+                                          firebaseEvent(Strings.increase_loan_e_sign_click, parameter);
 
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContext context) => EsignConsentScreen(
-                                                      eSignIncreaseLoanList[0]
-                                                          .loanApplication!
-                                                          .name!,
-                                                      0,
-                                                      Strings.increase_loan,
-                                                      numberToString(
-                                                          eSignIncreaseLoanList[
-                                                                  0]
-                                                              .increaseLoanMessage!
-                                                              .existingCollateralValue!
-                                                              .toStringAsFixed(
-                                                                  2)),
-                                                      numberToString(
-                                                          eSignIncreaseLoanList[
-                                                                  0]
-                                                              .increaseLoanMessage!
-                                                              .newCollateralValue!
-                                                              .toStringAsFixed(
-                                                                  2)))));
+                                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext
+                                                  context) => EsignConsentScreen(
+                                                          eSignIncreaseLoanList[0].loanApplication!.name!,
+                                                          0,
+                                                          Strings.increase_loan,
+                                                          numberToString(eSignIncreaseLoanList[0].increaseLoanMessage!.existingCollateralValue!.toStringAsFixed(2)),
+                                                          numberToString(eSignIncreaseLoanList[0].increaseLoanMessage!.newCollateralValue!.toStringAsFixed(2)))));
                                         } else {
-                                          Utility.showToastMessage(
-                                              Strings.no_internet_message);
+                                          Utility.showToastMessage(Strings.no_internet_message);
                                         }
                                       });
                                     },
@@ -3011,20 +2728,13 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     GestureDetector(
-                                      child: Text(
-                                        Strings.sanction_letter,
-                                        style: buttonTextRed,
-                                      ),
-                                      onTap: () {
-                                        Utility.isNetworkConnection()
-                                            .then((isNetwork) {
-                                          if (isNetwork) {
-                                            _launchURL(topUpESignLoanList[0]
-                                                .sanctionLetter!
-                                                .sanctionLetter);
-                                          } else {
-                                            Utility.showToastMessage(
-                                                Strings.no_internet_message);
+                                      child: Text(Strings.sanction_letter, style: buttonTextRed,),
+                                      onTap: (){
+                                        Utility.isNetworkConnection().then((isNetwork){
+                                          if(isNetwork){
+                                            _launchURL(topUpESignLoanList[0].sanctionLetter!.sanctionLetter);
+                                          }else{
+                                            Utility.showToastMessage(Strings.no_internet_message);
                                           }
                                         });
                                       },
@@ -3034,26 +2744,19 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                 SizedBox(height: 10),
                                 Text(topUpESignLoanList[0].mess!),
                                 SizedBox(height: 6),
-                                subHeadingText(topUpESignLoanList[0]
-                                    .topupApplicationDoc!
-                                    .name),
-                                Text(Strings.top_up_application_name,
-                                    style: subHeading),
+                                subHeadingText(topUpESignLoanList[0].topupApplicationDoc!.name),
+                                Text(Strings.top_up_application_name, style: subHeading),
                                 SizedBox(height: 10),
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          scripsNameText(
-                                              '${topUpESignLoanList[0].topupApplicationDoc!.loan}'),
-                                          Text(Strings.loan_application_no,
-                                              style: subHeading),
+                                          scripsNameText('${topUpESignLoanList[0].topupApplicationDoc!.loan}'),
+                                          Text(Strings.loan_application_no, style: subHeading),
                                           // SizedBox(height: 10),
                                           // scripsNameText('${topUpESignLoanList[0].topupApplicationDoc!.loan}'),
                                           // Text(Strings.loan_application_no, style: subHeading),
@@ -3062,13 +2765,10 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                     ),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          scripsNameText(
-                                              '₹${topUpESignLoanList[0].topupApplicationDoc!.topUpAmount}'),
-                                          Text(Strings.top_up_amount,
-                                              style: subHeading),
+                                          scripsNameText('₹${topUpESignLoanList[0].topupApplicationDoc!.topUpAmount}'),
+                                          Text(Strings.top_up_amount, style: subHeading),
                                         ],
                                       ),
                                     ),
@@ -3100,59 +2800,31 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      String? mobile =
-                                          await preferences!.getMobile();
-                                      String email =
-                                          await preferences!.getEmail();
+                                      String? mobile = await preferences!.getMobile();
+                                      String email = await preferences!.getEmail();
 
-                                      Utility.isNetworkConnection()
-                                          .then((isNetwork) {
+                                      Utility.isNetworkConnection().then((isNetwork) {
                                         if (isNetwork) {
                                           // Firebase Event
-                                          Map<String, dynamic> parameter =
-                                              new Map<String, dynamic>();
+                                          Map<String, dynamic> parameter = new Map<String, dynamic>();
                                           parameter[Strings.mobile_no] = mobile;
                                           parameter[Strings.email] = email;
-                                          parameter[
-                                                  Strings.top_up_application] =
-                                              topUpESignLoanList[0]
-                                                  .topupApplicationDoc!
-                                                  .name;
-                                          parameter[Strings.top_up_amount_prm] =
-                                              topUpESignLoanList[0]
-                                                  .topupApplicationDoc!
-                                                  .topUpAmount;
-                                          parameter[Strings.loan_number] =
-                                              topUpESignLoanList[0]
-                                                  .topupApplicationDoc!
-                                                  .loan!;
-                                          parameter[Strings.date_time] =
-                                              getCurrentDateAndTime();
-                                          firebaseEvent(
-                                              Strings.top_up_e_sign_click,
-                                              parameter);
+                                          parameter[Strings.top_up_application] = topUpESignLoanList[0].topupApplicationDoc!.name;
+                                          parameter[Strings.top_up_amount_prm] = topUpESignLoanList[0].topupApplicationDoc!.topUpAmount;
+                                          parameter[Strings.loan_number] = topUpESignLoanList[0].topupApplicationDoc!.loan!;
+                                          parameter[Strings.date_time] = getCurrentDateAndTime();
+                                          firebaseEvent(Strings.top_up_e_sign_click, parameter);
 
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (BuildContext
-                                                          context) =>
-                                                      EsignConsentScreen(
-                                                          topUpESignLoanList[0]
-                                                              .topupApplicationDoc!
-                                                              .name!,
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (BuildContext context) => EsignConsentScreen(
+                                                          topUpESignLoanList[0].topupApplicationDoc!.name!,
                                                           1,
                                                           Strings.top_up,
-                                                          topUpESignLoanList[0]
-                                                              .topupApplicationDoc!
-                                                              .loan!,
-                                                          topUpESignLoanList[0]
-                                                              .topupApplicationDoc!
-                                                              .topUpAmount!)));
+                                                          topUpESignLoanList[0].topupApplicationDoc!.loan!,
+                                                          topUpESignLoanList[0].topupApplicationDoc!.topUpAmount!)));
 //                                          }
                                         } else {
-                                          Utility.showToastMessage(
-                                              Strings.no_internet_message);
+                                          Utility.showToastMessage(Strings.no_internet_message);
                                         }
                                       });
                                     },
@@ -3227,7 +2899,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               onTap: () {
                                 Utility.isNetworkConnection().then((isNetwork) {
                                   if (isNetwork) {
-                                    if (isIncreaseLoan) {
+                                    if(isIncreaseLoan){
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -3235,12 +2907,10 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                                   SubmitTopUP(
                                                       topUpList[0].topUpAmount,
                                                       topUpList[0].loanName)));
-                                    } else {
-                                      commonDialog(
-                                          context,
-                                          "Your increase loan application: ${underProcessLoanList[0].name.toString()} is pending",
-                                          0);
+                                    }else{
+                                      commonDialog(context, "Your increase loan application: ${underProcessLoanList[0].name.toString()} is pending", 0);
                                     }
+
                                   } else {
                                     Utility.showToastMessage(
                                         Strings.no_internet_message);
@@ -3354,82 +3024,82 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   Future<void> minimumValueDialog() {
     return showDialog<void>(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          content: Container(
-            // width: 80,
-            // height: 80,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              content: Container(
+                // width: 80,
+                // height: 80,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    GestureDetector(
-                      child: Icon(
-                        Icons.cancel,
-                        color: colorLightGray,
-                        size: 20,
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
-                Center(
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Text('Graph Parameter', style: boldTextStyle_24),
-                        SizedBox(
-                          height: 20,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        GestureDetector(
+                          child: Icon(
+                            Icons.cancel,
+                            color: colorLightGray,
+                            size: 20,
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                        Column(
+                      ],
+                    ),
+                    Center(
+                      child: Container(
+                        child: Column(
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('X Axis ➠ ', style: boldTextStyle_14),
-                                Expanded(
-                                    child: Text('Number of weeks',
-                                        style: regularTextStyle_14)),
-                              ],
-                            ),
+                            Text('Graph Parameter', style: boldTextStyle_24),
                             SizedBox(
-                              height: 6,
+                              height: 20,
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Column(
                               children: [
-                                Text('Y Axis ➠ ', style: boldTextStyle_14),
-                                Expanded(
-                                    child: Text('Total collateral value',
-                                        style: regularTextStyle_14)),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('X Axis ➠ ', style: boldTextStyle_14),
+                                    Expanded(
+                                        child: Text('Number of weeks',
+                                            style: regularTextStyle_14)),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('Y Axis ➠ ', style: boldTextStyle_14),
+                                    Expanded(
+                                        child: Text('Total collateral value',
+                                            style: regularTextStyle_14)),
+                                  ],
+                                ),
                               ],
                             ),
                           ],
                         ),
-                      ],
+                      ), //
                     ),
-                  ), //
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
-      },
-    );
   }
 
 //   _getSeriesData(List<WeeklyData> weeklyListData) {
@@ -3489,49 +3159,28 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                             onTap: () {
                               Utility.isNetworkConnection().then((isNetwork) {
                                 if (isNetwork) {
-                                  if (loanType == Strings.mutual_fund) {
+                                  if(loanType == Strings.mutual_fund){
                                     if (isIncreaseLoan) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  MFIncreaseLoan(
-                                                      loanName,
-                                                      Strings.increase_loan,
-                                                      null,
-                                                      loanType!,
-                                                      schemeType!)));
+                                              builder: (BuildContext context) => MFIncreaseLoan(loanName, Strings.increase_loan, null, loanType!, schemeType!)));
                                     } else {
-                                      commonDialog(
-                                          context,
-                                          Strings.increase_loan_request_pending,
-                                          0);
+                                      commonDialog(context, Strings.increase_loan_request_pending, 0);
                                     }
                                   } else {
                                     if (isIncreaseLoan) {
-                                      if (sellCollateralTopUpAndUnpledgeList
-                                                  .length !=
-                                              0 &&
-                                          sellCollateralTopUpAndUnpledgeList[0]
-                                                  .existingTopupApplication !=
-                                              null) {
-                                        commonDialog(
-                                            context,
-                                            "Your top-up application: ${sellCollateralTopUpAndUnpledgeList[0].existingTopupApplication!.name.toString()} is pending",
-                                            0);
-                                      } else {
+                                      if(sellCollateralTopUpAndUnpledgeList.length != 0 && sellCollateralTopUpAndUnpledgeList[0].existingTopupApplication != null){
+                                        commonDialog(context, "Your top-up application: ${sellCollateralTopUpAndUnpledgeList[0].existingTopupApplication!.name.toString()} is pending", 0);
+                                      }else{
                                         getLatestLoan();
                                       }
                                     } else {
-                                      commonDialog(
-                                          context,
-                                          Strings.increase_loan_request_pending,
-                                          0);
+                                      commonDialog(context, Strings.increase_loan_request_pending, 0);
                                     }
                                   }
                                 } else {
-                                  Utility.showToastMessage(
-                                      Strings.no_internet_message);
+                                  Utility.showToastMessage(Strings.no_internet_message);
                                 }
                               });
                             },
@@ -3557,8 +3206,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                 if (isNetwork) {
                                   commonDialog(context, Strings.coming_soon, 0);
                                 } else {
-                                  Utility.showToastMessage(
-                                      Strings.no_internet_message);
+                                  Utility.showToastMessage(Strings.no_internet_message);
                                 }
                               });
                             },
@@ -3571,10 +3219,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                 Image.asset(AssetsImagePath.sell_collateral,
                                     width: 30, height: 30, color: red),
                                 SizedBox(height: 5),
-                                Text(
-                                    loanType == Strings.shares
-                                        ? Strings.sell_securities
-                                        : Strings.invoke,
+                                Text(loanType == Strings.shares ? Strings.sell_securities : Strings.invoke,
                                     style: TextStyle(
                                         color: appTheme,
                                         fontSize: 12,
@@ -3586,46 +3231,31 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               Utility.isNetworkConnection().then((isNetwork) {
                                 if (isNetwork) {
                                   if (isSellCollateral) {
-                                    if (!isSellTriggered) {
-                                      if (loanType == Strings.shares) {
+                                    if(!isSellTriggered){
+                                      if(loanType == Strings.shares){
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        SellCollateralScreen(
-                                                            loanName,
-                                                            Strings.all,
-                                                            "",
-                                                            loanType!)));
-                                      } else {
+                                                builder: (BuildContext context) =>
+                                                    SellCollateralScreen(loanName,
+                                                        Strings.all, "", loanType!)));
+                                      }else{
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        MFInvokeScreen(
-                                                            loanName,
-                                                            Strings.all,
-                                                            "",
-                                                            "")));
+                                                builder: (BuildContext context) =>
+                                                    MFInvokeScreen(loanName,
+                                                        Strings.all, "", "")));
                                       }
+
                                     } else {
-                                      commonDialog(context,
-                                          Strings.sale_triggered_small, 0);
+                                      commonDialog(context, Strings.sale_triggered_small, 0);
                                     }
                                   } else {
-                                    commonDialog(
-                                        context,
-                                        loanType == Strings.shares
-                                            ? Strings
-                                                .sell_collateral_request_pending
-                                            : Strings.invoke_request_pending,
-                                        0);
+                                    commonDialog(context, loanType == Strings.shares ? Strings.sell_collateral_request_pending : Strings.invoke_request_pending , 0);
                                   }
                                 } else {
-                                  Utility.showToastMessage(
-                                      Strings.no_internet_message);
+                                  Utility.showToastMessage(Strings.no_internet_message);
                                 }
                               });
                             },
@@ -3706,7 +3336,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 4),
                 child:
-                    Text(Strings.understanding_spark, style: boldTextStyle_18),
+                    Text(Strings.understanding_lms, style: boldTextStyle_18),
               ),
               SizedBox(height: 6),
               Container(
@@ -3756,7 +3386,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          Strings.spark_title,
+                          Strings.lms_title,
                           style: TextStyle(
                               fontSize: 22,
                               color: appTheme,
@@ -3764,7 +3394,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          Strings.spark_subtitle,
+                          Strings.lms_subtitle,
                           style: TextStyle(
                               fontSize: 14,
                               color: appTheme,
@@ -3870,21 +3500,17 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                           width: 113,
                           child: Material(
                             color: appTheme,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                             elevation: 1.0,
                             child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               minWidth: MediaQuery.of(context).size.width,
                               onPressed: () {
                                 Utility.isNetworkConnection().then((isNetwork) {
                                   if (isNetwork) {
-                                    commonDialog(
-                                        context, Strings.coming_soon, 0);
+                                    commonDialog(context, Strings.coming_soon, 0);
                                   } else {
-                                    Utility.showToastMessage(
-                                        Strings.no_internet_message);
+                                    Utility.showToastMessage(Strings.no_internet_message);
                                   }
                                 });
                               },
@@ -3942,15 +3568,13 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                   side: BorderSide(color: red)),
               elevation: 1.0,
               child: MaterialButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(35)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                 minWidth: MediaQuery.of(context).size.width,
                 onPressed: () {
                   Utility.isNetworkConnection().then((isNetwork) {
                     if (isNetwork) {
                       // Firebase Event
-                      Map<String, dynamic> parameter =
-                          new Map<String, dynamic>();
+                      Map<String, dynamic> parameter = new Map<String, dynamic>();
                       parameter[Strings.mobile_no] = customer!.phone;
                       parameter[Strings.email] = customer!.user;
                       parameter[Strings.date_time] = getCurrentDateAndTime();
@@ -4001,19 +3625,15 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                            kycStatus == "Rejected"
-                                ? Strings.kyc_details_rejected
-                                : Strings.kyc_details_pending,
+                        Text(kycStatus == "Rejected"
+                            ? Strings.kyc_details_rejected : Strings.kyc_details_pending,
                             style: TextStyle(
                                 color: red,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14)),
                         SizedBox(width: 4),
-                        Text(
-                          kycStatus == "Rejected"
-                              ? Strings.update_kyc_again
-                              : Strings.kyc_details_text,
+                        Text(kycStatus == "Rejected"
+                            ? Strings.update_kyc_again : Strings.kyc_details_text,
                           style: TextStyle(
                               color: appTheme,
                               fontSize: 10,
@@ -4028,12 +3648,10 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                     width: 81,
                     child: Material(
                       color: appTheme,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       elevation: 1.0,
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () {
                           Utility.isNetworkConnection().then((isNetwork) {
@@ -4044,15 +3662,12 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                       builder: (BuildContext context) =>
                                           CompleteKYCScreen()));
                             } else {
-                              Utility.showToastMessage(
-                                  Strings.no_internet_message);
+                              Utility.showToastMessage(Strings.no_internet_message);
                             }
                           });
                         },
-                        child: Text(
-                          kycStatus == "Rejected"
-                              ? Strings.update_kyc
-                              : Strings.add_kyc,
+                        child: Text(kycStatus == "Rejected" ?
+                        Strings.update_kyc : Strings.add_kyc,
                           style: TextStyle(
                               fontSize: 12,
                               color: colorWhite,
@@ -4124,8 +3739,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   Widget bankDetailsPendingCard() {
     return Visibility(
-      visible: customer!.kycUpdate == 1 &&
-          (bankStatus == "New" || bankStatus == "Rejected"),
+      visible: customer!.kycUpdate == 1 && (bankStatus == "New" || bankStatus == "Rejected"),
       child: Column(
         children: [
           Card(
@@ -4146,19 +3760,13 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                            bankStatus == "Rejected"
-                                ? Strings.bank_details_rejected
-                                : Strings.bank_details_pending,
+                        Text(bankStatus == "Rejected" ? Strings.bank_details_rejected : Strings.bank_details_pending,
                             style: TextStyle(
                                 color: red,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14)),
                         SizedBox(width: 4),
-                        Text(
-                          bankStatus == "Rejected"
-                              ? Strings.update_bank_again
-                              : Strings.bank_details_text,
+                       Text( bankStatus == "Rejected" ? Strings.update_bank_again : Strings.bank_details_text,
                           style: TextStyle(
                               color: appTheme,
                               fontSize: 10,
@@ -4173,12 +3781,10 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                     width: 86,
                     child: Material(
                       color: appTheme,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       elevation: 1.0,
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () {
                           Utility.isNetworkConnection().then((isNetwork) {
@@ -4189,15 +3795,12 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                       builder: (BuildContext context) =>
                                           BankDetailScreen()));
                             } else {
-                              Utility.showToastMessage(
-                                  Strings.no_internet_message);
+                              Utility.showToastMessage(Strings.no_internet_message);
                             }
                           });
                         },
-                        child: Text(
-                          bankStatus == "Rejected"
-                              ? Strings.update_bank
-                              : Strings.add_bank,
+                        child: Text(bankStatus == "Rejected" ?
+                        Strings.update_bank : Strings.add_bank,
                           style: TextStyle(
                               fontSize: 12,
                               color: colorWhite,
@@ -4269,175 +3872,122 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   Widget loanRenewalTimer() {
     return Visibility(
-        visible: loanRenewal != null &&
-            loanRenewal!.isNotEmpty &&
-            isExpired! &&
-            loanRenewal![0].status! == "Pending" &&
-            loanRenewal![0].timeRemaining != "0D:00h:00m:00s",
-        child: Column(
-          children: [
-            Card(
-              elevation: 2.0,
-              color: colorLightYellow,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 14, 10, 14),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(AssetsImagePath.warning_icon,
-                        height: 35, width: 35, color: red),
-                    SizedBox(width: 6),
-                    Expanded(
+      visible: loanRenewal != null && loanRenewal!.isNotEmpty && isExpired! && loanRenewal![0].status! == "Pending" && loanRenewal![0].timeRemaining != "0D:00h:00m:00s",
+      child: Column(
+        children: [
+          Card(
+            elevation: 2.0,
+            color: colorLightYellow,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 14, 10, 14),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(AssetsImagePath.warning_icon,
+                      height: 35, width: 35, color: red),
+                  SizedBox(width: 6),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("TIME IS TICKING⏰",
+                            style: TextStyle(
+                                color: red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14)),
+                        Text("Hurry! Renew Your Loan Before It Expires!",
+                            style: TextStyle(color: appTheme, fontSize: 10, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 6),
+                  Container(
+                    width: 90,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: appTheme,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(6))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("TIME IS TICKING⏰",
-                              style: TextStyle(
-                                  color: red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
-                          Text("Hurry! Renew Your Loan Before It Expires!",
-                              style: TextStyle(
-                                  color: appTheme,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold)),
+                          isTimerShow!
+                              ?  TweenAnimationBuilder<Duration>(
+                              duration: Duration(days: timerDays, hours: timerHours, minutes: timerMin, seconds: timerSec),
+                              tween: Tween(
+                                  begin: Duration(days: timerDays,hours: timerHours, minutes: timerMin, seconds: timerSec),
+                                  end: Duration.zero),
+                              onEnd: () {
+                                setState(() {
+                                  // isTimerDone = true;
+                                });
+                              },
+                              builder: (BuildContext context, Duration? value, Widget? child) {
+                                final days = (value!.inDays).toString();
+                                final hours = (value.inHours % 24).toString().padLeft(2, '0');
+                                final minutes = (value.inMinutes % 60).toString().padLeft(2, '0');
+                                final seconds = (value.inSeconds % 60).toString().padLeft(2, '0');
+                                String hour = '';
+                                String day = '';
+                                if (hours == '0') {
+                                  hour = '';
+                                } else {
+                                  hour = '$hours';
+                                }
+                                if (days == '0') {
+                                  day = '';
+                                } else {
+                                  day = '$days';
+                                }
+                                return Column(
+                                  children: [
+                                    Text(Strings.time_remaining,
+                                        style: TextStyle(fontSize: 9, color: Colors.indigo)),
+                                    Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5),
+                                        child: timerDays < 1 ? Text('$hour:$minutes:$seconds', textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)) :
+                                            timerDays == 1 ? Text('$day Day $hour Hour', textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)) :
+                                                timerDays > 1 ? Text('$day Days $hour Hour', textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)) : SizedBox(),
+                                    ),
+                                  ],
+                                );
+                              })
+                              : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Text('Action Taken',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12)),
+                          )
                         ],
                       ),
                     ),
-                    SizedBox(width: 6),
-                    Container(
-                      width: 90,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: appTheme,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(6))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Column(
-                          children: [
-                            isTimerShow!
-                                ? TweenAnimationBuilder<Duration>(
-                                    duration: Duration(
-                                        days: timerDays,
-                                        hours: timerHours,
-                                        minutes: timerMin,
-                                        seconds: timerSec),
-                                    tween: Tween(
-                                        begin: Duration(
-                                            days: timerDays,
-                                            hours: timerHours,
-                                            minutes: timerMin,
-                                            seconds: timerSec),
-                                        end: Duration.zero),
-                                    onEnd: () {
-                                      setState(() {
-                                        // isTimerDone = true;
-                                      });
-                                    },
-                                    builder: (BuildContext context,
-                                        Duration? value, Widget? child) {
-                                      final days = (value!.inDays).toString();
-                                      final hours = (value.inHours % 24)
-                                          .toString()
-                                          .padLeft(2, '0');
-                                      final minutes = (value.inMinutes % 60)
-                                          .toString()
-                                          .padLeft(2, '0');
-                                      final seconds = (value.inSeconds % 60)
-                                          .toString()
-                                          .padLeft(2, '0');
-                                      String hour = '';
-                                      String day = '';
-                                      if (hours == '0') {
-                                        hour = '';
-                                      } else {
-                                        hour = '$hours';
-                                      }
-                                      if (days == '0') {
-                                        day = '';
-                                      } else {
-                                        day = '$days';
-                                      }
-                                      return Column(
-                                        children: [
-                                          Text(Strings.time_remaining,
-                                              style: TextStyle(
-                                                  fontSize: 9,
-                                                  color: Colors.indigo)),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5),
-                                            child: timerDays < 1
-                                                ? Text(
-                                                    '$hour:$minutes:$seconds',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.red))
-                                                : timerDays == 1
-                                                    ? Text(
-                                                        '$day Day $hour Hour',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.red))
-                                                    : timerDays > 1
-                                                        ? Text(
-                                                            '$day Days $hour Hour',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    Colors.red))
-                                                        : SizedBox(),
-                                          ),
-                                        ],
-                                      );
-                                    })
-                                : Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    child: Text('Action Taken',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: red,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12)),
-                                  )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 10),
-          ],
-        ));
+          ),
+          SizedBox(height: 10),
+        ],
+      )
+    );
   }
 
   Widget loanRenewalPendingCard() {
     return Visibility(
-      visible: loanRenewal != null &&
-          loanRenewal!.isNotEmpty &&
-          loanRenewal![0].tncComplete != 1 &&
-          loanRenewal![0].updatedKycStatus != "Pending" &&
-          loanRenewal![0].updatedKycStatus! != "Approved" &&
-          loanRenewal![0].status != "Rejected",
+      visible: loanRenewal != null && loanRenewal!.isNotEmpty && loanRenewal![0].tncComplete != 1 && loanRenewal![0].updatedKycStatus != "Pending" && loanRenewal![0].updatedKycStatus! != "Approved" &&  loanRenewal![0].status != "Rejected",
       child: Column(
         children: [
           Card(
@@ -4458,31 +4008,23 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        loanRenewal!.length != 0
-                            ? Text("Loan Renewal Pending!",
-                                style: TextStyle(
-                                    color: red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14))
-                            : Container(),
+                        loanRenewal!.length != 0 ? Text("Loan Renewal Pending!",
+                            style: TextStyle(
+                                color: red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14)) : Container(),
                         SizedBox(width: 4),
-                        loanRenewal!.length != 0
-                            ? loanRenewal![0].isExpired == 0
-                                ? Text(
-                                    "Your loan account number ${loanRenewal![0].loan} is due for renewal. Please renew before the expiry date, ${loanRenewal![0].expiryDate}.",
-                                    style: TextStyle(
-                                        color: appTheme,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                : Text(
-                                    "Your loan account ${loanRenewal![0].loan} is due for renewal. Please RENEW before the time RUNS OUT!",
-                                    style: TextStyle(
-                                        color: appTheme,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                            : Container(),
+                        loanRenewal!.length != 0 ? loanRenewal![0].isExpired == 0 ? Text("Your loan account number ${loanRenewal![0].loan} is due for renewal. Please renew before the expiry date, ${loanRenewal![0].expiryDate}.",
+                          style: TextStyle(
+                              color: appTheme,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold),
+                        ) : Text("Your loan account ${loanRenewal![0].loan} is due for renewal. Please RENEW before the time RUNS OUT!",
+                          style: TextStyle(
+                              color: appTheme,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold),
+                        ) : Container(),
                       ],
                     ),
                   ),
@@ -4495,8 +4037,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 10, right: 10, top: 5, bottom: 5),
-                        child: Text(
-                          "Renew Loan",
+                        child: Text("Renew Loan",
                           style: TextStyle(
                               fontSize: 12,
                               color: colorWhite,
@@ -4512,8 +4053,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      KycUpdateScreen(kycDocName!, loanName,
-                                          loanRenewal![0].name!)));
+                                      KycUpdateScreen(kycDocName!, loanName, loanRenewal![0].name!)));
                         } else {
                           Utility.showToastMessage(Strings.no_internet_message);
                         }
@@ -4532,14 +4072,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   Widget tncPendingCard() {
     return Visibility(
-      visible: loanRenewal!.length != 0 &&
-          loanRenewal != null &&
-          loanRenewal.toString().isNotEmpty &&
-          loanRenewal![0].tncComplete != 1 &&
-          loanRenewal![0].updatedKycStatus == "Approved" &&
-          loanRenewal![0].updatedKycStatus != "" &&
-          loanRenewal![0].status != "Rejected" &&
-          loanRenewal![0].tncShow == 0,
+      visible: loanRenewal!.length != 0 && loanRenewal != null && loanRenewal.toString().isNotEmpty && loanRenewal![0].tncComplete != 1 && loanRenewal![0].updatedKycStatus == "Approved" && loanRenewal![0].updatedKycStatus != "" && loanRenewal![0].status != "Rejected" && loanRenewal![0].tncShow == 0,
       child: Column(
         children: [
           Card(
@@ -4566,8 +4099,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14)),
                         SizedBox(width: 4),
-                        Text(
-                          "Please refer and accept the terms and conditions to proceed with the Loan Renew journey",
+                        Text("Please refer and accept the terms and conditions to proceed with the Loan Renew journey",
                           style: TextStyle(
                               color: appTheme,
                               fontSize: 10,
@@ -4585,8 +4117,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 10, right: 10, top: 5, bottom: 5),
-                        child: Text(
-                          "Click Here",
+                        child: Text("Click Here",
                           style: TextStyle(
                               fontSize: 12,
                               color: colorWhite,
@@ -4602,8 +4133,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      LoanSummaryScreen(true,
-                                          loanRenewal![0].name!, loanName)));
+                                      LoanSummaryScreen(true, loanRenewal![0].name!, loanName)));
                         } else {
                           Utility.showToastMessage(Strings.no_internet_message);
                         }
@@ -4622,11 +4152,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
 
   Widget loanRenewalVerificationPending() {
     return Visibility(
-      visible: loanRenewal!.length != 0 &&
-          loanRenewal != null &&
-          loanRenewal![0].updatedKycStatus! == "Pending" &&
-          loanRenewal![0].tncComplete! == 0 &&
-          loanRenewal![0].status != "Rejected",
+      visible: loanRenewal!.length != 0 && loanRenewal != null && loanRenewal![0].updatedKycStatus! == "Pending" && loanRenewal![0].tncComplete! == 0 && loanRenewal![0].status != "Rejected",
       child: Column(
         children: [
           Card(
@@ -4674,6 +4200,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
     );
   }
 
+
   Future<void> feedbackDialog(BuildContext context) {
     return showDialog<void>(
       barrierDismissible: false,
@@ -4683,6 +4210,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
       },
     );
   }
+
 }
 
 class LoanSummaryTile extends StatelessWidget {
@@ -4764,16 +4292,10 @@ class LoanSummaryTile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 10, color: colorLightAppTheme)),
                           SizedBox(height: 3),
-                          Text(
-                              odBalanceisNegative!
-                                  ? negativeValue(double.parse(
-                                      odBalance!.replaceAll(",", "")))
-                                  : '₹$odBalance',
+                          Text(odBalanceisNegative! ? negativeValue(double.parse(odBalance!.replaceAll(",", ""))) : '₹$odBalance',
                               style: TextStyle(
                                   fontSize: 12,
-                                  color: odBalanceisNegative!
-                                      ? colorGreen
-                                      : appTheme,
+                                  color: odBalanceisNegative! ? colorGreen : appTheme,
                                   fontWeight: FontWeight.bold)),
                         ],
                       ),
@@ -4819,16 +4341,10 @@ class LoanSummaryTile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 10, color: colorLightAppTheme)),
                           SizedBox(height: 3),
-                          Text(
-                              odBalanceisNegative!
-                                  ? negativeValue(double.parse(
-                                      odBalance!.replaceAll(",", "")))
-                                  : '₹$odBalance',
+                          Text(odBalanceisNegative! ? negativeValue(double.parse(odBalance!.replaceAll(",", ""))) : '₹$odBalance',
                               style: TextStyle(
                                   fontSize: 12,
-                                  color: odBalanceisNegative!
-                                      ? colorGreen
-                                      : appTheme,
+                                  color: odBalanceisNegative! ? colorGreen : appTheme,
                                   fontWeight: FontWeight.bold)),
                         ],
                       ),
@@ -4874,33 +4390,33 @@ class LoanSummaryTile extends StatelessWidget {
                 ),
               )
             else if (status == Strings.loanRenewal)
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(Strings.loanRenewal,
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: red,
-                                fontWeight: FontWeight.bold)),
-                        SizedBox(width: 2),
-                        Text('Status',
-                            style: TextStyle(fontSize: 10, color: appTheme)),
+                        Row(
+                          children: [
+                            Text(Strings.loanRenewal,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: red,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(width: 2),
+                            Text('Status',
+                                style: TextStyle(fontSize: 10, color: appTheme)),
+                          ],
+                        ),
+                        SizedBox(height: 3),
+                        Text(
+                          withdrawal!,
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: appTheme,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
-                    SizedBox(height: 3),
-                    Text(
-                      withdrawal!,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: appTheme,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              )
+                  )
             else if (status == Strings.sell_collateral)
               Expanded(
                 child: Row(
@@ -4911,10 +4427,7 @@ class LoanSummaryTile extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                  loanType == Strings.shares
-                                      ? Strings.sell_collateral
-                                      : Strings.invoke,
+                              Text(loanType == Strings.shares ? Strings.sell_collateral : Strings.invoke,
                                   style: TextStyle(
                                       fontSize: 10,
                                       color: red,
@@ -4949,10 +4462,8 @@ class LoanSummaryTile extends StatelessWidget {
                                         Strings.sell_collateral,
                                         pendingSellCollateral!.loan,
                                         pendingSellCollateral!.creation,
-                                        pendingSellCollateral!
-                                            .totalCollateralValue,
-                                        pendingSellCollateral!
-                                            .sellItems!.length,
+                                        pendingSellCollateral!.totalCollateralValue,
+                                        pendingSellCollateral!.sellItems!.length,
                                         pendingSellCollateral!.sellItems!,
                                         [],
                                         loanType)));
@@ -4976,10 +4487,7 @@ class LoanSummaryTile extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                  loanType == Strings.shares
-                                      ? Strings.unpledge
-                                      : Strings.revoke,
+                              Text(loanType == Strings.shares ? Strings.unpledge : Strings.revoke,
                                   style: TextStyle(
                                       fontSize: 10,
                                       color: red,
@@ -5018,7 +4526,7 @@ class LoanSummaryTile extends StatelessWidget {
                                         pendingUnPledge!.unpledgeItems!.length,
                                         [],
                                         pendingUnPledge!.unpledgeItems!,
-                                        loanType)));
+                                    loanType)));
                           } else {
                             Utility.showToastMessage(
                                 Strings.no_internet_message);
@@ -5102,7 +4610,7 @@ class VideoCard extends StatelessWidget {
                       'https://i3.ytimg.com/vi/${videoID}/maxresdefault.jpg'
                       // 'https://i.ytimg.com/vi/${videoID}/hqdefault.jpg'
                       // 'https://i3.ytimg.com/vi/${videoID}/mqdefault.jpg'
-                      ),
+                  ),
                 ),
                 color: colorWhite,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -5145,8 +4653,7 @@ class VideoCard extends StatelessWidget {
                 Utility.isNetworkConnection().then((isNetwork) {
                   if (isNetwork) {
                     // Firebase Event
-                    Map<String, dynamic> parameters =
-                        new Map<String, dynamic>();
+                    Map<String, dynamic> parameters = new Map<String, dynamic>();
                     parameters[Strings.mobile_no] = mobile;
                     parameters[Strings.email] = email;
                     parameters[Strings.date_time] = getCurrentDateAndTime();

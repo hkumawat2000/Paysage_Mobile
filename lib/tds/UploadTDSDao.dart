@@ -8,7 +8,7 @@
 // import 'package:lms/widgets/WidgetCommon.dart';
 // import 'package:dio/dio.dart';
 //
-// class UploadTDSDao with BaseDio {
+// class UploadTDSDao extends BaseDio {
 //   int limitPageLength = 20;
 //   Future<UploadTDSResponseBean> uploadTDS(String tdsAmount,String year,File tdsFileUpload) async {
 //     Dio dio = await getBaseDio();

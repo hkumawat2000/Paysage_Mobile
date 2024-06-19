@@ -377,7 +377,7 @@ class SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
       securityValue = 0;
       eligibleLoan = 0;
       selectedDematAccount = selectedStatus;
-      if(selectedStatus!.isChoice == 1) {
+      if(selectedStatus!.isAtrina == 1) {
         LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
         _handleSearchEnd();
         isBottomSheetVisible = true;
@@ -450,7 +450,7 @@ class SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
             SizedBox(width: 4),
             Container(
               child: AbsorbPointer(
-                absorbing: selectedDematAccount != null && selectedDematAccount!.isChoice == 1 ? false : true,
+                absorbing: selectedDematAccount != null && selectedDematAccount!.isAtrina == 1 ? false : true,
                 child: FlutterSwitch(
                   value: isToggleOn ? true : false,
                   activeColor: colorWhite,
@@ -978,8 +978,16 @@ class SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
                             itemBuilder: (context, index) {
                               return CheckboxListTile(
                                 contentPadding: EdgeInsets.zero,
-                                onChanged: (val) => null,
-                                value: true,
+                                onChanged: (val) {
+                                  s(() {
+                                    lenderCheckBox[index] = val!;
+                                    if(!lenderCheckBox.contains(true)){
+                                      Utility.showToastMessage("Atleast one lender is mandatory");
+                                      lenderCheckBox[index] = !val;
+                                    }
+                                  });
+                                },
+                                value: lenderCheckBox[index],
                                 title: Text(lenderList[index]),
                               );
                             },
@@ -1156,7 +1164,7 @@ class SecuritySelectionScreenState extends State<SecuritySelectionScreen> {
       children: [
         IconButton(
           icon: Image.asset(
-            AssetsImagePath.lender_choice_finserv,
+            AssetsImagePath.lender_finserv,
             height: 24,
             width: 24,
           ),

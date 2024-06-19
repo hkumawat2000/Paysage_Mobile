@@ -439,7 +439,7 @@
 //                             child: Container(
 //                               width: 55,
 //                               height: 20,
-//                               child: FlatButton(
+//                               child: TextButton(
 //                                 color: appTheme,
 //                                 textColor: Colors.white,
 //                                 shape: RoundedRectangleBorder(
@@ -754,13 +754,13 @@
 //             ),
 //           ),
 //           actions: <Widget>[
-//             FlatButton(
+//             TextButton(
 //               child: Text('No'),
 //               onPressed: () {
 //                 Navigator.of(context).pop();
 //               },
 //             ),
-//             FlatButton(
+//             TextButton(
 //               child: Text('Yes'),
 //               onPressed: () {
 //                 Navigator.pop(context);
@@ -789,7 +789,7 @@
 //             ),
 //           ),
 //           actions: <Widget>[
-//             FlatButton(
+//             TextButton(
 //               child: Text('Ok'),
 //               onPressed: () {
 //                 Navigator.pop(context);
@@ -825,13 +825,13 @@
 //             ),
 //           ),
 //           actions: <Widget>[
-//             FlatButton(
+//             TextButton(
 //               child: Text('No'),
 //               onPressed: () {
 //                 Navigator.of(context).pop();
 //               },
 //             ),
-//             FlatButton(
+//             TextButton(
 //               child: Text('Yes'),
 //               onPressed: () {
 //                 Navigator.pop(context);

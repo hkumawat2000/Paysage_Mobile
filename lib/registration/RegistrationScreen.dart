@@ -99,7 +99,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       if(Platform.isAndroid){
         if (_focusNode.hasFocus) {
           this._overlayEntry = this._createOverlayEntry();
-          Overlay.of(context).insert(this._overlayEntry!);
+          Overlay.of(context)!.insert(this._overlayEntry!);
         } else {
           if (_overlayEntry == null && this._overlayEntry!.mounted) {
             this._overlayEntry!.remove();
@@ -487,7 +487,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                 if (val.length == 0) {
                   if (_focusNode.hasFocus) {
                     this._overlayEntry = this._createOverlayEntry();
-                    Overlay.of(context).insert(this._overlayEntry!);
+                    Overlay.of(context)!.insert(this._overlayEntry!);
                   }
                 } else {
                   if (this._overlayEntry!.mounted)
@@ -656,7 +656,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Why is Spark.Loans asking for Get Account Access?\n\nThis will help us to locate YOU in the contact for easy registration and gather some generic information about the device.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'Why is LMS asking for Get Account Access?\n\nThis will help us to locate YOU in the contact for easy registration and gather some generic information about the device.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',style: regularTextStyle_12_gray_dark),
                       TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {

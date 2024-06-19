@@ -1157,8 +1157,8 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Why is Spark.Loans asking for my Storage access?\n\n',style: regularTextStyle_12_gray_dark),
-                      TextSpan(text: 'Spark Loan asked for ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'Why is LMS asking for my Storage access?\n\n',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'LMS asked for ',style: regularTextStyle_12_gray_dark),
                       TextSpan(text: 'Storage Access', style: boldTextStyle_12_gray_dark),
                       TextSpan(text: ' to let you upload the required ',style: regularTextStyle_12_gray_dark),
                       TextSpan(text: 'Documents & Image', style: boldTextStyle_12_gray_dark),
@@ -2237,8 +2237,8 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Why is Spark.Loans asking for my Storage access?\n\n',style: regularTextStyle_12_gray_dark),
-                      TextSpan(text: 'Spark Loan asked for ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'Why is LMS asking for my Storage access?\n\n',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'LMS asked for ',style: regularTextStyle_12_gray_dark),
                       TextSpan(text: 'Storage Access', style: boldTextStyle_12_gray_dark),
                       TextSpan(text: ' to let you upload the required ',style: regularTextStyle_12_gray_dark),
                       TextSpan(text: 'Documents & Image', style: boldTextStyle_12_gray_dark),

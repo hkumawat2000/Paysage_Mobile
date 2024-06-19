@@ -53,7 +53,7 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
     _iconTurns = new Tween<double>(begin: 0.0, end: 0.5).animate(_easeInAnimation!);
     _backgroundColor = new ColorTween();
 
-    _isExpanded = PageStorage.of(context).readState(context) ?? widget.initiallyExpanded;
+    _isExpanded = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded)
       _controller!.value = 1.0;
   }
@@ -88,7 +88,7 @@ class AppExpansionTileState extends State<AppExpansionTile> with SingleTickerPro
               // Rebuild without widget.children.
             });
           });
-        PageStorage.of(context).writeState(context, _isExpanded);
+        PageStorage.of(context)?.writeState(context, _isExpanded);
       });
       if (widget.onExpansionChanged != null) {
         widget.onExpansionChanged(_isExpanded);

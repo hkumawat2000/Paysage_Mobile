@@ -33,7 +33,7 @@ class BaseDio {
     preferences.setBaseURL(baseURL);
     BaseOptions options = BaseOptions(
       baseUrl: baseURL,
-      connectTimeout: Constants.connectionTimeOut,
+      connectTimeout: Duration(milliseconds: Constants.connectionTimeOut),
       responseType: ResponseType.json,
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
@@ -81,7 +81,7 @@ class BaseDio {
     preferences.setBaseURL(baseURL);
     BaseOptions options = BaseOptions(
       baseUrl: baseURL,
-      connectTimeout: Constants.connectionTimeOut,
+      connectTimeout: Duration(milliseconds: Constants.connectionTimeOut),
       responseType: ResponseType.json,
       headers: {
         HttpHeaders.acceptHeader: 'application/json',
@@ -123,7 +123,7 @@ class BaseDio {
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
     BaseOptions options = BaseOptions(
       baseUrl: Constants.payment,
-      connectTimeout: Constants.connectionTimeOut,
+      connectTimeout: Duration(milliseconds: Constants.connectionTimeOut),
       responseType: ResponseType.json,
       headers: <String, String>{'authorization': basicAuth},
     );
@@ -142,7 +142,7 @@ class BaseDio {
     String baseURL = "";
     switch(FlavorConfig.instance.flavor){
       case Flavor.PROD:
-        baseURL = Constants.baseUrlProd;
+        baseURL = Constants.oldUrlUat;
         break;
       case Flavor.QA:
         baseURL = Constants.oldUrlUat;

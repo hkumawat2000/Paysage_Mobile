@@ -530,7 +530,7 @@ class _SettingMenuState extends State<SettingMenu> {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Why is Spark.Loans asking for use of Biometric Authentication?\n\nUse biometric login with your fingerprint or face for faster and easier access to your account.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'Why is LMS asking for use of Biometric Authentication?\n\nUse biometric login with your fingerprint or face for faster and easier access to your account.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',style: regularTextStyle_12_gray_dark),
                       TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {

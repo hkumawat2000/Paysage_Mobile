@@ -28,8 +28,7 @@ class MFIncreaseLoanMyVault extends StatefulWidget {
   String comingFor, loanType;
   LoanDetailData? loanData;
 
-  MFIncreaseLoanMyVault(
-      this.myCartRequestBean, this.comingFor, this.loanType, this.loanData);
+  MFIncreaseLoanMyVault(this.myCartRequestBean, this.comingFor, this.loanType, this.loanData);
 
   @override
   State<MFIncreaseLoanMyVault> createState() => _MFIncreaseLoanMyVaultState();
@@ -121,16 +120,16 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
   }
 
   callUpsertCartAPI(bool isLoading) {
-    if (isLoading) {
+    if(isLoading){
       LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
     }
     loanApplicationBloc.myCart(widget.myCartRequestBean).then((value) {
-      if (isLoading) {
+      if(isLoading){
         Navigator.pop(context);
       }
       if (value.isSuccessFull!) {
-        if (isLoading) {
-          if (widget.comingFor == Strings.margin_shortfall) {
+        if(isLoading){
+          if(widget.comingFor == Strings.margin_shortfall){
             showModalBottomSheet(
                 backgroundColor: Colors.transparent,
                 context: context,
@@ -142,20 +141,13 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                       "",
                       "",
                       value.data!.cart!.loan!,
-                      value.data!.cart!.totalCollateralValue!,
-                      widget.loanType);
+                      value.data!.cart!.totalCollateralValue!, widget.loanType);
                 });
-          } else {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => TermsConditionsScreen(
-                        roundDownTo(eligibleLoanAmount).toString(),
-                        cartName!,
-                        "",
-                        Strings.mf_increase_loan,
-                        "",
-                        widget.loanType)));
+          }else{
+            Navigator.push(context, MaterialPageRoute(
+                builder: (BuildContext context) => TermsConditionsScreen(
+                    roundDownTo(eligibleLoanAmount).toString(), cartName!, "",
+                    Strings.mf_increase_loan, "", widget.loanType)));
           }
         } else {
           schemeTextControllerList.clear();
@@ -170,8 +162,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
           schemeValue = value.data!.cart!.totalCollateralValue!;
           eligibleLoanAmount = value.data!.cart!.eligibleLoan!;
           for (int i = 0; i < value.data!.cart!.items!.length; i++) {
-            schemeTextControllerList.add(TextEditingController(
-                text: value.data!.cart!.items![i].pledgedQuantity.toString()));
+            schemeTextControllerList.add(TextEditingController(text: value.data!.cart!.items![i].pledgedQuantity.toString()));
             focusNode.add(FocusNode());
             switch (value.data!.cart!.items![i].securityCategory!) {
               case Strings.cat_a:
@@ -195,64 +186,24 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
           categoryWiseList.add(CategoryWiseList(Strings.cat_b, catBList));
           categoryWiseList.add(CategoryWiseList(Strings.cat_c, catCList));
           categoryWiseList.add(CategoryWiseList(Strings.cat_d, catDList));
-          categoryWiseList
-              .add(CategoryWiseList(Strings.super_cat_a, superCatAList));
-          for (int i = 0; i < catAList.length; i++) {
-            schemeTextControllerList[i].text = int.parse(catAList[i]
-                        .pledgedQuantity!
-                        .toString()
-                        .split(".")[1]) ==
-                    0
-                ? catAList[i].pledgedQuantity!.toString().split(".")[0]
-                : catAList[i].pledgedQuantity!.toString();
+          categoryWiseList.add(CategoryWiseList(Strings.super_cat_a, superCatAList));
+          for(int i=0; i<catAList.length; i++){
+            schemeTextControllerList[i].text = int.parse(catAList[i].pledgedQuantity!.toString().split(".")[1]) == 0 ? catAList[i].pledgedQuantity!.toString().split(".")[0] : catAList[i].pledgedQuantity!.toString();
           }
-          for (int i = 0; i < catBList.length; i++) {
-            schemeTextControllerList[catAList.length + i].text = int.parse(
-                        catBList[i]
-                            .pledgedQuantity!
-                            .toString()
-                            .split(".")[1]) ==
-                    0
-                ? catBList[i].pledgedQuantity!.toString().split(".")[0]
-                : catBList[i].pledgedQuantity!.toString();
+          for(int i=0; i<catBList.length; i++){
+            schemeTextControllerList[catAList.length + i].text = int.parse(catBList[i].pledgedQuantity!.toString().split(".")[1]) == 0 ? catBList[i].pledgedQuantity!.toString().split(".")[0] : catBList[i].pledgedQuantity!.toString();
           }
-          for (int i = 0; i < catCList.length; i++) {
-            schemeTextControllerList[catAList.length + catBList.length + i]
-                .text = int.parse(catCList[i]
-                        .pledgedQuantity!
-                        .toString()
-                        .split(".")[1]) ==
-                    0
-                ? catCList[i].pledgedQuantity!.toString().split(".")[0]
-                : catCList[i].pledgedQuantity!.toString();
+          for(int i=0; i<catCList.length; i++){
+            schemeTextControllerList[catAList.length + catBList.length + i].text = int.parse(catCList[i].pledgedQuantity!.toString().split(".")[1]) == 0 ? catCList[i].pledgedQuantity!.toString().split(".")[0] : catCList[i].pledgedQuantity!.toString();
           }
-          for (int i = 0; i < catDList.length; i++) {
-            schemeTextControllerList[
-                    catAList.length + catBList.length + catCList.length + i]
-                .text = int.parse(catDList[i]
-                        .pledgedQuantity!
-                        .toString()
-                        .split(".")[1]) ==
-                    0
-                ? catDList[i].pledgedQuantity!.toString().split(".")[0]
-                : catDList[i].pledgedQuantity!.toString();
+          for(int i=0; i<catDList.length; i++){
+            schemeTextControllerList[catAList.length + catBList.length + catCList.length + i].text = int.parse(catDList[i].pledgedQuantity!.toString().split(".")[1]) == 0 ? catDList[i].pledgedQuantity!.toString().split(".")[0] : catDList[i].pledgedQuantity!.toString();
           }
-          for (int i = 0; i < superCatAList.length; i++) {
-            schemeTextControllerList[catAList.length +
-                    catBList.length +
-                    catCList.length +
-                    catDList.length +
-                    i]
-                .text = int.parse(superCatAList[i]
-                        .pledgedQuantity!
-                        .toString()
-                        .split(".")[1]) ==
-                    0
-                ? superCatAList[i].pledgedQuantity!.toString().split(".")[0]
-                : superCatAList[i].pledgedQuantity!.toString();
+          for(int i=0; i<superCatAList.length; i++){
+            schemeTextControllerList[catAList.length + catBList.length + catCList.length+ catDList.length + i].text = int.parse(superCatAList[i].pledgedQuantity!.toString().split(".")[1]) == 0 ? superCatAList[i].pledgedQuantity!.toString().split(".")[0] : superCatAList[i].pledgedQuantity!.toString();
           }
         }
-      } else if (value.errorCode == 403) {
+      } else if(value.errorCode == 403){
         commonDialog(context, Strings.session_timeout, 4);
       } else {
         Utility.showToastMessage(value.errorMessage!);
@@ -265,7 +216,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: GestureDetector(
-        onTap: () {
+        onTap: (){
           FocusScope.of(context).unfocus();
         },
         child: Scaffold(
@@ -288,11 +239,8 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
             return NoDataWidget();
           } else {
             cartViewList.clear();
-            cartViewList.add(Atrina(
-                snapshot.data!.cart!.lender,
-                snapshot.data!.roi,
-                snapshot.data!.minSanctionedLimit,
-                snapshot.data!.maxSanctionedLimit));
+            cartViewList.add(Atrina(snapshot.data!.cart!.lender, snapshot.data!.roi,
+                snapshot.data!.minSanctionedLimit, snapshot.data!.maxSanctionedLimit));
             return viewVaultScreenBody(snapshot);
           }
         } else if (snapshot.hasError) {
@@ -338,10 +286,8 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
         isToggleSelect
             ? Container()
             : isDefaultBottomDialog!
-                ? bottomSheetDialog(snapshot)
-                : widget.comingFor == Strings.increase_loan
-                    ? eligibleLimitViewVaultDialog(snapshot)
-                    : bottomSectionShortFall(snapshot)
+            ? bottomSheetDialog(snapshot)
+            : widget.comingFor == Strings.increase_loan ? eligibleLimitViewVaultDialog(snapshot) : bottomSectionShortFall(snapshot)
       ],
     );
   }
@@ -370,8 +316,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                   child: Center(
                     child: Padding(
                       padding: EdgeInsets.all(10),
-                      child: Text(
-                        categoryWiseList[index].categoryName!,
+                      child: Text(categoryWiseList[index].categoryName!,
                         style: mediumTextStyle_14_gray_dark,
                       ),
                     ),
@@ -387,8 +332,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
             shrinkWrap: true,
             itemCount: categoryWiseList[index].items!.length,
             itemBuilder: (context, i) {
-              int actualIndex = schemesList.indexWhere((element) =>
-                  element.isin == categoryWiseList[index].items![i].isin);
+              int actualIndex = schemesList.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin);
               return Column(
                 children: [
                   Padding(
@@ -396,8 +340,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          categoryWiseList[index].items![i].securityName!,
+                        Text(categoryWiseList[index].items![i].securityName!,
                           style: boldTextStyle_18,
                         ),
                         Row(
@@ -410,10 +353,8 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                   icon: Container(
                                     padding: EdgeInsets.all(2),
                                     decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        border: Border.all(
-                                            width: 1, color: colorBlack)),
+                                        borderRadius: BorderRadius.circular(100),
+                                        border: Border.all(width: 1, color: colorBlack)),
                                     child: Icon(
                                       Icons.remove,
                                       color: colorBlack,
@@ -421,178 +362,57 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    Utility.isNetworkConnection()
-                                        .then((isNetwork) {
+                                    Utility.isNetworkConnection().then((isNetwork) {
                                       if (isNetwork) {
                                         setState(() {
                                           FocusScope.of(context).unfocus();
-                                          var fieldText =
-                                              schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase()
-                                                              .split("_")[0],
-                                                          i)]
-                                                  .text
-                                                  .toString();
-                                          if (fieldText.isNotEmpty &&
-                                              (double.parse(fieldText) == 1 ||
-                                                  double.parse(fieldText) ==
-                                                      0.00 ||
-                                                  double.parse(fieldText) ==
-                                                      0.0 ||
-                                                  double.parse(fieldText) ==
-                                                      0 ||
-                                                  double.parse(fieldText) ==
-                                                      .0 ||
-                                                  double.parse(fieldText) ==
-                                                      .00 ||
-                                                  double.parse(fieldText) ==
-                                                      .000 ||
-                                                  double.parse(fieldText) ==
-                                                      0.001)) {
+                                          var fieldText = schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase().split("_")[0], i)].text.toString();
+                                          if(fieldText.isNotEmpty && (double.parse(fieldText) == 1 || double.parse(fieldText) == 0.00  || double.parse(fieldText) == 0.0 || double.parse(fieldText) == 0 || double.parse(fieldText) == .0 ||double.parse(fieldText) == .00 ||double.parse(fieldText) == .000 || double.parse(fieldText)== 0.001)){
                                             setState(() {
-                                              schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                  .text = "0.001";
-                                              widget
-                                                      .myCartRequestBean
-                                                      .securities!
-                                                      .list![widget
-                                                          .myCartRequestBean
-                                                          .securities!
-                                                          .list!
-                                                          .indexWhere((element) =>
-                                                              element.isin ==
-                                                              categoryWiseList[
-                                                                      index]
-                                                                  .items![i]
-                                                                  .isin)]
-                                                      .quantity =
-                                                  double.parse("0.001");
-                                              schemesList[actualIndex]
-                                                      .pledgedQuantity =
-                                                  double.parse(schemeTextControllerList[
-                                                          getIndexOfSchemeUnit(
-                                                              categoryWiseList[
-                                                                      index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                      .text);
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text = "0.001";
+                                              widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin)].quantity = double.parse("0.001");
+                                              schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                               calculationHandling();
-                                              Utility.showToastMessage(Strings
-                                                  .message_unit_not_less_1);
+                                              Utility.showToastMessage(Strings.message_unit_not_less_1);
                                             });
                                           } else {
                                             var txt, decrementWith;
-                                            if (fieldText.contains('.') &&
-                                                fieldText
-                                                        .split(".")[1]
-                                                        .length !=
-                                                    0) {
+                                            if(fieldText.contains('.') && fieldText.split(".")[1].length != 0) {
                                               var unitsDecimalCount;
-                                              var qtyArray =
-                                                  fieldText.split('.');
+                                              var qtyArray = fieldText.split('.');
                                               unitsDecimalCount = qtyArray[1];
-                                              if (int.parse(
-                                                      unitsDecimalCount) ==
-                                                  0) {
-                                                txt =
-                                                    double.parse(fieldText) - 1;
+                                              if(int.parse(unitsDecimalCount) == 0){
+                                                txt = double.parse(fieldText) - 1;
                                                 decrementWith = 1;
                                                 fieldText = txt.toString();
                                               } else {
-                                                if (unitsDecimalCount
-                                                        .toString()
-                                                        .length ==
-                                                    1) {
-                                                  txt =
-                                                      double.parse(fieldText) -
-                                                          .1;
+                                                if (unitsDecimalCount.toString().length == 1) {
+                                                  txt = double.parse(fieldText) - .1;
                                                   decrementWith = .1;
-                                                  fieldText =
-                                                      txt.toStringAsFixed(1);
-                                                } else if (unitsDecimalCount
-                                                        .toString()
-                                                        .length ==
-                                                    2) {
-                                                  txt =
-                                                      double.parse(fieldText) -
-                                                          .01;
+                                                  fieldText = txt.toStringAsFixed(1);
+                                                } else if (unitsDecimalCount.toString().length == 2) {
+                                                  txt = double.parse(fieldText) - .01;
                                                   decrementWith = .01;
-                                                  fieldText =
-                                                      txt.toStringAsFixed(2);
+                                                  fieldText = txt.toStringAsFixed(2);
                                                 } else {
-                                                  txt =
-                                                      double.parse(fieldText) -
-                                                          .001;
+                                                  txt = double.parse(fieldText) - .001;
                                                   decrementWith = .001;
-                                                  fieldText =
-                                                      txt.toStringAsFixed(3);
+                                                  fieldText = txt.toStringAsFixed(3);
                                                 }
                                               }
-                                            } else {
-                                              txt = fieldText
-                                                      .toString()
-                                                      .isNotEmpty
-                                                  ? int.parse(fieldText
-                                                          .toString()
-                                                          .split(".")[0]) -
-                                                      1
-                                                  : 0.001;
+                                            }else{
+                                              txt = fieldText.toString().isNotEmpty ? int.parse(fieldText.toString().split(".")[0]) - 1 : 0.001;
                                               decrementWith = 1;
                                               fieldText = txt.toString();
                                             }
-                                            schemeTextControllerList[
-                                                    getIndexOfSchemeUnit(
-                                                        categoryWiseList[index]
-                                                            .items![i]
-                                                            .securityCategory!
-                                                            .toLowerCase()
-                                                            .split("_")[0],
-                                                        i)]
-                                                .text = fieldText;
-                                            widget
-                                                    .myCartRequestBean
-                                                    .securities!
-                                                    .list![widget.myCartRequestBean
-                                                        .securities!.list!
-                                                        .indexWhere((element) =>
-                                                            element.isin ==
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .isin)]
-                                                    .quantity =
-                                                double.parse(fieldText);
-                                            schemesList[actualIndex]
-                                                    .pledgedQuantity =
-                                                double.parse(schemeTextControllerList[
-                                                        getIndexOfSchemeUnit(
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .securityCategory!
-                                                                .toLowerCase(),
-                                                            i)]
-                                                    .text);
+                                            schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase().split("_")[0], i)].text = fieldText;
+                                            widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin)].quantity = double.parse(fieldText);
+                                            schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                             calculationHandling();
                                           }
                                         });
                                       } else {
-                                        Utility.showToastMessage(
-                                            Strings.no_internet_message);
+                                        Utility.showToastMessage(Strings.no_internet_message);
                                       }
                                     });
                                   },
@@ -602,317 +422,77 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                   height: 65,
                                   child: TextField(
                                     controller: schemeTextControllerList[
-                                        getIndexOfSchemeUnit(
-                                            categoryWiseList[index]
-                                                .items![i]
-                                                .securityCategory!
-                                                .toLowerCase(),
-                                            i)],
-                                    focusNode: focusNode[getIndexOfSchemeUnit(
-                                        categoryWiseList[index]
-                                            .items![i]
-                                            .securityCategory!
-                                            .toLowerCase(),
-                                        i)],
+                                    getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)],
+                                    focusNode: focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)],
                                     textAlign: TextAlign.center,
-                                    decoration:
-                                        InputDecoration(counterText: ""),
-                                    keyboardType:
-                                        TextInputType.numberWithOptions(
-                                            decimal: true),
+                                    decoration: InputDecoration(counterText: ""),
+                                    keyboardType: TextInputType.numberWithOptions(decimal: true),
                                     inputFormatters: [
-                                      DecimalTextInputFormatter(
-                                          decimalRange: 3),
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp(r'^(\d+)?\.?\d{0,3}')),
+                                      DecimalTextInputFormatter(decimalRange: 3),
+                                      FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,3}')),
                                     ],
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                     ),
                                     onChanged: (value) {
                                       var txt;
-                                      if (!schemeTextControllerList[
-                                              getIndexOfSchemeUnit(
-                                                  categoryWiseList[index]
-                                                      .items![i]
-                                                      .securityCategory!
-                                                      .toLowerCase(),
-                                                  i)]
-                                          .text
-                                          .toString()
-                                          .endsWith(".")) {
-                                        if (value.isNotEmpty &&
-                                            double.parse(value.toString()) >=
-                                                0.001) {
-                                          if (double.parse(schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                  .text) !=
-                                              0) {
-                                            widget
-                                                    .myCartRequestBean
-                                                    .securities!
-                                                    .list![widget.myCartRequestBean
-                                                        .securities!.list!
-                                                        .indexWhere((element) =>
-                                                            element.isin ==
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .isin)]
-                                                    .quantity =
-                                                double.parse(schemeTextControllerList[
-                                                        getIndexOfSchemeUnit(
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .securityCategory!
-                                                                .toLowerCase(),
-                                                            i)]
-                                                    .text);
-                                            schemesList[actualIndex]
-                                                    .pledgedQuantity =
-                                                double.parse(schemeTextControllerList[
-                                                        getIndexOfSchemeUnit(
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .securityCategory!
-                                                                .toLowerCase(),
-                                                            i)]
-                                                    .text);
+                                      if(!schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text.toString().endsWith(".")) {
+                                        if (value.isNotEmpty && double.parse(value.toString()) >= 0.001) {
+                                          if (double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text) != 0) {
+                                            widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin)].quantity =
+                                                double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
+                                            schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                             calculationHandling();
                                           } else {
                                             setState(() {
                                               FocusScope.of(context).unfocus();
-                                              Utility.showToastMessage(Strings
-                                                  .message_unit_not_less_1);
-                                              schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                  .text = "0.001";
-                                              widget
-                                                  .myCartRequestBean
-                                                  .securities!
-                                                  .list![widget
-                                                      .myCartRequestBean
-                                                      .securities!
-                                                      .list!
-                                                      .indexWhere((element) =>
-                                                          element.isin ==
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .isin)]
-                                                  .quantity = 0.001;
-                                              schemesList[actualIndex]
-                                                      .pledgedQuantity =
-                                                  double.parse(schemeTextControllerList[
-                                                          getIndexOfSchemeUnit(
-                                                              categoryWiseList[
-                                                                      index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                      .text);
+                                              Utility.showToastMessage(Strings.message_unit_not_less_1);
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text = "0.001";
+                                              widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin)].quantity = 0.001;
+                                              schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                               calculationHandling();
                                             });
                                           }
                                         } else {
-                                          if (schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                  .text
-                                                  .isEmpty ||
-                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text ==
-                                                  ".0" ||
-                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text ==
-                                                  ".00" ||
-                                              schemeTextControllerList[getIndexOfSchemeUnit(
-                                                          categoryWiseList[index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                      .text ==
-                                                  "0" ||
-                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)]
-                                                      .text ==
-                                                  "0." ||
-                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)]
-                                                      .text ==
-                                                  "0.0" ||
-                                              schemeTextControllerList[
-                                                          getIndexOfSchemeUnit(
-                                                              categoryWiseList[index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                      .text ==
-                                                  "0.00") {
-                                            focusNode[getIndexOfSchemeUnit(
-                                                    categoryWiseList[index]
-                                                        .items![i]
-                                                        .securityCategory!
-                                                        .toLowerCase(),
-                                                    i)]
-                                                .addListener(() {
-                                              if (schemeTextControllerList[
-                                                          getIndexOfSchemeUnit(
-                                                              categoryWiseList[index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                      .text
-                                                      .isEmpty ||
-                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text ==
-                                                      ".0" ||
-                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text ==
-                                                      ".00" ||
-                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text ==
-                                                      "0" ||
-                                                  schemeTextControllerList[getIndexOfSchemeUnit(
-                                                              categoryWiseList[index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                          .text ==
-                                                      "0." ||
-                                                  schemeTextControllerList[getIndexOfSchemeUnit(
-                                                              categoryWiseList[index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                          .text ==
-                                                      "0.0" ||
-                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0.00") {
-                                                if (focusNode[
-                                                        getIndexOfSchemeUnit(
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .securityCategory!
-                                                                .toLowerCase(),
-                                                            i)]
-                                                    .hasFocus) {
-                                                  focusNode[getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                      .requestFocus();
-                                                } else {
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                  focusNode[getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                      .unfocus();
-                                                  setState(() {
-                                                    schemeTextControllerList[
-                                                            getIndexOfSchemeUnit(
-                                                                categoryWiseList[
-                                                                        index]
-                                                                    .items![i]
-                                                                    .securityCategory!
-                                                                    .toLowerCase(),
-                                                                i)]
-                                                        .text = "0.001";
-                                                    widget
-                                                        .myCartRequestBean
-                                                        .securities!
-                                                        .list![widget
-                                                            .myCartRequestBean
-                                                            .securities!
-                                                            .list!
-                                                            .indexWhere((element) =>
-                                                                element.isin ==
-                                                                categoryWiseList[
-                                                                        index]
-                                                                    .items![i]
-                                                                    .isin)]
-                                                        .quantity = 0.001;
+                                          if (schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text.isEmpty ||
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == ".0" ||
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == ".00" ||
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0" ||
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0." ||
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0.0" ||
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0.00") {
 
-                                                    schemesList[actualIndex]
-                                                            .pledgedQuantity =
-                                                        double.parse(schemeTextControllerList[
-                                                                getIndexOfSchemeUnit(
-                                                                    categoryWiseList[
-                                                                            index]
-                                                                        .items![
-                                                                            i]
-                                                                        .securityCategory!
-                                                                        .toLowerCase(),
-                                                                    i)]
-                                                            .text);
+                                            focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].addListener(() {
+
+                                              if(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text.isEmpty ||
+                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == ".0" ||
+                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == ".00" ||
+                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0" ||
+                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0." ||
+                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0.0" ||
+                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text == "0.00"){
+                                                if(focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].hasFocus){
+                                                  focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].requestFocus();
+                                                }else{
+                                                  FocusScope.of(context).unfocus();
+                                                  focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].unfocus();
+                                                  setState(() {
+                                                    schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text = "0.001";
+                                                    widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) =>
+                                                    element.isin == categoryWiseList[index].items![i].isin)].quantity = 0.001;
+
+                                                    schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                                     calculationHandling();
                                                   });
                                                 }
-                                              } else if (double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text) >= 0.001) {
+                                              }else if(double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text) >= 0.001){
                                                 printLog("update normally ");
-                                              } else {
+                                              }else{
                                                 setState(() {
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                  schemeTextControllerList[
-                                                          getIndexOfSchemeUnit(
-                                                              categoryWiseList[
-                                                                      index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                      .text = "0.001";
-                                                  widget
-                                                      .myCartRequestBean
-                                                      .securities!
-                                                      .list![widget
-                                                          .myCartRequestBean
-                                                          .securities!
-                                                          .list!
-                                                          .indexWhere((element) =>
-                                                              element.isin ==
-                                                              categoryWiseList[
-                                                                      index]
-                                                                  .items![i]
-                                                                  .isin)]
-                                                      .quantity = 0.001;
-                                                  schemesList[actualIndex]
-                                                          .pledgedQuantity =
-                                                      double.parse(schemeTextControllerList[
-                                                              getIndexOfSchemeUnit(
-                                                                  categoryWiseList[
-                                                                          index]
-                                                                      .items![i]
-                                                                      .securityCategory!
-                                                                      .toLowerCase(),
-                                                                  i)]
-                                                          .text);
+                                                  FocusScope.of(context).unfocus();
+                                                  schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text = "0.001";
+                                                  widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin)].quantity = 0.001;
+                                                  schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                                   calculationHandling();
                                                 });
                                               }
@@ -920,157 +500,30 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                           } else {
                                             setState(() {
                                               FocusScope.of(context).unfocus();
-                                              schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                  .text = "0.001";
-                                              widget
-                                                  .myCartRequestBean
-                                                  .securities!
-                                                  .list![widget
-                                                      .myCartRequestBean
-                                                      .securities!
-                                                      .list!
-                                                      .indexWhere((element) =>
-                                                          element.isin ==
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .isin)]
-                                                  .quantity = 0.001;
-                                              schemesList[actualIndex]
-                                                      .pledgedQuantity =
-                                                  double.parse(schemeTextControllerList[
-                                                          getIndexOfSchemeUnit(
-                                                              categoryWiseList[
-                                                                      index]
-                                                                  .items![i]
-                                                                  .securityCategory!
-                                                                  .toLowerCase(),
-                                                              i)]
-                                                      .text);
+                                              schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text = "0.001";
+                                              widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin)].quantity = 0.001;
+                                              schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                               calculationHandling();
                                             });
                                           }
                                         }
-                                      } else {
+                                      }else{
                                         var value;
-                                        value = schemeTextControllerList[
-                                                getIndexOfSchemeUnit(
-                                                    categoryWiseList[index]
-                                                        .items![i]
-                                                        .securityCategory!
-                                                        .toLowerCase(),
-                                                    i)]
-                                            .text;
-                                        focusNode[getIndexOfSchemeUnit(
-                                                categoryWiseList[index]
-                                                    .items![i]
-                                                    .securityCategory!
-                                                    .toLowerCase(),
-                                                i)]
-                                            .addListener(() {
-                                          if (schemeTextControllerList[
-                                                  getIndexOfSchemeUnit(
-                                                      categoryWiseList[index]
-                                                          .items![i]
-                                                          .securityCategory!
-                                                          .toLowerCase(),
-                                                      i)]
-                                              .text
-                                              .toString()
-                                              .endsWith('.')) {
-                                            if (focusNode[getIndexOfSchemeUnit(
-                                                    categoryWiseList[index]
-                                                        .items![i]
-                                                        .securityCategory!
-                                                        .toLowerCase(),
-                                                    i)]
-                                                .hasFocus) {
-                                              focusNode[getIndexOfSchemeUnit(
-                                                      categoryWiseList[index]
-                                                          .items![i]
-                                                          .securityCategory!
-                                                          .toLowerCase(),
-                                                      i)]
-                                                  .requestFocus();
+                                        value = schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text;
+                                        focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].addListener(() {
+                                          if(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text.toString().endsWith('.')){
+                                            if(focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].hasFocus){
+                                              focusNode[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].requestFocus();
                                             } else {
-                                              if (value
-                                                  .toString()
-                                                  .split(".")[0]
-                                                  .isEmpty) {
-                                                schemeTextControllerList[
-                                                        getIndexOfSchemeUnit(
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .securityCategory!
-                                                                .toLowerCase(),
-                                                            i)]
-                                                    .text = "0.001";
-                                                widget
-                                                    .myCartRequestBean
-                                                    .securities!
-                                                    .list![widget
-                                                        .myCartRequestBean
-                                                        .securities!
-                                                        .list!
-                                                        .indexWhere((element) =>
-                                                            element.isin ==
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .isin)]
-                                                    .quantity = 0.001;
-                                                schemesList[actualIndex]
-                                                        .pledgedQuantity =
-                                                    double.parse(schemeTextControllerList[
-                                                            getIndexOfSchemeUnit(
-                                                                categoryWiseList[
-                                                                        index]
-                                                                    .items![i]
-                                                                    .securityCategory!
-                                                                    .toLowerCase(),
-                                                                i)]
-                                                        .text);
+                                              if(value.toString().split(".")[0].isEmpty){
+                                                schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text = "0.001";
+                                                widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) =>
+                                                element.isin == categoryWiseList[index].items![i].isin)].quantity = 0.001;
+                                                schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                                 calculationHandling();
-                                              } else if (schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                  .text
-                                                  .toString()
-                                                  .endsWith('.')) {
-                                                value = int.parse(
-                                                    schemeTextControllerList[
-                                                            getIndexOfSchemeUnit(
-                                                                categoryWiseList[
-                                                                        index]
-                                                                    .items![i]
-                                                                    .securityCategory!
-                                                                    .toLowerCase(),
-                                                                i)]
-                                                        .text
-                                                        .toString()
-                                                        .split(".")[0]);
-                                                schemeTextControllerList[
-                                                        getIndexOfSchemeUnit(
-                                                            categoryWiseList[
-                                                                    index]
-                                                                .items![i]
-                                                                .securityCategory!
-                                                                .toLowerCase(),
-                                                            i)]
-                                                    .text = value.toString();
+                                              } else if(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text.toString().endsWith('.')){
+                                                value = int.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text.toString().split(".")[0]);
+                                                schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text = value.toString();
                                               }
                                             }
                                           }
@@ -1085,9 +538,8 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                     padding: EdgeInsets.all(2),
                                     decoration: BoxDecoration(
                                         borderRadius:
-                                            BorderRadius.circular(100),
-                                        border: Border.all(
-                                            width: 1, color: colorBlack)),
+                                        BorderRadius.circular(100),
+                                        border: Border.all(width: 1, color: colorBlack)),
                                     child: Icon(
                                       Icons.add,
                                       color: colorBlack,
@@ -1099,106 +551,44 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                         .then((isNetwork) {
                                       if (isNetwork) {
                                         FocusScope.of(context).unfocus();
-                                        var fieldText =
-                                            schemeTextControllerList[
-                                                    getIndexOfSchemeUnit(
-                                                        categoryWiseList[index]
-                                                            .items![i]
-                                                            .securityCategory!
-                                                            .toLowerCase()
-                                                            .split("_")[0],
-                                                        i)]
-                                                .text
-                                                .toString();
+                                        var fieldText = schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase().split("_")[0], i)].text.toString();
                                         var txt, incrementWith;
-                                        if (fieldText.contains('.') &&
-                                            fieldText.split(".")[1].length !=
-                                                0) {
+                                        if(fieldText.contains('.') && fieldText.split(".")[1].length != 0) {
                                           var unitsDecimalCount;
                                           var qtyArray = fieldText.split('.');
                                           unitsDecimalCount = qtyArray[1];
-                                          if (unitsDecimalCount.isNotEmpty &&
-                                              int.parse(unitsDecimalCount) ==
-                                                  0) {
+                                          if(unitsDecimalCount.isNotEmpty && int.parse(unitsDecimalCount) == 0){
                                             txt = double.parse(fieldText) + 1;
                                             incrementWith = 1;
                                             fieldText = txt.toString();
                                           } else {
-                                            if (unitsDecimalCount
-                                                    .toString()
-                                                    .length ==
-                                                1) {
-                                              txt =
-                                                  double.parse(fieldText) + .1;
+                                            if (unitsDecimalCount.toString().length == 1) {
+                                              txt = double.parse(fieldText) + .1;
                                               incrementWith = .1;
-                                              fieldText =
-                                                  txt.toStringAsFixed(1);
-                                            } else if (unitsDecimalCount
-                                                    .toString()
-                                                    .length ==
-                                                2) {
-                                              txt =
-                                                  double.parse(fieldText) + .01;
+                                              fieldText = txt.toStringAsFixed(1);
+                                            } else if (unitsDecimalCount.toString().length == 2) {
+                                              txt = double.parse(fieldText) + .01;
                                               incrementWith = .01;
-                                              fieldText =
-                                                  txt.toStringAsFixed(2);
+                                              fieldText = txt.toStringAsFixed(2);
                                             } else {
-                                              txt = double.parse(fieldText) +
-                                                  .001;
+                                              txt = double.parse(fieldText) + .001;
                                               incrementWith = .001;
-                                              fieldText =
-                                                  txt.toStringAsFixed(3);
+                                              fieldText = txt.toStringAsFixed(3);
                                             }
                                           }
-                                        } else {
-                                          txt = fieldText.toString().isNotEmpty
-                                              ? int.parse(fieldText
-                                                      .toString()
-                                                      .split(".")[0]) +
-                                                  1
-                                              : 0.001;
+                                        }else{
+                                          txt = fieldText.toString().isNotEmpty ? int.parse(fieldText.toString().split(".")[0]) + 1 : 0.001;
                                           incrementWith = 1;
                                           fieldText = txt.toString();
                                         }
                                         setState(() {
-                                          schemeTextControllerList[
-                                                  getIndexOfSchemeUnit(
-                                                      categoryWiseList[index]
-                                                          .items![i]
-                                                          .securityCategory!
-                                                          .toLowerCase()
-                                                          .split("_")[0],
-                                                      i)]
-                                              .text = fieldText;
-                                          widget
-                                                  .myCartRequestBean
-                                                  .securities!
-                                                  .list![widget.myCartRequestBean
-                                                      .securities!.list!
-                                                      .indexWhere((element) =>
-                                                          element.isin ==
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .isin)]
-                                                  .quantity =
-                                              double.parse(fieldText);
-                                          schemesList[actualIndex]
-                                                  .pledgedQuantity =
-                                              double.parse(schemeTextControllerList[
-                                                      getIndexOfSchemeUnit(
-                                                          categoryWiseList[
-                                                                  index]
-                                                              .items![i]
-                                                              .securityCategory!
-                                                              .toLowerCase(),
-                                                          i)]
-                                                  .text);
+                                          schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase().split("_")[0], i)].text = fieldText;
+                                          widget.myCartRequestBean.securities!.list![widget.myCartRequestBean.securities!.list!.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin)].quantity = double.parse(fieldText);
+                                          schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
                                           calculationHandling();
                                         });
                                       } else {
-                                        Utility.showToastMessage(
-                                            Strings.no_internet_message);
+                                        Utility.showToastMessage(Strings.no_internet_message);
                                       }
                                     });
                                   },
@@ -1213,24 +603,16 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                   AssetsImagePath.delete_icon_bg_red,
                                 ),
                                 onPressed: () async {
-                                  Utility.isNetworkConnection()
-                                      .then((isNetwork) {
+                                  Utility.isNetworkConnection().then((isNetwork) {
                                     if (isNetwork) {
-                                      if (schemesList.length <= 1) {
+                                      if(schemesList.length <= 1){
                                         FocusScope.of(context).unfocus();
-                                        Utility.showToastMessage(
-                                            "At least one scheme to be lien for loan");
+                                        Utility.showToastMessage("At least one scheme to be lien for loan");
                                       } else {
-                                        deleteDialogBox(
-                                            index,
-                                            i,
-                                            categoryWiseList[index]
-                                                .items![i]
-                                                .isin!);
+                                        deleteDialogBox(index, i, categoryWiseList[index].items![i].isin!);
                                       }
                                     } else {
-                                      Utility.showToastMessage(
-                                          Strings.no_internet_message);
+                                      Utility.showToastMessage(Strings.no_internet_message);
                                     }
                                   });
                                 },
@@ -1285,8 +667,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                 shrinkWrap: true,
                                 itemCount: categoryWiseList.length,
                                 itemBuilder: (context, index) {
-                                  if (categoryWiseList[index].items!.length ==
-                                      0) {
+                                  if (categoryWiseList[index].items!.length == 0) {
                                     return Container();
                                   } else {
                                     return categoryWiseScheme(index);
@@ -1304,23 +685,20 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             border: Border.all(color: Colors.white, width: 3.0),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
                           child: Column(
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Expanded(
-                                    child: Text(
-                                      Strings.rate_of_interest,
+                                    child: Text(Strings.rate_of_interest,
                                       style: mediumTextStyle_18_gray,
                                     ),
                                   ),
-                                  Text(
-                                    "${snapshot.data!.roi!.toStringAsFixed(2)}%",
+                                  Text("${snapshot.data!.roi!.toStringAsFixed(2)}%",
                                     style: boldTextStyle_18_gray_dark,
                                   ),
                                 ],
@@ -1329,15 +707,12 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                 height: 10,
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Text(
-                                    Strings.min_limit,
+                                  Text(Strings.min_limit,
                                     style: mediumTextStyle_18_gray,
                                   ),
-                                  Text(
-                                    "₹${numberToString(snapshot.data!.minSanctionedLimit!.toStringAsFixed(2))}",
+                                  Text("₹${numberToString(snapshot.data!.minSanctionedLimit!.toStringAsFixed(2))}",
                                     style: boldTextStyle_18_gray_dark,
                                   ),
                                 ],
@@ -1347,14 +722,12 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                               ),
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Expanded(
-                                    child: Text(Strings.max_limit,
-                                        style: mediumTextStyle_18_gray),
+                                    child: Text(Strings.max_limit, style: mediumTextStyle_18_gray),
                                   ),
-                                  Text(
-                                      "₹${numberToString(snapshot.data!.maxSanctionedLimit!.toStringAsFixed(2))}",
+                                  Text("₹${numberToString(snapshot.data!.maxSanctionedLimit!.toStringAsFixed(2))}",
                                       style: boldTextStyle_18_gray_dark)
                                 ],
                               ),
@@ -1371,21 +744,17 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
     );
   }
 
-  getIndexOfSchemeUnit(String categoryName, int index) {
-    if (categoryName == Strings.cat_a.toLowerCase()) {
+  getIndexOfSchemeUnit(String categoryName, int index){
+    if(categoryName == Strings.cat_a.toLowerCase()){
       return index;
-    } else if (categoryName == Strings.cat_b.toLowerCase()) {
+    } else if(categoryName == Strings.cat_b.toLowerCase()){
       return catAList.length + index;
-    } else if (categoryName == Strings.cat_c.toLowerCase()) {
+    } else if(categoryName == Strings.cat_c.toLowerCase()){
       return catAList.length + catBList.length + index;
-    } else if (categoryName == Strings.cat_d.toLowerCase()) {
-      return catAList.length + catBList.length + catCList.length + index;
+    } else if(categoryName == Strings.cat_d.toLowerCase()){
+      return catAList.length + catBList.length+ catCList.length + index;
     } else {
-      return catAList.length +
-          catBList.length +
-          catCList.length +
-          catDList.length +
-          index;
+      return catAList.length + catBList.length + catCList.length + catDList.length + index;
     }
   }
 
@@ -1486,19 +855,12 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          Text(
-                            Strings.sort_by,
-                            style: regularTextStyle_14_gray,
-                          ),
+                          Text(Strings.sort_by,style: regularTextStyle_14_gray,),
                           // IconButton(iconSize: 18,icon: Image.asset(
                           //   AssetsImagePath.drop_down_arrow,
                           //   color: colorLightGray,
                           // ), onPressed: () {  },),
-                          Icon(
-                            Icons.arrow_downward,
-                            color: colorLightGray,
-                            size: 23,
-                          ),
+                          Icon(Icons.arrow_downward,color: colorLightGray, size: 23,),
                         ],
                       ),
                     ),
@@ -1543,8 +905,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(atrina.lender!,
-                                style: boldTextStyle_18,
+                            Text(atrina.lender!, style: boldTextStyle_18,
                                 overflow: TextOverflow.ellipsis),
                             SizedBox(
                               height: 14,
@@ -1553,8 +914,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText(
-                                "${atrina.roi!.toStringAsFixed(2)}%"),
+                            scripsValueText("${atrina.roi!.toStringAsFixed(2)}%"),
                             SizedBox(
                               height: 16,
                             ),
@@ -1562,8 +922,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText(
-                                "₹${atrina.minLimit!.toStringAsFixed(2)}"),
+                            scripsValueText("₹${atrina.minLimit!.toStringAsFixed(2)}"),
                             SizedBox(
                               height: 16,
                             ),
@@ -1571,8 +930,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                             SizedBox(
                               height: 5,
                             ),
-                            scripsValueText(
-                                "₹${atrina.maxLimit!.toStringAsFixed(2)}"),
+                            scripsValueText("₹${atrina.maxLimit!.toStringAsFixed(2)}"),
                           ],
                         ),
                       ),
@@ -1598,15 +956,13 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                     textAlign: TextAlign.center,
                                   ),
                                   onPressed: () {
-                                    Utility.isNetworkConnection()
-                                        .then((isNetwork) {
+                                    Utility.isNetworkConnection().then((isNetwork) {
                                       if (isNetwork) {
                                         setState(() {
                                           isToggleSelect = !isToggleSelect;
                                         });
                                       } else {
-                                        Utility.showToastMessage(
-                                            Strings.no_internet_message);
+                                        Utility.showToastMessage(Strings.no_internet_message);
                                       }
                                     });
                                   },
@@ -1620,21 +976,18 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                   ),
                 );
               }).toList(),
-            ]),
+            ]
+        ),
       ),
     );
   }
 
-  calculationHandling() {
+  calculationHandling(){
     schemeValue = 0;
     eligibleLoanAmount = 0;
-    for (int i = 0; i < schemesList.length; i++) {
-      schemeValue = schemeValue +
-          (schemesList[i].price! * schemesList[i].pledgedQuantity!);
-      eligibleLoanAmount = eligibleLoanAmount +
-          (schemesList[i].price! *
-              schemesList[i].pledgedQuantity! *
-              (schemesList[i].eligiblePercentage! / 100));
+    for(int i=0; i < schemesList.length; i++){
+      schemeValue = schemeValue + (schemesList[i].price! * schemesList[i].pledgedQuantity!);
+      eligibleLoanAmount = eligibleLoanAmount + (schemesList[i].price! * schemesList[i].pledgedQuantity! * (schemesList[i].eligiblePercentage! / 100));
     }
   }
 
@@ -1660,9 +1013,8 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
   }
 
   Widget bottomSheetDialog(AsyncSnapshot<MyCartData> snapshot) {
-    if (widget.comingFor == Strings.margin_shortfall) {
-      requiredAmount = widget.loanData!.marginShortfall!.minimumCashAmount! +
-          widget.loanData!.marginShortfall!.totalCollateralValue!;
+    if(widget.comingFor == Strings.margin_shortfall){
+      requiredAmount = widget.loanData!.marginShortfall!.minimumCashAmount! + widget.loanData!.marginShortfall!.totalCollateralValue!;
       availableAmount = widget.loanData!.marginShortfall!.totalCollateralValue!;
     }
     return Visibility(
@@ -1710,13 +1062,11 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Expanded(
-                          child: Text(
-                            Strings.scheme_value,
+                          child: Text(Strings.scheme_value,
                             style: mediumTextStyle_18_gray,
                           ),
                         ),
-                        Text(
-                          "₹${numberToString(schemeValue.toStringAsFixed(2))}",
+                        Text("₹${numberToString(schemeValue.toStringAsFixed(2))}",
                           style: boldTextStyle_18_gray_dark,
                         ),
                       ],
@@ -1728,61 +1078,41 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Expanded(
-                          child: Text(Strings.eligible_loan_amount_small,
-                              style: mediumTextStyle_18_gray),
+                          child: Text(Strings.eligible_loan_amount_small, style: mediumTextStyle_18_gray),
                         ),
-                        Text(
-                            eligibleLoanAmount >=
-                                    snapshot.data!.maxSanctionedLimit!
-                                ? '₹' +
-                                    numberToString(snapshot
-                                        .data!.maxSanctionedLimit!
-                                        .toStringAsFixed(2))
-                                : '₹' +
-                                    numberToString(
-                                        roundDownTo(eligibleLoanAmount)
-                                            .toString()),
+                        Text(eligibleLoanAmount >= snapshot.data!.maxSanctionedLimit!
+                            ? '₹' + numberToString(snapshot.data!.maxSanctionedLimit!.toStringAsFixed(2))
+                            : '₹' + numberToString(roundDownTo(eligibleLoanAmount).toString()),
                             style: textStyleGreenStyle_18)
                       ],
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    widget.comingFor == Strings.margin_shortfall
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  "Required collateral value",
-                                  style: mediumTextStyle_18_gray,
-                                ),
-                              ),
-                              scripsValueText('₹' +
-                                  numberToString(
-                                      requiredAmount!.toStringAsFixed(2)))
-                            ],
-                          )
-                        : Container(),
+                    widget.comingFor == Strings.margin_shortfall ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(child: Text(
+                          "Required collateral value",
+                          style: mediumTextStyle_18_gray,
+                        ),),
+                        scripsValueText('₹' + numberToString(requiredAmount!.toStringAsFixed(2)))
+                      ],
+                    ) : Container(),
                     SizedBox(
                       height: 10,
                     ),
-                    widget.comingFor == Strings.margin_shortfall
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  "Available collateral value",
-                                  style: mediumTextStyle_18_gray,
-                                ),
-                              ),
-                              scripsValueText('₹' +
-                                  numberToString(
-                                      availableAmount!.toStringAsFixed(2)))
-                            ],
-                          )
-                        : Container(),
+                    widget.comingFor == Strings.margin_shortfall ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(child: Text(
+                          "Available collateral value",
+                          style: mediumTextStyle_18_gray,
+                        ),),
+                        scripsValueText('₹' + numberToString(availableAmount!.toStringAsFixed(2)))
+                      ],
+                    ) : Container(),
+
                   ],
                 ),
               ),
@@ -1795,40 +1125,27 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                   height: 50,
                   width: 140,
                   child: Material(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
-                    color:
-                        snapshot.data!.minSanctionedLimit! <= eligibleLoanAmount
-                            ? schemeValue <= 999999999999
-                                ? appTheme
-                                : colorLightGray
-                            : colorLightGray,
+                    color: snapshot.data!.minSanctionedLimit! <= eligibleLoanAmount ? schemeValue <= 999999999999 ? appTheme : colorLightGray : colorLightGray,
                     child: AbsorbPointer(
-                      absorbing: snapshot.data!.minSanctionedLimit! >
-                              eligibleLoanAmount
-                          ? true
-                          : false,
+                      absorbing: snapshot.data!.minSanctionedLimit! > eligibleLoanAmount ? true : false,
                       child: MaterialButton(
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
                           Utility.isNetworkConnection().then((isNetwork) async {
                             if (isNetwork) {
-                              if (schemeValue <= 999999999999) {
+                              if(schemeValue <= 999999999999){
                                 roundDownTo(eligibleLoanAmount).toString();
                                 widget.myCartRequestBean.cartName = cartName;
-                                printLog(
-                                    "requestBean${json.encode(widget.myCartRequestBean)}");
-                                printLog(
-                                    "eligible loan === ${eligibleLoanAmount.toString()}");
+                                printLog("requestBean${json.encode(widget.myCartRequestBean)}");
+                                printLog("eligible loan === ${eligibleLoanAmount.toString()}");
                                 callUpsertCartAPI(true);
                               } else {
-                                commonDialog(
-                                    context, Strings.scheme_validation, 0);
+                                commonDialog(context, Strings.scheme_validation, 0);
                               }
                             } else {
-                              Utility.showToastMessage(
-                                  Strings.no_internet_message);
+                              Utility.showToastMessage(Strings.no_internet_message);
                             }
                           });
                         },
@@ -1892,34 +1209,26 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                   children: <Widget>[
                     Expanded(
                         child: Row(
-                      children: <Widget>[
-                        Text(
-                            eligibleLoanAmount >=
-                                    snapshot.data!.maxSanctionedLimit!
-                                ? '₹' +
-                                    numberToString(snapshot
-                                        .data!.maxSanctionedLimit!
-                                        .toStringAsFixed(2))
-                                : '₹' +
-                                    numberToString(
-                                        roundDownTo(eligibleLoanAmount)
-                                            .toString()),
-                            style: textStyleGreenStyle_18),
-                        SizedBox(
-                          width: 2,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                Strings.eligible_loan_amount_small,
-                                style: mediumTextStyle_12_gray,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    )),
+                          children: <Widget>[
+                            Text(eligibleLoanAmount >= snapshot.data!.maxSanctionedLimit!
+                                ? '₹' + numberToString(snapshot.data!.maxSanctionedLimit!.toStringAsFixed(2))
+                                : '₹' + numberToString(roundDownTo(eligibleLoanAmount).toString()),
+                                style: textStyleGreenStyle_18),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    Strings.eligible_loan_amount_small,
+                                    style: mediumTextStyle_12_gray,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        )),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Container(
@@ -1929,35 +1238,23 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(35)),
                           elevation: 1.0,
-                          color: snapshot.data!.minSanctionedLimit! <=
-                                  eligibleLoanAmount
-                              ? schemeValue <= 999999999999
-                                  ? appTheme
-                                  : colorLightGray
-                              : colorLightGray,
+                          color: snapshot.data!.minSanctionedLimit! <= eligibleLoanAmount ? schemeValue <= 999999999999 ? appTheme : colorLightGray : colorLightGray,
                           child: AbsorbPointer(
-                            absorbing: snapshot.data!.minSanctionedLimit! >
-                                    eligibleLoanAmount
-                                ? true
-                                : false,
+                            absorbing: snapshot.data!.minSanctionedLimit! > eligibleLoanAmount ? true : false,
                             child: MaterialButton(
                               minWidth: MediaQuery.of(context).size.width,
                               onPressed: () async {
                                 Utility.isNetworkConnection().then((isNetwork) {
                                   if (isNetwork) {
-                                    if (schemeValue <= 999999999999) {
-                                      widget.myCartRequestBean.cartName =
-                                          cartName;
-                                      printLog(
-                                          "requestBean${json.encode(widget.myCartRequestBean)}");
+                                    if(schemeValue <= 999999999999){
+                                      widget.myCartRequestBean.cartName = cartName;
+                                      printLog("requestBean${json.encode(widget.myCartRequestBean)}");
                                       callUpsertCartAPI(true);
-                                    } else {
-                                      commonDialog(context,
-                                          Strings.scheme_validation, 0);
+                                    }else{
+                                      commonDialog(context, Strings.scheme_validation, 0);
                                     }
                                   } else {
-                                    Utility.showToastMessage(
-                                        Strings.no_internet_message);
+                                    Utility.showToastMessage(Strings.no_internet_message);
                                   }
                                 });
                               },
@@ -1979,6 +1276,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
       ),
     );
   }
+
 
   Widget bottomSectionShortFall(AsyncSnapshot<MyCartData> snapshot) {
     // var selected_securities;
@@ -2002,15 +1300,13 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
             color: Colors.white,
             border: Border.all(color: Colors.white, width: 3.0),
             // set border width
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(40.0),
-                topLeft: Radius.circular(40.0)),
+            borderRadius:
+            BorderRadius.only(topRight: Radius.circular(40.0), topLeft: Radius.circular(40.0)),
             // set rounded corner radius
             boxShadow: [
-              BoxShadow(
-                  blurRadius: 10, color: colorLightGray, offset: Offset(1, 5))
+              BoxShadow(blurRadius: 10, color: colorLightGray, offset: Offset(1, 5))
             ] // make rounded corner of border
-            ),
+        ),
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -2037,8 +1333,7 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                     ],
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                     child: Column(
                       children: <Widget>[
                         SizedBox(
@@ -2078,39 +1373,26 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                     height: 45,
                     width: 100,
                     child: Material(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                       elevation: 1.0,
-                      color: snapshot.data!.minSanctionedLimit! <=
-                              eligibleLoanAmount
-                          ? schemeValue <= 999999999999
-                              ? appTheme
-                              : colorLightGray
-                          : colorLightGray,
+                      color: snapshot.data!.minSanctionedLimit! <= eligibleLoanAmount ? schemeValue <= 999999999999 ? appTheme : colorLightGray : colorLightGray,
                       child: AbsorbPointer(
-                        absorbing: snapshot.data!.minSanctionedLimit! >
-                                eligibleLoanAmount
-                            ? true
-                            : false,
+                        absorbing: snapshot.data!.minSanctionedLimit! > eligibleLoanAmount ? true : false,
                         child: MaterialButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                           minWidth: MediaQuery.of(context).size.width,
                           onPressed: () async {
                             Utility.isNetworkConnection().then((isNetwork) {
                               if (isNetwork) {
-                                if (schemeValue <= 999999999999) {
+                                if(schemeValue <= 999999999999){
                                   widget.myCartRequestBean.cartName = cartName;
-                                  printLog(
-                                      "requestBean${json.encode(widget.myCartRequestBean)}");
+                                  printLog("requestBean${json.encode(widget.myCartRequestBean)}");
                                   callUpsertCartAPI(true);
-                                } else {
-                                  commonDialog(
-                                      context, Strings.scheme_validation, 0);
+                                }else{
+                                  commonDialog(context, Strings.scheme_validation, 0);
                                 }
                               } else {
-                                Utility.showToastMessage(
-                                    Strings.no_internet_message);
+                                Utility.showToastMessage(Strings.no_internet_message);
                               }
                             });
                           },
@@ -2131,8 +1413,10 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
     );
   }
 
-  roundDownTo(double amount) {
-    double result = (amount ~/ 1000) * 1000;
+
+
+  roundDownTo(double amount){
+    double result = (amount~/1000) * 1000;
     return result.toStringAsFixed(2);
   }
 
@@ -2184,45 +1468,28 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
-                      minWidth: MediaQuery.of(context).size.width,
+                      minWidth: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
                       onPressed: () async {
                         setState(() {
                           FocusScope.of(context).unfocus();
                           Navigator.pop(context);
-                          int actualIndex = schemesList.indexWhere((element) =>
-                              element.isin ==
-                              categoryWiseList[index].items![i].isin);
-                          widget.myCartRequestBean.securities!.list!
-                              .removeWhere((element) =>
-                                  element.isin ==
-                                  categoryWiseList[index].items![i].isin);
+                          int actualIndex = schemesList.indexWhere((element) => element.isin == categoryWiseList[index].items![i].isin);
+                          widget.myCartRequestBean.securities!.list!.removeWhere((element) => element.isin == categoryWiseList[index].items![i].isin);
                           widget.myCartRequestBean.cartName = cartName;
-                          schemesList[actualIndex].pledgedQuantity =
-                              double.parse(schemeTextControllerList[
-                                      getIndexOfSchemeUnit(
-                                          categoryWiseList[index]
-                                              .items![i]
-                                              .securityCategory!
-                                              .toLowerCase(),
-                                          i)]
-                                  .text);
-                          schemeTextControllerList.removeAt(
-                              getIndexOfSchemeUnit(
-                                  categoryWiseList[index]
-                                      .items![i]
-                                      .securityCategory!
-                                      .toLowerCase(),
-                                  i));
-                          schemesList
-                              .removeWhere((element) => element.isin == isin);
+                          schemesList[actualIndex].pledgedQuantity = double.parse(schemeTextControllerList[getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i)].text);
+                          schemeTextControllerList.removeAt(getIndexOfSchemeUnit(categoryWiseList[index].items![i].securityCategory!.toLowerCase(), i));
+                          schemesList.removeWhere((element) => element.isin == isin);
                           calculationHandling();
                           categoryWiseList[index].items!.removeAt(i);
                         });
                       },
                       child: Text(
                         Strings.yes,
-                        style: TextStyle(
-                            color: colorWhite, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: colorWhite,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -2235,7 +1502,6 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
     );
   }
 }
-
 class Atrina {
   const Atrina(this.lender, this.roi, this.minLimit, this.maxLimit);
 

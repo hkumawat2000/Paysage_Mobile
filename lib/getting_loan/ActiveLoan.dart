@@ -32,10 +32,8 @@ class ActiveLoanState extends State<ActiveLoan> {
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                   ),
-                  color:
-                      Colors.blueAccent, //remove color to make it transpatent
-                  border:
-                      Border.all(style: BorderStyle.solid, color: Colors.white),
+                  color: Colors.blueAccent, //remove color to make it transpatent
+                  border: Border.all(style: BorderStyle.solid, color: Colors.white),
                 ),
                 child: Column(
                   children: <Widget>[
@@ -126,8 +124,7 @@ class ActiveLoanState extends State<ActiveLoan> {
                                 onPressed: () {},
                                 child: Text(
                                   "Pay Now",
-                                  style: TextStyle(
-                                      fontSize: 9, color: Colors.white),
+                                  style: TextStyle(fontSize: 9, color: Colors.white),
                                 ),
                               ),
                             ),
@@ -160,8 +157,7 @@ class ActiveLoanState extends State<ActiveLoan> {
                                 onPressed: () {},
                                 child: Text(
                                   "Take Action",
-                                  style: TextStyle(
-                                      fontSize: 9, color: Colors.white),
+                                  style: TextStyle(fontSize: 9, color: Colors.white),
                                 ),
                               ),
                             ),
@@ -240,17 +236,14 @@ class ActiveLoanState extends State<ActiveLoan> {
                           children: <Widget>[
                             Text(
                               "Overdraft Balance",
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.black),
+                              style: TextStyle(fontSize: 12, color: Colors.black),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
                                 "Rs.1,000,00",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ],

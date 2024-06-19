@@ -174,8 +174,7 @@ class MarginActiveLoanDetailsState extends State<MarginActiveLoanDetails> {
                             children: <Widget>[
                               Text(
                                 "Collateral Value",
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
+                                style: TextStyle(fontSize: 12, color: Colors.black),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
@@ -201,8 +200,7 @@ class MarginActiveLoanDetailsState extends State<MarginActiveLoanDetails> {
                               onPressed: () {},
                               child: Text(
                                 "Pay Now",
-                                style:
-                                    TextStyle(fontSize: 8, color: Colors.white),
+                                style: TextStyle(fontSize: 8, color: Colors.white),
                               ),
                             ),
                           ),

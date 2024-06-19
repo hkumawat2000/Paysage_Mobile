@@ -25,8 +25,8 @@ class CompleteKYCBloc{
     return wrapper;
   }
 
-  // Future<UserKYCResponseBean> getChoiceKYC() async {
-  //   UserKYCResponseBean wrapper = await completeKYCRepository.getChoiceKYC();
+  // Future<UserKYCResponseBean> getAtrinaKYC() async {
+  //   UserKYCResponseBean wrapper = await completeKYCRepository.getAtrinaKYC();
   // }
 
   Future<CkycSearchResponse> getCKYC(panCard, acceptTerms) async{

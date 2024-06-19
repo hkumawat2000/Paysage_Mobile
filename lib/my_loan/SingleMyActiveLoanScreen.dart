@@ -33,8 +33,7 @@ import 'MyLoansBloc.dart';
 
 class SingleMyActiveLoanScreen extends StatefulWidget {
   @override
-  SingleMyActiveLoanScreenState createState() =>
-      SingleMyActiveLoanScreenState();
+  SingleMyActiveLoanScreenState createState() => SingleMyActiveLoanScreenState();
 }
 
 class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
@@ -85,7 +84,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
     super.initState();
   }
 
-  runClone() {
+  runClone(){
     cron.schedule(new Schedule.parse('0 0 * * *'), () async {
       getLoanDetails();
     });
@@ -96,10 +95,11 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
     super.dispose();
   }
 
+
   void getLoanDetails() async {
-    allLoansNameBloc.allLoansName().then((value) {
-      if (value.isSuccessFull!) {
-        if (value.data != null) {
+    allLoansNameBloc.allLoansName().then((value){
+      if(value.isSuccessFull!){
+        if(value.data != null){
           setState(() {
             loanNumber = value.data![0].name;
           });
@@ -139,28 +139,18 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
         if (loanDetailsResponse!.data!.marginShortfall != null) {
           isMarginShortFall = true;
           marginShortfall = loanDetailsResponse!.data!.marginShortfall;
-          if (loanDetailsResponse!.data!.marginShortfall!.deadlineInHrs !=
-              null) {
-            if (loanDetailsResponse!.data!.marginShortfall!.deadlineInHrs ==
-                "00:00:00") {
+          if(loanDetailsResponse!.data!.marginShortfall!.deadlineInHrs != null) {
+            if(loanDetailsResponse!.data!.marginShortfall!.deadlineInHrs == "00:00:00"){
               isTimerDone = true;
             }
-            if (loanDetailsResponse!.data!.marginShortfall!.status ==
-                "Request Pending") {
+            if(loanDetailsResponse!.data!.marginShortfall!.status == "Request Pending"){
               isActionTaken = true;
             }
 
-            hours = int.parse(loanDetailsResponse!
-                .data!.marginShortfall!.deadlineInHrs!
-                .split(":")[0]);
-            min = int.parse(loanDetailsResponse!
-                .data!.marginShortfall!.deadlineInHrs!
-                .split(":")[1]);
-            sec = int.parse(loanDetailsResponse!
-                .data!.marginShortfall!.deadlineInHrs!
-                .split(":")[2]);
-            isTodayHoliday =
-                loanDetailsResponse!.data!.marginShortfall!.isTodayHoliday!;
+            hours = int.parse(loanDetailsResponse!.data!.marginShortfall!.deadlineInHrs!.split(":")[0]);
+            min = int.parse(loanDetailsResponse!.data!.marginShortfall!.deadlineInHrs!.split(":")[1]);
+            sec = int.parse(loanDetailsResponse!.data!.marginShortfall!.deadlineInHrs!.split(":")[2]);
+            isTodayHoliday = loanDetailsResponse!.data!.marginShortfall!.isTodayHoliday!;
           } else {
             isActionTaken = true;
             isTimerDone = true;
@@ -171,20 +161,20 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
           interestDueDate = interest!.dueDate;
           dpdText = interest!.dpdText;
         }
-        if (loanDetailsResponse!.data!.sellCollateral == null) {
+        if(loanDetailsResponse!.data!.sellCollateral == null){
           isSellCollateral = true;
         } else {
           isSellCollateral = false;
         }
-        if (loanDetailsResponse!.data!.increaseLoan != null) {
+        if(loanDetailsResponse!.data!.increaseLoan != null){
           isIncreaseLoan = true;
         } else {
           isIncreaseLoan = false;
         }
 
-        if (loanDetailsResponse!.data!.paymentAlreadyInProcess != null) {
+        if(loanDetailsResponse!.data!.paymentAlreadyInProcess != null){
           isPayment = true;
-        } else {
+        }else{
           isPayment = false;
         }
         // preferences. setDrawingPower(loanDetailsResponse!.data!.loan!.drawingPowerStr!);
@@ -204,19 +194,18 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
   Widget build(BuildContext context) {
     platform = Theme.of(context).platform;
     return Scaffold(
-      key: _scaffoldkey,
+        key: _scaffoldkey,
       resizeToAvoidBottomInset: false,
-      backgroundColor: colorBg,
-      appBar: AppBar(
         backgroundColor: colorBg,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(loanNumber != null ? loanNumber : "",
-            style: mediumTextStyle_18_gray_dark),
-      ),
-      body: loanDetailsResponse != null
-          ? myActiveLoans()
-          : Center(child: Text(responseText)),
+        appBar: AppBar(
+          backgroundColor: colorBg,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(loanNumber != null ? loanNumber : "", style: mediumTextStyle_18_gray_dark),
+        ),
+        body: loanDetailsResponse != null
+            ? myActiveLoans()
+            : Center(child: Text(responseText)),
       /* loanOpen == 1
             ? loanNumber != null
                 ? loanDetailData != null
@@ -246,9 +235,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
             padding: const EdgeInsets.only(left: 16.0, top: 15),
             child: Row(
               children: <Widget>[
-                scripsNameText(loanDetailData!.transactions!.length != 0
-                    ? Strings.recent_transactions
-                    : "")
+                scripsNameText(loanDetailData!.transactions!.length != 0 ? Strings.recent_transactions : "")
               ],
             ),
           ),
@@ -266,8 +253,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
       visible: loanDialogVisibility,
       child: AlertDialog(
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
         content: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -306,13 +292,11 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                 height: 40,
                 width: 100,
                 child: Material(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(35)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                   elevation: 1.0,
                   color: appTheme,
                   child: MaterialButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                     minWidth: MediaQuery.of(context).size.width,
                     onPressed: () {
                       setState(() {
@@ -321,10 +305,8 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                     },
                     child: Text(
                       Strings.ok,
-                      style: TextStyle(
-                          color: colorWhite,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                      style:
+                      TextStyle(color: colorWhite, fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -354,14 +336,12 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                       color: colorLightBlue,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15.0),
-                          topRight: Radius.circular(
-                              15.0)), // set rounded corner radius
+                          topRight: Radius.circular(15.0)), // set rounded corner radius
                     ),
                     child: Column(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top: 16.0, left: 22.0, right: 15.0),
+                          padding: const EdgeInsets.only(top: 16.0, left: 22.0, right: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -371,8 +351,8 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                                 decoration: BoxDecoration(
                                   color: colorLightBlue,
                                   border: Border.all(color: appTheme, width: 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.0)),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20.0)),
                                 ),
                                 child: MaterialButton(
                                   onPressed: null,
@@ -388,8 +368,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                                   style: boldTextStyle_14,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      _launchURL(
-                                          loanDetailData!.loan!.loanAgreement!);
+                                      _launchURL(loanDetailData!.loan!.loanAgreement!);
                                     },
                                 ),
                               ),
@@ -397,8 +376,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10.0, left: 20.0, right: 20.0),
+                          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -422,8 +400,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20.0, bottom: 8.0, right: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0, bottom: 8.0, right: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -433,21 +410,18 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20.0, bottom: 8.0, right: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0, bottom: 8.0, right: 20.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               // subHeadingText('₹${numberToString(loanBalance.toStringAsFixed(2))}'),
-                              Text(
-                                loanBalance < 0
-                                    ? negativeValue(loanBalance)
-                                    : '₹${numberToString(loanBalance.toStringAsFixed(2))}',
+                              Text(loanBalance < 0
+                                  ? negativeValue(loanBalance)
+                                  : '₹${numberToString(loanBalance.toStringAsFixed(2))}',
                                 textAlign: TextAlign.center,
                                 style: boldTextStyle_24.copyWith(
-                                    color: loanBalance < 0
-                                        ? colorGreen
-                                        : appTheme),
+                                    color: loanBalance < 0 ? colorGreen : appTheme
+                                ),
                               ),
                               Text(Strings.loan_balance, style: subHeading),
                             ],
@@ -465,10 +439,8 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                               padding: const EdgeInsets.all(15.0),
                               child: Text(
                                 Strings.view_statement,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: regular,
-                                    color: colorWhite),
+                                style:
+                                TextStyle(fontSize: 12, fontWeight: regular, color: colorWhite),
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -483,13 +455,8 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          LoanStatementScreen(
-                                              loanNumber,
-                                              loanDetailData!.loan!.balance,
-                                              loanDetailData!
-                                                  .loan!.drawingPower,
-                                              loanType)));
+                                      builder: (BuildContext context) => LoanStatementScreen(loanNumber,
+                                          loanDetailData!.loan!.balance, loanDetailData!.loan!.drawingPower, loanType)));
                             },
                           ),
                         ),
@@ -528,21 +495,17 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             GestureDetector(
-              onTap: () {
-                if (loanDetailData!.loan!.balance! <=
-                    loanDetailData!.loan!.drawingPower!) {
+              onTap: (){
+                if (loanDetailData!.loan!.balance! <= loanDetailData!.loan!.drawingPower!) {
                   Utility.isNetworkConnection().then((isNetwork) {
                     if (isNetwork) {
-                      if (loanDetailData!.loanRenewalIsExpired == 1 &&
-                          loanDetailData!.loan!.balance! > 0) {
-                        commonDialog(context,
-                            "Account debit freeze\nWithdrawal disabled", 0);
-                      } else {
+                      if(loanDetailData!.loanRenewalIsExpired == 1 && loanDetailData!.loan!.balance! > 0){
+                        commonDialog(context, "Account debit freeze\nWithdrawal disabled", 0);
+                      }else{
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext contex) =>
-                                    LoanWithdrawScreen(loanNumber)));
+                                builder: (BuildContext contex) => LoanWithdrawScreen(loanNumber)));
                       }
                     } else {
                       Utility.showToastMessage(Strings.no_internet_message);
@@ -569,10 +532,12 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                           shape: BoxShape.circle,
                           color: colorWhite,
                         ),
-                        child: Image.asset(AssetsImagePath.atm,
-                            height: 58, width: 58, fit: BoxFit.cover),
+                        child: Image.asset(AssetsImagePath.atm, height: 58, width: 58, fit: BoxFit.cover),
                       ),
-                      Text(Strings.withdraw, style: subHeading),
+                      Text(
+                        Strings.withdraw,
+                        style: subHeading
+                      ),
                     ],
                   ),
                 ),
@@ -597,10 +562,12 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                           shape: BoxShape.circle,
                           color: colorWhite,
                         ),
-                        child: Image.asset(AssetsImagePath.increase_loan_icon,
-                            height: 58, width: 58, fit: BoxFit.cover),
+                        child: Image.asset(AssetsImagePath.increase_loan_icon, height: 58, width: 58, fit: BoxFit.cover),
                       ),
-                      Text(Strings.increase_loan, style: subHeading),
+                      Text(
+                        Strings.increase_loan,
+                        style: subHeading
+                      ),
                     ],
                   ),
                 ),
@@ -608,45 +575,32 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
               onTap: () {
                 Utility.isNetworkConnection().then((isNetwork) {
                   if (isNetwork) {
-                    if (loanType == Strings.mutual_fund) {
+                    if(loanType == Strings.mutual_fund){
                       if (isIncreaseLoan) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    MFIncreaseLoan(
-                                        loanNumber,
-                                        Strings.increase_loan,
-                                        null,
-                                        loanType!,
-                                        schemeType!)));
+                                builder: (BuildContext context) => MFIncreaseLoan(loanNumber, Strings.increase_loan, null, loanType!, schemeType!)));
                       } else {
-                        commonDialog(
-                            context, Strings.increase_loan_request_pending, 0);
+                        commonDialog(context, Strings.increase_loan_request_pending, 0);
                       }
                     } else {
-                      if (isIncreaseLoan) {
-                        if (loanDetailsResponse!.data!.topUpApplication == 1) {
+                      if(isIncreaseLoan) {
+                        if(loanDetailsResponse!.data!.topUpApplication == 1){
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
                                       IncreaseLoanLimit(
                                           loanDetailData!.loan!.drawingPower,
-                                          loanDetailData!
-                                              .loan!.totalCollateralValue,
+                                          loanDetailData!.loan!.totalCollateralValue,
                                           loanDetailData!.loan!.name,
                                           loanDetailData!.loan!.drawingPowerStr,
-                                          loanDetailData!
-                                              .loan!.totalCollateralValueStr,
+                                          loanDetailData!.loan!.totalCollateralValueStr,
                                           loanDetailData!.pledgorBoid)));
-                          printLog(
-                              "loanDetailData!.pledgorBoid${loanDetailData!.pledgorBoid}");
-                        } else {
-                          commonDialog(
-                              context,
-                              "Your top-up application: ${loanDetailsResponse!.data!.topUpApplicationName} is pending",
-                              0);
+                          printLog("loanDetailData!.pledgorBoid${loanDetailData!.pledgorBoid}");
+                        }else{
+                          commonDialog(context, "Your top-up application: ${loanDetailsResponse!.data!.topUpApplicationName} is pending", 0);
                         }
                       } else {
                         commonDialog(context, Strings.pending_increase_loan, 0);
@@ -660,80 +614,66 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
             ),
             SizedBoxWidthWidget(10.0),
             GestureDetector(
-              onTap: () {
-                // if (loanDetailData!.loan!.balance == 0.0) {
-                //   paaymentDialog();
-                // } else {
-                Utility.isNetworkConnection().then((isNetwork) {
-                  if (isNetwork) {
-                    printLog("interest${jsonEncode(interest)}");
+                onTap: () {
+                  // if (loanDetailData!.loan!.balance == 0.0) {
+                  //   paaymentDialog();
+                  // } else {
+                  Utility.isNetworkConnection().then((isNetwork) {
+                    if (isNetwork) {
+                      printLog("interest${jsonEncode(interest)}");
 
-                    if (loanDetailData!.paymentAlreadyInProcess == 0) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext contex) => PaymentScreen(
-                                  loanNumber,
-                                  // isMarginShortFall,
-                                  marginShortfall != null
-                                      ? marginShortfall!.status == "Pending"
-                                          ? true
-                                          : false
-                                      : false,
-                                  marginShortfall != null
-                                      ? marginShortfall!.shortfallC
-                                      : "",
-                                  marginShortfall != null
-                                      ? marginShortfall!.minimumCollateralValue
-                                      : "",
-                                  marginShortfall != null
-                                      ? marginShortfall!.totalCollateralValue
-                                      : "",
-                                  marginShortfall != null &&
-                                          marginShortfall!.status !=
-                                              "Sell Triggered" &&
-                                          marginShortfall!.status !=
-                                              "Request Pending"
-                                      ? marginShortfall!.name
-                                      : "",
-                                  marginShortfall != null
-                                      ? marginShortfall!.minimumCashAmount!
-                                      : 0.0,
-                                  interest != null ? 1 : 0)));
+                      if(loanDetailData!.paymentAlreadyInProcess == 0){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext contex) =>
+                                    PaymentScreen(loanNumber,
+                                        // isMarginShortFall,
+                                        marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
+                                        marginShortfall != null ? marginShortfall!.shortfallC : "",
+                                        marginShortfall != null ? marginShortfall!.minimumCollateralValue : "",
+                                        marginShortfall != null ? marginShortfall!.totalCollateralValue : "",
+                                        marginShortfall != null
+                                            && marginShortfall!.status != "Sell Triggered"
+                                            && marginShortfall!.status != "Request Pending" ? marginShortfall!.name : "",
+                                        marginShortfall != null ? marginShortfall!.minimumCashAmount! : 0.0, interest != null ? 1: 0)));
+                      }else{
+                        commonDialog(context, Strings.pending_payment, 0);
+                      }
+
                     } else {
-                      commonDialog(context, Strings.pending_payment, 0);
+                      Utility.showToastMessage(Strings.no_internet_message);
                     }
-                  } else {
-                    Utility.showToastMessage(Strings.no_internet_message);
-                  }
-                });
-                // }
-              },
-              child: Card(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(10.0),
-                        // padding: EdgeInsets.all(15.0),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: colorWhite,
+                  });
+                  // }
+                },
+                child: Card(
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.all(10.0),
+                          // padding: EdgeInsets.all(15.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: colorWhite,
+                          ),
+                          child: Image.asset(AssetsImagePath.pay_now, height: 58, width: 58, fit: BoxFit.cover),
                         ),
-                        child: Image.asset(AssetsImagePath.pay_now,
-                            height: 58, width: 58, fit: BoxFit.cover),
-                      ),
-                      Text(Strings.pay_now, style: subHeading),
-                    ],
+                        Text(
+                          Strings.pay_now,
+                          style: subHeading
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
             ),
           ],
         ),
@@ -877,86 +817,75 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
             : Container(),
         loanDetailData!.loan!.totalCollateralValue != null
             ? Padding(
-                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Card(
-                        elevation: 3,
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.white, width: 3.0),
-                            // set border width
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                            // set rounded corner radius
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 10,
-                                  color: Colors.white,
-                                  offset: Offset(1, 3))
-                            ], // make rounded corner of border
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(vertical: 10.0),
-                                    padding: EdgeInsets.all(10.0),
-                                    decoration: BoxDecoration(
-                                      color: colorLightGreen,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(8.0)),
-                                      // set rounded corner radius
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 10,
-                                            color: Colors.white,
-                                            offset: Offset(1, 3))
-                                      ], // make rounded corner of border
-                                    ),
-                                    child: Image.asset(
-                                      AssetsImagePath.bitcoin_green,
-                                      height: 35.04,
-                                      width: 35.2,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 16,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      mediumHeadingText(
-                                          Strings.collateral_value),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      subHeadingText(loanDetailData!
-                                                  .loan!.totalCollateralValue! <
-                                              0
-                                          ? negativeValue(loanDetailData!
-                                              .loan!.totalCollateralValue!)
-                                          : '₹${numberToString(loanDetailData!.loan!.totalCollateralValue!.toStringAsFixed(2))}'),
-                                      // subHeadingText('₹${loanDetailData!.loan!.totalCollateralValueStr}'),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+          child: Row(
+            children: <Widget>[
+              Flexible(
+                child: Card(
+                  elevation: 3,
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.white, width: 3.0),
+                      // set border width
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      // set rounded corner radius
+                      boxShadow: [
+                        BoxShadow(blurRadius: 10, color: Colors.white, offset: Offset(1, 3))
+                      ], // make rounded corner of border
                     ),
-                  ],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 10.0),
+                              padding: EdgeInsets.all(10.0),
+                              decoration: BoxDecoration(
+                                color: colorLightGreen,
+                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                // set rounded corner radius
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 10,
+                                      color: Colors.white,
+                                      offset: Offset(1, 3))
+                                ], // make rounded corner of border
+                              ),
+                              child: Image.asset(
+                                AssetsImagePath.bitcoin_green,
+                                height: 35.04,
+                                width: 35.2,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 16,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                mediumHeadingText(Strings.collateral_value),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                subHeadingText(loanDetailData!.loan!.totalCollateralValue! < 0
+                                    ? negativeValue(loanDetailData!.loan!.totalCollateralValue!)
+                                    : '₹${numberToString(loanDetailData!.loan!.totalCollateralValue!.toStringAsFixed(2))}'),
+                                // subHeadingText('₹${loanDetailData!.loan!.totalCollateralValueStr}'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              )
+              ),
+            ],
+          ),
+        )
             : Container(),
         interest != null && interest!.totalInterestAmt != 0
             ? Padding(
@@ -1325,21 +1254,15 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                               String? mobile = await preferences.getMobile();
                               String email = await preferences.getEmail();
 
-                              // Firebase Event
-                              Map<String, dynamic> parameter =
-                                  new Map<String, dynamic>();
-                              parameter[Strings.mobile_no] = mobile;
-                              parameter[Strings.email] = email;
-                              parameter[Strings.margin_shortfall_name] =
-                                  marginShortfall!.name;
-                              parameter[Strings.loan_number] =
-                                  loanDetailData!.loan!.name;
-                              parameter[Strings.margin_shortfall_status] =
-                                  marginShortfall!.status;
-                              parameter[Strings.date_time] =
-                                  getCurrentDateAndTime();
-                              firebaseEvent(
-                                  Strings.margin_shortFall_click, parameter);
+                            // Firebase Event
+                            Map<String, dynamic> parameter = new Map<String, dynamic>();
+                            parameter[Strings.mobile_no] = mobile;
+                            parameter[Strings.email] = email;
+                            parameter[Strings.margin_shortfall_name] = marginShortfall!.name;
+                            parameter[Strings.loan_number] = loanDetailData!.loan!.name;
+                            parameter[Strings.margin_shortfall_status] = marginShortfall!.status;
+                            parameter[Strings.date_time] = getCurrentDateAndTime();
+                            firebaseEvent(Strings.margin_shortFall_click, parameter);
 
                               Navigator.push(
                                   context,
@@ -1425,8 +1348,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                           SizedBox(
                             height: 5,
                           ),
-                          mediumHeadingText(
-                              transactionList[index].transactionType)
+                          mediumHeadingText(transactionList[index].transactionType)
                         ],
                       ),
                     ),
@@ -1437,21 +1359,13 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                           Flexible(
                             // child: Text('₹${transactionList[index].amount.toString()}',
                             //     style: extraBoldTextStyle_18_gray_dark),
-                            child: Text(
-                                double.parse(transactionList[index]
-                                            .amount
-                                            .toString()
-                                            .replaceAll(",", "")) <
-                                        0
-                                    ? negativeValue(double.parse(
-                                        transactionList[index]
-                                            .amount
-                                            .toString()
-                                            .replaceAll(",", "")))
-                                    : '₹${transactionList[index].amount.toString()}',
+                            child: Text(double.parse(transactionList[index].amount.toString().replaceAll(",", "")) < 0
+                                ? negativeValue(double.parse(transactionList[index].amount.toString().replaceAll(",", "")))
+                                : '₹${transactionList[index].amount.toString()}',
                                 style: extraBoldTextStyle_18_gray_dark),
                           ),
                           SizedBox(width: 5),
+
                           Container(
                               alignment: Alignment.center,
                               height: 26,
@@ -1459,10 +1373,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                               padding: EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
-                                color: transactionList[index]
-                                            .recordType
-                                            .toString() ==
-                                        "DR"
+                                color: transactionList[index].recordType.toString() == "DR"
                                     ? colorLightRed
                                     : colorLightGreen,
                               ),
@@ -1470,10 +1381,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: semiBold,
-                                      color: transactionList[index]
-                                                  .recordType
-                                                  .toString() ==
-                                              "DR"
+                                      color: transactionList[index].recordType.toString() == "DR"
                                           ? red
                                           : colorGreen))),
                         ],
@@ -1495,8 +1403,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
           content: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -1528,35 +1435,29 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                   children: <Widget>[
                     Text(Strings.terms_condition,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: appTheme,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
+                        style:
+                        TextStyle(color: appTheme, fontSize: 20, fontWeight: FontWeight.bold)),
                     SizedBox(
                       height: 5,
                     ),
                     Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: new Text(Strings.terms1,
-                            style: TextStyle(
-                                fontSize: 15.0, color: Colors.grey.shade600))),
+                            style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600))),
                     Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: new Text(Strings.terms2,
-                            style: TextStyle(
-                                fontSize: 15.0, color: Colors.grey.shade600))),
+                            style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600))),
                     Padding(
                         padding: const EdgeInsets.all(10),
                         child: new Text(Strings.terms3,
-                            style: TextStyle(
-                                fontSize: 15.0, color: Colors.grey.shade600))),
+                            style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600))),
                     CheckboxListTile(
                       controlAffinity: ListTileControlAffinity.leading,
                       checkColor: Colors.white,
                       activeColor: appTheme,
                       title: Text(Strings.accept_terms_condition,
-                          style: TextStyle(
-                              fontSize: 15.0, color: Colors.grey.shade600)),
+                          style: TextStyle(fontSize: 15.0, color: Colors.grey.shade600)),
                       value: true,
                       onChanged: (val) {},
                     )
@@ -1567,8 +1468,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                 height: 40,
                 width: 100,
                 child: Material(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(35)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                   elevation: 1.0,
                   color: appTheme,
                   child: MaterialButton(
@@ -1613,8 +1513,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
     String result = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                WebViewScreenWidget(value.message.data.esignUrl, fileId, "")));
+            builder: (context) => WebViewScreenWidget(value.message.data.esignUrl, fileId, "")));
     if (result == Strings.success) {
       Navigator.pop(context);
       _showSuccessDialog(value, fileId);
@@ -1734,8 +1633,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: colorWhite,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
           content: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1756,13 +1654,11 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                   height: 40,
                   width: 100,
                   child: Material(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         Navigator.pop(context);
@@ -1789,8 +1685,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: colorWhite,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
           content: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1811,13 +1706,11 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                   height: 40,
                   width: 100,
                   child: Material(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         Navigator.pop(context);
@@ -1843,8 +1736,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
       bottomNavigationBar: AnimatedPadding(
         duration: Duration(milliseconds: 150),
         curve: Curves.easeOut,
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           height: 250,
           width: 375,
@@ -1882,8 +1774,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                   height: 45,
                   width: 100,
                   child: Material(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
@@ -1894,10 +1785,8 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                       },
                       child: Text(
                         "Proceed",
-                        style: TextStyle(
-                            color: colorWhite,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                        style:
+                        TextStyle(color: colorWhite, fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -1916,10 +1805,8 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
   void createTopUp() {
     loanApplicationBloc.createTopUp(loans!.name, fileId).then((value) {
       if (value.isSuccessFull!) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => ApplicationTopUpSuccess()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => ApplicationTopUpSuccess()));
       } else if (value.errorCode == 403) {
         commonDialog(context, Strings.session_timeout, 4);
       } else {

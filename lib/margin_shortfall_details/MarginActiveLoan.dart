@@ -12,8 +12,7 @@ class MarginActiveLoan extends StatefulWidget {
   }
 }
 
-class MarginActiveLoanState extends State<MarginActiveLoan>
-    with TickerProviderStateMixin {
+class MarginActiveLoanState extends State<MarginActiveLoan> with TickerProviderStateMixin {
   AnimationController? controller;
 
   @override
@@ -135,8 +134,7 @@ class MarginActiveLoanState extends State<MarginActiveLoan>
                                     onPressed: () {},
                                     child: Text(
                                       "Pay Now",
-                                      style: TextStyle(
-                                          fontSize: 8, color: Colors.white),
+                                      style: TextStyle(fontSize: 8, color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -156,10 +154,7 @@ class MarginActiveLoanState extends State<MarginActiveLoan>
                                       "Margin Shortfall",
                                     ),
                                     IconButton(
-                                      icon: Icon(
-                                        Icons.info_outline,
-                                        color: Colors.blue,
-                                      ),
+                                      icon: Icon(Icons.info_outline,color: Colors.blue,),
                                       iconSize: 15,
                                       onPressed: () {
                                         showModalBottomSheet(
@@ -198,8 +193,7 @@ class MarginActiveLoanState extends State<MarginActiveLoan>
                                     },
                                     child: Text(
                                       "Take Action",
-                                      style: TextStyle(
-                                          fontSize: 8, color: Colors.white),
+                                      style: TextStyle(fontSize: 8, color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -275,8 +269,7 @@ class MarginActiveLoanState extends State<MarginActiveLoan>
                             children: <Widget>[
                               Text(
                                 "Overdraft Balance",
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
+                                style: TextStyle(fontSize: 12, color: Colors.black),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
@@ -307,11 +300,8 @@ class MarginActiveLoanState extends State<MarginActiveLoan>
           ),
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          MarginActiveLoanDetails()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) => MarginActiveLoanDetails()));
             },
             icon: Icon(Icons.chevron_right),
           ),
@@ -329,8 +319,7 @@ class CustomBottom extends StatelessWidget {
       bottomNavigationBar: AnimatedPadding(
         duration: Duration(milliseconds: 150),
         curve: Curves.easeOut,
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           height: 260,
           decoration: new BoxDecoration(
@@ -408,8 +397,7 @@ class CustomBottom extends StatelessWidget {
                       height: 40,
                       width: 120,
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                         elevation: 1.0,
                         color: appTheme,
                         child: MaterialButton(
@@ -440,12 +428,10 @@ class CustomBottom extends StatelessWidget {
 
 class CustomBottomLoanTakeAction extends StatefulWidget {
   @override
-  CustomBottomLoanTakeActionState createState() =>
-      new CustomBottomLoanTakeActionState();
+  CustomBottomLoanTakeActionState createState() => new CustomBottomLoanTakeActionState();
 }
 
-class CustomBottomLoanTakeActionState
-    extends State<CustomBottomLoanTakeAction> {
+class CustomBottomLoanTakeActionState extends State<CustomBottomLoanTakeAction> {
   String radioItem = '';
 
   @override
@@ -460,8 +446,7 @@ class CustomBottomLoanTakeActionState
       bottomNavigationBar: AnimatedPadding(
         duration: Duration(milliseconds: 150),
         curve: Curves.easeOut,
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           height: 300,
           decoration: new BoxDecoration(
@@ -485,8 +470,7 @@ class CustomBottomLoanTakeActionState
                     children: <Widget>[
                       Text(
                         "Select Account",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     ],
                   ),
@@ -566,18 +550,14 @@ class CustomBottomLoanTakeActionState
                       height: 50,
                       width: 200,
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                         elevation: 1.0,
                         color: appTheme,
                         child: MaterialButton(
                           minWidth: MediaQuery.of(context).size.width,
                           onPressed: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MarginActiveLoanDetails()));
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (BuildContext context) => MarginActiveLoanDetails()));
                           },
                           child: Text(
                             "Next",

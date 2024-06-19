@@ -1,3 +1,4 @@
+
 import 'package:lms/common_widgets/constants.dart';
 import 'package:lms/network/responsebean/MyLoansResponse.dart';
 import 'package:lms/util/Colors.dart';
@@ -96,10 +97,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                 children: <Widget>[
                   Text(
                     'Loans(${snapshot.data!.loans!.length.toString()})',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: appTheme),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: appTheme),
                   ),
                 ],
               ),
@@ -121,8 +119,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
     if (snapshot.data!.totalDrawingPower != 0)
       totalCollateralValue = roundDouble(snapshot.data!.totalDrawingPower!, 2);
     if (snapshot.data!.totalSanctionedLimit != 0)
-      totalSanctionedValue =
-          roundDouble(snapshot.data!.totalSanctionedLimit!, 2);
+      totalSanctionedValue = roundDouble(snapshot.data!.totalSanctionedLimit!, 2);
     if (snapshot.data!.totalOutstanding != 0)
       totalLoanBalance = roundDouble(snapshot.data!.totalOutstanding!, 2);
     return Stack(
@@ -141,14 +138,12 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                           topLeft: Radius.circular(15.0),
                           topRight: Radius.circular(15.0),
                           bottomLeft: Radius.circular(15.0),
-                          bottomRight: Radius.circular(
-                              15.0)), // set rounded corner radius
+                          bottomRight: Radius.circular(15.0)), // set rounded corner radius
                     ),
                     child: Column(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10.0, left: 10.0, right: 15.0),
+                          padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -161,8 +156,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, left: 20.0, right: 20.0),
+                          padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -186,27 +180,23 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20.0, bottom: 8.0, right: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0, bottom: 8.0, right: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
                                 'SANCTIONED LIMIT',
-                                style:
-                                    kSecurityLiteStyle.copyWith(fontSize: 12.0),
+                                style: kSecurityLiteStyle.copyWith(fontSize: 12.0),
                               ),
                               Text(
                                 'DRAWING POWER',
-                                style:
-                                    kSecurityLiteStyle.copyWith(fontSize: 12.0),
+                                style: kSecurityLiteStyle.copyWith(fontSize: 12.0),
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20.0, bottom: 8.0, right: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0, bottom: 8.0, right: 20.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -216,8 +206,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                               ),
                               Text(
                                 'LOAN BALANCE',
-                                style:
-                                    kSecurityLiteStyle.copyWith(fontSize: 12.0),
+                                style: kSecurityLiteStyle.copyWith(fontSize: 12.0),
                               ),
                             ],
                           ),
@@ -295,17 +284,12 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              border:
-                                  Border.all(color: Colors.white, width: 3.0),
+                              border: Border.all(color: Colors.white, width: 3.0),
                               // set border width
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                               // set rounded corner radius
                               boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 10,
-                                    color: Colors.white,
-                                    offset: Offset(1, 3))
+                                BoxShadow(blurRadius: 10, color: Colors.white, offset: Offset(1, 3))
                               ] // make rounded corner of border
                               ),
                           child: Row(
@@ -314,13 +298,11 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                               Row(
                                 children: <Widget>[
                                   Container(
-                                    margin:
-                                        EdgeInsets.symmetric(vertical: 10.0),
+                                    margin: EdgeInsets.symmetric(vertical: 10.0),
                                     padding: EdgeInsets.all(10.0),
                                     decoration: BoxDecoration(
                                         color: Colors.yellowAccent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8.0)),
+                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                         // set rounded corner radius
                                         boxShadow: [
                                           BoxShadow(
@@ -338,13 +320,10 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                                     width: 20,
                                   ),
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Text("Collateral Value",
-                                          style: TextStyle(
-                                              color: colorLightGray,
-                                              fontSize: 12)),
+                                          style: TextStyle(color: colorLightGray, fontSize: 12)),
                                       SizedBox(
                                         height: 5,
                                       ),
@@ -379,17 +358,12 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           decoration: BoxDecoration(
                               color: Colors.white,
-                              border:
-                                  Border.all(color: Colors.white, width: 3.0),
+                              border: Border.all(color: Colors.white, width: 3.0),
                               // set border width
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                               // set rounded corner radius
                               boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 10,
-                                    color: Colors.white,
-                                    offset: Offset(1, 3))
+                                BoxShadow(blurRadius: 10, color: Colors.white, offset: Offset(1, 3))
                               ] // make rounded corner of border
                               ),
                           child: Row(
@@ -398,13 +372,11 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                               Row(
                                 children: <Widget>[
                                   Container(
-                                    margin:
-                                        EdgeInsets.symmetric(vertical: 10.0),
+                                    margin: EdgeInsets.symmetric(vertical: 10.0),
                                     padding: EdgeInsets.all(10.0),
                                     decoration: BoxDecoration(
                                         color: Colors.yellowAccent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8.0)),
+                                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
                                         // set rounded corner radius
                                         boxShadow: [
                                           BoxShadow(
@@ -424,13 +396,11 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                                   Row(
                                     children: <Widget>[
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text("Margin ShortFall",
-                                              style: TextStyle(
-                                                  color: colorLightGray,
-                                                  fontSize: 12)),
+                                              style:
+                                                  TextStyle(color: colorLightGray, fontSize: 12)),
                                           SizedBox(
                                             height: 5,
                                           ),
@@ -444,23 +414,19 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                                         ],
                                       ),
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Container(
                                             child: IconButton(
                                               onPressed: () async {
                                                 showModalBottomSheet(
-                                                    backgroundColor:
-                                                        Colors.transparent,
+                                                    backgroundColor: Colors.transparent,
                                                     context: context,
                                                     isScrollControlled: true,
                                                     builder: (BuildContext bc) {
                                                       return marginshortFallInfo(
-                                                          snapshot.data!
-                                                              .totalTotalCollateralValue,
-                                                          snapshot.data!
-                                                              .totalMarginShortfall);
+                                                          snapshot.data!.totalTotalCollateralValue,
+                                                          snapshot.data!.totalMarginShortfall);
                                                     });
                                               },
                                               icon: Icon(
@@ -480,8 +446,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                                   ),
                                 ],
                               ),
-                              snapshot.data!.totalMarginShortfall.toString() !=
-                                      null
+                              snapshot.data!.totalMarginShortfall.toString() != null
                                   ? takeActionWidget(0, snapshot)
                                   : Container()
                             ],
@@ -524,10 +489,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
             },
             child: Text(
               "Take Action",
-              style: TextStyle(
-                  fontSize: 8,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 8, color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         ),
@@ -570,10 +532,8 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                   ),
                   Text(
                     snapshot.data!.loans![index].name!,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: colorDarkGray,
-                        fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 18, color: colorDarkGray, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -590,10 +550,8 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                   ),
                   Text(
                     "₹ ${obBal != null ? obBal.toString() : "0"}",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: colorDarkGray,
-                        fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 18, color: colorDarkGray, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -632,8 +590,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
             children: <Widget>[
               Text(
                 "New application under process",
-                style: TextStyle(
-                    fontSize: 16, color: appTheme, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, color: appTheme, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -661,8 +618,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
       bottomNavigationBar: AnimatedPadding(
         duration: Duration(milliseconds: 150),
         curve: Curves.easeOut,
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           height: 350,
           width: 375,
@@ -694,9 +650,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                     Text(
                       "Rs.3,90,000",
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: colorDarkGray),
+                          fontSize: 17, fontWeight: FontWeight.bold, color: colorDarkGray),
                     ),
                   ],
                 ),
@@ -705,10 +659,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                 ),
                 Text(
                   'Margin ShortFall',
-                  style: TextStyle(
-                      color: appTheme,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24),
+                  style: TextStyle(color: appTheme, fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 SizedBox(
                   height: 25,
@@ -726,9 +677,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                     Text(
                       "Rs.$required_value",
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: colorDarkGray),
+                          fontSize: 17, fontWeight: FontWeight.bold, color: colorDarkGray),
                     ),
                   ],
                 ),
@@ -748,9 +697,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                     Text(
                       "Rs.$total_col",
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: colorDarkGray),
+                          fontSize: 18, fontWeight: FontWeight.bold, color: colorDarkGray),
                     ),
                   ],
                 ),
@@ -768,20 +715,14 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                   children: <Widget>[
                     Text(
                       "Shortfall",
-                      style: TextStyle(
-                          color: appTheme,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                      style: TextStyle(color: appTheme, fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     SizedBox(
                       width: 15,
                     ),
                     Text(
                       "Rs.$marginshortfall",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: red),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: red),
                     ),
                   ],
                 ),
@@ -803,13 +744,11 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                       height: 45,
                       width: 120,
                       child: Material(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                         elevation: 1.0,
                         color: appTheme,
                         child: MaterialButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                           minWidth: MediaQuery.of(context).size.width,
                           onPressed: () async {
                             Navigator.pop(context);
@@ -847,8 +786,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
       bottomNavigationBar: AnimatedPadding(
           duration: Duration(milliseconds: 150),
           curve: Curves.easeOut,
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Container(
               height: 350,
               width: 375,
@@ -875,9 +813,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                         Text(
                           "Select Account",
                           style: TextStyle(
-                              color: colorLightAppTheme,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24),
+                              color: colorLightAppTheme, fontWeight: FontWeight.bold, fontSize: 24),
                         ),
                       ],
                     ),
@@ -932,13 +868,11 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                           height: 40,
                           width: 80,
                           child: Material(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(35)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                             elevation: 1.0,
                             color: appTheme,
                             child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(35)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                               minWidth: MediaQuery.of(context).size.width,
                               onPressed: () async {
                                 if (loan_selecte != null) {
@@ -949,8 +883,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
 //                                             SingleMyActiveLoanScreen(
 //                                                 snapshot.data.loans[index])));
                                 } else {
-                                  Utility.showToastMessage(
-                                      Strings.valid_account_select);
+                                  Utility.showToastMessage(Strings.valid_account_select);
                                 }
                               },
                               child: Icon(

@@ -31,7 +31,7 @@ class DematAc {
   String? depository;
   String? dpid;
   String? clientId;
-  int? isChoice;
+  int? isAtrina;
   String? stockAt;
 
   DematAc(
@@ -39,7 +39,7 @@ class DematAc {
         this.depository,
         this.dpid,
         this.clientId,
-        this.isChoice,
+        this.isAtrina,
         this.stockAt});
 
   DematAc.fromJson(Map<String, dynamic> json) {
@@ -47,7 +47,7 @@ class DematAc {
     depository = json['depository'];
     dpid = json['dpid'];
     clientId = json['client_id'];
-    isChoice = json['is_choice'];
+    isAtrina = json['is_choice'];
     stockAt = json['stock_at'];
   }
 
@@ -57,7 +57,7 @@ class DematAc {
     data['depository'] = this.depository;
     data['dpid'] = this.dpid;
     data['client_id'] = this.clientId;
-    data['is_choice'] = this.isChoice;
+    data['is_choice'] = this.isAtrina;
     data['stock_at'] = this.stockAt;
     return data;
   }

@@ -178,8 +178,7 @@ Page resource error:
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
           content: Container(
             padding: const EdgeInsets.all(4.0),
             child: Column(
@@ -187,9 +186,7 @@ Page resource error:
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
-                    "Are you sure you want to cancel ?\nYou can complete E-sign from banner on the dashboard.",
-                    style: regularTextStyle_16_dark),
+                Text("Are you sure you want to cancel ?\nYou can complete E-sign from banner on the dashboard.", style: regularTextStyle_16_dark),
                 SizedBox(
                   height: 16,
                 ),
@@ -203,8 +200,7 @@ Page resource error:
                         // width: 100,
                         child: Material(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              side: BorderSide(color: red)),
+                              borderRadius: BorderRadius.circular(35), side: BorderSide(color: red)),
                           elevation: 1.0,
                           color: colorWhite,
                           child: MaterialButton(
@@ -226,8 +222,7 @@ Page resource error:
                         height: 40,
                         // width: 100,
                         child: Material(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                           elevation: 1.0,
                           color: appTheme,
                           child: MaterialButton(
@@ -237,25 +232,17 @@ Page resource error:
                               String? mobile = await preferences.getMobile();
                               String email = await preferences.getEmail();
                               // Firebase Event
-                              Map<String, dynamic> parameter =
-                                  new Map<String, dynamic>();
+                              Map<String, dynamic> parameter = new Map<String, dynamic>();
                               parameter[Strings.mobile_no] = mobile;
                               parameter[Strings.email] = email;
-                              parameter[Strings.error_message] =
-                                  Strings.back_pressed;
-                              parameter[Strings.date_time] =
-                                  getCurrentDateAndTime();
-                              if (widget.isComingFor == Strings.pledge) {
-                                firebaseEvent(
-                                    Strings.loan_e_sign_failed, parameter);
-                              } else if (widget.isComingFor ==
-                                  Strings.increase_loan) {
-                                firebaseEvent(
-                                    Strings.increase_loan_e_sign_failed,
-                                    parameter);
-                              } else if (widget.isComingFor == Strings.top_up) {
-                                firebaseEvent(
-                                    Strings.top_up_e_sign_failed, parameter);
+                              parameter[Strings.error_message] = Strings.back_pressed;
+                              parameter[Strings.date_time] = getCurrentDateAndTime();
+                              if(widget.isComingFor == Strings.pledge){
+                                firebaseEvent(Strings.loan_e_sign_failed, parameter);
+                              } else if(widget.isComingFor == Strings.increase_loan){
+                                firebaseEvent(Strings.increase_loan_e_sign_failed, parameter);
+                              } else if(widget.isComingFor == Strings.top_up){
+                                firebaseEvent(Strings.top_up_e_sign_failed, parameter);
                               }
 
                               Navigator.push(
