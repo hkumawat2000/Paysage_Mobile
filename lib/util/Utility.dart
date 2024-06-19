@@ -16,11 +16,9 @@ import 'package:local_auth/error_codes.dart' as auth_error;
 class Utility {
   static Future<bool> isNetworkConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      printLog('Connectivity ==> Mobile Network');
+    if (connectivityResult.contains(ConnectivityResult.mobile)) {
       return true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      printLog('Connectivity ==> Wifi Network');
+    } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
       return true;
     }
     return false;
