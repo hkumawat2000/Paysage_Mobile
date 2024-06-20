@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 // import 'package:awesome_dropdown/awesome_dropdown.dart';
+import 'package:awesome_dropdown/awesome_dropdown.dart';
 import 'package:lms/additional_account_detail/AdditionalAccountDetailScreen.dart';
 import 'package:lms/complete_kyc/CompleteKYCBloc.dart';
 import 'package:lms/loan_renewal/LoanSummaryScreen.dart';
@@ -1020,51 +1021,52 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
         children: [
           Text("Proof of Address Type*"),
           SizedBox(height: 2),
-          // widget.isShowEdit! ? Container(
-          //   height: 32,
-          //   child: Align(
-          //     alignment: Alignment.centerLeft,
-          //     child: AwesomeDropDown(
-          //       isBackPressedOrTouchedOutSide: permIsBackPressedOrTouchedOutSide,
-          //       dropDownList: poaTypeList,
-          //       dropDownIcon: Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20),
-          //       selectedItem: permPOATypeSelected,
-          //       dropDownListTextStyle: TextStyle(color: colorLightGray, fontSize: 18),
-          //       onDropDownItemClick: (selectedItem) {
-          //         setState(() {
-          //           permValidatorPOAType = true;
-          //           permPOATypeSelected = selectedItem;
-          //         });
-          //       },
-          //       dropDownBottomBorderRadius: 2,
-          //       dropDownTopBorderRadius: 2,
-          //       dropDownBGColor: colorBg,
-          //       elevation: 0,
-          //       padding: 1,
-          //       dropDownOverlayBGColor: colorBg,
-          //       dropStateChanged: (isOpened) {
-          //         FocusScope.of(context).unfocus();
-          //         permIsDropDownOpened = isOpened;
-          //         if (!isOpened) {
-          //           permIsBackPressedOrTouchedOutSide = false;
-          //         }
-          //       },
-          //     ),
-          //   ),
-           Row(
-            children: [
-              Column(
-                children: [
-                  Container(
-                      height: 32,
-                      width : 90,
-                      child: SingleChildScrollView(child: Text(permPOATypeSelected, style: TextStyle(color: colorBlack, fontSize: 16)))),
-                ],
+          widget.isShowEdit! ? Container(
+            height: 32,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AwesomeDropDown(
+                isBackPressedOrTouchedOutSide: permIsBackPressedOrTouchedOutSide,
+                dropDownList: poaTypeList,
+                dropDownIcon: Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20),
+                selectedItem: permPOATypeSelected,
+                dropDownListTextStyle: TextStyle(color: colorLightGray, fontSize: 18),
+                onDropDownItemClick: (selectedItem) {
+                  setState(() {
+                    permValidatorPOAType = true;
+                    permPOATypeSelected = selectedItem;
+                  });
+                },
+                dropDownBottomBorderRadius: 2,
+                dropDownTopBorderRadius: 2,
+                dropDownBGColor: colorBg,
+                elevation: 0,
+                padding: 1,
+                dropDownOverlayBGColor: colorBg,
+                dropStateChanged: (isOpened) {
+                  FocusScope.of(context).unfocus();
+                  permIsDropDownOpened = isOpened;
+                  if (!isOpened) {
+                    permIsBackPressedOrTouchedOutSide = false;
+                  }
+                },
               ),
-              SizedBox(width : 20),
-              Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20)
-            ],
-          ),
+            ),
+          ) : SizedBox(),
+          //  Row(
+          //   children: [
+          //     Column(
+          //       children: [
+          //         Container(
+          //             height: 32,
+          //             width : 90,
+          //             child: SingleChildScrollView(child: Text(permPOATypeSelected, style: TextStyle(color: colorBlack, fontSize: 16)))),
+          //       ],
+          //     ),
+          //     SizedBox(width : 20),
+          //     Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20)
+          //   ],
+          // ),
           SizedBox(height: 5),
           Visibility(
             visible: !permValidatorPOAType,
@@ -2102,50 +2104,51 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
         children: [
           Text("Proof of Address Type*"),
           SizedBox(height: 2),
-          // widget.isShowEdit! ? Container(
-          //   height: 32,
-          //   child: Align(
-          //     alignment: Alignment.centerLeft,
-          //     child: AwesomeDropDown(
-          //       isBackPressedOrTouchedOutSide: corrIsBackPressedOrTouchedOutSide,
-          //       dropDownList: poaTypeList,
-          //       dropDownIcon: Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20),
-          //       selectedItem: corrPOATypeSelected,
-          //       dropDownListTextStyle: TextStyle(color: colorLightGray, fontSize: 18),
-          //       onDropDownItemClick: (selectedItem) {
-          //         setState(() {
-          //           corrValidatorPOAType = true;
-          //           corrPOATypeSelected = selectedItem;
-          //         });
-          //       },
-          //       dropDownBottomBorderRadius: 2,
-          //       dropDownTopBorderRadius: 2,
-          //       dropDownBGColor: colorBg,
-          //       elevation: 0,
-          //       padding: 1,
-          //       dropDownOverlayBGColor: colorBg,
-          //       dropStateChanged: (isOpened) {
-          //         corrIsDropDownOpened = isOpened;
-          //         if (!isOpened) {
-          //           corrIsBackPressedOrTouchedOutSide = false;
-          //         }
-          //       },
-          //     ),
-          //   ),
-           Row(
-            children: [
-              Column(
-                children: [
-                  Container(
-                      height: 32,
-                      width : 90,
-                      child: SingleChildScrollView(child: Text(corrPOATypeSelected, style: TextStyle(color: colorBlack, fontSize: 16)))),
-                ],
+          widget.isShowEdit! ? Container(
+            height: 32,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AwesomeDropDown(
+                isBackPressedOrTouchedOutSide: corrIsBackPressedOrTouchedOutSide,
+                dropDownList: poaTypeList,
+                dropDownIcon: Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20),
+                selectedItem: corrPOATypeSelected,
+                dropDownListTextStyle: TextStyle(color: colorLightGray, fontSize: 18),
+                onDropDownItemClick: (selectedItem) {
+                  setState(() {
+                    corrValidatorPOAType = true;
+                    corrPOATypeSelected = selectedItem;
+                  });
+                },
+                dropDownBottomBorderRadius: 2,
+                dropDownTopBorderRadius: 2,
+                dropDownBGColor: colorBg,
+                elevation: 0,
+                padding: 1,
+                dropDownOverlayBGColor: colorBg,
+                dropStateChanged: (isOpened) {
+                  corrIsDropDownOpened = isOpened;
+                  if (!isOpened) {
+                    corrIsBackPressedOrTouchedOutSide = false;
+                  }
+                },
               ),
-              SizedBox(width : 20),
-              Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20)
-            ],
-          ),
+            ),
+          ) : SizedBox(),
+          //  Row(
+          //   children: [
+          //     Column(
+          //       children: [
+          //         Container(
+          //             height: 32,
+          //             width : 90,
+          //             child: SingleChildScrollView(child: Text(corrPOATypeSelected, style: TextStyle(color: colorBlack, fontSize: 16)))),
+          //       ],
+          //     ),
+          //     SizedBox(width : 20),
+          //     Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20)
+          //   ],
+          // ),
           SizedBox(height: 5),
           Visibility(
             visible: !corrValidatorPOAType,
@@ -2577,9 +2580,9 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
           permCityController.text = value.data!.userKycDoc!.permCity!;
           permPinCodeController.text = value.data!.userKycDoc!.permPin!;
           permDistrictController.text = value.data!.userKycDoc!.permDist!;
-          permStateController.text = value.data!.userKycDoc!.permStateName!;
-          permCountryController.text = value.data!.userKycDoc!.permCountryName!;
-          permCountryValue = value.data!.userKycDoc!.permCountryName!;
+          permStateController.text = value.data!.userKycDoc!.permState!;
+          permCountryController.text = value.data!.userKycDoc!.permCountry!;
+          permCountryValue = value.data!.userKycDoc!.permCountry!;
           if(!widget.isShowEdit! && value.data!.address != null && value.data!.address!.toString().isNotEmpty) {
             permPOATypeSelected = value.data!.address!.permPoa!;
             permPOAImageNew = value.data!.address!.permImage!;
@@ -2590,9 +2593,9 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
           corrCityController.text = value.data!.userKycDoc!.corresCity!;
           corrPinCodeController.text = value.data!.userKycDoc!.corresPin!;
           corrDistrictController.text = value.data!.userKycDoc!.corresDist!;
-          corrStateController.text = value.data!.userKycDoc!.corresStateName!;
-          corrCountryController.text = value.data!.userKycDoc!.corresCountryName!;
-          corrCountryValue = value.data!.userKycDoc!.corresCountryName!;
+          corrStateController.text = value.data!.userKycDoc!.corresState!;
+          corrCountryController.text = value.data!.userKycDoc!.corresCountry!;
+          corrCountryValue = value.data!.userKycDoc!.corresCountry!;
           if(!widget.isShowEdit! && value.data!.address != null && value.data!.address!.toString().isNotEmpty) {
             corrPOATypeSelected = value.data!.address!.corresPoa!;
             corrPOAImageNew = value.data!.address!.corresPoaImage!;
