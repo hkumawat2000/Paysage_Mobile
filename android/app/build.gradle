@@ -65,6 +65,7 @@ android {
     // }
 
     buildTypes {
+        //changed to .debug due to signinconfig error while making build
         debug {
             signingConfig signingConfigs.debug
         }

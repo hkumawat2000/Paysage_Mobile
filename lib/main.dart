@@ -20,45 +20,64 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uni_links/uni_links.dart';
 
 void main() async {
-  //BindingBase.debugZoneErrorsAreFatal = true; // Make zone errors fatal
+// The following assertion was thrown during runApp:
+// Zone mismatch.
+// The Flutter bindings were initialized in a different zone than is now being used. This will likely
+// cause confusion and bugs as any zone-specific configuration will inconsistently use the
+// configuration of the original binding initialization zone or this zone based on hard-to-predict
+// factors such as which zone was active when a particular callback was set.
+// It is important to use the same zone when calling `ensureInitialized` on the binding as when calling
+// `runApp` later.
+// To make this warning fatal, set BindingBase.debugZoneErrorsAreFatal to true before the bindings are
+// initialized (i.e. as the first statement in `void main() { }`).
+  BindingBase.debugZoneErrorsAreFatal = true; // Make zone errors fatal
 
-  //Config the flavor
-  PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  String packageName = packageInfo.packageName;
-  if (packageName == Strings.android_prod_package ||
-      packageName == Strings.ios_prod_package) {
-    FlavorConfig(flavor: Flavor.PROD);
-  } else if (packageName == Strings.android_uat_package ||
-      packageName == Strings.ios_uat_package) {
-    FlavorConfig(flavor: Flavor.UAT);
-  } else if (packageName == Strings.android_qa_package ||
-      packageName == Strings.ios_qa_package) {
-    FlavorConfig(flavor: Flavor.QA);
-  } else {
-    FlavorConfig(flavor: Flavor.DEV);
-  }
+  // runZoned captures errors and exceptions but does not prevent the app from crashing.
+  // On the other hand, runZonedGuarded captures errors, allows you to handle them gracefully,
+  // and then prevents the app from crashing.
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-  HttpOverrides.global = MyHttpOverrides(); //for badCertificateCallback
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: colorLightBlue,
-      statusBarIconBrightness: Brightness.dark // status bar color
-      ));
+    await Firebase.initializeApp();
 
-  Function originalOnError = FlutterError.onError!;
-  FlutterError.onError = (FlutterErrorDetails errorDetails) async {
-    await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-    originalOnError(errorDetails);
-  };
-  WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: colorLightBlue,
+        statusBarIconBrightness: Brightness.dark // status bar color
+        ));
 
-  runZoned(() {
-    runApp(MyApp()
-        //DevicePreview(enabled: false, builder: (context) => MyApp())
-        ); // used device preview
-    //runZonedGuarded(body,  FirebaseCrashlytics.instance.recordError);
-  }, onError: FirebaseCrashlytics.instance.recordError);
+    //Config the flavor
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String packageName = packageInfo.packageName;
+    if (packageName == Strings.android_prod_package ||
+        packageName == Strings.ios_prod_package) {
+      FlavorConfig(flavor: Flavor.PROD);
+    } else if (packageName == Strings.android_uat_package ||
+        packageName == Strings.ios_uat_package) {
+      FlavorConfig(flavor: Flavor.UAT);
+    } else if (packageName == Strings.android_qa_package ||
+        packageName == Strings.ios_qa_package) {
+      FlavorConfig(flavor: Flavor.QA);
+    } else {
+      FlavorConfig(flavor: Flavor.DEV);
+    }
+
+    HttpOverrides.global = MyHttpOverrides(); //for badCertificateCallback
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
+    Function originalOnError = FlutterError.onError!;
+    FlutterError.onError = (FlutterErrorDetails errorDetails) async {
+      await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+      catchUnhandledExceptions(errorDetails.exception, errorDetails.stack);
+      originalOnError(errorDetails);
+    };
+
+    runApp(MyApp());
+  }, catchUnhandledExceptions);
+}
+
+void catchUnhandledExceptions(Object error, StackTrace? stack) {
+  FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  debugPrintStack(stackTrace: stack, label: error.toString());
 }
 
 class MyApp extends StatefulWidget {
