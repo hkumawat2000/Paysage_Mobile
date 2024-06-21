@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:alice/alice.dart';
+import 'package:flutter/foundation.dart';
 import 'package:lms/FlavorConfig.dart';
 import 'package:lms/splash/SplashScreen.dart';
 import 'package:lms/util/Colors.dart';
 import 'package:lms/util/MyHttp.dart';
 import 'package:lms/util/Preferences.dart';
+import 'package:lms/util/alice.dart';
 import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 //import 'package:device_preview/device_preview.dart';
@@ -16,18 +19,20 @@ import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:uni_links/uni_links.dart';
 
-void main() async{
-
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  //BindingBase.debugZoneErrorsAreFatal = true; // Make zone errors fatal
 
   //Config the flavor
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
   String packageName = packageInfo.packageName;
-  if(packageName == Strings.android_prod_package || packageName == Strings.ios_prod_package){
+  if (packageName == Strings.android_prod_package ||
+      packageName == Strings.ios_prod_package) {
     FlavorConfig(flavor: Flavor.PROD);
-  } else if(packageName == Strings.android_uat_package || packageName == Strings.ios_uat_package){
+  } else if (packageName == Strings.android_uat_package ||
+      packageName == Strings.ios_uat_package) {
     FlavorConfig(flavor: Flavor.UAT);
-  } else if(packageName == Strings.android_qa_package || packageName == Strings.ios_qa_package){
+  } else if (packageName == Strings.android_qa_package ||
+      packageName == Strings.ios_qa_package) {
     FlavorConfig(flavor: Flavor.QA);
   } else {
     FlavorConfig(flavor: Flavor.DEV);
@@ -37,20 +42,22 @@ void main() async{
   HttpOverrides.global = MyHttpOverrides(); //for badCertificateCallback
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: colorLightBlue, statusBarIconBrightness: Brightness.dark // status bar color
-  ));
-
+      statusBarColor: colorLightBlue,
+      statusBarIconBrightness: Brightness.dark // status bar color
+      ));
 
   Function originalOnError = FlutterError.onError!;
   FlutterError.onError = (FlutterErrorDetails errorDetails) async {
     await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
     originalOnError(errorDetails);
   };
+  WidgetsFlutterBinding.ensureInitialized();
 
   runZoned(() {
     runApp(MyApp()
-      //DevicePreview(enabled: false, builder: (context) => MyApp())
-      ); // used device preview
+        //DevicePreview(enabled: false, builder: (context) => MyApp())
+        ); // used device preview
+    //runZonedGuarded(body,  FirebaseCrashlytics.instance.recordError);
   }, onError: FirebaseCrashlytics.instance.recordError);
 }
 
@@ -73,10 +80,11 @@ class _MyAppState extends State<MyApp> {
     try {
       String? initialLink = await getInitialLink();
       preferences.setSmsRedirection("");
-      if(initialLink != null){
+      if (initialLink != null) {
         var uri = Uri.parse(initialLink);
-        if(uri.queryParameters['id'] != null){
-          preferences.setSmsRedirection(uri.queryParameters['id'].toString().toLowerCase());
+        if (uri.queryParameters['id'] != null) {
+          preferences.setSmsRedirection(
+              uri.queryParameters['id'].toString().toLowerCase());
         }
       }
     } on PlatformException {
@@ -95,11 +103,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         // locale: DevicePreview.locale(context),
         // builder: DevicePreview.appBuilder,
+        navigatorKey: alice.getNavigatorKey(),
+        //FlavorConfig.isDevelopment() ? alice.getNavigatorKey() : null,
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
-        routes: <String, WidgetBuilder>{}
-    );
+        routes: <String, WidgetBuilder>{});
   }
 }
-
-

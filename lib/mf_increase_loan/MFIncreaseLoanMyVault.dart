@@ -943,8 +943,8 @@ class _MFIncreaseLoanMyVaultState extends State<MFIncreaseLoanMyVault> {
                                 height: 29,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: appTheme,
-                                    onPrimary: Colors.white,
+                                    backgroundColor: appTheme,
+                                    foregroundColor: Colors.white,
                                     shape: new RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.only(
                                             bottomLeft: Radius.circular(10.0),

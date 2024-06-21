@@ -126,7 +126,7 @@ class MarginActiveLoanState extends State<MarginActiveLoan> with TickerProviderS
                                   height: 25,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: appTheme,
+                                      backgroundColor: appTheme,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
                                       ),
@@ -177,7 +177,7 @@ class MarginActiveLoanState extends State<MarginActiveLoan> with TickerProviderS
                                   height: 25,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: appTheme,
+                                      backgroundColor: appTheme,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(20),
                                       ),

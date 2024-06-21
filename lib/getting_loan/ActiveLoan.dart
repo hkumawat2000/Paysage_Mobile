@@ -116,7 +116,7 @@ class ActiveLoanState extends State<ActiveLoan> {
                               height: 25,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
+                                  backgroundColor: Colors.blue,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
@@ -148,7 +148,7 @@ class ActiveLoanState extends State<ActiveLoan> {
                               height: 25,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue,
+                                  backgroundColor: Colors.blue,
                                 
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),

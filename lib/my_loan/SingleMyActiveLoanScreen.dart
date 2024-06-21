@@ -444,8 +444,8 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary: appTheme,
-                              onPrimary: Colors.white,
+                              backgroundColor: appTheme,
+                              foregroundColor: Colors.white,
                               shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.only(
                                       bottomLeft: Radius.circular(15.0),
@@ -769,7 +769,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: appTheme,
+                                backgroundColor: appTheme,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -990,7 +990,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                                   SizedBox(
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: red,
+                                        backgroundColor: red,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(20),
@@ -1245,7 +1245,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                                 ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: appTheme,
+                              backgroundColor: appTheme,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),

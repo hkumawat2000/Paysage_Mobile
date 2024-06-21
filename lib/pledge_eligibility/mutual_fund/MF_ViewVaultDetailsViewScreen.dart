@@ -363,8 +363,8 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
                                       borderRadius: new BorderRadius.only(
                                           bottomLeft: Radius.circular(10.0),
                                           bottomRight: Radius.circular(10.0))),
-                                  onPrimary: Colors.white,
-                                  primary: appTheme,
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: appTheme,
                                   ),
                                   child: Text(
                                     "Select",

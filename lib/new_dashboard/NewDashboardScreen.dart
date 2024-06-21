@@ -2177,8 +2177,8 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                               bottomLeft: Radius.circular(10.0),
                                               bottomRight:
                                                   Radius.circular(10.0))),
-                                      onPrimary: Colors.white,
-                                      primary: appTheme,
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: appTheme,
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
@@ -2373,8 +2373,8 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                               bottomLeft: Radius.circular(10.0),
                                               bottomRight:
                                                   Radius.circular(10.0))),
-                                      onPrimary: Colors.white,
-                                      primary: appTheme,
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: appTheme,
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
@@ -2637,13 +2637,13 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      primary: appTheme,
+                                      backgroundColor: appTheme,
                                       shape: new RoundedRectangleBorder(
                                           borderRadius: new BorderRadius.only(
                                               bottomLeft: Radius.circular(10.0),
                                               bottomRight:
                                                   Radius.circular(10.0))),
-                                      onPrimary: Colors.white,
+                                      foregroundColor: Colors.white,
                                     ),
                                     onPressed: () async {
                                       String? mobile = await preferences!.getMobile();
@@ -2789,8 +2789,8 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                                           bottomRight: Radius.circular(10.0),
                                         ),
                                       ),
-                                      onPrimary: Colors.white,
-                                      primary: appTheme,
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: appTheme,
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),

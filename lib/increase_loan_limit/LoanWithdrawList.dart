@@ -267,7 +267,7 @@ class LoanWithdrawListScreenState extends State<LoanWithdrawListScreen> {
                           height: 25,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: appTheme,
+                              backgroundColor: appTheme,
                                shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -348,7 +348,7 @@ class LoanWithdrawListScreenState extends State<LoanWithdrawListScreen> {
                             height: 25,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: appTheme,
+                                backgroundColor: appTheme,
                                  shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),

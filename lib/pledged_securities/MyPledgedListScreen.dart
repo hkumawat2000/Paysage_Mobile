@@ -658,8 +658,8 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
                               shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(40.0),
                               ),
-                              onPrimary: Colors.white,
-                              primary: appTheme,
+                              foregroundColor: Colors.white,
+                              backgroundColor: appTheme,
                             ),
                             child: Text(
                               loanType == Strings.shares
@@ -767,8 +767,8 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
                               shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(40.0),
                               ),
-                              onPrimary: Colors.white,
-                              primary: red,
+                              foregroundColor: Colors.white,
+                              backgroundColor: red,
                             ),
                             child: Text(
                               loanType == Strings.shares

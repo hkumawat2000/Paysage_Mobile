@@ -71,7 +71,7 @@ dependencies:
   #  sms_autofill: ^1.2.4
   #  sms_otp_auto_verify: ^1.2.2
 #  dotted_border: ^2.0.0+1
-  package_info_plus: ^5.0.1 # Package Info
+  package_info_plus: ^6.0.0 # Package Info
   dotted_line: ^3.1.0
   webview_flutter: ^4.5.0
   sms_autofill: ^2.4.0
@@ -83,7 +83,8 @@ dependencies:
 #  syncfusion_flutter_charts: ^19.2.55+1
 #  syncfusion_flutter_pdfviewer: ^20.3.61-beta
   flutter_downloader: ^1.9.1
-#  alice: ^0.2.4
+  alice: ^0.4.2
+  #flutter_alice: ^1.0.0
   # ext_storage: ^1.0.3
 #  flutter_stetho: ^0.5.2
 #  flutter_stetho:
@@ -98,7 +99,7 @@ dependencies:
 #  flutter_jailbreak_detection: ^1.7.0
   safe_device: ^1.1.2
   youtube_player_flutter: ^9.0.1
-  share_plus: ^7.2.2
+  share_plus: ^9.0.0
   image_picker: ^1.0.8
   image_cropper: ^5.0.1
   flutter_slidable: ^3.1.0

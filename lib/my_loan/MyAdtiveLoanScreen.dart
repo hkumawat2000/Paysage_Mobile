@@ -217,8 +217,8 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: appTheme,
-                                    onPrimary: Colors.white,
+                                    backgroundColor: appTheme,
+                                    foregroundColor: Colors.white,
                                     shape: new RoundedRectangleBorder(
 //                                borderRadius: new BorderRadius.circular(30.0),
                                         borderRadius: new BorderRadius.only(
@@ -473,7 +473,7 @@ class MyActiveLoanScreenState extends State<MyActiveLoanScreen>
           height: 25,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: appTheme,
+              backgroundColor: appTheme,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
