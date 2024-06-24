@@ -27,13 +27,13 @@ class RegistrationDao extends BaseDio {
 
   Future<String> signInWithGoogle() async {
     try {
-      printLog("Start....");
+      printLog("======> Start....");
       final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
-      printLog("Google sign in end....");
+      printLog("======> Google sign in end....");
 
       if (googleSignInAccount != null) {
-        printLog("Google sign not null....");
+        printLog("======> Google sign not null....");
         final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
@@ -76,11 +76,11 @@ class RegistrationDao extends BaseDio {
         assert(user.uid == currentUser!.uid);
         return 'signInWithGoogle succeeded: $user';
       } else {
-        printLog("signInWithGoogle failed....");
+        printLog("======> signInWithGoogle failed....");
         return '';
       }
     } catch (e) {
-      printLog("Google sign Exception....${e.toString()}");
+      printLog("======> Google sign Exception....${e.toString()}");
       return '';
     }
   }

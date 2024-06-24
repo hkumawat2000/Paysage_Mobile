@@ -9,6 +9,7 @@ class Constants {
   static final String newUrlUat = "https://uat.spark.loans/";
   static final String oldUrlUat = "https://uat-spark.atriina.com/";
   static final String newWwwUat = "https://www.uat-spark.atriina.com/";
+  static final String demoKavim = "https://demo.kavimlms.com/";
   static final String userKyc = "api/method/lms.user.kyc";
   static final String myLoan = "api/method/lms.loan.my_loans";
   static final String securitiesList = "api/method/lms.user.securities";
