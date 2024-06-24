@@ -14,7 +14,7 @@ class AssetsImagePath {
   static const tutorial_5 = 'assets/images/tutorial5.png';
   static const info = 'assets/images/information-circle-outline.png';
   static const filter = 'assets/images/filter.png';
-  static const pdf = 'assets/imagels/pdf_lms.png';
+  static const pdf = 'assets/images/pdf_lms.png';
   static const pdf_white_icon = 'assets/images/pdf_white_icon.png';
   static const calendar = 'assets/images/calendar.png';
   static const bell = 'assets/images/bell.png';

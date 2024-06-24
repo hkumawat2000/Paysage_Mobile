@@ -19,6 +19,7 @@ import 'package:lms/util/Colors.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Style.dart';
 import 'package:lms/util/Utility.dart';
+import 'package:lms/util/base_dio.dart';
 import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/LoadingDialogWidget.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
@@ -368,7 +369,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                                   style: boldTextStyle_14,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      _launchURL(loanDetailData!.loan!.loanAgreement!);
+                                      _launchURL(baseURL + loanDetailData!.loan!.loanAgreement!);
                                     },
                                 ),
                               ),
@@ -517,6 +518,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
               },
               child: Card(
                 elevation: 1,
+                color: colorLightBlue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -547,6 +549,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
             GestureDetector(
               child: Card(
                 elevation: 1,
+                color: colorLightBlue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -649,6 +652,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                 },
                 child: Card(
                   elevation: 1,
+                  color: colorLightBlue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),

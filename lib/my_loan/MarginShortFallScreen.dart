@@ -176,6 +176,7 @@ class MarginShortfallScreenState extends State<MarginShortfallScreen> {
                     GestureDetector(
                       child: Card(
                         elevation: 1,
+                        color: colorLightBlue,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),

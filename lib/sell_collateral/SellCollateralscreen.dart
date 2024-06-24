@@ -237,7 +237,7 @@ class _SellCollateralScreenState extends State<SellCollateralScreen> {
       behavior: new ScrollBehavior(),
        // ..buildViewportChrome(context, Container(), AxisDirection.down),
       child: NestedScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: ScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverList(
