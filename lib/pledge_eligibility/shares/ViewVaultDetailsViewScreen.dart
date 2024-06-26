@@ -15,7 +15,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:page_indicator/page_indicator.dart';
+// import 'package:page_indicator/page_indicator.dart';
 
 class ViewVaultDetailsViewScreen extends StatefulWidget {
   List<SecuritiesListData> selectedSecurityList = [];
@@ -37,7 +37,7 @@ class ViewVaultDetailsViewScreenState
   Widget appBarTitle = new Text("Eligibility", style: mediumTextStyle_18_gray_dark);
 
   PageController controller = PageController();
-  GlobalKey<PageContainerState> key = GlobalKey();
+  // GlobalKey<PageContainerState> key = GlobalKey();
   bool isToggleSelect = false;
   bool? isDefaultBottomDialog = true;
   bool? isEligibleBottomDialog = false;
