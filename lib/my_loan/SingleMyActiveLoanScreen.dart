@@ -518,7 +518,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
               },
               child: Card(
                 elevation: 1,
-                color: colorLightBlue,
+                color: colorWhite,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -549,7 +549,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
             GestureDetector(
               child: Card(
                 elevation: 1,
-                color: colorLightBlue,
+                color: colorWhite,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -652,7 +652,7 @@ class SingleMyActiveLoanScreenState extends State<SingleMyActiveLoanScreen> {
                 },
                 child: Card(
                   elevation: 1,
-                  color: colorLightBlue,
+                  color: colorWhite,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),

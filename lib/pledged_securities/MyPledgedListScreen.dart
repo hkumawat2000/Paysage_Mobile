@@ -378,7 +378,7 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
             GestureDetector(
               child: Card(
                 elevation: 1,
-                color: colorLightBlue,
+                color: colorWhite,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -516,7 +516,7 @@ class MyPledgeSecurityScreenState extends State<MyPledgeSecurityScreen> {
         }
         return Card(
           elevation: 2,
-          color: colorLightBlue,
+          color: colorWhite,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),

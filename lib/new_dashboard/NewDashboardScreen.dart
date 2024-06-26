@@ -432,6 +432,7 @@ class _DashBoardState extends State<DashBoard> {
       child: ClipRRect(
           borderRadius: BorderRadius.circular(40),
           child: BottomNavigationBar(
+            backgroundColor: colorWhite,
             type: BottomNavigationBarType.fixed,
             currentIndex: selectedIndex,
             onTap: _onItemTapped,

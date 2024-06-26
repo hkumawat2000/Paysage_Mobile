@@ -13,7 +13,7 @@ class ReusableIconTextContainerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
-      color: colorLightBlue,
+      color: colorWhite,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
