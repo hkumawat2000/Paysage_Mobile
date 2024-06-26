@@ -187,19 +187,18 @@ class DetailViewDialogState extends State<DetailViewDialog> {
 
   Widget approvingLenderList() {
     return Container(
-      height: 360.0,
+      height: 380.0,
       padding: const EdgeInsets.only(left: 10, top: 10),
       child: new ListView.builder(
         itemCount: widget.isinDetails!.length,
         itemBuilder: (context, index) {
           return new Container(
             margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
-            width: (MediaQuery.of(context).size.width - 40) / 2,
+            width: (MediaQuery.of(context).size.width - 40) / 1.8,
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: Colors.black12, width: 1.0),
-              borderRadius: BorderRadius.all(
-                  Radius.circular(10.0)),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 10, top: 10),

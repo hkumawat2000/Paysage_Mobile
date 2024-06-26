@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lms/util/Colors.dart';
 
 import 'constants.dart';
 
@@ -12,6 +13,7 @@ class ReusableIconTextContainerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
+      color: colorLightBlue,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),

@@ -973,7 +973,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
             controller: _hideButtonController,
             physics: AlwaysScrollableScrollPhysics(),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[

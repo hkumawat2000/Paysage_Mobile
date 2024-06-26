@@ -22,9 +22,9 @@ class BaseDio {
       baseURL = await getBaseUrl();
     } else {
       var dummyAccountList = await preferences.getDummyAccountList();
-      for (int i = 0; i < dummyAccountList.length; i++) {
-        if (dummyAccountList[i] == dummyUserNumber) {
-          baseURL = Constants.oldUrlUat;
+      for( int i = 0; i < dummyAccountList.length; i++){
+        if(dummyAccountList[i] == dummyUserNumber){
+          baseURL = Constants.demoKavim;
           break;
         }
         baseURL = await getBaseUrl();
@@ -44,16 +44,14 @@ class BaseDio {
 
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    CookieJar cj = new PersistCookieJar(
-        ignoreExpires: true, storage: FileStorage(tempPath + "/.cookies/"));
+    CookieJar cj = new PersistCookieJar(ignoreExpires: true, storage: FileStorage(tempPath +"/.cookies/"));
     Dio dio = new Dio(options);
     dio.interceptors.add(CookieManager(cj));
     dio.interceptors.add(LogInterceptor(
       request: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
       requestHeader: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
       requestBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
-      responseHeader:
-          FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
+      responseHeader: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
       responseBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
     ));
     dio.interceptors.add(alice.getDioInterceptor());
@@ -95,21 +93,16 @@ class BaseDio {
     );
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    CookieJar cj = new PersistCookieJar(
-        ignoreExpires: true, storage: FileStorage(tempPath + "/.cookies/"));
+    CookieJar cj = new PersistCookieJar(ignoreExpires: true, storage: FileStorage(tempPath +"/.cookies/"));
     Dio dio = new Dio(options);
     dio.interceptors.add(CookieManager(cj));
     dio.interceptors.add(LogInterceptor(
-        request: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
-        requestHeader:
-            FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
-        requestBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
-        responseHeader:
-            FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
-        responseBody:
-            FlavorConfig.instance.flavor == Flavor.PROD ? false : true));
-    dio.interceptors.add(alice.getDioInterceptor());
-
+      request: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
+      requestHeader: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
+      requestBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
+      responseHeader: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
+      responseBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true
+    ));
     return dio;
   }
 
@@ -126,8 +119,7 @@ class BaseDio {
       username = 'rzp_test_PWqvSLj4rnBOaG';
       password = 'LIegmcvKBxxcxRqiV0H4sWmq';
     }
-    String basicAuth =
-        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
     BaseOptions options = BaseOptions(
       baseUrl: Constants.payment,
       connectTimeout: Duration(milliseconds: Constants.connectionTimeOut),
@@ -136,8 +128,7 @@ class BaseDio {
     );
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
-    CookieJar cj = new PersistCookieJar(
-        ignoreExpires: true, storage: FileStorage(tempPath + "/.cookies/"));
+    CookieJar cj = new PersistCookieJar(ignoreExpires: true, storage: FileStorage(tempPath +"/.cookies/"));
     Dio dio = new Dio(options);
     dio.interceptors.add(CookieManager(cj));
     dio.interceptors.add(LogInterceptor(responseBody: true));
@@ -153,13 +144,13 @@ class BaseDio {
         baseURL = Constants.oldUrlUat;
         break;
       case Flavor.QA:
-        baseURL = Constants.oldUrlUat;
+        baseURL = Constants.demoKavim;
         break;
       case Flavor.UAT:
         baseURL = Constants.oldUrlUat;
         break;
       case Flavor.DEV:
-        baseURL = Constants.oldUrlUat;
+        baseURL = Constants.demoKavim;
         break;
       default:
         baseURL = Constants.oldUrlUat;
