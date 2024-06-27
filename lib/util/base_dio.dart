@@ -147,7 +147,7 @@ class BaseDio {
         baseURL = Constants.demoKavim;
         break;
       case Flavor.UAT:
-        baseURL = Constants.oldUrlUat;
+        baseURL = Constants.demoKavim;
         break;
       case Flavor.DEV:
         baseURL = Constants.demoKavim;
