@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:alice/alice.dart';
+// import 'package:alice/alice.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lms/FlavorConfig.dart';
 import 'package:lms/splash/SplashScreen.dart';

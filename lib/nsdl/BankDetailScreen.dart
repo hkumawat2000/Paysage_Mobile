@@ -1360,7 +1360,7 @@ class _BankDetailScreenState extends State<BankDetailScreen> {
       if (imagePicker != null) {
         CroppedFile? cropped = await ImageCropper().cropImage(
           sourcePath: imagePicker.path,
-          cropStyle: CropStyle.rectangle,
+          // cropStyle: CropStyle.rectangle,
           compressFormat: ImageCompressFormat.jpg,
           compressQuality: 50,
           uiSettings: [

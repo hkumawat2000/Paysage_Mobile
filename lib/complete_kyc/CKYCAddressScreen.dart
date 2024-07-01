@@ -1281,7 +1281,8 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
       if (imagePicker != null) {
         CroppedFile? cropped = await ImageCropper().cropImage(
           sourcePath: imagePicker.path,
-          cropStyle: CropStyle.rectangle,
+          // cropStyle: CropStyle.rectangle,
+          aspectRatio: CropAspectRatio(ratioX: 0, ratioY: 0),
           compressFormat: ImageCompressFormat.jpg,
           compressQuality: 50,
           uiSettings: [
@@ -2362,7 +2363,7 @@ class _CKYCAddressScreenState extends State<CKYCAddressScreen> {
       if (imagePicker != null) {
         CroppedFile? cropped = await ImageCropper().cropImage(
           sourcePath: imagePicker.path,
-          cropStyle: CropStyle.rectangle,
+          // cropStyle: CropStyle.rectangle,
           compressFormat: ImageCompressFormat.jpg,
           compressQuality: 50,
           uiSettings: [

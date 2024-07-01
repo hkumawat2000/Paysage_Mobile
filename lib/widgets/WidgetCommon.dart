@@ -1095,7 +1095,7 @@ class SizedBoxWidthWidget extends StatelessWidget {
 
 //Common function for firebase event
 void firebaseEvent(String eventName, Map<String, dynamic> parameter){
-  FirebaseAnalytics.instance.logEvent(name: eventName, parameters: parameter);
+  // FirebaseAnalytics.instance.logEvent(name: eventName, parameters: parameter);
 }
 
 //Get current date and time

@@ -454,7 +454,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
         CroppedFile? cropped = await ImageCropper().cropImage(
           sourcePath: imagePicker.path,
           aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-          cropStyle: CropStyle.circle,
+          // cropStyle: CropStyle.circle,
           compressQuality: 50,
           uiSettings: [
             AndroidUiSettings(

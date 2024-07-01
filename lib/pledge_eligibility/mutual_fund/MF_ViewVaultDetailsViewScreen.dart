@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:page_indicator/page_indicator.dart';
+// import 'package:page_indicator/page_indicator.dart';
 import 'dart:math' as math;
 
 import '../../network/responsebean/MFSchemeResponse.dart';
@@ -46,7 +46,7 @@ class MF_ViewVaultDetailsViewScreenState extends State<MF_ViewVaultDetailsViewSc
   );
   TextEditingController _textController = TextEditingController();
   PageController controller = PageController();
-  GlobalKey<PageContainerState> key = GlobalKey();
+  // GlobalKey<PageContainerState> key = GlobalKey();
   bool isToggleSelect = false;
   bool? isDefaultBottomDialog = true;
   bool? isEligibleBottomDialog = false;

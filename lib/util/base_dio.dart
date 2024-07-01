@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:alice/alice.dart';
 import 'package:lms/FlavorConfig.dart';
 import 'package:lms/util/alice.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
@@ -56,7 +57,7 @@ class BaseDio {
           FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
       responseBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
     ));
-    dio.interceptors.add(alice.getDioInterceptor());
+    // dio.interceptors.add(alice.getDioInterceptor());
     return dio;
   }
 
@@ -108,7 +109,7 @@ class BaseDio {
             FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
         responseBody:
             FlavorConfig.instance.flavor == Flavor.PROD ? false : true));
-    dio.interceptors.add(alice.getDioInterceptor());
+    // dio.interceptors.add(alice.getDioInterceptor());
 
     return dio;
   }
@@ -141,7 +142,7 @@ class BaseDio {
     Dio dio = new Dio(options);
     dio.interceptors.add(CookieManager(cj));
     dio.interceptors.add(LogInterceptor(responseBody: true));
-    dio.interceptors.add(alice.getDioInterceptor());
+    // dio.interceptors.add(alice.getDioInterceptor());
     return dio;
   }
 
