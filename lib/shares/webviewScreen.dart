@@ -54,11 +54,18 @@ class _WebViewScreenWidgetState extends State<WebViewScreenWidget> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String currentUrl) {
-            print("URL ==> ${currentUrl.toString()}");
-            if (currentUrl.toLowerCase().contains("success")) {
+            print("Current URL ======> ${currentUrl.toString()}");
+            if (currentUrl.toLowerCase().startsWith("https://atriina.com")) {
+              if(currentUrl.toLowerCase().contains("success")){
+                Navigator.pop(context, "success");
+              } else {
+                Navigator.pop(context, "fail");
+              }
+            } else if (currentUrl.toLowerCase().contains("success")) {
               Future.delayed(Duration(seconds: 1));
               Navigator.pop(context, "success");
-            } else if (currentUrl.toLowerCase().endsWith("fail")) {
+            } else if (currentUrl.toLowerCase().contains("fail")
+                || currentUrl.toLowerCase().contains("cancel")) {
               Navigator.pop(context, "fail");
             }
           },
