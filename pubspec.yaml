@@ -84,6 +84,7 @@ dependencies:
 #  syncfusion_flutter_pdfviewer: ^20.3.61-beta
   flutter_downloader: ^1.9.1
   alice: ^0.4.2
+  get: ^4.6.6
   #flutter_alice: ^1.0.0
   # ext_storage: ^1.0.3
 #  flutter_stetho: ^0.5.2
