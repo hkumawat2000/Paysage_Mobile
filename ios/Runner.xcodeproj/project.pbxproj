@@ -538,13 +538,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -698,13 +698,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -743,13 +743,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -847,13 +847,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-qa-ios";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -948,13 +948,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-qa-ios";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -1047,13 +1047,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-qa-ios";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -1151,13 +1151,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8W9WP349VS;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1252,13 +1252,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8W9WP349VS;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1351,13 +1351,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 8W9WP349VS;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1455,13 +1455,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-dev-ios";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1556,13 +1556,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-dev-ios";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1655,13 +1655,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-dev-ios";
-				FLUTTER_BUILD_NUMBER = 4;
+				FLUTTER_BUILD_NUMBER = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",

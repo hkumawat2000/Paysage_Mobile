@@ -226,9 +226,6 @@ class EsignConsentScreenState extends State<EsignConsentScreen> {
         MaterialPageRoute(builder: (context) => WebViewScreenWidget(value.data.esignUrl, fileId, widget.isComingFor)));
     if (result == Strings.success) {
       esignSuccessAPI(fileId);
-//      setState(() {
-//        pendingEsignList.clear();
-//      });
     } else if (result == Strings.fail) {
       // Firebase Event
       Map<String, dynamic> parameter = new Map<String, dynamic>();
@@ -380,8 +377,8 @@ class EsignConsentScreenState extends State<EsignConsentScreen> {
         Map<String, dynamic> parameter = new Map<String, dynamic>();
         parameter[Strings.mobile_no] = mobile;
         parameter[Strings.email] = email;
-        // parameter[Strings.total_collateral_value_prm] = widget.totalCollateral;
-        // parameter[Strings.sanctioned_limit_prm] = widget.sanctionLimit;
+        parameter[Strings.total_collateral_value_prm] = widget.totalCollateral;
+        parameter[Strings.sanctioned_limit_prm] = widget.sanctionLimit;
         parameter[Strings.date_time] = getCurrentDateAndTime();
         if(widget.isComingFor == Strings.pledge){
           parameter[Strings.loan_application_no_prm] = widget.loanApplicationNo;
@@ -404,15 +401,8 @@ class EsignConsentScreenState extends State<EsignConsentScreen> {
           parameter[Strings.sanctioned_limit_prm] = widget.sanctionLimit;
           firebaseEvent(Strings.loan_renewal_e_sign_done, parameter);
         }
-
-//        preferences.setEsign(true);
-        _showSuccessDialog(value, fileId);
-//        Utility.showToastMessage(Strings.esign_successful_toast);
-//         setState(() {
-          // preferences.setESign(false);
-//          isEsignComplete = false;
-//          pendingEsignList.clear();
-//         });
+        print("Result = =>");
+        _showSuccessDialog();
       } else {
         // Firebase Event
         Map<String, dynamic> parameter = new Map<String, dynamic>();
@@ -465,7 +455,7 @@ class EsignConsentScreenState extends State<EsignConsentScreen> {
         }
 
 //        preferences.setEsign(true);
-        _showSuccessDialog(value, fileId);
+        _showSuccessDialog();
 //        Utility.showToastMessage(Strings.esign_successful_toast);
 //         setState(() {
           // preferences.setESign(false);
@@ -503,7 +493,7 @@ class EsignConsentScreenState extends State<EsignConsentScreen> {
       topUpEsignBloc.esignSuccess(topUpApplicationName, fileId).then((value) {
         if (value.isSuccessFull!) {
           // Utility.showToastMessage(value.message);
-          _showSuccessDialog(value, fileId);
+          _showSuccessDialog();
         } else {
           // Utility.showToastMessage(value.message);
         }
@@ -667,7 +657,7 @@ class EsignConsentScreenState extends State<EsignConsentScreen> {
     );
   }
 
-  Future<void> _showSuccessDialog(value, fileId) async {
+  Future<void> _showSuccessDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!

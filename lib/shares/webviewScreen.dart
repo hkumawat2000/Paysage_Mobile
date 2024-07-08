@@ -15,14 +15,14 @@ class WebViewScreenWidget extends StatefulWidget {
   WebViewScreenWidget(this.url, this.fileId, this.isComingFor);
 
   @override
-  createState() => _WebViewScreenWidgetState(this.url);
+  createState() => _WebViewScreenWidgetState();
 }
 
 class _WebViewScreenWidgetState extends State<WebViewScreenWidget> {
-  var _url;
-  final _key = UniqueKey();
-
-  _WebViewScreenWidgetState(this._url);
+  // var _url;
+  // final _key = UniqueKey();
+  //
+  // _WebViewScreenWidgetState(this._url);
 
   // void initState() {
   //   if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
@@ -53,39 +53,28 @@ class _WebViewScreenWidgetState extends State<WebViewScreenWidget> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-           onProgress: (int progress) {
-            debugPrint('WebView is loading (progress : $progress%)');
-          },
-          onPageStarted: (String url) {
-            debugPrint('Page started loading: $url');
-          },
-          onPageFinished: (String url) {
-            debugPrint('Page finished loading: $url');
-          },
-          onWebResourceError: (WebResourceError error) {
-            debugPrint('''
-Page resource error:
-  code: ${error.errorCode}
-  description: ${error.description}
-  errorType: ${error.errorType}
-  isForMainFrame: ${error.isForMainFrame}
-          ''');
-          },
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              return NavigationDecision.prevent;
-            } else if (request.url.endsWith("succRes.jsp")) {
+          onPageStarted: (String currentUrl) {
+            print("Current URL ======> ${currentUrl.toString()}");
+            if (currentUrl.toLowerCase().startsWith("https://atriina.com")) {
+              if(currentUrl.toLowerCase().contains("success")){
+                Navigator.pop(context, "success");
+              } else {
+                Navigator.pop(context, "fail");
+              }
+            } else if (currentUrl.toLowerCase().contains("success")) {
+              Future.delayed(Duration(seconds: 1));
               Navigator.pop(context, "success");
-              return NavigationDecision.prevent;
-            } else if (request.url.endsWith("failRes.jsp")) {
+            } else if (currentUrl.toLowerCase().contains("fail")
+                || currentUrl.toLowerCase().contains("cancel")) {
               Navigator.pop(context, "fail");
-              return NavigationDecision.prevent;
             }
-            return NavigationDecision.navigate;
           },
         ),
       )
-      ..loadRequest(_url);
+      ..loadRequest(Uri.parse(widget.url))
+      ..setUserAgent(Platform.isIOS
+          ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1'
+          : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36');
   }
 
   @override

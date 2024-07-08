@@ -141,7 +141,7 @@ class BaseDio {
     String baseURL = "";
     switch (FlavorConfig.instance.flavor) {
       case Flavor.PROD:
-        baseURL = Constants.oldUrlUat;
+        baseURL = Constants.demoKavim;
         break;
       case Flavor.QA:
         baseURL = Constants.demoKavim;
