@@ -12,6 +12,6 @@ class GetOnboardingDetailsUsecase
 
   @override
   ResultFuture<OnBoardingResponseEntity> call() async {
-    return await onboardingRepository.getOnbaordingData();
+    return await onboardingRepository.getOnboardingData();
   }
 }

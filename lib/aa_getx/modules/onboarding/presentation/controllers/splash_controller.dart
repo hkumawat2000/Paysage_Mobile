@@ -20,32 +20,33 @@ class SplashController extends GetxController {
   SplashController(this._getOnboardingDetailsUsecase, this._connectionInfo);
 
   RxString versionName = "".obs;
-  RxString _doesmobileExist = "".obs;
+  RxString _doesMobileExist = "".obs;
   RxString _doesEmailExist = "".obs;
   RxString _isVisitTutorial = "".obs;
-  RxBool _isjailBroken = false.obs;
+  RxBool _isJailBroken = false.obs;
   Preferences? _preferences = Preferences();
 
   @override
   void onInit() {
     getVersionInfo();
+    splashTimer();
     toDetermineInitPlatformState();
     super.onInit();
   }
 
-// To get the App Version
+  /// To get the App Version
   Future<void> getVersionInfo() async {
     versionName(await Utility.getVersionInfo());
   }
 
-  // To check if the device/platform is Jailbroken/Root/Emulator/ for security measures.
+  /// To check if the device/platform is Jailbroken/Root/Emulator/ for security measures.
   Future<void> toDetermineInitPlatformState() async {
     try {
-      _isjailBroken(await SafeDevice.isJailBroken);
+      _isJailBroken(await SafeDevice.isJailBroken);
     } on PlatformException {
-      _isjailBroken.value = false;
+      _isJailBroken.value = false;
     } catch (e) {
-      _isjailBroken.value = false;
+      _isJailBroken.value = false;
     }
   }
 
@@ -56,19 +57,19 @@ class SplashController extends GetxController {
   }
 
   Future<void> autoLogin() async {
-    _doesmobileExist(await _preferences!.getMobile());
+    _doesMobileExist(await _preferences!.getMobile());
     _doesEmailExist(await _preferences!.getEmail());
     _isVisitTutorial(await _preferences!.isVisitTutorial());
 
-    if (_isjailBroken.isTrue) {
+    if (_isJailBroken.isTrue) {
       Get.offNamed(jailBreakView);
     } else {
-      if (_doesmobileExist.isNotEmpty && _doesEmailExist.isNotEmpty) {
+      if (_doesMobileExist.isNotEmpty && _doesEmailExist.isNotEmpty) {
         Get.offNamed(pinView);
       } else if (_isVisitTutorial.isNotEmpty) {
-        Get..offNamed(loginView);
+        Get.offNamed(loginView);
       } else {
-//TODO Call GetDetails Method.
+        getDetails();
       }
     }
   }
@@ -77,7 +78,6 @@ class SplashController extends GetxController {
     if (await _connectionInfo.isConnected) {
       DataState<OnBoardingResponseEntity> response =
           await _getOnboardingDetailsUsecase.call();
-
       if (response is DataSuccess) {
         if (response.data != null) {
           Get.offNamed(

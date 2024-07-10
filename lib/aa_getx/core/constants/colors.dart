@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
   const colorLightSky = Color(0xffE7EBFB);
   const colorRed = Color(0xffEECAC5);
   const colorDisable = Color(0xffdee0e0);
+  const colorTransparent = const Color(0x00FFFFFF);
   Color colorSnackBarErrorBorder = const Color(0xFFEE5555);
   Color colorBlue = Color.fromRGBO(48, 40, 131, 1);
 

@@ -19,7 +19,8 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
     this.onboardingApi,
     this.connectionInfo,
   );
-  ResultFuture<OnBoardingResponseEntity> getOnbaordingData() async {
+
+  ResultFuture<OnBoardingResponseEntity> getOnboardingData() async {
     try {
         final onboardingResponse = await onboardingApi.getOnBoardingData();
         return DataSuccess(onboardingResponse.toEntity());

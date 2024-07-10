@@ -1,7 +1,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/arguments/tutotrials_arguments.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/controllers/walkthrough_controller.dart';
-import 'package:lms/aa_getx/modules/onboarding/presentation/views/tutorials_view.dart';
+import 'package:lms/aa_getx/modules/onboarding/presentation/views/walkthrough_view.dart';
 import 'package:lms/login/LoginScreen.dart';
 import 'package:lms/pin/PinScreen.dart';
 import 'package:lms/splash/JailBreakScreen.dart';

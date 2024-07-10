@@ -6,6 +6,8 @@ import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/controllers/walkthrough_controller.dart';
 
+import '../../../../core/utils/app_button.dart';
+
 
 class WalkthroughScreen extends GetView<WalkthroughController> {
   WalkthroughScreen({super.key});
@@ -77,27 +79,27 @@ class WalkthroughScreen extends GetView<WalkthroughController> {
              SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.1,
             ),
-            // AppButton(
-            //   buttonHeight: 52,
-            //   buttonWidth: 170,
-            //   onClick: walkthroughController.isLastPage
-            //       ? () =>
-            //           controller.skipWalkthrough() // Replace with your home route
-            //       : () => walkthroughController.pageController.nextPage(
-            //             duration: const Duration(milliseconds: 300),
-            //             curve: Curves.ease,
-            //           ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       Text(
-            //         walkthroughController.isLastPage ? Strings.getStartedTxt : Strings.nextTxt,
-            //         style: white14TextStyle().copyWith(fontWeight: FontWeight.w600),
-            //       ),
-            //       Icon(Icons.navigate_next, color: colorWhite)
-            //     ],
-            //   ),
-            // ),
+            AppButton(
+              buttonHeight: 52,
+              buttonWidth: 170,
+              onClick: walkthroughController.isLastPage
+                  ? () =>
+                      controller.skipWalkthrough() // Replace with your home route
+                  : () => walkthroughController.pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    walkthroughController.isLastPage ? Strings.getStartedTxt : Strings.nextTxt,
+                    style: white14TextStyle().copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  Icon(Icons.navigate_next, color: colorWhite)
+                ],
+              ),
+            ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * 0.1,
             ),

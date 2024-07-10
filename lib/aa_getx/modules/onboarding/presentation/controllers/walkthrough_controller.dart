@@ -23,41 +23,22 @@ class WalkthroughController extends GetxController {
 
   @override
   void onInit() {
-    final TutotrialsArguments _tutotrialsArguments = Get.arguments;
-    walkthroughPages.addAll(
-      [
-        WalkthroughPage(
-          title: _tutotrialsArguments.onboardingDataEntity[0].title ??
-              'Strings.walkthroughTitle1',
-          description:_tutotrialsArguments.onboardingDataEntity[0].description ??  'Strings.walkthroughDescription1',
-          imageAsset: AssetsImagePath.tutorial_1,
-        ), // Replace with your image path
-         WalkthroughPage(
-         title: _tutotrialsArguments.onboardingDataEntity[0].title ??
-              'Strings.walkthroughTitle1',
-          description:_tutotrialsArguments.onboardingDataEntity[0].description ??  'Strings.walkthroughDescription1',
-          imageAsset: AssetsImagePath.updateKyc,
-        ), // Replace with your image path
-         WalkthroughPage(
-         title: _tutotrialsArguments.onboardingDataEntity[0].title ??
-              'Strings.walkthroughTitle1',
-          description:_tutotrialsArguments.onboardingDataEntity[0].description ??  'Strings.walkthroughDescription1',
-          imageAsset: AssetsImagePath.tutorial_3,
-        ), // Replace with your image path
-         WalkthroughPage(
-          title: _tutotrialsArguments.onboardingDataEntity[0].title ??
-              'Strings.walkthroughTitle1',
-          description:_tutotrialsArguments.onboardingDataEntity[0].description ??  'Strings.walkthroughDescription1',
-          imageAsset: AssetsImagePath.tutorial_4,
-        ),
-         WalkthroughPage(
-         title: _tutotrialsArguments.onboardingDataEntity[0].title ??
-              'Strings.walkthroughTitle1',
-          description:_tutotrialsArguments.onboardingDataEntity[0].description ??  'Strings.walkthroughDescription1',
-          imageAsset: AssetsImagePath.tutorial_5,
-        ),
-      ],
-    );
+    final TutotrialsArguments _tutorialsArguments = Get.arguments;
+
+    for(int i=0; i< _tutorialsArguments.onboardingDataEntity.length; i++){
+      walkthroughPages.add(
+          WalkthroughPage(
+            title: _tutorialsArguments.onboardingDataEntity[i].title!,
+            description:_tutorialsArguments.onboardingDataEntity[0].description!,
+            imageAsset: i == 0 ? AssetsImagePath.tutorial_1 :
+            i == 1 ? AssetsImagePath.updateKyc :
+            i == 2 ? AssetsImagePath.tutorial_3 :
+            i == 3 ? AssetsImagePath.tutorial_4 :
+            i == 4 ? AssetsImagePath.tutorial_5 :
+            AssetsImagePath.tutorial_1,
+          )
+      );
+    }
     super.onInit();
   }
 }

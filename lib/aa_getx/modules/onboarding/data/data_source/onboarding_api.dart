@@ -10,6 +10,7 @@ abstract class OnboardingApi {
 }
 
 class OnboardingApiImpl with BaseDio implements OnboardingApi {
+
   Future<OnBoardingResponseModel> getOnBoardingData() async {
     Dio dio = await getBaseDio();
     OnBoardingResponseModel onBoardingResponseModel = OnBoardingResponseModel();
