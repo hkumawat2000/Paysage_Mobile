@@ -1,6 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:lms/aa_getx/modules/onboarding/domain/entity/onboarding_response_entity.dart';
 import 'package:lms/network/ModelWrapper.dart';
 
-class OnBoardingResponseModel extends ModelWrapper<List<OnBoardingData>>{
+class OnBoardingResponseModel extends ModelWrapper<List<OnBoardingData>> {
   List<OnBoardingData>? onBoardingData;
 
   OnBoardingResponseModel({this.onBoardingData});
@@ -14,6 +16,18 @@ class OnBoardingResponseModel extends ModelWrapper<List<OnBoardingData>>{
     }
   }
 
+  // factory OnBoardingResponseModel.fromJson(Map<String, dynamic> json) {
+  //   return OnBoardingResponseModel(
+  //     onBoardingData: json['message'] != null
+  //         ? List<OnBoardingData>.from(
+  //             (json['message'] as List<dynamic>).map<OnBoardingData>(
+  //               (item) => OnBoardingData.fromJson(item as Map<String, dynamic>),
+  //             ),
+  //           )
+  //         : null,
+  //   );
+  // }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.onBoardingData != null) {
@@ -21,6 +35,12 @@ class OnBoardingResponseModel extends ModelWrapper<List<OnBoardingData>>{
     }
     return data;
   }
+
+  OnBoardingResponseEntity toEntity() => OnBoardingResponseEntity(
+        onBoardingData: onBoardingData != null
+            ? onBoardingData!.map((x) => x.toEntity()).toList()
+            : null,
+      );
 }
 
 class OnBoardingData {
@@ -43,4 +63,10 @@ class OnBoardingData {
     data['description'] = this.description;
     return data;
   }
+
+  OnBoardingDataEntity toEntity() => OnBoardingDataEntity(
+        screenNo: screenNo,
+        title: title,
+        description: description,
+      );
 }

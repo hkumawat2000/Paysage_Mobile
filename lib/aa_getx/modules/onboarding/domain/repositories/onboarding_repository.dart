@@ -1,5 +1,6 @@
-import 'package:lms/aa_getx/modules/onboarding/data/models/onboarding_response_model.dart';
+import 'package:lms/aa_getx/core/utils/type_def.dart';
+import 'package:lms/aa_getx/modules/onboarding/domain/entity/onboarding_response_entity.dart';
 
 abstract class OnboardingRepository {
-  Future<OnBoardingResponseModel> getOnbaordingData();
+  ResultFuture<OnBoardingResponseEntity> getOnbaordingData();
 }
