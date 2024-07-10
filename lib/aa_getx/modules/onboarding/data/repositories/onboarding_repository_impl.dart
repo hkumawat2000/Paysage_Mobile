@@ -7,7 +7,7 @@ import 'package:lms/aa_getx/core/utils/alert.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/type_def.dart';
-import 'package:lms/aa_getx/modules/onboarding/data/datasource/onboarding_api.dart';
+import 'package:lms/aa_getx/modules/onboarding/data/data_source/onboarding_api.dart';
 import 'package:lms/aa_getx/modules/onboarding/domain/entity/onboarding_response_entity.dart';
 import 'package:lms/aa_getx/modules/onboarding/domain/repositories/onboarding_repository.dart';
 
