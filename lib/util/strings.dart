@@ -521,6 +521,7 @@ class Strings {
   static const String register_with_email = 'Register_With_Email';
   static const String register_with_google = 'Register_With_Google';
   static const String register_with_facebook = 'Register_With_Facebook';
+  static const String register_with_apple = 'Register_With_Apple';
   static const String register_failed = 'Register_Failed';
   static const String email_verification_sent = 'Email_Verification_Sent';
   static const String get_choice_kyc = 'Get_KYC';
