@@ -355,9 +355,12 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       firstName = await FlutterKeychain.get(key: "firstname");
       lastName = await FlutterKeychain.get(key: "lastname");
       if(email != null){
-        emailController!.text = email.trim().toString();
-        firstNameController!.text = firstName.toString();
-        lastNameController!.text = lastName.toString();
+        preferences!.setEmail(email);
+        preferences!.setFullName("$firstName $lastName");
+        autoReg(context, Strings.register_with_apple);
+        // emailController!.text = email.trim().toString();
+        // firstNameController!.text = firstName.toString();
+        // lastNameController!.text = lastName.toString();
       } else {
         Utility.showToastMessage(Strings.something_went_wrong);
       }
@@ -369,9 +372,12 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       firstName = await FlutterKeychain.get(key: "firstname");
       lastName = await FlutterKeychain.get(key: "lastname");
       if(email != null){
-        emailController!.text = email.trim().toString();
-        firstNameController!.text = firstName.toString();
-        lastNameController!.text = lastName.toString();
+        preferences!.setEmail(email);
+        preferences!.setFullName("$firstName $lastName");
+        autoReg(context, Strings.register_with_apple);
+        // emailController!.text = email.trim().toString();
+        // firstNameController!.text = firstName.toString();
+        // lastNameController!.text = lastName.toString();
       } else {
         Utility.showToastMessage(Strings.something_went_wrong);
       }
