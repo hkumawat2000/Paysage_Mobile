@@ -3646,7 +3646,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                   SizedBox(width: 4),
                   Container(
                     height: 24,
-                    width: 81,
+                    width: 85,
                     child: Material(
                       color: appTheme,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -3779,7 +3779,7 @@ class _NewDashboardScreenState extends State<HomeScreen> {
                   SizedBox(width: 4),
                   Container(
                     height: 24,
-                    width: 86,
+                    width: 89,
                     child: Material(
                       color: appTheme,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

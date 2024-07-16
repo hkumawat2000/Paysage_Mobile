@@ -54,7 +54,7 @@ class BaseDio {
       responseHeader: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
       responseBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
     ));
-    dio.interceptors.add(alice.getDioInterceptor());
+    // dio.interceptors.add(alice.getDioInterceptor());
     return dio;
   }
 
@@ -72,7 +72,7 @@ class BaseDio {
       var dummyAccountList = await preferences.getDummyAccountList();
       for (int i = 0; i < dummyAccountList.length; i++) {
         if (dummyAccountList[i] == dummyUserNumber) {
-          baseURL = Constants.oldUrlUat;
+          baseURL = Constants.demoKavim;
           break;
         }
         baseURL = await getBaseUrl();
@@ -132,7 +132,7 @@ class BaseDio {
     Dio dio = new Dio(options);
     dio.interceptors.add(CookieManager(cj));
     dio.interceptors.add(LogInterceptor(responseBody: true));
-    dio.interceptors.add(alice.getDioInterceptor());
+    // dio.interceptors.add(alice.getDioInterceptor());
     return dio;
   }
 
@@ -153,7 +153,7 @@ class BaseDio {
         baseURL = Constants.demoKavim;
         break;
       default:
-        baseURL = Constants.oldUrlUat;
+        baseURL = Constants.demoKavim;
         break;
     }
     return baseURL;

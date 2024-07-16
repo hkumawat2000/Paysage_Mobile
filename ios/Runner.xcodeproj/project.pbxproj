@@ -538,13 +538,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -561,7 +561,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -698,13 +698,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -721,7 +721,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -743,13 +743,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -766,7 +766,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -847,13 +847,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-qa-ios";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -870,7 +870,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = "1.0.0-qa-ios";
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -948,13 +948,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-qa-ios";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -971,7 +971,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = "1.0.0-qa-ios";
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1047,13 +1047,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-qa-ios";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/**",
@@ -1070,7 +1070,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = "1.0.0-qa-ios";
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1151,13 +1151,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 8W9WP349VS;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1174,7 +1174,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.uat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1252,13 +1252,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 8W9WP349VS;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1275,7 +1275,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.uat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1351,13 +1351,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 8W9WP349VS;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1374,7 +1374,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.uat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1455,13 +1455,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-dev-ios";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1478,7 +1478,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = "1.0.0-dev-ios";
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1556,13 +1556,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-dev-ios";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1579,7 +1579,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = "1.0.0-dev-ios";
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1655,13 +1655,13 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = C68Y6UD2J7;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
-				FLUTTER_BUILD_GLOBLE_NAME = 1.0.0;
+				FLUTTER_BUILD_GLOBLE_NAME = 1.0.1;
 				FLUTTER_BUILD_NAME = "${FLUTTER_BUILD_GLOBLE_NAME}-dev-ios";
-				FLUTTER_BUILD_NUMBER = 5;
+				FLUTTER_BUILD_NUMBER = 7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -1678,7 +1678,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				MARKETING_VERSION = "1.0.0-dev-ios";
+				MARKETING_VERSION = "${FLUTTER_BUILD_NAME}";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atriina.lms.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
