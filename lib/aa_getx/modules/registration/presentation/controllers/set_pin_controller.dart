@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
@@ -85,6 +86,7 @@ class SetPinController extends GetxController {
                   setPinArgs.isLoanOpen == 0) {
                 // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                 //     builder: (BuildContext context) => OfflineCustomerScreen()), (route) => false);
+                Get.offAllNamed(offlineCustomerView);
               } else {
                 // Navigator.pushReplacement(context, MaterialPageRoute(
                 //     builder: (BuildContext context) => RegistrationSuccessfulScreen()));
@@ -95,10 +97,10 @@ class SetPinController extends GetxController {
           if (response.error!.statusCode == 403) {
             commonDialog(Strings.session_timeout, 4);
             debugPrint(
-                " response.error!.statusCode  ${response.error!.statusCode}");
+                "response.error!.statusCode  ${response.error!.statusCode}");
           } else {
             Utility.showToastMessage(response.error!.message);
-            debugPrint(" response.error!.message  ${response.error!.message}");
+            debugPrint("response.error!.message  ${response.error!.message}");
           }
         }
       } else {

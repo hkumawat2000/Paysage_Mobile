@@ -55,7 +55,8 @@ class SetPinView extends GetView<SetPinController> {
                         color: appTheme,
                         child: MaterialButton(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                          minWidth: MediaQuery.of(context).size.width,
+                          //minWidth: MediaQuery.of(context).size.width,
+                          minWidth: Get.width,
                           onPressed: ()=> controller.setPin(),
                           child: ArrowForwardNavigation(),
                         ),
