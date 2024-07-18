@@ -1,15 +1,20 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/login/presentation/arguments/terms_and_conditions_arguments.dart';
 import 'package:lms/aa_getx/modules/login/presentation/controllers/login_controller.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
 
-   @override
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
@@ -41,9 +46,9 @@ class LoginView extends GetView<LoginController> {
                       autofocus: false,
                       cursorColor: appTheme,
                       maxLength: 10,
-                      focusNode: mobileFocus,
+                      focusNode: controller.mobileTextfiledFocus,
                       keyboardType: TextInputType.number,
-                      controller: mobileController,
+                      controller: controller.mobileNumberController,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                       ],
@@ -56,7 +61,8 @@ class LoginView extends GetView<LoginController> {
                           borderSide: BorderSide(color: appTheme),
                         ),
                         errorBorder: new OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.red, width: 0.0),
+                          borderSide:
+                              new BorderSide(color: Colors.red, width: 0.0),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -70,16 +76,18 @@ class LoginView extends GetView<LoginController> {
                         focusColor: Colors.grey,
                       ),
                       onChanged: (text) {
-                        if (text.length == 10) {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                          Utility.isNetworkConnection().then((isNetwork) async {
-                            if (isNetwork) {
-                              login();
-                            } else {
-                              Utility.showToastMessage(Strings.no_internet_message);
-                            }
-                          });
-                        }
+                        controller.onMobileNumberValueChanged();
+                        // if (text.length == 10) {
+                        //   FocusScope.of(context).requestFocus(FocusNode());
+                        //   Utility.isNetworkConnection().then((isNetwork) async {
+                        //     if (isNetwork) {
+                        //       controller.login();
+                        //     } else {
+                        //       Utility.showToastMessage(
+                        //           Strings.no_internet_message);
+                        //     }
+                        //   });
+                        // }
                       },
                     ),
                   ),
@@ -92,17 +100,10 @@ class LoginView extends GetView<LoginController> {
                   child: Row(
                     children: <Widget>[
                       Checkbox(
-                          value: checkBoxValue,
+                          value: controller.checkBoxValue.value,
                           activeColor: appTheme,
                           onChanged: (bool? newValue) {
-                            setState(() {
-                              checkBoxValue = newValue!;
-                              if (checkBoxValue) {
-                                acceptTerms = 1;
-                              } else {
-                                acceptTerms = 0;
-                              }
-                            });
+                            controller.onCheckBoxValueChanged(newValue);
                           }),
                       Expanded(
                         child: RichText(
@@ -115,15 +116,15 @@ class LoginView extends GetView<LoginController> {
                                 style: boldTextStyle_14,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Utility.isNetworkConnection().then((isNetwork) {
+                                    Utility.isNetworkConnection()
+                                        .then((isNetwork) {
                                       if (isNetwork) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TermsConditionWebView(termsOfUseData!.termsOfUseUrl!, false, Strings.terms_of_use)));
+                                        controller
+                                            .navigateToTermsAndConditionWebview(
+                                                false);
                                       } else {
-                                        Utility.showToastMessage(Strings.no_internet_message);
+                                        Utility.showToastMessage(
+                                            Strings.no_internet_message);
                                       }
                                     });
                                   },
@@ -137,15 +138,15 @@ class LoginView extends GetView<LoginController> {
                                 style: boldTextStyle_14,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Utility.isNetworkConnection().then((isNetwork) {
+                                    Utility.isNetworkConnection()
+                                        .then((isNetwork) {
                                       if (isNetwork) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => TermsConditionWebView(
-                                                    termsOfUseData!.privacyPolicyUrl!, true, Strings.privacy_policy)));
+                                        controller
+                                            .navigateToTermsAndConditionWebview(
+                                                true);
                                       } else {
-                                        Utility.showToastMessage(Strings.no_internet_message);
+                                        Utility.showToastMessage(
+                                            Strings.no_internet_message);
                                       }
                                     });
                                   },
@@ -164,18 +165,21 @@ class LoginView extends GetView<LoginController> {
                   height: 45,
                   width: 100,
                   child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
                     color: appTheme,
                     child: MaterialButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         Utility.isNetworkConnection().then((isNetwork) async {
                           if (isNetwork) {
-                           // login();
+                            // login();
                           } else {
-                            Utility.showToastMessage(Strings.no_internet_message);
+                            Utility.showToastMessage(
+                                Strings.no_internet_message);
                           }
                         });
                       },
@@ -195,6 +199,13 @@ class LoginView extends GetView<LoginController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget version() {
+    return Center(
+      child: Text(
+          'Version ${controller.versionName.isNotEmpty ? controller.versionName : ""}'),
     );
   }
 }

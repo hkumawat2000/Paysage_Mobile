@@ -6,6 +6,7 @@ import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/login/data/models/auto_login_response.dart';
 import 'package:lms/aa_getx/modules/login/data/models/get_terms_and_privacy_response_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/login_submit_resquest_model.dart';
+import 'package:lms/aa_getx/modules/login/data/models/request/verify_otp_request_model.dart';
 import 'package:lms/util/constants.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 
@@ -16,6 +17,7 @@ import 'package:lms/widgets/WidgetCommon.dart';
 abstract class LoginDataSource {
   Future<GetTermsandPrivacyResponse> getTermsAndPrivacyUrl();
   Future<AuthLoginResponse> loginSubmit( LoginSubmitResquestModel loginSubmitResquestModel);
+  Future<AuthLoginResponse> verifyOtp(VerifyOtpRequestModel verifyOtpRequestModel);
 }
 
 /// LoginDataSourceImpl is the concrete implementation of the LoginDataSource
@@ -85,23 +87,39 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
     return authLoginResponse;
   }
 
-  // @override
-  // Future<GetTermsandPrivacyResponse> getCustomerDetails(
-  //     String customerCode) async {
-  //   Dio dio = await getBaseDio();
 
-  //   Response<Map<String, dynamic>> response = await dio.get(Constants
-  //       .getCustomerDetails
-  //       .replaceFirst("{customerCode}", customerCode)
-  //       .replaceFirst("{user_code}", Constants.userCode));
+   Future<AuthLoginResponse> verifyOtp(
+      VerifyOtpRequestModel verifyOtpRequestModel
+      ) async {
+    Dio dio = await getBaseDioVersionPlatform();
+    String? deviceInfo = await getDeviceInfo();
+    String versionName = await Utility.getVersionInfo();
+    AuthLoginResponse authLoginResponse = AuthLoginResponse();
+    try {
+      final response = await dio.post(
+        Apis.otpVerify,
+        data: verifyOtpRequestModel.toJson(),
+      );
+      if (response.statusCode == 200) {
+        authLoginResponse = AuthLoginResponse.fromJson(response.data);
+        authLoginResponse.isSuccessFull = true;
+      } else {
+        authLoginResponse.isSuccessFull = false;
+      }
+    } on DioException catch (e) {
+      if (e.response == null) {
+        authLoginResponse.isSuccessFull = false;
+        authLoginResponse.errorMessage = Strings.server_error_message;
+        authLoginResponse.errorCode = Constants.noInternet;
+      } else {
+        authLoginResponse.isSuccessFull = false;
+        authLoginResponse.errorCode = e.response!.statusCode;
+        authLoginResponse.errorMessage =
+            e.response!.data["message"] ?? Strings.something_went_wrong;
+      }
+    }
+    return authLoginResponse;
+  }
 
-  //   if (response.statusCode == 200) {
-  //     CustomerDetailsResponseModel customerDetailsResponseModel =
-  //         CustomerDetailsResponseModel.fromJson(response.data!);
-
-  //     return customerDetailsResponseModel;
-  //   } else {
-  //     throw ServerException(response.data?['error']['message']);
-  //   }
-  // }
+ 
 }
