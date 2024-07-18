@@ -1,4 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:lms/aa_getx/modules/login/presentation/screens/offline_customer_screen.dart';
+import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditions_webview.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/arguments/tutotrials_arguments.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/controllers/walkthrough_controller.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/walkthrough_view.dart';
@@ -15,6 +17,8 @@ const String jailBreakView = "jail-break-view";
 const String pinView = "pin-view";
 const String loginView = "login-view";
 const String tutorialsView = "tutorials-view";
+const String offlineCustomerView = "offline-customer-view";
+const String termsAndConditionsWebView = "terms-and-condition-web-view";
 
 List<GetPage> routes = [
   GetPage(
@@ -40,5 +44,13 @@ List<GetPage> routes = [
   GetPage(
     name: '/$tutorialsView',
     page: () => WalkthroughScreen()
+  ),
+  GetPage(
+    name: '/$offlineCustomerView',
+    page: () => OfflineCustomerScreen()
+  ),
+  GetPage(
+    name: '/$termsAndConditionsWebView',
+    page: () => TermsAndConditionsWebview()
   ),
 ];
