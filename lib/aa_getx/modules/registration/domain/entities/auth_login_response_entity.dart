@@ -1,7 +1,7 @@
 
 import 'package:lms/network/ModelWrapper.dart';
 
-class AuthLoginResponseEntity extends ModelWrapper{
+class AuthLoginResponseEntity extends ModelWrapper<RegisterDataEntity>{
   String? message;
   RegisterDataEntity? registerData;
   ErrorsEntity? errors;

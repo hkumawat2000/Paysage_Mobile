@@ -77,7 +77,7 @@ class SetPinController extends GetxController {
             parameter[Strings.mobile_no] = mobile;
             parameter[Strings.date_time] = getCurrentDateAndTime();
             firebaseEvent(Strings.pin_set, parameter);
-            //Todo: replace the following navigation with named routes after needed pages are converted into getX
+            ///Todo: replace the following navigation with named routes after needed pages are converted into getX
             if (_hasFingerPrintSupport) {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (BuildContext context) => FingureprintScreen(setPinArgs.isForOfflineCustomer, setPinArgs.isLoanOpen)));

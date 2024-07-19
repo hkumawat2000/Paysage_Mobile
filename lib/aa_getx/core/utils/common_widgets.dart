@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -128,6 +131,33 @@ String getCurrentDateAndTime(){
 //Common function for firebase event
 void firebaseEvent(String eventName, Map<String, dynamic> parameter){
   FirebaseAnalytics.instance.logEvent(name: eventName, parameters: parameter);
+}
+
+//Get device info
+Future<String>? getDeviceInfo() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  String? deviceManufacturer, deviceModel, oSVersion;
+  if (Platform.isAndroid) {
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    deviceModel = androidInfo.model;
+    oSVersion = androidInfo.version.release;
+    deviceManufacturer = androidInfo.manufacturer;
+
+    debugPrint('Manufactured by $deviceManufacturer');
+    debugPrint('Android Version $oSVersion');
+    debugPrint('Device Model $deviceModel');
+    return "(Android version : $oSVersion), (Manufacturer : $deviceManufacturer), (Model : $deviceModel)";
+  } else if (Platform.isIOS) {
+    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    deviceModel = iosInfo.model;
+    oSVersion = iosInfo.systemVersion;
+
+    debugPrint('Device Model ${iosInfo.model}');
+    debugPrint('iOS version ${iosInfo.systemVersion}');
+    return "(iOS version : $oSVersion) (Model : $deviceModel)";
+  } else {
+    return " ";
+  }
 }
 
 void showDialogLoading(String message) {
@@ -265,4 +295,9 @@ Future<void> commonDialog(message, value) {
       )
 
   );
+}
+
+class RegexValidator {
+  static final String emailRegex = r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})';
+  static final String nameRegex = r'^[a-z A-Z,.\-]+$';
 }

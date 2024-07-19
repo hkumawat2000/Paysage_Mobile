@@ -12,7 +12,7 @@ class AuthLoginResponse extends ModelWrapper {
 
   AuthLoginResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data =
+    registerData =
     json['data'] != null ? new RegisterData.fromJson(json['data']) : null;
     errors =
     json['errors'] != null ? new Errors.fromJson(json['errors']) : null;
@@ -21,8 +21,8 @@ class AuthLoginResponse extends ModelWrapper {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (this.registerData != null) {
+      data['data'] = this.registerData!.toJson();
     } if (this.errors != null) {
       data['errors'] = this.errors!.toJson();
     }

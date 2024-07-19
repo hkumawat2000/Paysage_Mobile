@@ -9,6 +9,7 @@ import 'package:lms/aa_getx/modules/registration/data/data_source/registration_a
 import 'package:lms/aa_getx/modules/registration/domain/entities/auth_login_response_entity.dart';
 import 'package:lms/aa_getx/modules/registration/domain/repositories/registration_repository.dart';
 import 'package:lms/aa_getx/modules/registration/domain/usecases/set_pin_usecase.dart';
+import 'package:lms/aa_getx/modules/registration/presentation/arguments/registration_request_bean.dart';
 
 class RegistrationRepositoryImpl implements RegistrationRepository {
   final RegistrationApi registrationApi;
@@ -22,6 +23,20 @@ class RegistrationRepositoryImpl implements RegistrationRepository {
   ResultFuture<AuthLoginResponseEntity> setPin(SetPinParams params) async {
     try {
       final response = await registrationApi.setPin(params);
+      return DataSuccess(response.toEntity());
+    } on ServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg,0));
+    } on DioException catch (e) {
+      return DataFailed(DioErrorHandler.handleDioError(e));
+    } catch (e) {
+      return DataFailed(ServerFailure(e.toString(),0));
+    }
+  }
+
+  @override
+  ResultFuture<AuthLoginResponseEntity> submitRegistration(RegistrationRequestBean params) async {
+    try {
+      final response = await registrationApi.submitRegistration(params);
       return DataSuccess(response.toEntity());
     } on ServerException catch (e) {
       return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg,0));
