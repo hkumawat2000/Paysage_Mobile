@@ -9,7 +9,6 @@ import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/modules/authentication/presentation/controllers/fingerprint_controller.dart';
 
-///todo FingureprintScreen(this.isForOfflineCustomer, this.isLoanOpen); while redirecting to this page
 class FingerPrintView extends GetView<FingerPrintController> {
 
   @override

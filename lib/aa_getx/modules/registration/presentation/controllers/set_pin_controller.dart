@@ -28,8 +28,7 @@ class SetPinController extends GetxController {
   final SetPinUseCase setPinUseCase;
   final ConnectionInfo _connectionInfo;
 
-  //SetPinArgs setPinArgs = Get.arguments; todo: uncomment this after previous pages are done and comment below line
-  SetPinArgs setPinArgs = SetPinArgs(); //Get.arguments;
+  SetPinArgs setPinArgs = Get.arguments;
   SetPinController(this.setPinUseCase, this._connectionInfo);
 
   @override

@@ -14,6 +14,7 @@ import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
+import 'package:lms/aa_getx/modules/login/presentation/arguments/terms_and_conditions_arguments.dart';
 import 'package:lms/aa_getx/modules/registration/domain/entities/auth_login_response_entity.dart';
 import 'package:lms/aa_getx/modules/registration/domain/entities/request/registration_request_bean_entity.dart';
 import 'package:lms/aa_getx/modules/registration/domain/usecases/submit_registration_usecase.dart';
@@ -45,7 +46,7 @@ class RegistrationController extends GetxController {
   bool showEmailList = false;
 
   // String? emailConsent;
-  RegistrationArguments registrationArguments =  Get.arguments;   ///todo uncomment the arguments after merge
+  RegistrationArguments registrationArguments =  Get.arguments;
   final FocusNode focusNode = FocusNode();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn();
@@ -555,11 +556,18 @@ class RegistrationController extends GetxController {
       if (isNetwork) {
         String privacyPolicyUrl = await preferences!.getPrivacyPolicyUrl();
         debugPrint("privacyPolicyUrl ==> $privacyPolicyUrl");
-        // todo change below code with Get.toNamed after merge
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(
         //         builder: (context) => TermsConditionWebView("", true, Strings.terms_privacy)));
+        Get.toNamed(
+          termsAndConditionsWebView,
+          arguments: TermsAndConditionsWebViewArguments(
+            url: "",
+            isComingFor: Strings.terms_privacy,
+            isForPrivacyPolicy: true,
+          ),
+        );
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }

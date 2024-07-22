@@ -4,14 +4,14 @@ import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/modules/authentication/presentation/views/enable_fingerprint_dialog_view.dart';
 import 'package:lms/aa_getx/modules/authentication/presentation/views/fingerprint_view.dart';
+import 'package:lms/aa_getx/modules/login/presentation/arguments/terms_and_conditions_arguments.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/controllers/set_pin_controller.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 
 class FingerPrintController extends GetxController{
   Preferences preferences = new Preferences();
-  /// todo: uncomment this after previous pages are done and comment below line
-  SetPinArgs setPinArgs = SetPinArgs(); //Get.arguments;
+  SetPinArgs setPinArgs = Get.arguments;
 
   Future yesClicked() async {
     bool consentForBiometric = await preferences.getBiometricConsent();
@@ -47,11 +47,18 @@ class FingerPrintController extends GetxController{
       if (isNetwork) {
         String privacyPolicyUrl = await preferences.getPrivacyPolicyUrl();
         debugPrint("privacyPolicyUrl ==> $privacyPolicyUrl");
-        ///todo: terms and conditions screen with getx for following code
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(
         //         builder: (context) => TermsConditionWebView("", true, Strings.terms_privacy)));
+        Get.toNamed(
+          termsAndConditionsWebView,
+          arguments: TermsAndConditionsWebViewArguments(
+            url: "",
+            isComingFor: Strings.terms_privacy,
+            isForPrivacyPolicy: true,
+          ),
+        );
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
