@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:lms/FlavorConfig.dart';
+import 'package:lms/aa_getx/core/error/dio_error_handler.dart';
+import 'package:lms/aa_getx/core/error/exception.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:lms/util/alice.dart';
@@ -55,6 +58,26 @@ mixin BaseDio {
       responseBody: FlavorConfig.instance.flavor == Flavor.PROD ? false : true,
     ));
     dio.interceptors.add(alice.getDioInterceptor());
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options,handler){
+        print("app request data ${options.data}");
+        return handler.next(options);
+      },
+      onResponse: (response,handler){
+        if (kDebugMode) {
+          print("app response data ${response.data}");
+        }
+        return handler.next(response);
+    },
+      onError: (DioException e, handler){
+        if (kDebugMode) {
+          print("app error data $e");
+        }
+        ErrorEntity eInfo = createErrorEntity(e);
+        onError(eInfo);
+        return handler.next(e);
+      }
+    ));
     return dio;
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/controllers/splash_controller.dart';
 import 'package:lms/util/Colors.dart';
@@ -21,11 +22,13 @@ class SplashView extends GetView<SplashController> {
                 child: Logo(),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text('Version ${controller.versionName.value ?? ""}'),
+            Obx(
+              ()=> Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text('Version ${controller.versionName.value ?? ""}'),
+                ),
               ),
             ),
           ],

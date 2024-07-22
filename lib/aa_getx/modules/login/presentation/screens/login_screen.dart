@@ -2,12 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
-import 'package:lms/aa_getx/modules/login/presentation/arguments/terms_and_conditions_arguments.dart';
 import 'package:lms/aa_getx/modules/login/presentation/controllers/login_controller.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 
@@ -99,12 +97,14 @@ class LoginView extends GetView<LoginController> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: <Widget>[
-                      Checkbox(
-                          value: controller.checkBoxValue.value,
-                          activeColor: appTheme,
-                          onChanged: (bool? newValue) {
-                            controller.onCheckBoxValueChanged(newValue);
-                          }),
+                      Obx(
+                      ()=> Checkbox(
+                            value: controller.checkBoxValue.value,
+                            activeColor: appTheme,
+                            onChanged: (bool? newValue) {
+                              controller.onCheckBoxValueChanged();
+                            }),
+                      ),
                       Expanded(
                         child: RichText(
                           text: TextSpan(
@@ -176,7 +176,7 @@ class LoginView extends GetView<LoginController> {
                       onPressed: () async {
                         Utility.isNetworkConnection().then((isNetwork) async {
                           if (isNetwork) {
-                            // login();
+                            controller.login();
                           } else {
                             Utility.showToastMessage(
                                 Strings.no_internet_message);
@@ -190,7 +190,7 @@ class LoginView extends GetView<LoginController> {
                 SizedBox(
                   height: 30,
                 ),
-                version(),
+                Obx(()=> version(),),
                 SizedBox(
                   height: 40,
                 ),

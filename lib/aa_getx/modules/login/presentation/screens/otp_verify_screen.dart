@@ -39,21 +39,22 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
     with TickerProviderStateMixin, CodeAutoFill {
 // Due to use of modal bottom sheet and it only accepts a widget and not a classs which is extended with GetView.
 // So to access the Controller I need to declare it here.
-  final OtpVerificationController otpVerificationController = Get.put(
-    OtpVerificationController(
-      Get.put(
-        LoginUseCase(
-            Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
-      ),
-      Get.put(
-        VerifyOtpUsecase(
-            Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
-      ),
-      Get.put(
-        ConnectionInfoImpl(Connectivity()),
-      ),
-    ),
-  );
+  final OtpVerificationController otpVerificationController = Get.find<OtpVerificationController>();
+  // Get.put(
+  //   OtpVerificationController(
+  //     Get.put(
+  //       LoginUseCase(
+  //           Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
+  //     ),
+  //     Get.put(
+  //       VerifyOtpUsecase(
+  //           Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
+  //     ),
+  //     Get.put(
+  //       ConnectionInfoImpl(Connectivity()),
+  //     ),
+  //   ),
+  // );
   
   @override
   void codeUpdated() {
@@ -237,7 +238,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
                                 ? colorLightGray
                                 : appTheme,
                             child: AbsorbPointer(
-                              absorbing: otpVerificationController
+                              absorbing: !otpVerificationController
                                   .isSubmitBtnClickable.value,
                               child: MaterialButton(
                                 shape: RoundedRectangleBorder(
@@ -274,64 +275,65 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
                     SizedBox(
                       height: 30,
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: AbsorbPointer(
-                            absorbing: otpVerificationController
-                                .isResendOTPClickable.value,
-                            child: InkWell(
-                              onTap: () async {
-                                Utility.isNetworkConnection().then((isNetwork) {
-                                  if (isNetwork) {
-                                    otpVerificationController.otpTextController
-                                        .clear();
-                                    listenForCode();
-                                    var user = widget
-                                        .loginSubmitResquestEntity.mobileNumber;
-                                    if (user != null) {
-                                      otpVerificationController.login(
-                                          widget.loginSubmitResquestEntity
-                                              .mobileNumber,
-                                          widget.loginSubmitResquestEntity
-                                              .firebase_token,
-                                          widget.loginSubmitResquestEntity
-                                              .platform,
-                                          widget.loginSubmitResquestEntity
-                                              .appVersion,
-                                          Strings.four_digit_enter_otp +
-                                              " " +
-                                              user,
-                                          widget.loginSubmitResquestEntity
-                                              .acceptTerms);
-                                      otpVerificationController
-                                          .enableResendOtp();
-                                    }
-                                  } else {
-                                    Utility.showToastMessage(
-                                        Strings.no_internet_message);
-                                  }
-                                });
-                              },
-                              child: Text(
-                                Strings.resend_otp,
-                                style: TextStyle(
-                                    color: otpVerificationController
-                                                .isResendOTPClickable ==
-                                            true
-                                        ? colorGrey
-                                        : appTheme,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500),
+                    Obx(
+                      ()=> Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text("${otpVerificationController.isResendOTPClickable.value}"),
+                           Padding(
+                              padding: const EdgeInsets.only(left: 20, right: 20),
+                              child: AbsorbPointer(
+                                absorbing: !otpVerificationController
+                                    .isResendOTPClickable.value,
+                                child: InkWell(
+                                  onTap: () async {
+                                    Utility.isNetworkConnection().then((isNetwork) {
+                                      if (isNetwork) {
+                                        otpVerificationController.otpTextController
+                                            .clear();
+                                        listenForCode();
+                                        var user = widget
+                                            .loginSubmitResquestEntity.mobileNumber;
+                                        if (user != null) {
+                                          otpVerificationController.login(
+                                              widget.loginSubmitResquestEntity
+                                                  .mobileNumber,
+                                              widget.loginSubmitResquestEntity
+                                                  .firebase_token,
+                                              widget.loginSubmitResquestEntity
+                                                  .platform,
+                                              widget.loginSubmitResquestEntity
+                                                  .appVersion,
+                                              Strings.four_digit_enter_otp +
+                                                  " " +
+                                                  user,
+                                              widget.loginSubmitResquestEntity
+                                                  .acceptTerms);
+                                        }
+                                      } else {
+                                        Utility.showToastMessage(
+                                            Strings.no_internet_message);
+                                      }
+                                    });
+                                  },
+                                  child: Text(
+                                    Strings.resend_otp,
+                                    style: TextStyle(
+                                        color: otpVerificationController
+                                                    .isResendOTPClickable.isFalse
+                                            ? colorGrey
+                                            : appTheme,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        _timerAndRetrySection(),
-                      ],
+
+                          Obx(()=> _timerAndRetrySection()),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 30,
@@ -347,9 +349,10 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
   }
 
   Widget _timerAndRetrySection() {
-    return AnimatedBuilder(
-      animation: otpVerificationController.controller!,
-      builder: (context, child) {
+    // return
+    //   AnimatedBuilder(
+    //   animation: otpVerificationController.controller!,
+    //   builder: (context, child) {
         return Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
@@ -358,7 +361,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
               // retryAvailable
               //     ?
               Text(
-                otpVerificationController.timerString,
+                '${otpVerificationController.start.value}',
                 style: TextStyle(
                   color: red,
                   fontSize: 16.0,
@@ -369,7 +372,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
             ],
           ),
         );
-      },
-    );
+    //   },
+    // );
   }
 }

@@ -1,7 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class ServerException implements Exception {
-  String? message;
+  final String? message;
   ServerException(this.message);
+
+  @override
+  String toString() => 'ServerException(message: $message)';
+}
+
+class ApiServerException implements Exception {
+  final String? message;
+  final int? statusCode;
+  ApiServerException({this.message, this.statusCode});
 
   @override
   String toString() => 'ServerException(message: $message)';
@@ -24,7 +33,7 @@ class NotFoundException implements Exception {
 class NetworkException implements Exception {
   final String message;
 
-  NetworkException(this.message);
+  NetworkException({required this.message});
 }
 
 class ParsingException implements Exception {
@@ -65,4 +74,18 @@ class ConnectionException implements Exception {
 class TimeoutException implements Exception {
   final String message;
   TimeoutException(this.message);
+}
+
+class ErrorEntity implements Exception {
+  int code = -1;
+  String message = "";
+
+  ErrorEntity({required this.code, required this.message});
+
+  @override
+  String toString() {
+    if (message == "") return "Exception";
+
+    return "Exception code $code, $message";
+  }
 }

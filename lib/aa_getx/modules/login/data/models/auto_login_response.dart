@@ -8,7 +8,7 @@ import 'package:lms/aa_getx/modules/login/domain/entity/auto_login_response_enti
 import 'package:lms/network/ModelWrapper.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 
-class AuthLoginResponse extends ModelWrapper<RegisterData> {
+class AuthLoginResponse  {
   String? message;
   RegisterData? registerData;
   Errors? errors;
@@ -17,7 +17,7 @@ class AuthLoginResponse extends ModelWrapper<RegisterData> {
 
   AuthLoginResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data =
+    registerData =
     json['data'] != null ? new RegisterData.fromJson(json['data']) : null;
     errors =
     json['errors'] != null ? new Errors.fromJson(json['errors']) : null;
@@ -26,8 +26,8 @@ class AuthLoginResponse extends ModelWrapper<RegisterData> {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (this.registerData != null) {
+      data['data'] = this.registerData!.toJson();
     } if (this.errors != null) {
       data['errors'] = this.errors!.toJson();
     }
@@ -37,8 +37,8 @@ class AuthLoginResponse extends ModelWrapper<RegisterData> {
   AuthLoginResponseEntity toEntity() =>
   AuthLoginResponseEntity(
       message: message,
-      registerData: registerData?.toEntity(),
-      errors: errors!.toEntity(),
+      registerData: registerData != null ? registerData!.toEntity() : null,
+      errors:errors !=null ? errors!.toEntity() : null,
   
   );
 }

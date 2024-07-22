@@ -51,10 +51,10 @@ class RegisterData {
 
   RegisterDataEntity toEntity() =>
   RegisterDataEntity(
-      token: token,
-      customer: customer?.toEntity(),
-      userKyc: userKyc?.toEntity(),
-      pendingEsigns: pendingEsigns?.map((x) => x.toEntity()).toList(),
+      token:token != null ? token : null,
+      customer: customer != null ? customer?.toEntity() : null,
+      userKyc:userKyc !=null ?  userKyc?.toEntity() : null,
+      pendingEsigns:pendingEsigns != null ? pendingEsigns?.map((x) => x.toEntity()).toList() :[] ,
   
   );
 }

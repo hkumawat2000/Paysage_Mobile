@@ -27,22 +27,19 @@ class OtpVerificationController extends GetxController {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Timer? _timer;
-  RxInt start = 120.obs;
-  RxBool retryAvailable = false.obs;
-  AnimationController? controller;
+  RxInt start = 0.obs;
   String? otpValue;
   Preferences _preferences = Preferences();
   String? mobileExist, firebase_token;
-  RxBool isResendOTPClickable = true.obs;
+  RxBool isResendOTPClickable = false.obs;
   RxBool isSubmitBtnClickable = true.obs;
   final TextEditingController otpTextController = TextEditingController();
-  OtpVerificationArguments _otpVerificationArguments = Get.arguments;
 
   @override
   void onInit() {
     // TODO: implement onInit
     initSmsListener();
-
+    startTime();
     super.onInit();
   }
 
@@ -50,7 +47,7 @@ class OtpVerificationController extends GetxController {
   void onClose() {
     // TODO: implement onClose
     _timer!.cancel();
-    controller!.dispose();
+    // controller!.dispose();
     SmsAutoFill().unregisterListener();
 
     super.onClose();
@@ -62,19 +59,17 @@ class OtpVerificationController extends GetxController {
     super.onReady();
   }
 
-  void enableResendOtp() {
-    start = 120.obs;
-    retryAvailable = false.obs;
-    isResendOTPClickable = true.obs;
-  }
+
 
   Future startTime() async {
+    isResendOTPClickable.value = false;
+    start.value = 120;
+
     Timer.periodic(const Duration(seconds: 1), (_timer) {
       start--;
       if (start.value == 0) {
         _timer.cancel();
-        isResendOTPClickable.value = false;
-        retryAvailable.value = true;
+        isResendOTPClickable.value = true;
       }
     });
   }
@@ -165,9 +160,13 @@ class OtpVerificationController extends GetxController {
         parameter[Strings.mobile_no] = mobileNumber;
         parameter[Strings.date_time] = getCurrentDateAndTime();
         if (response is DataSuccess) {
-          _preferences.setCamsEmail(
-              response.data!.registerData!.customer!.camsEmailId ?? "");
+          print("object ${response.data!.registerData!.token.toString()}");
+          // print('CAMS Email ID${response.data!.registerData!.customer!.camsEmailId}');
+          // _preferences.setCamsEmail(
+          //     response.data!.registerData!.customer!.camsEmailId ?? "");
           _preferences.setToken(response.data!.registerData!.token ?? "");
+          print('Token ID${response.data!.registerData!.token}');
+
           _preferences
               .setMobile(response.data!.registerData!.customer!.phone ?? "");
           // preferences!.setCustomer(value.data);
@@ -182,6 +181,7 @@ class OtpVerificationController extends GetxController {
               response.data!.registerData!.customer!.offlineCustomer == 1 &&
               response.data!.registerData!.customer!.setPin == 0) {
             firebaseEvent(Strings.login_otp_verified, parameter);
+            Get.toNamed(jailBreakView);
             //TODO Navigate to Set Pin Screen
             // Navigator.push(
             //     context,
@@ -205,7 +205,9 @@ class OtpVerificationController extends GetxController {
             //     (route) => false);
           }
         } else if (response is DataFailed) {
+          print('-----> Data Failed Status Code ${response.error!.statusCode}');
           if (response.error!.statusCode == 404) {
+            print("object 404");
             firebaseEvent(Strings.login_otp_verified, parameter);
             //TODO Navigate to Registration screen
             // Navigator.pushAndRemoveUntil(
@@ -215,10 +217,14 @@ class OtpVerificationController extends GetxController {
             //             RegistrationScreen(widget.mobileNumber, otpValue!)),
             //     (route) => false);
           } else if (response.error!.statusCode == 401) {
+            print("object 401");
             otpTextController.clear();
             parameter[Strings.error_message] = response.error!.message;
             firebaseEvent(Strings.login_otp_failed, parameter);
             Utility.showToastMessage(response.error!.message);
+          }else if(response.error!.statusCode == 500){
+            print("object other${response.error!.statusCode}");
+
           }
         }
       } else {

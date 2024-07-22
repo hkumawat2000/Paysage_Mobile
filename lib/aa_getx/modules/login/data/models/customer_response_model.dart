@@ -284,7 +284,7 @@ class Customer {
 
   CustomerEntity toEntity() =>
   CustomerEntity(
-      name:name,
+      name: name,
       creation:  creation,
       modified:  modified,
       modifiedBy:  modifiedBy,

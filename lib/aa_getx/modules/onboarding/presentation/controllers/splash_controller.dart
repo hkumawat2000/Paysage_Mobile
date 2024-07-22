@@ -65,7 +65,10 @@ class SplashController extends GetxController {
       Get.offNamed(jailBreakView);
     } else {
       if (_doesMobileExist.isNotEmpty && _doesEmailExist.isNotEmpty) {
-        Get.offNamed(pinView);
+        //TODO : TO Navigate to Pin Screen.
+        //Get.offNamed(pinView);
+        //Get.offNamed(loginView);
+        Get.toNamed(jailBreakView);
       } else if (_isVisitTutorial.isNotEmpty) {
         Get.offNamed(loginView);
       } else {
@@ -79,6 +82,7 @@ class SplashController extends GetxController {
       DataState<OnBoardingResponseEntity> response =
           await _getOnboardingDetailsUsecase.call();
       if (response is DataSuccess) {
+        print("object--->");
         if (response.data != null) {
           Get.offNamed(
             tutorialsView,

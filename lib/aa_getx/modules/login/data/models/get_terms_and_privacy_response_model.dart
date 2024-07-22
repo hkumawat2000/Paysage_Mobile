@@ -1,9 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:lms/aa_getx/modules/login/domain/entity/get_terms_and_privacy_response_entity.dart';
-import 'package:lms/network/ModelWrapper.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 
-class GetTermsandPrivacyResponse extends ModelWrapper<TermsOfUseData> {
+class GetTermsandPrivacyResponse {
   String? message;
   TermsOfUseData? termsOfUseData;
 
@@ -12,14 +10,13 @@ class GetTermsandPrivacyResponse extends ModelWrapper<TermsOfUseData> {
   GetTermsandPrivacyResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     termsOfUseData = json['data'] != null ? new TermsOfUseData.fromJson(json['data']) : null;
-    data = termsOfUseData;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    if (this.termsOfUseData != null) {
+      data['data'] = this.termsOfUseData!.toJson();
     }
     return data;
   }

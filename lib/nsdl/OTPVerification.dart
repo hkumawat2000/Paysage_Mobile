@@ -5,7 +5,7 @@
 // import 'package:lms/util/Utility.dart';
 // import 'package:lms/util/strings.dart';
 // import 'package:flutter/material.dart';
-// import 'package:lms/main.dart';
+// import 'package:lms/main_getx.dart';
 // import 'package:lms/widgets/WidgetCommon.dart';
 // import 'package:flutter/services.dart';
 // import 'package:path/path.dart';

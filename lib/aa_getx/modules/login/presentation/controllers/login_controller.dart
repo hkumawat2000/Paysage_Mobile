@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -32,7 +34,7 @@ class LoginController extends GetxController {
   final TextEditingController mobileNumberController = TextEditingController();
   Preferences _preferences = Preferences();
   var authToken;
-  String versionName = "";
+  RxString versionName = "".obs;
   String? deviceInfo = "";
   String? terms_of_use_url = "";
   String? privacy_policy_url = "";
@@ -46,8 +48,11 @@ class LoginController extends GetxController {
 
   @override
   void onInit() async {
+    print("on");
     getValuesFromPerfrences();
+    print("isConnected ${await _connectionInfo.isConnected}");
     if (await _connectionInfo.isConnected) {
+      print("On Init");
       getTermsOfUse();
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
@@ -57,7 +62,7 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    mobileTextfiledFocus.dispose();
+    //mobileTextfiledFocus.dispose();
     super.onClose();
   }
 
@@ -71,17 +76,21 @@ class LoginController extends GetxController {
     authToken = await FirebaseMessaging.instance.getToken();
     _preferences.setFirebaseToken(authToken);
     version = await Utility.getVersionInfo();
-    versionName = version;
+    versionName (await Utility.getVersionInfo());
     deviceInfo = await getDeviceInfo();
   }
 
   Future<void> getTermsOfUse() async {
+    print("api call");
     if (await _connectionInfo.isConnected) {
+      debugPrint("Response---> ");
       DataState<GetTermsandPrivacyResponseEntity> response =
           await _getTermsOfUseUsecase.call();
+      debugPrint("Response ${response.toString()}");
       if (response is DataSuccess) {
         if (response.data!.termsOfUseData != null &&
             response.data!.termsOfUseData!.dummyAccounts!.length != 0) {
+          debugPrint("Response ------> ${response.data!.termsOfUseData!.termsOfUseUrl}");
           dummyAccounts = response.data!.termsOfUseData!.dummyAccounts!;
           _preferences.setPrivacyPolicyUrl(
               response.data!.termsOfUseData!.privacyPolicyUrl!);
@@ -94,6 +103,8 @@ class LoginController extends GetxController {
       } else if (response is DataFailed) {
         Utility.showToastMessage(response.error!.message);
       }
+    } else{
+      print("in else");
     }
   }
 
@@ -103,14 +114,15 @@ class LoginController extends GetxController {
       //FocusScope.of(context).requestFocus(FocusNode());
       if (await _connectionInfo.isConnected) {
         login();
+
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
     }
   }
 
-  void onCheckBoxValueChanged(bool? newValue) {
-    checkBoxValue.value = newValue!;
+  void onCheckBoxValueChanged() {
+    checkBoxValue.value = !checkBoxValue.value;
     if (checkBoxValue.isTrue) {
       acceptTerms.value = 1;
     } else {
@@ -167,17 +179,22 @@ class LoginController extends GetxController {
           firebase_token: authToken,
           acceptTerms: acceptTerms.value,
           platform: deviceInfo,
-          appVersion: versionName,
+          appVersion: versionName.value,
         );
         DataState<AuthLoginResponseEntity> response = await _loginUseCase.call(
           LoginSubmitParams(
             loginSubmitResquestEntity: loginSubmitResquestDataEntity,
           ),
         );
+        debugPrint("Response ------> ${mobileNumberController.text}");
+        debugPrint("Response ------> ${authToken}");
+        debugPrint("Response ------> ${acceptTerms.value}");
+        debugPrint("Response ------> ${deviceInfo}");
+        debugPrint("Response ------> ${versionName.value}");
         if (response is DataSuccess) {
           //TODO Add Get.back
           //        Navigator.pop(context);
-
+          print("object in Login Success");
           Get.bottomSheet(
             backgroundColor: Colors.transparent,
             enableDrag: false,
@@ -198,6 +215,7 @@ class LoginController extends GetxController {
           //   },
           // );
         } else if (response is DataFailed) {
+          print("object=====> ");
           Utility.showToastMessage(response.error!.message);
         }
       } else {
@@ -207,6 +225,9 @@ class LoginController extends GetxController {
   }
 
   void navigateToTermsAndConditionWebview(bool isUsedForPrivacyPolicy) async {
+    print("---> Privacy Policy $privacy_policy_url");
+    print("---> Terms Of Use  $terms_of_use_url");
+
     if (await _connectionInfo.isConnected) {
       Get.toNamed(
         termsAndConditionsWebView,

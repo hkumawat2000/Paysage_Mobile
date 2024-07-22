@@ -21,14 +21,19 @@ class TermsAndConditionsWebviewController extends GetxController{
     checkNetwork();
     url = termsAndConditionsWebViewArguments.url;
     isComingFor = termsAndConditionsWebViewArguments.isComingFor;
+    print("--> $url");
+    print("---> $isComingFor");
     super.onInit();
   }
 
   void checkNetwork()async {
     if(await _connectionInfo.isConnected){
       privacyUrl = await _preferences.getPrivacyPolicyUrl();
+      print("---> $isComingFor");
       //TODO to get T&C arguments
       pdfDocument = await PDFDocument.fromURL(termsAndConditionsWebViewArguments.isForPrivacyPolicy! ? privacyUrl! :termsAndConditionsWebViewArguments.url!);
+      print("---> $pdfDocument");
+
     }
   }
 
