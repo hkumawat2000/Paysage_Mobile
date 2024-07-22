@@ -1,26 +1,23 @@
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/error/dio_error_handler.dart';
 import 'package:lms/aa_getx/core/error/exception.dart';
 import 'package:lms/aa_getx/core/network/apis.dart';
 import 'package:lms/aa_getx/core/network/base_dio.dart';
 import 'package:lms/aa_getx/modules/registration/data/models/auth_login_response.dart';
-import 'package:lms/aa_getx/modules/registration/domain/usecases/set_pin_usecase.dart';
-import 'package:lms/aa_getx/modules/registration/presentation/arguments/registration_request_bean.dart';
-import 'package:lms/util/Preferences.dart';
+import 'package:lms/aa_getx/modules/registration/data/models/request/set_pin_request_model.dart';
+import 'package:lms/aa_getx/modules/registration/data/models/request/registration_request_bean_model.dart';
 import 'package:lms/util/constants.dart';
 
 abstract class RegistrationApi {
-  Future<AuthLoginResponse> setPin(SetPinParams params);
+  Future<AuthLoginResponse> setPin(SetPinRequestModel params);
 
-  Future<AuthLoginResponse> submitRegistration(RegistrationRequestBean params);
+  Future<AuthLoginResponse> submitRegistration(RegistrationRequestBeanModel params);
 }
 
 class RegistrationApiImpl with BaseDio implements RegistrationApi{
   @override
-  Future<AuthLoginResponse> setPin(SetPinParams params)async {
+  Future<AuthLoginResponse> setPin(SetPinRequestModel params)async {
     Dio dio = await getBaseDio();
     try {
       Response response = await dio
@@ -37,7 +34,7 @@ class RegistrationApiImpl with BaseDio implements RegistrationApi{
   }
 
   @override
-  Future<AuthLoginResponse> submitRegistration(RegistrationRequestBean params) async {
+  Future<AuthLoginResponse> submitRegistration(RegistrationRequestBeanModel params) async {
     Dio dio = await getBaseDioVersionPlatform();
     try {
       Response response =

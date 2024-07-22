@@ -6,6 +6,7 @@ import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/modules/registration/domain/entities/auth_login_response_entity.dart';
+import 'package:lms/aa_getx/modules/registration/domain/entities/request/set_pin_request_entity.dart';
 import 'package:lms/aa_getx/modules/registration/domain/usecases/set_pin_usecase.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
@@ -59,12 +60,12 @@ class SetPinController extends GetxController {
         confirmPinController.text.length != 4) {
       Utility.showToastMessage(Strings.pin_length);
     } else {
-      SetPinParams setPinParams = SetPinParams(pin: confirmPinController.text);
+      SetPinRequestEntity setPinRequestEntity = SetPinRequestEntity(pin: confirmPinController.text,);
       // RegistrationBloc().setPin(confirmPinController.text).then((value) {
       if (await _connectionInfo.isConnected) {
         showDialogLoading(Strings.please_wait);
         DataState<AuthLoginResponseEntity> response =
-            await setPinUseCase.call(setPinParams);
+            await setPinUseCase.call(SetPinParams(setPinRequestEntity: setPinRequestEntity));
         Get.back(); //pop dialog
         debugPrint("response block");
         debugPrint("response   ${response.data}");

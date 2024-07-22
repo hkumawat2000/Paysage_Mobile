@@ -15,8 +15,8 @@ import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/modules/registration/domain/entities/auth_login_response_entity.dart';
+import 'package:lms/aa_getx/modules/registration/domain/entities/request/registration_request_bean_entity.dart';
 import 'package:lms/aa_getx/modules/registration/domain/usecases/submit_registration_usecase.dart';
-import 'package:lms/aa_getx/modules/registration/presentation/arguments/registration_request_bean.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/controllers/set_pin_controller.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
@@ -235,7 +235,7 @@ class RegistrationController extends GetxController {
     } else if (!nameRegExp.hasMatch(lastName)) {
       Utility.showToastMessage(Strings.validate_only_char_lastname);
     } else {
-      RegistrationRequestBean requestBean = RegistrationRequestBean(
+      RegistrationRequestBeanEntity registrationRequestBeanEntity = RegistrationRequestBeanEntity(
           firstName.toString().trim(),
           lastName.toString().trim(),
           registrationArguments.mobileNumber!,
@@ -243,12 +243,12 @@ class RegistrationController extends GetxController {
           firbase_token,
           versionName!,
           deviceInfo!);
-      debugPrint("requestReg: ${json.encode(requestBean)}");
+      debugPrint("requestReg: ${json.encode(registrationRequestBeanEntity)}");
 
       if (await connectionInfo.isConnected) {
         showDialogLoading(Strings.please_wait);
         DataState<AuthLoginResponseEntity> response =
-            await submitRegistrationUseCase.call(requestBean);
+            await submitRegistrationUseCase.call(RegistrationRequestBeanParams(registrationRequestBeanEntity: registrationRequestBeanEntity));
         Get.back(); //pop dialog
         debugPrint("response block");
         debugPrint("response   ${response.data}");
