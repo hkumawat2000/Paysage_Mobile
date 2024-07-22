@@ -14,6 +14,9 @@ import 'package:lms/aa_getx/modules/login/domain/usecases/login_usecases.dart';
 import 'package:lms/aa_getx/modules/login/domain/usecases/verify_otp_usecase.dart';
 import 'package:lms/aa_getx/modules/login/presentation/arguments/otp_verification_arguments.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/offline_customer_screen.dart';
+import 'package:lms/aa_getx/modules/registration/presentation/arguments/registration_arguments.dart';
+import 'package:lms/aa_getx/modules/registration/presentation/controllers/set_pin_controller.dart';
+import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -58,8 +61,6 @@ class OtpVerificationController extends GetxController {
     // TODO: implement onReady
     super.onReady();
   }
-
-
 
   Future startTime() async {
     isResendOTPClickable.value = false;
@@ -181,13 +182,13 @@ class OtpVerificationController extends GetxController {
               response.data!.registerData!.customer!.offlineCustomer == 1 &&
               response.data!.registerData!.customer!.setPin == 0) {
             firebaseEvent(Strings.login_otp_verified, parameter);
-            Get.toNamed(jailBreakView);
-            //TODO Navigate to Set Pin Screen
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) =>
-            //             SetPinScreen(true, value.data!.customer!.loanOpen!)));
+            Get.toNamed(
+              setPinView,
+              arguments: SetPinArgs(
+                isForOfflineCustomer: true,
+                isLoanOpen: response.data!.registerData!.customer!.loanOpen,
+              ),
+            );
           } else if (response.data!.registerData!.customer!.offlineCustomer !=
                   null &&
               response.data!.registerData!.customer!.offlineCustomer == 1 &&
@@ -209,22 +210,21 @@ class OtpVerificationController extends GetxController {
           if (response.error!.statusCode == 404) {
             print("object 404");
             firebaseEvent(Strings.login_otp_verified, parameter);
-            //TODO Navigate to Registration screen
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) =>
-            //             RegistrationScreen(widget.mobileNumber, otpValue!)),
-            //     (route) => false);
+            Get.offNamedUntil(
+                registrationView,
+                arguments: RegistrationArguments(
+                  mobileNumber: mobileNumber,
+                  otpValue: otpValue,
+                ),
+                (route) => false);
           } else if (response.error!.statusCode == 401) {
             print("object 401");
             otpTextController.clear();
             parameter[Strings.error_message] = response.error!.message;
             firebaseEvent(Strings.login_otp_failed, parameter);
             Utility.showToastMessage(response.error!.message);
-          }else if(response.error!.statusCode == 500){
+          } else if (response.error!.statusCode == 500) {
             print("object other${response.error!.statusCode}");
-
           }
         }
       } else {

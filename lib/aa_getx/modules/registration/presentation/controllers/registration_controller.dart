@@ -45,10 +45,7 @@ class RegistrationController extends GetxController {
   bool showEmailList = false;
 
   // String? emailConsent;
-  RegistrationArguments registrationArguments = RegistrationArguments(
-      otp: "1212",
-      mobileNumber:
-          "7038355524"); //Get.arguments;   ///todo uncomment the arguments after merge
+  RegistrationArguments registrationArguments =  Get.arguments;   ///todo uncomment the arguments after merge
   final FocusNode focusNode = FocusNode();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn();
