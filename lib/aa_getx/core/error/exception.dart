@@ -76,6 +76,7 @@ class TimeoutException implements Exception {
   TimeoutException(this.message);
 }
 
+//Custom Error Entity Class to implemetn Exception
 class ErrorEntity implements Exception {
   int code = -1;
   String message = "";

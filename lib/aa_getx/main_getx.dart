@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:lms/FlavorConfig.dart';
 import 'package:lms/aa_getx/config/initial_bindings.dart';
 import 'package:lms/aa_getx/core/network/alice.dart';
+import 'package:lms/aa_getx/core/network/global_network_controller.dart';
 import 'package:lms/util/Colors.dart';
 import 'package:lms/util/MyHttp.dart';
 import 'package:lms/util/strings.dart';
@@ -19,6 +20,9 @@ import 'config/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+   /// Global Network Controller
+  DependencyInjection.init();
 
   /// Config the flavor
   //Config the flavor
@@ -70,11 +74,11 @@ class Root extends StatelessWidget {
     ]);
     return OverlaySupport.global(
       child: GetMaterialApp(
-        builder: (context, child) {
+         builder: (context, child) {
           // Execute code during app initialization
-          // DependencyInjection.init(); // Initialize dependencies
-          // NetworkController networkController = Get.find();
-          // networkController.checkConnection(); // Check connection status
+          DependencyInjection.init(); // Initialize dependencies
+          NetworkController networkController = Get.find();
+          networkController.checkConnection(); // Check connection status
           return child!;
         },
         title: Strings.lms,

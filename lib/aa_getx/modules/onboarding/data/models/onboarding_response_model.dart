@@ -2,7 +2,7 @@
 import 'package:lms/aa_getx/modules/onboarding/domain/entity/onboarding_response_entity.dart';
 import 'package:lms/network/ModelWrapper.dart';
 
-class OnBoardingResponseModel extends ModelWrapper<List<OnBoardingData>> {
+class OnBoardingResponseModel  {
   List<OnBoardingData>? onBoardingData;
 
   OnBoardingResponseModel({this.onBoardingData});

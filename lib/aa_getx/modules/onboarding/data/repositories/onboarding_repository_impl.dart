@@ -26,8 +26,8 @@ class OnboardingRepositoryImpl implements OnboardingRepository {
         return DataSuccess(onboardingResponse.toEntity());
     } on ServerException catch (e) {
       return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg,0));
-    } on DioException catch (e) {
-      return DataFailed(DioErrorHandler.handleDioError(e));
+    } on ApiServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg , e.statusCode!));
     } catch (e) {
       return DataFailed(ServerFailure(e.toString(),0));
     }
