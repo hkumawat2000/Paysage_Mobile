@@ -1,9 +1,14 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:lms/aa_getx/modules/authentication/presentation/bindings/enable_fingerprint_dialog_binding.dart';
+import 'package:lms/aa_getx/modules/authentication/presentation/bindings/fingerprint_binding.dart';
+import 'package:lms/aa_getx/modules/authentication/presentation/views/enable_fingerprint_dialog_view.dart';
+import 'package:lms/aa_getx/modules/authentication/presentation/views/fingerprint_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/walkthrough_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/offline_customer_binding.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/registration_binding.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/set_pin_binding.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/offline_customer_screen.dart';
+import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
 import 'package:lms/login/LoginScreen.dart';
@@ -21,6 +26,9 @@ const String tutorialsView = "tutorials-view";
 const String setPinView = "set-pin-view";
 const String offlineCustomerView = "offline-customer-view";
 const String registrationView = "registration-view";
+const String fingerPrintView = "fingerprint-view";
+const String enableFingerPrintView = "enable-fingerprint-view";
+const String registrationSuccessfulView = "registration-successful-view";
 
 List<GetPage> routes = [
   GetPage(
@@ -61,5 +69,19 @@ List<GetPage> routes = [
     name: '/$registrationView',
     page: () => RegistrationView(),
     binding: RegistrationBinding(),
+  ),
+  GetPage(
+    name: '/$fingerPrintView',
+    page: () => FingerPrintView(),
+    binding: FingerprintBinding(),
+  ),
+  GetPage(
+    name: '/$enableFingerPrintView',
+    page: () => EnableFingerPrintDialog(),
+    binding: EnableFingerprintBinding(),
+  ),
+  GetPage(
+    name: '/$registrationSuccessfulView',
+    page: () => RegistrationSuccessfulView(),
   ),
 ];

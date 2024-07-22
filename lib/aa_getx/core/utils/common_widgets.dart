@@ -301,3 +301,16 @@ class RegexValidator {
   static final String emailRegex = r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})';
   static final String nameRegex = r'^[a-z A-Z,.\-]+$';
 }
+
+class Alert {
+  static showSnackBar(
+      {required String title, String? description, Widget? icon}) {
+    Get.snackbar(
+      title,
+      description ?? "",
+      colorText: colorWhite,
+      backgroundColor: appTheme,
+      icon: icon,
+    );
+  }
+}

@@ -23,7 +23,8 @@ class RegistrationView extends GetView<RegistrationController>{
             key: controller.scaffoldKey,
             backgroundColor: colorBg,
             body: Container(
-              child: SingleChildScrollView(
+              child: Obx(
+              () => SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -70,34 +71,41 @@ class RegistrationView extends GetView<RegistrationController>{
                           SizedBox(
                             height: 18,
                           ),
-                          Platform.isIOS ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () => controller.googleSignClicked(),
-                                child: Image.asset(
-                                  AssetsImagePath.login_google,
-                                  width: 40,
-                                  height: 40,
+                          Platform.isIOS
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () =>
+                                          controller.googleSignClicked(),
+                                      child: Image.asset(
+                                        AssetsImagePath.login_google,
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 60,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => controller.appleSignIn(),
+                                      child: Image(
+                                          image: AssetImage(
+                                              AssetsImagePath.apple_icon),
+                                          width: 42,
+                                          height: 42),
+                                    ),
+                                  ],
+                                )
+                              : GestureDetector(
+                                  onTap: () => controller.googleSignClicked(),
+                                  child: Image.asset(
+                                    AssetsImagePath.login_google,
+                                    width: 40,
+                                    height: 40,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 60,),
-                              GestureDetector(
-                                onTap: ()=> controller.appleSignIn(),
-                                child: Image(image: AssetImage(AssetsImagePath.apple_icon),
-                                    width: 42,
-                                    height: 42),
-                              ),
-                            ],
-                          ) : GestureDetector(
-                            onTap: ()=> controller.googleSignClicked(),
-                            child: Image.asset(
-                              AssetsImagePath.login_google,
-                              width: 40,
-                              height: 40,
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -108,16 +116,21 @@ class RegistrationView extends GetView<RegistrationController>{
                       height: 45,
                       width: 100,
                       child: Material(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(35)),
                         elevation: 1.0,
                         color: appTheme,
                         child: MaterialButton(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
                           minWidth: MediaQuery.of(context).size.width,
-                          onPressed: ()=>
-                                controller.registartion(controller.firstNameController.text, controller.lastNameController.text,
-                                    controller.emailController.text, controller.versionName!,
-                                    controller.deviceInfo, Strings.register_with_email),
+                          onPressed: () => controller.registartion(
+                              controller.firstNameController.text,
+                              controller.lastNameController.text,
+                              controller.emailController.text,
+                              controller.versionName!,
+                              controller.deviceInfo,
+                              Strings.register_with_email),
                           child: ArrowForwardNavigation(),
                         ),
                       ),
@@ -129,6 +142,7 @@ class RegistrationView extends GetView<RegistrationController>{
                 ),
               ),
             ),
+          ),
           ),
         ),
     );
