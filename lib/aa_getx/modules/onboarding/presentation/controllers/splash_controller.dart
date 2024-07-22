@@ -66,9 +66,9 @@ class SplashController extends GetxController {
     } else {
       if (_doesMobileExist.isNotEmpty && _doesEmailExist.isNotEmpty) {
         //TODO : TO Navigate to Pin Screen.
-        //Get.offNamed(pinView);
+        Get.offNamed(pinView);
         //Get.offNamed(loginView);
-        Get.toNamed(jailBreakView);
+        //Get.toNamed(jailBreakView);
       } else if (_isVisitTutorial.isNotEmpty) {
         Get.offNamed(loginView);
       } else {
