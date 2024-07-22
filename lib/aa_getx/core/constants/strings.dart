@@ -914,4 +914,6 @@ class Strings {
 
   static const String getStartedTxt = "Get Started";
   static const String nextTxt = "Next";
+
+  static const String yourLoanApplicationIsUnderProcessString= "Your loan application is under process.";
 }

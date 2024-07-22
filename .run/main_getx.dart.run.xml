@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="main_getx.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
-    <option name="buildFlavor" value="qa" />
-    <option name="filePath" value="$PROJECT_DIR$/lib/aa_getx/main_getx.dart" />
-    <method v="2" />
-  </configuration>
+    <configuration default="false" name="main_getx.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
+        <option name="buildFlavor" value="qa" />
+        <option name="filePath" value="$PROJECT_DIR$/lib/aa_getx/main_getx.dart" />
+        <method v="2" />
+    </configuration>
 </component>
