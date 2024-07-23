@@ -182,6 +182,7 @@ class OtpVerificationController extends GetxController {
               response.data!.registerData!.customer!.offlineCustomer == 1 &&
               response.data!.registerData!.customer!.setPin == 0) {
             firebaseEvent(Strings.login_otp_verified, parameter);
+            print('----> 1 Token ID${response.data!.registerData!.token}');
             Get.toNamed(
               setPinView,
               arguments: SetPinArgs(
@@ -194,10 +195,12 @@ class OtpVerificationController extends GetxController {
               response.data!.registerData!.customer!.offlineCustomer == 1 &&
               response.data!.registerData!.customer!.loanOpen == 0) {
             firebaseEvent(Strings.login_otp_verified, parameter);
+            print('----> 2 Token ID${response.data!.registerData!.token}');
             Get.offUntil(GetPageRoute(page: () => OfflineCustomerScreen()),
                 (route) => false);
           } else {
             firebaseEvent(Strings.login_otp_verified, parameter);
+            print('----> 3 Token ID${response.data!.registerData!.token}');
             //TODO Navigate to Dashboard
             // Navigator.pushAndRemoveUntil(
             //     context,

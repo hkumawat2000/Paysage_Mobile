@@ -5,6 +5,7 @@ import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/alert.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
+import 'package:lms/aa_getx/modules/login/presentation/arguments/pin_screen_arguments.dart';
 import 'package:lms/aa_getx/modules/onboarding/domain/entity/onboarding_response_entity.dart';
 import 'package:lms/aa_getx/modules/onboarding/domain/usecases/onboarding_usecase.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/arguments/tutotrials_arguments.dart';
@@ -66,7 +67,10 @@ class SplashController extends GetxController {
     } else {
       if (_doesMobileExist.isNotEmpty && _doesEmailExist.isNotEmpty) {
         //TODO : TO Navigate to Pin Screen.
-        Get.offNamed(pinView);
+        Get.offNamed(
+          pinView,
+          arguments: PinScreenArguments(isComingFromMore: false),
+        );
         //Get.offNamed(loginView);
         //Get.toNamed(jailBreakView);
       } else if (_isVisitTutorial.isNotEmpty) {
