@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/biometric.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/controllers/set_pin_controller.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class EnableFingerPrintController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -15,10 +17,10 @@ class EnableFingerPrintController extends GetxController
   Utility utility = Utility();
   Preferences preferences = Preferences();
   final LocalAuthentication _localAuthentication = LocalAuthentication();
-  List<BiometricType> availableBuimetricType = <BiometricType>[];
+  List<BiometricType> availableBiometricType = <BiometricType>[];
   var isFingerSupport = false;
   //SetPinArgs setPinArgs = Get.arguments; todo: uncomment this after previous pages are done and comment below line
-  SetPinArgs setPinArgs = SetPinArgs(); //Get.arguments;
+  SetPinArgs setPinArgs = Get.arguments;
 
   @override
   void onInit() {
@@ -38,8 +40,8 @@ class EnableFingerPrintController extends GetxController
 
   Future<void> _getAvailableSupport() async {
     try {
-      availableBuimetricType = await _localAuthentication.getAvailableBiometrics();
-      debugPrint("availableBuimetricType ==> $availableBuimetricType");
+      availableBiometricType = await _localAuthentication.getAvailableBiometrics();
+      debugPrint("availableBuimetricType ==> $availableBiometricType");
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -54,13 +56,13 @@ class EnableFingerPrintController extends GetxController
   }
 
   Future enableClicked() async {
-    if (availableBuimetricType.isEmpty) {
+    if (availableBiometricType.isEmpty) {
       Alert.showSnackBar(title: Strings.biometric_alert_msg);
+      openAppSettings();
     } else {
       if (isFingerSupport) {
         firebaseEvent("Biometric_Set", {'Set': true});
-        preferences.setFingerprintEnable(true);
-        preferences.setFingerprintConsent(true);
+        enableBiometric();   ///To authenticate the user with device's biometric
         if (setPinArgs.isForOfflineCustomer! && setPinArgs.isLoanOpen == 0) {
           Get.offAllNamed(offlineCustomerView);
         } else {
@@ -68,16 +70,28 @@ class EnableFingerPrintController extends GetxController
         }
       } else {
         Alert.showSnackBar(title: Strings.biometric_alert_msg);
+        openAppSettings();
       }
     }
   }
 
-  Future skipClicked() async {
-    firebaseEvent("Biometric_Set", {'Set': false});
-    if (setPinArgs.isForOfflineCustomer! && setPinArgs.isLoanOpen == 0) {
-      Get.offAllNamed(offlineCustomerView);
-    } else {
-      Get.offNamed(registrationSuccessfulView);
+  enableBiometric() async {
+    bool isAuthenticate = await Biometric().authenticateMe();
+    if(isAuthenticate){
+      preferences.setFingerprintEnable(true);
+      preferences.setFingerprintConsent(true);
     }
+  }
+
+  Future skipClicked() async {
+
+    Alert.showSnackBar(title: "Please enable the biometric, without enabling biometric we can not proceed");
+
+    // firebaseEvent("Biometric_Set", {'Set': false});
+    // if (setPinArgs.isForOfflineCustomer! && setPinArgs.isLoanOpen == 0) {
+    //   Get.offAllNamed(offlineCustomerView);
+    // } else {
+    //   Get.offNamed(registrationSuccessfulView);
+    // }
   }
 }
