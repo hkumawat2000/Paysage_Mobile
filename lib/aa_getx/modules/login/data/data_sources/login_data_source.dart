@@ -5,8 +5,10 @@ import 'package:lms/aa_getx/core/network/apis.dart';
 import 'package:lms/aa_getx/core/network/base_dio.dart';
 import 'package:lms/aa_getx/modules/login/data/models/auto_login_response.dart';
 import 'package:lms/aa_getx/modules/login/data/models/get_terms_and_privacy_response_model.dart';
-import 'package:lms/aa_getx/modules/login/data/models/request/login_submit_resquest_model.dart';
+import 'package:lms/aa_getx/modules/login/data/models/request/forgot_pin_request_model.dart';
+import 'package:lms/aa_getx/modules/login/data/models/request/login_submit_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/pin_screen_request_model.dart';
+import 'package:lms/aa_getx/modules/login/data/models/request/verify_forgot_pin_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/verify_otp_request_model.dart';
 
 /// LoginDataSource is an abstract class defining the contract for fetching
@@ -15,9 +17,13 @@ import 'package:lms/aa_getx/modules/login/data/models/request/verify_otp_request
 /// implementations should implement, such as fetching data from a remote API, local database, or any other data source.
 abstract class LoginDataSource {
   Future<GetTermsandPrivacyResponse> getTermsAndPrivacyUrl();
-  Future<AuthLoginResponse> loginSubmit( LoginSubmitResquestModel loginSubmitResquestModel);
-  Future<AuthLoginResponse> verifyOtp(VerifyOtpRequestModel verifyOtpRequestModel);
+  Future<AuthLoginResponse> loginSubmit(
+      LoginSubmitResquestModel loginSubmitResquestModel);
+  Future<AuthLoginResponse> verifyOtp(
+      VerifyOtpRequestModel verifyOtpRequestModel);
   Future<AuthLoginResponse> getPin(PinScreenRequestModel pinScreenRequestModel);
+  Future<AuthLoginResponse> forgotPinOtp(ForgotPinRequestModel forgotPinRequestModel);
+    Future<AuthLoginResponse> verifyForgotPinOtp(VerifyForgotPinRequestModel verifyforgotPinRequestModel);
 
 }
 
@@ -31,8 +37,7 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
     try {
       final response = await dio.get(Apis.termsOfUse);
       if (response.statusCode == 200) {
-        return
-            GetTermsandPrivacyResponse.fromJson(response.data);
+        return GetTermsandPrivacyResponse.fromJson(response.data);
       } else {
         throw ServerException(response.statusMessage);
       }
@@ -42,12 +47,10 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
       // throw eInfo;
       throw handleDioClientError(e);
     }
-    }
-
+  }
 
   Future<AuthLoginResponse> loginSubmit(
-      LoginSubmitResquestModel loginSubmitResquestModel
-      ) async {
+      LoginSubmitResquestModel loginSubmitResquestModel) async {
     Dio dio = await getBaseDioVersionPlatform();
     try {
       final response = await dio.post(
@@ -55,7 +58,7 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
         data: loginSubmitResquestModel.toJson(),
       );
       if (response.statusCode == 200) {
-       return AuthLoginResponse.fromJson(response.data);
+        return AuthLoginResponse.fromJson(response.data);
       } else {
         throw ServerException(response.statusMessage);
       }
@@ -64,10 +67,8 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
     }
   }
 
-
-   Future<AuthLoginResponse> verifyOtp(
-      VerifyOtpRequestModel verifyOtpRequestModel
-      ) async {
+  Future<AuthLoginResponse> verifyOtp(
+      VerifyOtpRequestModel verifyOtpRequestModel) async {
     Dio dio = await getBaseDioVersionPlatform();
     try {
       final response = await dio.post(
@@ -85,12 +86,11 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
   }
 
   Future<AuthLoginResponse> getPin(
-      PinScreenRequestModel pinScreenRequestModel
-      ) async {
+      PinScreenRequestModel pinScreenRequestModel) async {
     Dio dio = await getBaseDioVersionPlatform();
     try {
       final response = await dio.post(
-        Apis.otpVerify,
+        Apis.logIn,
         data: pinScreenRequestModel.toJson(),
       );
       if (response.statusCode == 200) {
@@ -103,5 +103,39 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
     }
   }
 
- 
+  Future<AuthLoginResponse> forgotPinOtp(
+      ForgotPinRequestModel forgotPinRequestModel) async {
+    Dio dio = await getBaseDioVersionPlatform();
+    try {
+      final response = await dio.post(
+        Apis.forgotPinOtp,
+        data: forgotPinRequestModel.toJson(),
+      );
+      if (response.statusCode == 200) {
+        return AuthLoginResponse.fromJson(response.data);
+      } else {
+        throw ServerException(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw handleDioClientError(e);
+    }
+  }
+
+  Future<AuthLoginResponse> verifyForgotPinOtp(
+      VerifyForgotPinRequestModel verifyforgotPinRequestModel) async {
+    Dio dio = await getBaseDioVersionPlatform();
+    try {
+      final response = await dio.post(
+        Apis.forgotPinVerify,
+        data: verifyforgotPinRequestModel.toJson(),
+      );
+      if (response.statusCode == 200) {
+        return AuthLoginResponse.fromJson(response.data);
+      } else {
+        throw ServerException(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw handleDioClientError(e);
+    }
+  }
 }

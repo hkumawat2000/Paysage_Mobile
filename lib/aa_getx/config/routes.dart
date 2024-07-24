@@ -1,9 +1,11 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/login_submit_request_entity.dart';
+import 'package:lms/aa_getx/modules/login/presentation/bindings/forgot_pin_bindings.dart';
 import 'package:lms/aa_getx/modules/login/presentation/bindings/login_bindings.dart';
 import 'package:lms/aa_getx/modules/login/presentation/bindings/pin_screen_bindings.dart';
 import 'package:lms/aa_getx/modules/login/presentation/bindings/terms_and_condition_webview_bindings.dart';
 import 'package:lms/aa_getx/modules/login/presentation/bindings/verify_otp_bindings.dart';
+import 'package:lms/aa_getx/modules/login/presentation/screens/forgot_pin_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/login_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/offline_customer_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/otp_verify_screen.dart';
@@ -39,6 +41,7 @@ const String termsAndConditionsWebView = "terms-and-condition-web-view";
 const String otpVerificationView = "otp-verification-view";
 const String pinScreen = "pin-view";
 const String setPinView = "set-pin-view";
+const String forgotPinView = "forgot-pin-view";
 const String registrationView = "registration-view";
 const String fingerPrintView = "fingerprint-view";
 const String enableFingerPrintView = "enable-fingerprint-view";
@@ -60,6 +63,11 @@ List<GetPage> routes = [
     name: '/$pinView',
     page: () => PinScreenView(),
     binding: PinScreenBindings(),
+  ),
+  GetPage(
+    name: '/$forgotPinView',
+    page: () => ForgotPinScreen(),
+    binding: ForgotPinBindings(),
   ),
   GetPage(
     name: '/$loginView',
