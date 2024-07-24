@@ -49,7 +49,7 @@ class OtpVerificationController extends GetxController {
   @override
   void onClose() {
     // TODO: implement onClose
-    _timer!.cancel();
+    // _timer!.cancel();
     // controller!.dispose();
     SmsAutoFill().unregisterListener();
 
@@ -157,6 +157,8 @@ class OtpVerificationController extends GetxController {
             verifyOtpRequestEntity: verifyOtpRequestDataEntity,
           ),
         );
+        print('----> Mobile Number ${mobileNumber}');
+        print('----> Mobile Number${mobileExist}');
         Map<String, dynamic> parameter = new Map<String, dynamic>();
         parameter[Strings.mobile_no] = mobileNumber;
         parameter[Strings.date_time] = getCurrentDateAndTime();
@@ -212,7 +214,10 @@ class OtpVerificationController extends GetxController {
           print('-----> Data Failed Status Code ${response.error!.statusCode}');
           if (response.error!.statusCode == 404) {
             print("object 404");
+            print('----> Mobile Number ${mobileNumber}');
+            print('----> Mobile Number${mobileExist}');
             firebaseEvent(Strings.login_otp_verified, parameter);
+
             Get.offNamedUntil(
                 registrationView,
                 arguments: RegistrationArguments(

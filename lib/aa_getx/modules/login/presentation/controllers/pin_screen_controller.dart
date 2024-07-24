@@ -50,14 +50,12 @@ class PinScreenController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     fetchValuesFromPrefrences();
     super.onInit();
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
   }
 
@@ -117,7 +115,6 @@ class PinScreenController extends GetxController {
       refreshFirebaseToken(pin, isComingFrom);
     } else {
       print("New token created :: ${newToken.value}");
-      //TODO Call getPinAPICall
       getPinApiCall(isComingFrom);
     }
   }

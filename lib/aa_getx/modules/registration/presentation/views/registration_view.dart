@@ -23,8 +23,7 @@ class RegistrationView extends GetView<RegistrationController>{
             key: controller.scaffoldKey,
             backgroundColor: colorBg,
             body: Container(
-              child: Obx(
-              () => SingleChildScrollView(
+              child:  SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -128,7 +127,7 @@ class RegistrationView extends GetView<RegistrationController>{
                               controller.firstNameController.text,
                               controller.lastNameController.text,
                               controller.emailController.text,
-                              controller.versionName!,
+                              controller.versionName.value!,
                               controller.deviceInfo,
                               Strings.register_with_email),
                           child: ArrowForwardNavigation(),
@@ -136,17 +135,24 @@ class RegistrationView extends GetView<RegistrationController>{
                       ),
                     ),
                     SizedBox(height: 30),
-                    controller.version(),
+                    Obx(()=> version()),
                     SizedBox(height: 15),
                   ],
                 ),
               ),
-            ),
+
           ),
           ),
         ),
     );
   }
+
+  Widget version() {
+    return Center(
+      child: Text('Version ${controller.versionName.value}'),
+    );
+  }
+
 
   Widget nameField() {
     final theme = Get.theme;

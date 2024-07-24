@@ -18,6 +18,7 @@ import 'package:lms/aa_getx/modules/login/presentation/arguments/terms_and_condi
 import 'package:lms/aa_getx/modules/registration/domain/entities/auth_login_response_entity.dart';
 import 'package:lms/aa_getx/modules/registration/domain/entities/request/registration_request_bean_entity.dart';
 import 'package:lms/aa_getx/modules/registration/domain/usecases/submit_registration_usecase.dart';
+import 'package:lms/aa_getx/modules/registration/presentation/arguments/registration_arguments.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/controllers/set_pin_controller.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
@@ -40,7 +41,7 @@ class RegistrationController extends GetxController {
   RxBool isClickableFacebookButton = false.obs;
   String errorMessage = "";
   var firbase_token;
-  RxString? versionName;
+  RxString versionName = "".obs;
   RxString? platformName;
   String? deviceInfo;
   bool showEmailList = false;
@@ -107,7 +108,9 @@ class RegistrationController extends GetxController {
   Future<void> getVersionInfo() async {
     deviceInfo = await getDeviceInfo();
     String version = await Utility.getVersionInfo();
-    versionName?.value = version;
+    versionName(await Utility.getVersionInfo());
+    print(versionName.value);
+   // versionName?.value = version;
     platformName?.value = Platform.operatingSystem;
   }
 
@@ -210,11 +213,6 @@ class RegistrationController extends GetxController {
     }
   }
 
-  Widget version() {
-    return Center(
-      child: Text('Version ${versionName != null ? versionName : ""}'),
-    );
-  }
 
   Future<void> registartion(var firstName, var lastName, var emailID,
       var versionName, var deviceInfo, event) async {
@@ -244,7 +242,7 @@ class RegistrationController extends GetxController {
           firbase_token,
           versionName!,
           deviceInfo!);
-      debugPrint("requestReg: ${json.encode(registrationRequestBeanEntity)}");
+      // debugPrint("requestReg: ${json.encode(registrationRequestBeanEntity)}");
 
       if (await connectionInfo.isConnected) {
         showDialogLoading(Strings.please_wait);
@@ -702,9 +700,9 @@ class RegistrationController extends GetxController {
   }
 }
 
-class RegistrationArguments {
-  String? mobileNumber;
-  String? otp;
-
-  RegistrationArguments({this.mobileNumber, this.otp});
-}
+// class RegistrationArguments {
+//   String? mobileNumber;
+//   String? otp;
+//
+//   RegistrationArguments({this.mobileNumber, this.otp});
+// }
