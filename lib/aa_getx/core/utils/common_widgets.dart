@@ -314,3 +314,42 @@ class Alert {
     );
   }
 }
+
+
+//On click of notification redirect user to particular screen
+notificationNavigator(BuildContext context, String screenName, String? loanNumber) async {
+  /// todo: uncomment following code after dashboard screen is completed and call API after my_loan module is completed
+  /*if (screenName == "My Loans") {
+    Navigator.push(context, MaterialPageRoute(
+        builder: (context) => DashBoard(selectedIndex: 2)));
+  } else if (screenName == "Dashboard") {
+    Navigator.push(context, MaterialPageRoute(
+        builder: (context) => DashBoard()));
+  } else if (screenName == "Margin Shortfall Action") {
+    LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+    final myLoansBloc = MyLoansBloc();
+    myLoansBloc.getLoanDetails(loanNumber).then((value) {
+      Navigator.pop(context);
+      if (value.isSuccessFull!) {
+        if(value.data!.marginShortfall == null){
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => DashBoard(selectedIndex: 2)));
+        } else {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => MarginShortfallScreen(
+                  value.data!,
+                  value.data!.pledgorBoid!,
+                  value.data!.sellCollateral == null ? true : false,
+                  value.data!.marginShortfall!.status == "Sell Triggered" ? true : false,
+                  value.data!.marginShortfall!.status == "Request Pending" ? true : false,
+                  value.data!.marginShortfall!.actionTakenMsg ?? "",
+                  value.data!.loan!.instrumentType!, value.data!.loan!.schemeType!)));
+        }
+      } else if (value.errorCode == 403) {
+        commonDialog(Strings.session_timeout, 4);
+      } else {
+        commonDialog(value.errorMessage, 0);
+      }
+    });
+  }*/
+}

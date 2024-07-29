@@ -11,6 +11,8 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/offline_customer_
 import 'package:lms/aa_getx/modules/login/presentation/screens/otp_verify_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/pin_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditions_webview.dart';
+import 'package:lms/aa_getx/modules/notification/presentation/bindings/notification_binding.dart';
+import 'package:lms/aa_getx/modules/notification/presentation/views/notification_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/bindings/splash_binding.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/jail_break_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/splash_view.dart';
@@ -26,10 +28,6 @@ import 'package:lms/aa_getx/modules/registration/presentation/views/offline_cust
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
-import 'package:lms/login/LoginScreen.dart';
-import 'package:lms/pin/PinScreen.dart';
-import 'package:lms/splash/JailBreakScreen.dart';
-
 
 const String splashView = "splash-view";
 const String jailBreakView = "jail-break-view";
@@ -46,6 +44,7 @@ const String registrationView = "registration-view";
 const String fingerPrintView = "fingerprint-view";
 const String enableFingerPrintView = "enable-fingerprint-view";
 const String registrationSuccessfulView = "registration-successful-view";
+const String notificationView = "notification-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 
@@ -121,5 +120,10 @@ List<GetPage> routes = [
   GetPage(
     name: '/$registrationSuccessfulView',
     page: () => RegistrationSuccessfulView(),
+  ),
+  GetPage(
+    name: '/$notificationView',
+    page: () => NotificationView(),
+    binding: NotificationBinding(),
   ),
 ];
