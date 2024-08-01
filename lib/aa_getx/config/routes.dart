@@ -11,6 +11,8 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/offline_customer_
 import 'package:lms/aa_getx/modules/login/presentation/screens/otp_verify_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/pin_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditions_webview.dart';
+import 'package:lms/aa_getx/modules/more/presentation/bindings/more_bindings.dart';
+import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/bindings/notification_binding.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/views/notification_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/bindings/splash_binding.dart';
@@ -45,6 +47,7 @@ const String fingerPrintView = "fingerprint-view";
 const String enableFingerPrintView = "enable-fingerprint-view";
 const String registrationSuccessfulView = "registration-successful-view";
 const String notificationView = "notification-view";
+const String moreView = "more-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 
@@ -125,5 +128,10 @@ List<GetPage> routes = [
     name: '/$notificationView',
     page: () => NotificationView(),
     binding: NotificationBinding(),
+  ),
+  GetPage(
+    name: '/$moreView',
+    page: () => MoreView(),
+    binding: MoreBinding(),
   ),
 ];
