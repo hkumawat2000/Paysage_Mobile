@@ -254,15 +254,15 @@ class KycAddressScreen extends GetView<KycAddressController> {
               elevation: 1.0,
               color: kycAddressArguments.isShowEdit!
                   ? !controller.permFieldsEnable.value &&
-                         controller.permPOATypeSelected != "POA TYPE" &&
-                         controller.permValidatorPOAImageSize.isTrue &&
+                          controller.permPOATypeSelected != "POA TYPE" &&
+                          controller.permValidatorPOAImageSize.isTrue &&
                           !controller.corrCheckboxEnable.value &&
                           controller.permPOAImage != null &&
                           !controller.corrFieldsEnable.value &&
-                         controller.corrPOATypeSelected != "POA TYPE" &&
-                         controller.corrValidatorPOAImageSize.isTrue &&
-                        controller.consentCheckbox.isTrue &&
-                         controller.corrPOAImage != null
+                          controller.corrPOATypeSelected != "POA TYPE" &&
+                          controller.corrValidatorPOAImageSize.isTrue &&
+                          controller.consentCheckbox.isTrue &&
+                          controller.corrPOAImage != null
                       ? appTheme
                       : colorLightGray
                   : controller.consentCheckbox.isTrue
@@ -278,17 +278,16 @@ class KycAddressScreen extends GetView<KycAddressController> {
                       controller.toChangeBoolValuesForDropdown();
                       if (kycAddressArguments.isShowEdit!) {
                         if (!controller.permFieldsEnable.value &&
-                           controller.permPOATypeSelected != "POA TYPE" &&
-                          controller.permValidatorPOAImageSize.isTrue &&
+                            controller.permPOATypeSelected != "POA TYPE" &&
+                            controller.permValidatorPOAImageSize.isTrue &&
                             !controller.corrCheckboxEnable.value &&
-                          controller.permPOAImage != null &&
+                            controller.permPOAImage != null &&
                             !controller.corrFieldsEnable.value &&
-                          controller.corrPOATypeSelected != "POA TYPE" &&
-                           controller.corrValidatorPOAImageSize.isTrue &&
-                           controller.consentCheckbox.isTrue &&
-                           controller.corrPOAImage != null) {
-                            //TODO TO call api
-                         // saveConsentAPICall();
+                            controller.corrPOATypeSelected != "POA TYPE" &&
+                            controller.corrValidatorPOAImageSize.isTrue &&
+                            controller.consentCheckbox.isTrue &&
+                            controller.corrPOAImage != null) {
+                          controller.saveConsentDetailsApicall();
                         } else {
                           Utility.showToastMessage(
                               "Please submit the data or rectify error(s), if any.");
@@ -540,9 +539,8 @@ class KycAddressScreen extends GetView<KycAddressController> {
           controller.permValidatorPinCode.value = true;
           if (value.toString().trim().length == 6) {
             FocusScope.of(Get.context!).unfocus();
-            //TODO To cll API
-            // callAPIToGetPinCode(Strings.permanent_address,
-            //     controller.permPinCodeController.text.toString().trim());
+            controller.apiCallToGetPincodeDetails(Strings.permanent_address,
+                controller.permPinCodeController.text.toString().trim());
           } else {
             controller.permDistrictController.text = "";
             controller.permStateController.text = "";
@@ -1598,9 +1596,8 @@ class KycAddressScreen extends GetView<KycAddressController> {
           controller.corrValidatorPinCode.value = true;
           if (value.toString().trim().length == 6) {
             FocusScope.of(Get.context!).unfocus();
-            //TODO To call API
-            // callAPIToGetPinCode(Strings.corresponding_address,
-            //     controller.corrPinCodeController.text.toString().trim());
+            controller.apiCallToGetPincodeDetails(Strings.corresponding_address,
+                controller.corrPinCodeController.text.toString().trim());
           } else {
             controller.corrDistrictController.text = "";
             controller.corrStateController.text = "";
@@ -2259,7 +2256,7 @@ class KycAddressScreen extends GetView<KycAddressController> {
               Utility.isNetworkConnection().then((isNetwork) async {
                 if (isNetwork) {
                   controller.toChangeBoolValuesForDropdown();
-                   controller.validation = await validateCorrAddressFields();
+                  controller.validation = await validateCorrAddressFields();
                   if (controller.validation!.isTrue) {
                     controller.corrFieldsEnable.value = false;
                     controller.corrCheckboxEnable.value = false;
@@ -2281,265 +2278,115 @@ class KycAddressScreen extends GetView<KycAddressController> {
   }
 
   Future<RxBool> validateCorrAddressFields() async {
-      controller.corrValidatorAddress1.value = true;
-      controller.corrValidatorCity.value = true;
-      controller.corrValidatorPinCode.value = true;
-      controller.corrValidatorDistrict.value = true;
-      controller.corrValidatorState.value = true;
-      controller.corrValidatorCountry.value = true;
-      controller.corrValidatorValidCountry.value = true;
-      controller.corrValidatorPOAType.value = true;
-      controller.corrValidatorPOAImage.value = true;
+    controller.corrValidatorAddress1.value = true;
+    controller.corrValidatorCity.value = true;
+    controller.corrValidatorPinCode.value = true;
+    controller.corrValidatorDistrict.value = true;
+    controller.corrValidatorState.value = true;
+    controller.corrValidatorCountry.value = true;
+    controller.corrValidatorValidCountry.value = true;
+    controller.corrValidatorPOAType.value = true;
+    controller.corrValidatorPOAImage.value = true;
 
-      if (controller.corrAddressLine1Controller.text
-          .toString()
-          .trim()
-          .isEmpty) {
-        controller.corrValidatorAddress1.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrCityController.text.toString().trim().isEmpty) {
-        controller.corrValidatorCity.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrPinCodeController.text.toString().trim().isEmpty) {
-        controller.corrValidatorPinCode.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrDistrictController.text.toString().trim().isEmpty) {
-        controller.corrValidatorDistrict.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrStateController.text.toString().trim().isEmpty) {
-        controller.corrValidatorState.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrCountryController.text.toString().trim().isEmpty) {
-        controller.corrValidatorCountry.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrCountryController.text.isNotEmpty &&
-          !controller.countryList.contains(
-              controller.corrCountryController.text.toString().trim())) {
-        controller.corrValidatorValidCountry.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrPOATypeSelected == "POA TYPE" ||
-          controller.corrPOATypeSelected.isEmpty) {
-        controller.corrValidatorPOAType.value = false;
-        controller.allValidated.value = false;
-      }
-      if (controller.corrByteImageString == null ||
-          controller.corrByteImageString!.isEmpty) {
-        controller.corrValidatorPOAImage.value = false;
-        controller.allValidated.value = false;
-      }
-      if (!controller.corrValidatorPOAImageSize.value) {
-        controller.allValidated.value = false;
-      }
-   
+    if (controller.corrAddressLine1Controller.text.toString().trim().isEmpty) {
+      controller.corrValidatorAddress1.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrCityController.text.toString().trim().isEmpty) {
+      controller.corrValidatorCity.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrPinCodeController.text.toString().trim().isEmpty) {
+      controller.corrValidatorPinCode.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrDistrictController.text.toString().trim().isEmpty) {
+      controller.corrValidatorDistrict.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrStateController.text.toString().trim().isEmpty) {
+      controller.corrValidatorState.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrCountryController.text.toString().trim().isEmpty) {
+      controller.corrValidatorCountry.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrCountryController.text.isNotEmpty &&
+        !controller.countryList.contains(
+            controller.corrCountryController.text.toString().trim())) {
+      controller.corrValidatorValidCountry.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrPOATypeSelected == "POA TYPE" ||
+        controller.corrPOATypeSelected.isEmpty) {
+      controller.corrValidatorPOAType.value = false;
+      controller.allValidated.value = false;
+    }
+    if (controller.corrByteImageString == null ||
+        controller.corrByteImageString!.isEmpty) {
+      controller.corrValidatorPOAImage.value = false;
+      controller.allValidated.value = false;
+    }
+    if (!controller.corrValidatorPOAImageSize.value) {
+      controller.allValidated.value = false;
+    }
+
     return controller.allValidated;
   }
-
-  // callAPIToGetPinCode(String isComingFrom, String pinCode) {
-  //   showDialogLoading(Strings.please_wait);
-  //   completeKYCBloc.getPinCodeDetails(pinCode).then((value) {
-  //     Navigator.pop(context);
-  //     if (value.isSuccessFull!) {
-  //       setState(() {
-  //         if (isComingFrom == Strings.permanent_address) {
-  //           permDistrictController.text = value.data!.district!;
-  //           permStateController.text = value.data!.state!;
-  //           permValidatorDistrict = true;
-  //           permValidatorState = true;
-  //         } else {
-  //           corrDistrictController.text = value.data!.district!;
-  //           corrStateController.text = value.data!.state!;
-  //           corrValidatorDistrict = true;
-  //           corrValidatorState = true;
-  //         }
-  //       });
-  //     } else if (value.errorCode == 403) {
-  //       commonDialog(context, Strings.session_timeout, 4);
-  //     } else {
-  //       setState(() {
-  //         if (isComingFrom == Strings.permanent_address) {
-  //           permValidPinCode = false;
-  //         } else {
-  //           corrValidPinCode = false;
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
-
-  // // call consent api with ckyc name and loanrenewal - 0/1
-  // getConsentAPICall() {
-  //   completeKYCBloc
-  //       .consentDetails(ConsentDetailRequestBean(
-  //           userKycName: widget.ckycName, isLoanRenewal: 0))
-  //       .then((value) {
-  //     if (value.isSuccessFull!) {
-  //       setState(() {
-  //         permAddressLine1Controller.text = value.data!.userKycDoc!.permLine1!;
-  //         permAddressLine2Controller.text = value.data!.userKycDoc!.permLine2!;
-  //         permAddressLine3Controller.text = value.data!.userKycDoc!.permLine3!;
-  //         permCityController.text = value.data!.userKycDoc!.permCity!;
-  //         permPinCodeController.text = value.data!.userKycDoc!.permPin!;
-  //         permDistrictController.text = value.data!.userKycDoc!.permDist!;
-  //         permStateController.text = value.data!.userKycDoc!.permState!;
-  //         permCountryController.text = value.data!.userKycDoc!.permCountry!;
-  //         permCountryValue = value.data!.userKycDoc!.permCountry!;
-  //         if (!widget.isShowEdit! &&
-  //             value.data!.address != null &&
-  //             value.data!.address!.toString().isNotEmpty) {
-  //           permPOATypeSelected = value.data!.address!.permPoa!;
-  //           permPOAImageNew = value.data!.address!.permImage!;
-  //         }
-  //         corrAddressLine1Controller.text =
-  //             value.data!.userKycDoc!.corresLine1!;
-  //         corrAddressLine2Controller.text =
-  //             value.data!.userKycDoc!.corresLine2!;
-  //         corrAddressLine3Controller.text =
-  //             value.data!.userKycDoc!.corresLine3!;
-  //         corrCityController.text = value.data!.userKycDoc!.corresCity!;
-  //         corrPinCodeController.text = value.data!.userKycDoc!.corresPin!;
-  //         corrDistrictController.text = value.data!.userKycDoc!.corresDist!;
-  //         corrStateController.text = value.data!.userKycDoc!.corresState!;
-  //         corrCountryController.text = value.data!.userKycDoc!.corresCountry!;
-  //         corrCountryValue = value.data!.userKycDoc!.corresCountry!;
-  //         if (!widget.isShowEdit! &&
-  //             value.data!.address != null &&
-  //             value.data!.address!.toString().isNotEmpty) {
-  //           corrPOATypeSelected = value.data!.address!.corresPoa!;
-  //           corrPOAImageNew = value.data!.address!.corresPoaImage!;
-  //         }
-  //         poaTypeList = value.data!.poaType!.toSet().toList();
-  //         countryList = value.data!.country!;
-  //         consentText = value.data!.consentDetails!.consent;
-  //         corrCheckbox =
-  //             value.data!.userKycDoc!.permCorresSameflag!.toLowerCase() == "y"
-  //                 ? true
-  //                 : false;
-  //         isAPICalling = false;
-  //       });
-  //     } else if (value.errorCode == 403) {
-  //       setState(() {
-  //         isAPICalling = true;
-  //         isAPICallingText = value.errorMessage!;
-  //       });
-  //       commonDialog(context, Strings.session_timeout, 4);
-  //     } else {
-  //       Utility.showToastMessage(value.errorMessage!);
-  //       setState(() {
-  //         isAPICalling = true;
-  //         isAPICallingText = value.errorMessage!;
-  //       });
-  //     }
-  //   });
-  // }
-
-  // saveConsentAPICall() {
-  //   LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-  //   ConsentDetailRequestBean consentDetailRequestBean =
-  //       ConsentDetailRequestBean(
-  //           userKycName: widget.ckycName,
-  //           acceptTerms: consentCheckbox ? 1 : 0,
-  //           addressDetails: AddressDetails(
-  //               permanentAddress: PermanentAddress(
-  //                 addressLine1: permAddressLine1Controller.text.toString(),
-  //                 addressLine2: permAddressLine2Controller.text.toString(),
-  //                 addressLine3: permAddressLine3Controller.text.toString(),
-  //                 city: permCityController.text.toString(),
-  //                 pinCode: permPinCodeController.text.toString(),
-  //                 district: permDistrictController.text.toString(),
-  //                 state: permStateController.text.toString(),
-  //                 country: permCountryController.text.toString(),
-  //                 poaType: permPOATypeSelected,
-  //                 addressProofImage: permByteImageString,
-  //               ),
-  //               permCorresFlag: corrCheckbox! ? "yes" : "no",
-  //               correspondingAddress: PermanentAddress(
-  //                 addressLine1: corrAddressLine1Controller.text.toString(),
-  //                 addressLine2: corrAddressLine2Controller.text.toString(),
-  //                 addressLine3: corrAddressLine3Controller.text.toString(),
-  //                 city: corrCityController.text.toString(),
-  //                 pinCode: corrPinCodeController.text.toString(),
-  //                 district: corrDistrictController.text.toString(),
-  //                 state: corrStateController.text.toString(),
-  //                 country: corrCountryController.text.toString(),
-  //                 poaType: corrPOATypeSelected,
-  //                 addressProofImage: corrByteImageString,
-  //               )),
-  //           isLoanRenewal: 0);
-  //   completeKYCBloc.consentDetails(consentDetailRequestBean).then((value) {
-  //     Navigator.pop(context);
-  //     if (value.isSuccessFull!) {
-  //       preferences.setOkClicked(true);
-  //       showDialogOnCKYCSuccess(value.message!);
-  //     } else if (value.errorCode == 403) {
-  //       commonDialog(Strings.session_timeout, 4);
-  //     } else {
-  //       commonDialog(value.errorMessage!, 0);
-  //     }
-  //   });
-  // }
-
-  
 }
+
 showDialogOnCKYCSuccess(String msg) {
-    return showDialog<void>(
-      barrierDismissible: false,
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async => false,
-          child: AlertDialog(
-            backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15.0))),
-            content: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(msg, style: regularTextStyle_16_dark),
-                    ),
+  return showDialog<void>(
+    barrierDismissible: false,
+    context: Get.context!,
+    builder: (BuildContext context) {
+      return WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          content: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(msg, style: regularTextStyle_16_dark),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 45,
-                    width: 100,
-                    child: Material(
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 45,
+                  width: 100,
+                  child: Material(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
+                    elevation: 1.0,
+                    color: appTheme,
+                    child: MaterialButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(35)),
-                      elevation: 1.0,
-                      color: appTheme,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35)),
-                        minWidth: MediaQuery.of(context).size.width,
-                        onPressed: () async {
-                         
-                        },
-                        child: Text(
-                          Strings.ok,
-                          style: buttonTextWhite,
-                        ),
+                      minWidth: MediaQuery.of(context).size.width,
+                      onPressed: () async {},
+                      child: Text(
+                        Strings.ok,
+                        style: buttonTextWhite,
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
+    },
+  );
+}
