@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
@@ -9,6 +10,7 @@ import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_consent_details_resp
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/consent_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/user_kyc_doc_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/usecases/consent_details_usecase.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/arguments/kyc_address_arguments.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/arguments/kyc_consent_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
@@ -84,6 +86,7 @@ class KycConsentController extends GetxController {
   Future<void> navigateToConsentAddressScreen() async {
     if (await _connectionInfo.isConnected) {
       //TODO Navigate to Address Screen.
+     // Get.toNamed(kycAddressView,arguments: KycAddressArguments(kycName: kycConsentArguments.forLoanRenewal! ? ckycDocName! : kycConsentArguments.ckycName!, loanName: '', loanRenewalName: '', isShowEdit: null, forLoanRenewal: null));
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }

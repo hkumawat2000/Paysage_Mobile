@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
@@ -141,11 +143,7 @@ class RegistrationSuccessfulView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(35)),
                               minWidth: MediaQuery.of(context).size.width,
                               onPressed: () async {
-                                ///todo: CompleteKYCScreen with toNamed after page is created and convert following code in getx
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (BuildContext context) => CompleteKYCScreen()));
+                                Get.toNamed(kycView);
                               },
                               child: Text(
                                 Strings.add_kyc,

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:intl/intl.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/network/base_urls.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
@@ -20,6 +21,7 @@ import 'package:lms/aa_getx/modules/kyc/domain/entities/request/search_kyc_reque
 import 'package:lms/aa_getx/modules/kyc/domain/usecases/consent_text_usecase.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/usecases/download_kyc_usecase.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/usecases/search_kyc_usecases.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/arguments/kyc_consent_arguments.dart';
 import 'package:lms/network/responsebean/OTPResponseBean.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
@@ -79,7 +81,7 @@ class KycController extends GetxController {
 
   Future<void> toCallKycApiAndNavigateTo() async {
     if (await _connectionInfo.isConnected) {
-      // FocusScope.of(context).unfocus();
+      FocusScope.of(Get.context!).unfocus();
       checkFourthPValidation();
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
@@ -217,6 +219,16 @@ class KycController extends GetxController {
 
       if (response is DataSuccess) {
         //TODO To Navigate to CkycConsent Screen
+        Get.toNamed(
+          kycConsentView,
+          arguments: KycConsentArguments(
+            kycName: response.data!.downloadData!.userKycName!,
+            forLoanRenewal: false,
+            isShowEdit: true,
+            loanName: "",
+            loanRenewalName: "",
+          ),
+        );
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {
           commonDialog(Strings.session_timeout, 4);
@@ -240,11 +252,8 @@ class KycController extends GetxController {
           await _consentTextKycUsecase.call(ConsentTextKycParams(
         getConsentDetailsRequestEntity: getConsentDetailsRequestEntity,
       ));
-      if(response is DataSuccess){
-
-      }else if(response is DataFailed){
-        
-      }
+      if (response is DataSuccess) {
+      } else if (response is DataFailed) {}
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
