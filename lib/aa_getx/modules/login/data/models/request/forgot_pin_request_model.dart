@@ -12,13 +12,13 @@ class ForgotPinRequestModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'emailId': emailId,
+      'email': emailId,
     };
   }
 
   factory ForgotPinRequestModel.fromMap(Map<String, dynamic> map) {
     return ForgotPinRequestModel(
-      emailId: map['emailId'] as String,
+      emailId: map['email'] as String,
     );
   }
 

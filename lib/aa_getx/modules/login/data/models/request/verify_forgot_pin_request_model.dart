@@ -8,7 +8,7 @@ class VerifyForgotPinRequestModel {
   String? otp;
   String? newPin;
   String? retypePin;
-  
+
   VerifyForgotPinRequestModel({
     this.email,
     this.otp,
@@ -20,8 +20,8 @@ class VerifyForgotPinRequestModel {
     return <String, dynamic>{
       'email': email,
       'otp': otp,
-      'newPin': newPin,
-      'retypePin': retypePin,
+      'new_pin': newPin,
+      'retype_pin': retypePin,
     };
   }
 
@@ -29,30 +29,39 @@ class VerifyForgotPinRequestModel {
     return VerifyForgotPinRequestModel(
       email: map['email'] != null ? map['email'] as String : null,
       otp: map['otp'] != null ? map['otp'] as String : null,
-      newPin: map['newPin'] != null ? map['newPin'] as String : null,
-      retypePin: map['retypePin'] != null ? map['retypePin'] as String : null,
+      newPin: map['new_pin'] != null ? map['new_pin'] as String : null,
+      retypePin: map['retype_pin'] != null ? map['retype_pin'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory VerifyForgotPinRequestModel.fromJson(String source) => VerifyForgotPinRequestModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory VerifyForgotPinRequestModel.fromJson(String source) =>
+      VerifyForgotPinRequestModel.fromMap(
+          json.decode(source) as Map<String, dynamic>);
 
-  factory VerifyForgotPinRequestModel.fromEntity(VerifyForgotPinRequestEntity verifyForgotPinRequestEntity) {
+  factory VerifyForgotPinRequestModel.fromEntity(
+      VerifyForgotPinRequestEntity verifyForgotPinRequestEntity) {
     return VerifyForgotPinRequestModel(
-      email: verifyForgotPinRequestEntity.email != null ? verifyForgotPinRequestEntity.email as String : null,
-      otp: verifyForgotPinRequestEntity.otp != null ? verifyForgotPinRequestEntity.otp as String : null,
-      newPin: verifyForgotPinRequestEntity.newPin != null ? verifyForgotPinRequestEntity.newPin as String : null,
-      retypePin: verifyForgotPinRequestEntity.retypePin != null ? verifyForgotPinRequestEntity.retypePin as String : null,
+      email: verifyForgotPinRequestEntity.email != null
+          ? verifyForgotPinRequestEntity.email as String
+          : null,
+      otp: verifyForgotPinRequestEntity.otp != null
+          ? verifyForgotPinRequestEntity.otp as String
+          : null,
+      newPin: verifyForgotPinRequestEntity.newPin != null
+          ? verifyForgotPinRequestEntity.newPin as String
+          : null,
+      retypePin: verifyForgotPinRequestEntity.retypePin != null
+          ? verifyForgotPinRequestEntity.retypePin as String
+          : null,
     );
   }
 
-  VerifyForgotPinRequestEntity toEntity() =>
-  VerifyForgotPinRequestEntity(
-      email: email,
-      otp: otp,
-      newPin: newPin,
-      retypePin: retypePin,
-  
-  );
+  VerifyForgotPinRequestEntity toEntity() => VerifyForgotPinRequestEntity(
+        email: email,
+        otp: otp,
+        newPin: newPin,
+        retypePin: retypePin,
+      );
 }
