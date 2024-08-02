@@ -252,6 +252,7 @@ Future<void> commonDialog(message, value) {
                         //         builder: (BuildContext context) =>
                         //             SetPinScreen(false, 0)));
                         Get.toNamed(setPinView, arguments: SetPinArgs(isForOfflineCustomer: false, isLoanOpen: 0));
+
                       } else if (value == 3) {
                         Get.back();
                         Get.back();
@@ -263,6 +264,10 @@ Future<void> commonDialog(message, value) {
                         //   ),
                         //       (route) => false,
                         // );
+                        Get.offNamedUntil(
+                          pinView,
+                          (route) => false,
+                        );
                       } else if (value == 5) {
                          Get.back();
                         // Navigator.pushAndRemoveUntil(

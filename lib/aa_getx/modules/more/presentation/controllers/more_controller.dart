@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lms/aa_getx/config/routes.dart';
@@ -6,11 +7,14 @@ import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/more/domain/entities/get_profile_set_alert_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/my_loans_response_entity.dart';
+import 'package:lms/aa_getx/modules/more/domain/entities/request/get_profile_set_alert_request_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_my_active_loans_usecase.dart';
+import 'package:lms/aa_getx/modules/more/domain/usecases/get_profile_set_alert_usecase.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/login/LoginBloc.dart';
 import 'package:lms/network/responsebean/LoanApplicationResponseBean.dart';
@@ -18,14 +22,20 @@ import 'package:lms/util/Preferences.dart';
 
 class MoreController extends GetxController{
   final loginBloc = LoginBloc();
-  RxString? versionName;
+  RxString versionName = ''.obs;
   RxString profilePhotoUrl = ''.obs;
   Preferences preferences = Preferences();
   Utility utility = Utility();
   // RegisterData? registerData;
   LoanApplicationData? list;
-  RxString? loanName, mobileExist, userFullName, lastLogin, userEmail,
-      totalCollateralStr, drawingPowerStr , stockAt;
+  RxString loanName = "".obs;
+  RxString mobileExist = "".obs;
+  RxString userEmail = "".obs;
+  RxString totalCollateralStr = "".obs;
+  RxString drawingPowerStr = "".obs;
+  RxString stockAt = "".obs;
+  RxString userFullName="".obs;
+  RxString lastLogin= "".obs;
   double? drawingPower,
       totalCollateral,
       sanctionedLimit;
@@ -52,8 +62,9 @@ class MoreController extends GetxController{
   final GetMyActiveLoansUseCase _getMyActiveLoansUseCase;
   final ConnectionInfo _connectionInfo;
   final GetLoanDetailsUseCase _getLoanDetailsUseCase;
+  final GetProfileSetAlertUseCase _getProfileSetAlertUseCase;
 
-  MoreController(this._getMyActiveLoansUseCase, this._connectionInfo, this._getLoanDetailsUseCase);
+  MoreController(this._getMyActiveLoansUseCase, this._connectionInfo, this._getLoanDetailsUseCase, this._getProfileSetAlertUseCase);
 
   @override
   void onInit() {
@@ -63,41 +74,57 @@ class MoreController extends GetxController{
     super.onInit();
   }
 
-  getLastLogInDetails() {
-    loginBloc.getProfileSetAlert(0, 0, 0).then((value) {
-      if (value.isSuccessFull!) {
-          isKYCCompleted.value = value.alertData!.customerDetails!.kycUpdate! == 1 ? true : false;
-          isEmailVerified.value = value.alertData!.customerDetails!.isEmailVerified! == 1 ? true : false;
+  Future<void> getLastLogInDetails() async{
+    if (await _connectionInfo.isConnected){
+      GetProfileSetAlertRequestEntity getProfileSetAlertRequestEntity= GetProfileSetAlertRequestEntity(amount: 0, isForAlert: 0 , percentage:0 );
+      DataState<GetProfileSetAlertResponseEntity> response = await _getProfileSetAlertUseCase.call(GetProfileSetAlertParams(getProfileSetAlertRequestEntity: getProfileSetAlertRequestEntity));
 
-          if(value.alertData!.userKyc != null) {
-            userFullName!.value = value.alertData!.userKyc!.fullname!;
+      if(response is DataSuccess){
+        if (response.data != null) {
+          isKYCCompleted.value = response.data!.alertData!.customerDetails!.kycUpdate! == 1 ? true : false;
+          isEmailVerified.value = response.data!.alertData!.customerDetails!.isEmailVerified! == 1 ? true : false;
+
+          if(response.data!.alertData!.userKyc != null) {
+            userFullName.value = response.data!.alertData!.userKyc!.fullname!;
           } else {
-            userFullName!.value = value.alertData!.customerDetails!.fullName!;
+            userFullName.value = response.data!.alertData!.customerDetails!.fullName!;
+            debugPrint(" userFullName  ${userFullName.value}");
           }
 
-          if (value.alertData!.lastLogin != null) {
-            var displayDate = value.alertData!.lastLogin;
+          if (response.data!.alertData!.lastLogin != null) {
+            var displayDate = response.data!.alertData!.lastLogin;
             var displayDateFormatter = new DateFormat('MMM dd, yyyy hh:mm a');
             var date = DateTime.parse(displayDate!);
             String formattedDate = displayDateFormatter.format(date);
-            lastLogin!.value = formattedDate;
+            lastLogin.value = formattedDate;
+            debugPrint(" lastLogin  ${lastLogin.value}");
           }
-          if (value.alertData!.profilePhotoUrl != null) {
-            profilePhotoUrl.value = value.alertData!.profilePhotoUrl!;
+          if (response.data!.alertData!.profilePhotoUrl != null) {
+            profilePhotoUrl.value = response.data!.alertData!.profilePhotoUrl!;
           }
-      } else {
-        Utility.showToastMessage(value.errorMessage!);
+        } else {
+          Utility.showToastMessage(response.error!.message);
+        }
+
+      }else if (response is DataFailed) {
+        if (response.error!.statusCode == 403) {
+          commonDialog(Strings.session_timeout, 4);
+        } else {
+          Utility.showToastMessage(response.error!.message);
+        }
       }
-    });
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
   }
 
   Future<void> autoFetchData() async {
     String? mobile = await preferences.getMobile();
     String email = await preferences.getEmail();
     String version = await Utility.getVersionInfo();
-      mobileExist?.value = mobile!;
-      userEmail?.value = email;
-      versionName?.value = version;
+      mobileExist.value = mobile!;
+      userEmail.value = email;
+      versionName.value = version;
   }
 
   Future<void> getLoanDetails() async {
@@ -108,21 +135,21 @@ class MoreController extends GetxController{
 
         if (response.data!.message!.data!.loans!.length  != 0) {
           canPledge.value = response.data!.message!.data!.canPledge!;
-          loanName!.value = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].name!;
+          loanName.value = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].name!;
           drawingPower = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].drawingPower;
           totalCollateral = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue;
           sanctionedLimit = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue;
           // preferences.setLoanApplicationNo(loanName!);
           // preferences.setDrawingPower(drawingPower.toString());
           // preferences.setSanctionedLimit(sanctionedLimit.toString());
-          GetLoanDetailsRequestEntity loanDetailsRequestEntity = GetLoanDetailsRequestEntity(loanName:loanName!.value, transactionsPerPage: 15, transactionsStart: 0,);
+          GetLoanDetailsRequestEntity loanDetailsRequestEntity = GetLoanDetailsRequestEntity(loanName:loanName.value, transactionsPerPage: 15, transactionsStart: 0,);
           DataState<LoanDetailsResponseEntity> loanDetailsResponse = await _getLoanDetailsUseCase.call(GetLoanDetailsParams(loanDetailsRequestEntity: loanDetailsRequestEntity));
 
          if(loanDetailsResponse is DataSuccess){
            if(loanDetailsResponse.data != null) {
-               drawingPowerStr!.value = loanDetailsResponse.data!.data!.loan!.drawingPowerStr!;
-               totalCollateralStr!.value = loanDetailsResponse.data!.data!.loan!.totalCollateralValueStr!;
-               stockAt!.value = loanDetailsResponse.data!.data!.pledgorBoid!;
+               drawingPowerStr.value = loanDetailsResponse.data!.data!.loan!.drawingPowerStr!;
+               totalCollateralStr.value = loanDetailsResponse.data!.data!.loan!.totalCollateralValueStr!;
+               stockAt.value = loanDetailsResponse.data!.data!.pledgorBoid!;
                loanType!.value = loanDetailsResponse.data!.data!.loan!.instrumentType!;
                loanType!.value = loanDetailsResponse.data!.data!.loan!.schemeType!;
                if (loanDetailsResponse.data!.data!.loan != null) {
@@ -195,88 +222,6 @@ class MoreController extends GetxController{
     }
   }
 
-  /*getLoanDetails() async {
-    MyLoansResponse myLoans = await myLoansBloc.myActiveLoans();
-    if (myLoans.errorCode == 403) {
-      commonDialog(Strings.session_timeout, 4);
-    }
-    if (myLoans.message!.data!.loans!.length != 0) {
-      canPledge.value = myLoans.message!.data!.canPledge!;
-      loanName!.value = myLoans.message!.data!.loans![myLoans.message!.data!.loans!.length - 1].name!;
-      drawingPower = myLoans.message!.data!.loans![myLoans.message!.data!.loans!.length - 1].drawingPower;
-      totalCollateral = myLoans.message!.data!.loans![myLoans.message!.data!.loans!.length - 1].totalCollateralValue;
-      sanctionedLimit = myLoans.message!.data!.loans![myLoans.message!.data!.loans!.length - 1].totalCollateralValue;
-      // preferences.setLoanApplicationNo(loanName!);
-      // preferences.setDrawingPower(drawingPower.toString());
-      // preferences.setSanctionedLimit(sanctionedLimit.toString());
-      myLoansBloc.getLoanDetails(loanName).then((value) {
-        if (value.isSuccessFull!) {
-            drawingPowerStr!.value = value.data!.loan!.drawingPowerStr!;
-            totalCollateralStr!.value = value.data!.loan!.totalCollateralValueStr!;
-            stockAt!.value = value.data!.pledgorBoid!;
-            loanType!.value = value.data!.loan!.instrumentType!;
-            loanType!.value = value.data!.loan!.schemeType!;
-            if (value.data!.loan != null) {
-              loanBalance!.value = value.data!.loan!.balance!;
-            }
-
-            if (value.data!.increaseLoan != null) {
-              isIncreaseLoanExist.value = true;
-            } else {
-              isIncreaseLoanExist.value = false;
-            }
-            if (value.data!.topUpApplication == null) {
-              isTopUpExist.value = true;
-              topUpApplicationName.value = value.data!.topUpApplicationName!;
-            } else {
-              isTopUpExist.value = false;
-            }
-            if (value.data!.unpledge != null) {
-              isUnpledgeExist.value = true;
-              if (value.data!.unpledge!.unpledgeMsgWhileMarginShortfall != null) {
-                unPledgeMarginShortFallMsg!.value = value.data!.unpledge!.unpledgeMsgWhileMarginShortfall!;
-              }
-            } else {
-              isUnpledgeExist.value = false;
-            }
-            if (value.data!.sellCollateral != null) {
-              isSellCollateralExist.value = true;
-            } else {
-              isSellCollateralExist.value = false;
-            }
-            if (value.data!.isSellTriggered == 1) {
-              isSellTriggered.value = true;
-            } else {
-              isSellTriggered.value = false;
-            }
-            if (value.data!.marginShortfall != null) {
-              isMarginShortFall.value = true;
-              marginShortfall = value.data!.marginShortfall;
-            } else {
-              isMarginShortFall.value = false;
-            }
-
-            if (value.data!.interest != null) {
-              interest!.value = value.data!.interest!;
-            }
-
-            isPayment!.value = value.data!.paymentAlreadyInProcess!;
-
-            isAPIRespond.value = true;
-            isLoanExist.value = true;
-        } else {
-          if (value.errorMessage != null) {
-            commonDialog(value.errorMessage, 3);
-          }
-            isAPIRespond.value = true;
-        }
-      });
-    } else {
-        isAPIRespond.value = true;
-        canPledge.value = myLoans.message!.data!.canPledge!;
-    }
-  }*/
-
   void manageSettingsClicked()  {
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
@@ -341,7 +286,7 @@ class MoreController extends GetxController{
   void logOutClicked() {
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
-        MoreController controller = MoreController(_getMyActiveLoansUseCase,_connectionInfo, _getLoanDetailsUseCase);
+        MoreController controller = MoreController(_getMyActiveLoansUseCase,_connectionInfo, _getLoanDetailsUseCase,_getProfileSetAlertUseCase);
         logoutConfirmDialog(controller);
       } else {
         Utility.showToastMessage(Strings.no_internet_message);

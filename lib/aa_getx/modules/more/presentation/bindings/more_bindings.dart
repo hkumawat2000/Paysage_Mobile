@@ -5,6 +5,7 @@ import 'package:lms/aa_getx/modules/more/data/data_sources/more_api.dart';
 import 'package:lms/aa_getx/modules/more/data/repositories/more_repository_impl.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_my_active_loans_usecase.dart';
+import 'package:lms/aa_getx/modules/more/domain/usecases/get_profile_set_alert_usecase.dart';
 import 'package:lms/aa_getx/modules/more/presentation/controllers/more_controller.dart';
 
 class MoreBinding extends Bindings {
@@ -19,10 +20,13 @@ class MoreBinding extends Bindings {
 
     Get.lazyPut<GetLoanDetailsUseCase>(()=> GetLoanDetailsUseCase(Get.find<MoreRepositoryImpl>()));
 
+    Get.lazyPut<GetProfileSetAlertUseCase>(()=> GetProfileSetAlertUseCase(Get.find<MoreRepositoryImpl>()));
+
     Get.lazyPut<MoreController>(() => MoreController(
           Get.find<GetMyActiveLoansUseCase>(),
           Get.find<ConnectionInfo>(),
           Get.find<GetLoanDetailsUseCase>(),
+          Get.find<GetProfileSetAlertUseCase>(),
         ));
   }
 }

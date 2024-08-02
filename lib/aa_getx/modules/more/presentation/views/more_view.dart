@@ -71,7 +71,8 @@ class MoreView extends GetView<MoreController> {
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: Container(
+        child: Obx(() =>
+        Container(
           color: colorBg,
           padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
@@ -118,15 +119,15 @@ class MoreView extends GetView<MoreController> {
                         child: Column(
                           children: [
                             Text(
-                              controller.userFullName?.value ?? "",
+                              controller.userFullName.value ?? "",
                               style: boldTextStyle_24,
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(
                               height: 6,
                             ),
-                            controller.lastLogin != null
-                                ? Text(controller.lastLogin != null
+                            controller.lastLogin == ""
+                                ? Text(controller.lastLogin != ""
                                 ? 'Last Login : ${controller.lastLogin}' : "",
                                 style: boldTextStyle_14, textAlign: TextAlign.center)
                                 : SizedBox(),
@@ -550,6 +551,7 @@ class MoreView extends GetView<MoreController> {
                   : shimmerEffect(),
             ],
           ),
+        ),
         ),
       ),
     );
