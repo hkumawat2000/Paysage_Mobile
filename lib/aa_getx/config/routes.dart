@@ -1,4 +1,10 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_consent_bindings.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/screens/kyc_address_screen.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/screens/kyc_consent_screen.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/screens/kyc_screen.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/login_submit_request_entity.dart';
 import 'package:lms/aa_getx/modules/login/presentation/bindings/forgot_pin_bindings.dart';
 import 'package:lms/aa_getx/modules/login/presentation/bindings/login_bindings.dart';
@@ -26,9 +32,6 @@ import 'package:lms/aa_getx/modules/registration/presentation/views/offline_cust
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
-import 'package:lms/login/LoginScreen.dart';
-import 'package:lms/pin/PinScreen.dart';
-import 'package:lms/splash/JailBreakScreen.dart';
 
 
 const String splashView = "splash-view";
@@ -46,6 +49,10 @@ const String registrationView = "registration-view";
 const String fingerPrintView = "fingerprint-view";
 const String enableFingerPrintView = "enable-fingerprint-view";
 const String registrationSuccessfulView = "registration-successful-view";
+const String kycView = "kyc-view";
+const String kycConsentView = "kyc-conset-view";
+const String kycAddressView = "kyc-address-view";
+const String youtubeVideoPlayer = "youtube-video-player";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 
@@ -122,4 +129,23 @@ List<GetPage> routes = [
     name: '/$registrationSuccessfulView',
     page: () => RegistrationSuccessfulView(),
   ),
+  GetPage(
+    name: '/$kycView',
+    page: () => CompleteKycView(),
+    binding: KycBindings(),
+  ),
+  GetPage(
+    name: '/$kycConsentView',
+    page: () => KycConsentScreen(),
+    binding: KycConsentBindings(),
+  ),
+  GetPage(
+    name: '/$kycAddressView',
+    page: () => KycAddressScreen(),
+    binding: KycAddressBindings(),
+  ),
+  // GetPage(
+  //   name: '/$youtubeVideoPlayer',
+  //   page: () => YoutubeVideoPlayerView(),
+  // ),
 ];

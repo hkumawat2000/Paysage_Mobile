@@ -2336,7 +2336,7 @@ class KycAddressScreen extends GetView<KycAddressController> {
   }
 }
 
-showDialogOnCKYCSuccess(String msg) {
+showDialogOnCKYCSuccess(String msg,KycAddressController kycAddressController) {
   return showDialog<void>(
     barrierDismissible: false,
     context: Get.context!,
@@ -2374,7 +2374,9 @@ showDialogOnCKYCSuccess(String msg) {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
-                      onPressed: () async {},
+                      onPressed: () async {
+                        kycAddressController.toNavigateOnSuccess();
+                      },
                       child: Text(
                         Strings.ok,
                         style: buttonTextWhite,

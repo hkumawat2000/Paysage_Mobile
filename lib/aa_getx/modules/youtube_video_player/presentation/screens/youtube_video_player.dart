@@ -12,24 +12,23 @@ import 'package:lms/util/Utility.dart';
 import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class YoutubeVideoPlayer extends StatefulWidget {
+class YoutubeVideoPlayerView extends StatefulWidget {
   String videoID;
   String title;
   List<String> videoIDList;
   List<String> titleList;
 
-  YoutubeVideoPlayer(this.videoID, this.title, this.videoIDList, this.titleList);
+  YoutubeVideoPlayerView(this.videoID, this.title, this.videoIDList, this.titleList);
 
   @override
-  _YoutubeVideoPlayerState createState() => _YoutubeVideoPlayerState();
+  _YoutubeVideoPlayerViewState createState() => _YoutubeVideoPlayerViewState();
 }
 
-class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
+class _YoutubeVideoPlayerViewState extends State<YoutubeVideoPlayerView> {
   YoutubePlayerController? _controller;
   String? playingVideoID;
   String? videoTitle;

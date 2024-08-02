@@ -100,7 +100,6 @@ class KycAddressController extends GetxController {
       corrIsDropDownOpened = false.obs;
 
   ScrollController scrollController = new ScrollController();
-  //KycAddressController kycAddressController = KycAddressController(_connectionInfo, _getPincodeDetailsUsecase, _consentDetailsKycUsecase);
   // final myLoansBloc = MyLoansBloc();
   // Loan? loan;
   KycAddressArguments kycAddressArguments = Get.arguments;
@@ -315,7 +314,8 @@ class KycAddressController extends GetxController {
       Get.back();
       if (response is DataSuccess) {
         preferences.setOkClicked(true);
-        showDialogOnCKYCSuccess(response.data!.message!);
+          KycAddressController kycAddressController = KycAddressController(_connectionInfo, _getPincodeDetailsUsecase, _consentDetailsKycUsecase);
+        showDialogOnCKYCSuccess(response.data!.message!,kycAddressController);
       } else if (response is DataFailed) {}
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
