@@ -7,6 +7,7 @@ import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/login/presentation/arguments/pin_screen_arguments.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/get_profile_set_alert_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/my_loans_response_entity.dart';
@@ -320,6 +321,7 @@ class MoreController extends GetxController{
         Get.offNamedUntil(
           pinView,
           (route) => false,
+          arguments: PinScreenArguments(isComingFromMore: true),
         );
       } else {
         Utility.showToastMessage(Strings.no_internet_message);

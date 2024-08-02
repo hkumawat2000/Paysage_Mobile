@@ -12,6 +12,7 @@ import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/size_config.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
+import 'package:lms/aa_getx/modules/login/presentation/arguments/pin_screen_arguments.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/controllers/set_pin_controller.dart';
 
 //Common App Icon
@@ -266,6 +267,7 @@ Future<void> commonDialog(message, value) {
                         Get.offNamedUntil(
                           pinView,
                           (route) => false,
+                          arguments: PinScreenArguments(isComingFromMore: false),
                         );
                       } else if (value == 5) {
                          Get.back();
