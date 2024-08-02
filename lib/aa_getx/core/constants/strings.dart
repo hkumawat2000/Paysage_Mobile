@@ -898,6 +898,7 @@ class Strings {
   static const String e_sign_file_if_null =
       "Sorry, couldn't process the request. Please try again after sometime.";
   static const String loanRenewal = "Loan Renewal";
+  static const String noNotificationFoundString = "No notification found";
 
   //Error Messages
   static const String noInternetConnection =

@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/error/exception.dart';
-import 'package:lms/aa_getx/core/error/failure.dart';
-import 'package:lms/util/Utility.dart';
 
 // class DioErrorHandler {
 //   static bool isInternet = false;
@@ -102,6 +99,8 @@ ErrorEntity createErrorEntity(DioException error){
           return ErrorEntity(code: 400, message: "Bad request");
         case 401:
           return ErrorEntity(code: 401, message: "Permission denied");
+        case 403:
+          return ErrorEntity(code: 403, message: "Authentication request");
         case 500:
           return ErrorEntity(code: 500, message: "Server internal error");
       }
