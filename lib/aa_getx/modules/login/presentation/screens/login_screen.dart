@@ -158,9 +158,9 @@ class LoginView extends GetView<LoginController> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 112,
-                ),
+                // SizedBox(
+                //   height: 112,
+                // ),
                 Container(
                   height: 45,
                   width: 100,
@@ -191,9 +191,9 @@ class LoginView extends GetView<LoginController> {
                   height: 30,
                 ),
                 Obx(()=> version(),),
-                SizedBox(
-                  height: 40,
-                ),
+                // SizedBox(
+                //   height: 40,
+                // ),
               ],
             ),
           ),

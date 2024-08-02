@@ -47,7 +47,7 @@ class RegistrationController extends GetxController {
   bool showEmailList = false;
 
   // String? emailConsent;
-  RegistrationArguments registrationArguments =  Get.arguments;
+  RegistrationArguments registrationArguments = Get.arguments;
   final FocusNode focusNode = FocusNode();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn();
@@ -110,7 +110,7 @@ class RegistrationController extends GetxController {
     String version = await Utility.getVersionInfo();
     versionName(await Utility.getVersionInfo());
     print(versionName.value);
-   // versionName?.value = version;
+    // versionName?.value = version;
     platformName?.value = Platform.operatingSystem;
   }
 
@@ -213,7 +213,6 @@ class RegistrationController extends GetxController {
     }
   }
 
-
   Future<void> registartion(var firstName, var lastName, var emailID,
       var versionName, var deviceInfo, event) async {
     RegExp nameRegExp = RegExp(RegexValidator.nameRegex);
@@ -234,20 +233,22 @@ class RegistrationController extends GetxController {
     } else if (!nameRegExp.hasMatch(lastName)) {
       Utility.showToastMessage(Strings.validate_only_char_lastname);
     } else {
-      RegistrationRequestBeanEntity registrationRequestBeanEntity = RegistrationRequestBeanEntity(
-          firstName.toString().trim(),
-          lastName.toString().trim(),
-          registrationArguments.mobileNumber!,
-          emailID.toString().trim(),
-          firbase_token,
-          versionName!,
-          deviceInfo!);
+      RegistrationRequestBeanEntity registrationRequestBeanEntity =
+          RegistrationRequestBeanEntity(
+              firstName.toString().trim(),
+              lastName.toString().trim(),
+              registrationArguments.mobileNumber!,
+              emailID.toString().trim(),
+              firbase_token,
+              versionName!,
+              deviceInfo!);
       // debugPrint("requestReg: ${json.encode(registrationRequestBeanEntity)}");
 
       if (await connectionInfo.isConnected) {
         showDialogLoading(Strings.please_wait);
         DataState<AuthLoginResponseEntity> response =
-            await submitRegistrationUseCase.call(RegistrationRequestBeanParams(registrationRequestBeanEntity: registrationRequestBeanEntity));
+            await submitRegistrationUseCase.call(RegistrationRequestBeanParams(
+                registrationRequestBeanEntity: registrationRequestBeanEntity));
         Get.back(); //pop dialog
         debugPrint("response block");
         debugPrint("response   ${response.data}");
@@ -256,10 +257,11 @@ class RegistrationController extends GetxController {
             //preferences!.setMobile(response.data!.customer!.phone!);
             preferences!
                 .setMobile(response.data!.registerData!.customer!.phone!);
-            preferences!.setFullName(
-                response.data!.registerData!.customer!.firstName! +
-                    " " +
-                    response.data!.registerData!.customer!.lastName!);
+            preferences!.setFullName(response
+                    .data!.registerData!.customer!.firstName
+                    .toString()! +
+                " " +
+                response.data!.registerData!.customer!.lastName.toString()!);
             // preferences!.setCustomer(value.data);
             preferences!.setEmail(response.data!.registerData!.customer!.user!);
             // Firebase Event
@@ -341,7 +343,7 @@ class RegistrationController extends GetxController {
     }
   }
 
-  void loginWithGoogle() async {
+  Future<void> loginWithGoogle() async {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         showDialogLoading(Strings.please_wait);
@@ -441,10 +443,119 @@ class RegistrationController extends GetxController {
     }
   }
 
+  Future<String> loginOrSigninWithGoogle() async {
+    try {
+      print('object--------> ');
+      GoogleSignIn googleSignIn = GoogleSignIn(
+        scopes: [
+          'email',
+        ],
+      );
+
+      if (Platform.isAndroid) {
+        print('object--------> 1');
+
+        googleSignIn = GoogleSignIn(
+          clientId: '466963343865-6bbu7f68btbueqrgtc5t75keksrvfssg.apps.googleusercontent.com',
+          scopes: [
+            'email',
+          ],
+        );
+      }
+
+      // if (Platform.isIOS) {
+      //   googleSignIn = GoogleSignIn(
+      //     clientId:
+      //         '904539570437-448ff3r75snlojutmn7b9uevj7resvpf.apps.googleusercontent.com',
+      //     scopes: [
+      //       'email',
+      //     ],
+      //   );
+      // }
+
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      print('object--------> 2');
+
+      if (googleSignInAccount != null) {
+        print('object--------> 3');
+
+        print("Name::${googleSignInAccount.displayName}");
+        print("Email::${googleSignInAccount.email}");
+        print("Image::${googleSignInAccount.photoUrl}");
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        print('object--------> 4');
+
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        print('object--------> 5');
+
+        final UserCredential googleUserCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        print('object--------> 6');
+
+        final user = googleUserCredential.user;
+        print('object--------> 7');
+
+        // Checking if email and name is null
+        assert(user!.email != null);
+        assert(user!.displayName != null);
+        assert(user!.photoURL != null);
+        print('object--------> ');
+
+        name = user!.displayName;
+        email = user.email;
+        imageUrl = user.photoURL;
+        print('object--------> ');
+
+        preferences!.setEmail(email!);
+
+        preferences!.setFullName(name!);
+        debugPrint("Name::$name");
+        debugPrint("Email::$email");
+        debugPrint("Image::$imageUrl");
+        print('object--------> ');
+
+        // Only taking the first part of the name, i.e., First Name
+        if (name!.contains(" ")) {
+          name = name!.substring(0, name!.indexOf(" "));
+        }
+        print('object--------> ');
+
+        assert(!user.isAnonymous);
+        assert(await user.getIdToken() != null);
+
+        final currentUser = googleUserCredential.user;
+        assert(user.uid == currentUser!.uid);
+        return 'signInWithGoogle succeeded: $user';
+        print('object--------> ');
+
+        // EmailLinkParams emailLinkParams = EmailLinkParams(
+        //     mobile: mobNo,
+        //     email: googleSignInAccount.email,
+        //     firstName: googleSignInAccount.displayName,
+        //     isManual: 0,
+        //     lastName: "",
+        //     resend: 0);
+
+        // googleSignIn.signOut();
+
+      } else {
+        return '';
+      }
+    } catch (e) {
+      print('---______----------____________>${e}');
+      return '';
+    }
+  }
+
   Future<String> signInGoogle() async {
     String email;
     try {
-      email = await signInWithGoogle();
+      email = await loginOrSigninWithGoogle();
     } catch (e) {
       email = "";
     }
@@ -607,95 +718,93 @@ class RegistrationController extends GetxController {
     });
   }
 
-
   Future<bool> permissionDialog() async {
     return await Get.dialog(
-      barrierDismissible: false,
-        AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.0))),
-          title: Text("Account Access", style: boldTextStyle_16),
-          content: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                          'Why is LMS asking for Get Account Access?\n\nThis will help us to locate YOU in the contact for easy registration and gather some generic information about the device.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',
-                          style: regularTextStyle_12_gray_dark),
-                      TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = ()=> privacyPolicyClicked(),
-                          text: "Privacy Policy.",
-                          style: boldTextStyle_12_gray_dark.copyWith(
-                              color: Colors.lightBlue)),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 40,
-                        // width: 100,
-                        child: Material(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              side: BorderSide(color: red)),
-                          elevation: 1.0,
-                          color: colorWhite,
-                          child: MaterialButton(
-                            minWidth: Get.width,
-                            onPressed: ()=> denyClicked(),
-                            child: Text(
-                              "Deny",
-                              style: buttonTextRed,
-                            ),
-                          ),
-                        ),
+            barrierDismissible: false,
+            AlertDialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
+              title: Text("Account Access", style: boldTextStyle_16),
+              content: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                              text:
+                                  'Why is LMS asking for Get Account Access?\n\nThis will help us to locate YOU in the contact for easy registration and gather some generic information about the device.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',
+                              style: regularTextStyle_12_gray_dark),
+                          TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => privacyPolicyClicked(),
+                              text: "Privacy Policy.",
+                              style: boldTextStyle_12_gray_dark.copyWith(
+                                  color: Colors.lightBlue)),
+                        ],
                       ),
                     ),
                     SizedBox(
-                      width: 5,
+                      height: 20,
                     ),
-                    Expanded(
-                      child: Container(
-                        height: 40,
-                        // width: 100,
-                        child: Material(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35)),
-                          elevation: 1.0,
-                          color: appTheme,
-                          child: MaterialButton(
-                            minWidth: Get.width,
-                            onPressed: ()=> allowClicked(),
-                            child: Text(
-                              "Allow",
-                              style: buttonTextWhite,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 40,
+                            // width: 100,
+                            child: Material(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(35),
+                                  side: BorderSide(color: red)),
+                              elevation: 1.0,
+                              color: colorWhite,
+                              child: MaterialButton(
+                                minWidth: Get.width,
+                                onPressed: () => denyClicked(),
+                                child: Text(
+                                  "Deny",
+                                  style: buttonTextRed,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 40,
+                            // width: 100,
+                            child: Material(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(35)),
+                              elevation: 1.0,
+                              color: appTheme,
+                              child: MaterialButton(
+                                minWidth: Get.width,
+                                onPressed: () => allowClicked(),
+                                child: Text(
+                                  "Allow",
+                                  style: buttonTextWhite,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
-          ),
-        )
-    ) ??
+                ),
+              ),
+            )) ??
         false;
   }
 }

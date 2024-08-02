@@ -2,29 +2,31 @@
 import 'package:lms/aa_getx/core/utils/type_def.dart';
 import 'package:lms/aa_getx/core/utils/usecase.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_consent_details_response_entity.dart';
+import 'package:lms/aa_getx/modules/kyc/domain/entities/pincode_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/consent_details_request_entity.dart';
+import 'package:lms/aa_getx/modules/kyc/domain/entities/request/get_pincode_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/repositories/kyc_repository.dart';
 
 /// use case is a class responsible for encapsulating a specific piece of business logic or
 /// a particular operation that your application needs to perform.
 /// It acts as a bridge between the presentation
 /// layer and the data layer.
-class ConsentDetailsKycUsecase
+class GetPincodeDetailsUsecase
     implements
-        UsecaseWithParams<ConsentDetailResponseEntity, ConsentDetailsKycParams> {
+        UsecaseWithParams<PincodeResponseEntity, PincodeDetailsParams> {
   final KycRepository kycRepository;
-  ConsentDetailsKycUsecase(this.kycRepository);
+  GetPincodeDetailsUsecase(this.kycRepository);
 
   @override
-  ResultFuture<ConsentDetailResponseEntity> call(params) async {
+  ResultFuture<PincodeResponseEntity> call(params) async {
     return await kycRepository
-        .getConsentDetails(params.consentDetailsRequestEntity);
+        .getPincodeDetails(params.getPincodeDetailsRequestEntity);
   }
 }
 
-class ConsentDetailsKycParams {
-  final ConsentDetailsRequestEntity consentDetailsRequestEntity;
-  ConsentDetailsKycParams({
-    required this.consentDetailsRequestEntity,
+class PincodeDetailsParams {
+  final GetPincodeDetailsRequestEntity getPincodeDetailsRequestEntity;
+  PincodeDetailsParams({
+    required this.getPincodeDetailsRequestEntity,
   });
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
@@ -18,7 +19,6 @@ import 'package:lms/aa_getx/modules/registration/presentation/arguments/registra
 import 'package:lms/aa_getx/modules/registration/presentation/controllers/set_pin_controller.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/util/Preferences.dart';
-import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OtpVerificationController extends GetxController {
@@ -100,9 +100,7 @@ class OtpVerificationController extends GetxController {
     int acceptTerms,
   ) async {
     if (await _connectionInfo.isConnected) {
-      //TODO replace with Get.dialog
-      //LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-
+      showDialogLoading(Strings.please_wait);
       LoginSubmitResquestEntity loginSubmitResquestDataEntity =
           LoginSubmitResquestEntity(
         mobileNumber: mobileNumber,
@@ -116,8 +114,7 @@ class OtpVerificationController extends GetxController {
           loginSubmitResquestEntity: loginSubmitResquestDataEntity,
         ),
       );
-      //Replace with Get.back
-      //Navigator.pop(context); //pop dialog
+      Get.back();
       if (response is DataSuccess) {
         Utility.showToastMessage(message);
         startTime();
@@ -141,8 +138,7 @@ class OtpVerificationController extends GetxController {
       Utility.showToastMessage(Strings.message_valid_OTP);
     } else {
       if (await _connectionInfo.isConnected) {
-        //Replacemwith Get.dialog
-        //LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+        showDialogLoading(Strings.please_wait);
         VerifyOtpRequestEntity verifyOtpRequestDataEntity =
             VerifyOtpRequestEntity(
           mobileNumber: mobileNumber,
@@ -162,6 +158,7 @@ class OtpVerificationController extends GetxController {
         Map<String, dynamic> parameter = new Map<String, dynamic>();
         parameter[Strings.mobile_no] = mobileNumber;
         parameter[Strings.date_time] = getCurrentDateAndTime();
+        Get.back();
         if (response is DataSuccess) {
           print("object ${response.data!.registerData!.token.toString()}");
           // print('CAMS Email ID${response.data!.registerData!.customer!.camsEmailId}');

@@ -172,7 +172,7 @@ class Customer {
         // this.parentfield,
         // this.parenttype,
         this.idx,
-        //this.firstName,
+        this.firstName,
         // this.middleName,
         this.username,
         this.lastName,

@@ -5,6 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
@@ -14,7 +15,6 @@ import 'package:lms/aa_getx/modules/login/domain/usecases/pin_screeen_usecase.da
 import 'package:lms/aa_getx/modules/login/presentation/arguments/pin_screen_arguments.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/offline_customer_screen.dart';
 import 'package:lms/util/Preferences.dart';
-import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:local_auth/local_auth.dart';
 
 class PinScreenController extends GetxController {
@@ -27,7 +27,7 @@ class PinScreenController extends GetxController {
   final Preferences _preferences = Preferences();
   final Utility utility = Utility();
   List<BiometricType> availableBiometricType = <BiometricType>[];
-  RxString? enterPin;
+  String? enterPin;
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
   RxBool isFingerSupport = false.obs;
   RxBool isFingerEnable = false.obs;
@@ -45,6 +45,8 @@ class PinScreenController extends GetxController {
   RxString newToken = "".obs;
   RxString deviceInfo = "".obs;
   final LocalAuthentication localAuthentication = LocalAuthentication();
+  final TextEditingController enterPinTextEditingController =
+      TextEditingController();
 
   PinScreenArguments pinScreenArguments = Get.arguments;
 
@@ -94,7 +96,7 @@ class PinScreenController extends GetxController {
         currentSavedPin(await _preferences.getPin());
         SchedulerBinding.instance.addPostFrameCallback((_) {
           //TODO Add Loading Indicator
-          refreshFirebaseToken(enterPin!.value, Strings.pin);
+          refreshFirebaseToken(enterPin!, Strings.pin);
         });
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
@@ -119,9 +121,9 @@ class PinScreenController extends GetxController {
     }
   }
 
-  Future<void> onPinCompleted() async {
+  Future<void> onPinCompleted(String enteredPin) async {
     if (await _connectionInfo.isConnected) {
-      if (enterPin!.value.length >= 4) {
+      if (enteredPin.length >= 4) {
         isSubmitButtonClickable.value = false;
         getPinApiCall(Strings.pin);
       } else {
@@ -132,11 +134,11 @@ class PinScreenController extends GetxController {
     }
   }
 
-  Future<void> onPinChanged() async {
+  Future<void> onPinChanged(String pinValue) async {
     if (await _connectionInfo.isConnected) {
-      if (enterPin!.value.length >= 4) {
+      if (pinValue.length >= 4) {
         isSubmitButtonClickable.value = false;
-      } else if (enterPin!.value.length == 0) {
+      } else if (pinValue.length == 0) {
         hideShowText.value = false;
       } else {
         isSubmitButtonClickable.value = true;
@@ -153,7 +155,11 @@ class PinScreenController extends GetxController {
 
   Future<void> callGetPinApi() async {
     if (await _connectionInfo.isConnected) {
-      if (enterPin!.value.isNotEmpty) {
+      if (enterPin != null &&
+          enterPinTextEditingController.text.isNotEmpty &&
+          enterPinTextEditingController.text.length == 4 &&
+          enterPin!.length == 4) {
+        showDialogLoading(Strings.please_wait);
         getPinApiCall(Strings.pin);
       } else {
         Utility.showToastMessage(Strings.message_valid_PIN);
@@ -187,7 +193,7 @@ class PinScreenController extends GetxController {
     if (await _connectionInfo.isConnected) {
       localAuthentication.stopAuthentication();
       //TODO Navigate To forgot Pin Screen
-      //Get.toNamed(page);
+      Get.toNamed(forgotPinView);
     } else {
       showSnackBar(scadffoldKey);
     }
@@ -198,7 +204,7 @@ class PinScreenController extends GetxController {
       PinScreenRequestEntity pinScreenRequestDataEntity =
           PinScreenRequestEntity(
         mobileNumber: mobileNumber.value,
-        pin: enterPin!.value,
+        pin: enterPin,
         firebase_token: newToken.value,
         acceptTerms: 1,
         platform: deviceInfo.value,
@@ -211,7 +217,7 @@ class PinScreenController extends GetxController {
           pinScreenRequestEntity: pinScreenRequestDataEntity,
         ),
       );
-      // TODO : Do Get.back to close loading indicator
+      Get.back();
       if (response is DataSuccess) {
         //Firebase Event Parameters
         Map<String, dynamic> parameter = new Map<String, dynamic>();
@@ -238,7 +244,7 @@ class PinScreenController extends GetxController {
                   response.data!.registerData!.customer!.lastName.toString());
           // preferences.setUserKYC(value.data!.customer!.kycUpdate == 1 ? true : false);
           _preferences.setEmail(response.data!.registerData!.customer!.user!);
-          _preferences.setPin(enterPin!.value);
+          _preferences.setPin(enterPin!);
         }
 
         localAuthentication.stopAuthentication();

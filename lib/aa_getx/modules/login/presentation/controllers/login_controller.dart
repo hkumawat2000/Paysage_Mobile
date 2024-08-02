@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/auto_login_response_entity.dart';
@@ -18,7 +19,6 @@ import 'package:lms/aa_getx/modules/login/presentation/arguments/terms_and_condi
 import 'package:lms/aa_getx/modules/login/presentation/screens/otp_verify_screen.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
-import 'package:lms/widgets/WidgetCommon.dart';
 
 class LoginController extends GetxController {
   final GetTermsOfUseUsecase _getTermsOfUseUsecase;
@@ -76,21 +76,24 @@ class LoginController extends GetxController {
     authToken = await FirebaseMessaging.instance.getToken();
     _preferences.setFirebaseToken(authToken);
     version = await Utility.getVersionInfo();
-    versionName (await Utility.getVersionInfo());
+    versionName(await Utility.getVersionInfo());
     deviceInfo = await getDeviceInfo();
   }
 
   Future<void> getTermsOfUse() async {
     print("api call");
     if (await _connectionInfo.isConnected) {
+      showDialogLoading(Strings.please_wait);
       debugPrint("Response---> ");
       DataState<GetTermsandPrivacyResponseEntity> response =
           await _getTermsOfUseUsecase.call();
       debugPrint("Response ${response.toString()}");
+      Get.back();
       if (response is DataSuccess) {
         if (response.data!.termsOfUseData != null &&
             response.data!.termsOfUseData!.dummyAccounts!.length != 0) {
-          debugPrint("Response ------> ${response.data!.termsOfUseData!.termsOfUseUrl}");
+          debugPrint(
+              "Response ------> ${response.data!.termsOfUseData!.termsOfUseUrl}");
           dummyAccounts = response.data!.termsOfUseData!.dummyAccounts!;
           _preferences.setPrivacyPolicyUrl(
               response.data!.termsOfUseData!.privacyPolicyUrl!);
@@ -103,7 +106,7 @@ class LoginController extends GetxController {
       } else if (response is DataFailed) {
         Utility.showToastMessage(response.error!.message);
       }
-    } else{
+    } else {
       print("in else");
     }
   }
@@ -114,7 +117,6 @@ class LoginController extends GetxController {
       //FocusScope.of(context).requestFocus(FocusNode());
       if (await _connectionInfo.isConnected) {
         login();
-
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
@@ -162,8 +164,9 @@ class LoginController extends GetxController {
               mobileNumberController.text.toString().trim());
         }
       }
-      // TODO to solve context error. Add Get.dialog
-      //LoadingDialogWidget.showLoadingWithoutBack(context, Strings.please_wait);
+
+      showDialogLoading(Strings.please_wait);
+
       authToken = await FirebaseMessaging.instance.getToken();
       _preferences.setFirebaseToken(authToken);
 
@@ -171,7 +174,7 @@ class LoginController extends GetxController {
       parameter[Strings.mobile_no] = mobileNumberController.text.trim();
       parameter[Strings.date_time] = getCurrentDateAndTime();
       firebaseEvent(Strings.login_otp_sent, parameter);
-
+      Get.back();
       if (await _connectionInfo.isConnected) {
         LoginSubmitResquestEntity loginSubmitResquestDataEntity =
             LoginSubmitResquestEntity(

@@ -43,6 +43,7 @@ class PinScreenView extends GetView<PinScreenController> {
                     () => Container(
                       padding: const EdgeInsets.only(left: 40, right: 40),
                       child: PinCodeTextField(
+                        controller: controller.enterPinTextEditingController,
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp('[0-9]'))
                         ],
@@ -67,12 +68,13 @@ class PinScreenView extends GetView<PinScreenController> {
                             disabledColor: colorGrey,
                             borderWidth: 2),
                         onCompleted: (pin) {
-                          controller.enterPin!(pin);
-                          controller.onPinCompleted();
+                          controller.enterPin = pin;
+                          controller.onPinCompleted(pin);
+
                         },
                         onChanged: (value) {
                           printLog(value);
-                          controller.onPinChanged();
+                          controller.onPinChanged(value);
                         },
                         beforeTextPaste: (text) {
                           if (text!.contains(new RegExp(

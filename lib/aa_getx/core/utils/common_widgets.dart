@@ -314,3 +314,36 @@ class Alert {
     );
   }
 }
+
+//SnackBar for no internet connection
+void showSnackBar(final GlobalKey<ScaffoldState> _scaffoldKey) {
+  final snackBarContent = SnackBar(
+    content: Text(Strings.no_internet_message),
+    action: SnackBarAction(
+        label: Strings.ok,
+        onPressed: (){
+          null;
+        }
+       // _scaffoldKey.currentState!.hideCurrentSnackBar
+        ),
+    duration: Duration(seconds: 10),
+  );
+  //_scaffoldKey.currentState!.showSnackBar(snackBarContent);
+}
+
+void showSnackBarWithMessage(
+    final GlobalKey<ScaffoldState> _scaffoldKey, String message) {
+  final snackBarContent = SnackBar(
+    content: Text(message),
+    action: SnackBarAction(
+        label: Strings.ok,
+        onPressed: (){
+          null;
+        },
+      //  _scaffoldKey.currentState!.hideCurrentSnackBar
+        ),
+    duration: Duration(days: 365),
+  );
+ // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
+}
+

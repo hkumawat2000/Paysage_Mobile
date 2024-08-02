@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
-import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/auto_login_response_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/forgot_pin_request_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/verify_forgot_pin_request_entity.dart';
@@ -91,6 +91,7 @@ class ForgotPinController extends GetxController with CodeAutoFill {
   Future<void> requestForgotOtp(String emailId) async {
     if (await _connectionInfo.isConnected) {
       //TODO : Add Loading Indicator
+      showDialogLoading(Strings.please_wait);
       ForgotPinRequestEntity forgotPinRequestDataEntity =
           ForgotPinRequestEntity(emailId: emailId);
 
@@ -100,7 +101,7 @@ class ForgotPinController extends GetxController with CodeAutoFill {
           forgotPinRequestEntity: forgotPinRequestDataEntity,
         ),
       );
-      //TODO: TO add Get.back to pop loading
+      Get.back();
       if (response is DataSuccess) {
         showSnackBarWithMessage(scaffoldKey, Strings.forgot_pin_toast);
       } else if (response is DataFailed) {}
@@ -116,8 +117,7 @@ class ForgotPinController extends GetxController with CodeAutoFill {
       Utility.showToastMessage(Strings.invalid_new_pin);
     } else {
       if (await _connectionInfo.isConnected) {
-        //TODO
-        //LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+        showDialogLoading(Strings.please_wait);
         VerifyForgotPinRequestEntity verifyForgotPinRequestDataEntity =
             VerifyForgotPinRequestEntity(
           email: emailID.value,
@@ -132,7 +132,7 @@ class ForgotPinController extends GetxController with CodeAutoFill {
             verifyForgotPinRequestEntity: verifyForgotPinRequestDataEntity,
           ),
         );
-        //TODO Get.back
+        Get.back();
         if (response is DataSuccess) {
           _preferences.setPin(newPinController.text);
           // Firebase Event

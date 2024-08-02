@@ -7,14 +7,17 @@ import 'package:lms/aa_getx/modules/kyc/data/data_sources/kyc_data_source.dart';
 import 'package:lms/aa_getx/modules/kyc/data/models/request/consent_details_request_model.dart';
 import 'package:lms/aa_getx/modules/kyc/data/models/request/download_kyc_request_model.dart';
 import 'package:lms/aa_getx/modules/kyc/data/models/request/get_consent_details_request_model.dart';
+import 'package:lms/aa_getx/modules/kyc/data/models/request/get_pincode_details_request_model.dart';
 import 'package:lms/aa_getx/modules/kyc/data/models/request/search_kyc_request_model.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/consent_text_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_consent_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_download_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_search_response_entity.dart';
+import 'package:lms/aa_getx/modules/kyc/domain/entities/pincode_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/consent_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/download_kyc_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/get_consent_details_request_entity.dart';
+import 'package:lms/aa_getx/modules/kyc/domain/entities/request/get_pincode_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/search_kyc_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/repositories/kyc_repository.dart';
 
@@ -89,6 +92,24 @@ class KycRepositoryImpl implements KycRepository {
       final ConsentDetailsResponse =
           await kycDataSource.getConsentDetails(consentDetailsRequestModel);
       return DataSuccess(ConsentDetailsResponse.toEntity());
+    } on ServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
+    } on ApiServerException catch (e) {
+      return DataFailed(
+          ServerFailure(e.message ?? Strings.defaultErrorMsg, e.statusCode!));
+    } catch (e) {
+      return DataFailed(ServerFailure(e.toString(), 0));
+    }
+  }
+
+  ResultFuture<PincodeResponseEntity> getPincodeDetails(
+      GetPincodeDetailsRequestEntity getPincodeDetailsRequestEntity) async {
+    try {
+      GetPincodeDetailsRequestModel getPincodeDetailsRequestModel =
+          GetPincodeDetailsRequestModel.fromEntity(getPincodeDetailsRequestEntity);
+      final PincodeDetailsResponse =
+          await kycDataSource.getPincodeDetails(getPincodeDetailsRequestModel);
+      return DataSuccess(PincodeDetailsResponse.toEntity());
     } on ServerException catch (e) {
       return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
     } on ApiServerException catch (e) {

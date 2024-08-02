@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
-import 'package:lms/aa_getx/core/utils/alert.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/modules/login/presentation/arguments/pin_screen_arguments.dart';
@@ -11,7 +11,6 @@ import 'package:lms/aa_getx/modules/onboarding/domain/usecases/onboarding_usecas
 import 'package:lms/aa_getx/modules/onboarding/presentation/arguments/tutotrials_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
-import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:safe_device/safe_device.dart';
 
 class SplashController extends GetxController {
@@ -83,8 +82,10 @@ class SplashController extends GetxController {
 
   Future<void> getDetails() async {
     if (await _connectionInfo.isConnected) {
+      showDialogLoading(Strings.please_wait);
       DataState<OnBoardingResponseEntity> response =
           await _getOnboardingDetailsUsecase.call();
+      Get.back();
       if (response is DataSuccess) {
         print("object--->");
         if (response.data != null) {
@@ -97,7 +98,7 @@ class SplashController extends GetxController {
         }
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {
-          commonDialog(Get.context!, Strings.session_timeout, 4);
+          commonDialog(Strings.session_timeout, 4);
         } else {
           Utility.showToastMessage(response.error!.message);
         }

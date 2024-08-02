@@ -3,9 +3,11 @@ import 'package:lms/aa_getx/modules/kyc/domain/entities/consent_text_response_en
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_consent_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_download_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_search_response_entity.dart';
+import 'package:lms/aa_getx/modules/kyc/domain/entities/pincode_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/consent_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/download_kyc_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/get_consent_details_request_entity.dart';
+import 'package:lms/aa_getx/modules/kyc/domain/entities/request/get_pincode_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/search_kyc_request_entity.dart';
 
 /// KycRepository is an abstract class defining the contract for operations
@@ -21,4 +23,7 @@ abstract class KycRepository {
       GetConsentDetailsRequestEntity getConsentDetailsRequestEntity);
   ResultFuture<ConsentDetailResponseEntity> getConsentDetails(
       ConsentDetailsRequestEntity consentDetailsRequestEntity);
+  ResultFuture<PincodeResponseEntity> getPincodeDetails(
+      GetPincodeDetailsRequestEntity getPincodeDetailsRequestEntity);
+  
 }
