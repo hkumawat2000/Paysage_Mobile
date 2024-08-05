@@ -126,10 +126,10 @@ class MoreView extends GetView<MoreController> {
                             SizedBox(
                               height: 6,
                             ),
-                            controller.lastLogin == ""
-                                ? Text(controller.lastLogin != ""
-                                ? 'Last Login : ${controller.lastLogin}' : "",
-                                style: boldTextStyle_14, textAlign: TextAlign.center)
+                            controller.lastLogin != ""
+                                ? Text('Last Login : ${controller.lastLogin}',
+                                style: boldTextStyle_14,
+                                textAlign: TextAlign.center)
                                 : SizedBox(),
                           ],
                         ),
