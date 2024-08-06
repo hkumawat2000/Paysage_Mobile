@@ -353,8 +353,54 @@ void showSnackBarWithMessage(
  // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
 }
 
+//Common Script Name Text
+Widget scripsNameText(string) {
+  return Text(
+    string,
+    style: boldTextStyle_18,
+  );
+}
 
 
+//Common Sub Heading Text
+Widget subHeadingText(string, {isNeg = false}) {
+  return Text(
+    string,
+    style: boldTextStyle_24.copyWith(color: isNeg ? colorGreen : appTheme),
+  );
+}
+
+//Change Number to String e.g. 1000 => 1,000
+String numberToString(String str) {
+  return str.replaceAllMapped(
+      new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+}
+
+//For negative value show minus symbol as prefix
+String negativeValue(double value) {
+  return '-₹${numberToString(value.abs().toStringAsFixed(2))}';
+}
+
+
+//Common width sized box
+class SizedBoxWidthWidget extends StatelessWidget {
+  final width;
+
+  SizedBoxWidthWidget(this.width);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: width);
+  }
+}
+
+//Common Medium Heading Text
+Widget mediumHeadingText(string) {
+  return Text(
+    string,
+    style: mediumTextStyle_12_gray,
+  );
+}
 
 //On click of notification redirect user to particular screen
 notificationNavigator(BuildContext context, String screenName, String? loanNumber) async {
@@ -392,4 +438,185 @@ notificationNavigator(BuildContext context, String screenName, String? loanNumbe
       }
     });
   }*/
+}
+
+
+Widget marginShortfallInfo(loanBalance,
+    marginShortFallCashAmt, drawingPower, marginShortfall, loanType) {
+  return new Scaffold(
+    backgroundColor: Colors.transparent,
+    bottomNavigationBar: AnimatedPadding(
+      duration: Duration(milliseconds: 150),
+      curve: Curves.easeOut,
+      padding:
+      EdgeInsets.only(bottom: Get.mediaQuery.viewInsets.bottom),
+      child: Container(
+        height: 350,
+        width: 375,
+        decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: new BorderRadius.only(
+            topLeft: const Radius.circular(25.0),
+            topRight: const Radius.circular(25.0),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                Strings.margin_shortfall,
+                style: TextStyle(
+                    color: appTheme, fontWeight: FontWeight.bold, fontSize: 24),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      "Loan Balance",
+                      style: TextStyle(fontSize: 18, color: colorLightGray),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    loanBalance < 0
+                        ? negativeValue(loanBalance)
+                        : "₹${numberToString(loanBalance.toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: loanBalance < 0 ? colorGreen : colorDarkGray),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      "Required Drawing Power",
+                      style: TextStyle(fontSize: 18, color: colorLightGray),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    drawingPower + marginShortFallCashAmt < 0
+                        ? negativeValue(drawingPower + marginShortFallCashAmt)
+                        : "₹${numberToString((drawingPower + marginShortFallCashAmt).toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: colorDarkGray),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      "Existing Drawing Power",
+                      style: TextStyle(fontSize: 18, color: colorLightGray),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    drawingPower < 0
+                        ? negativeValue(drawingPower)
+                        : "₹${numberToString(drawingPower.toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: colorDarkGray),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(
+                thickness: 1.5,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    Strings.margin_shortfall,
+                    style: TextStyle(
+                        color: appTheme,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    marginShortFallCashAmt < 0
+                        ? negativeValue(marginShortFallCashAmt)
+                        : "₹${numberToString(marginShortFallCashAmt.toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold, color: red),
+                  ) ,
+                ],
+              ),
+              SizedBox(
+                height: 27,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 45,
+                    width: 120,
+                    child: Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
+                      elevation: 1.0,
+                      color: appTheme,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        minWidth: Get.width,
+                        onPressed: ()=> Get.back(),
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }

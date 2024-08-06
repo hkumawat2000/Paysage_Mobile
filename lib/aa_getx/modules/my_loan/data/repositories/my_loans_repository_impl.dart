@@ -1,0 +1,27 @@
+import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/error/exception.dart';
+import 'package:lms/aa_getx/core/error/failure.dart';
+import 'package:lms/aa_getx/core/utils/data_state.dart';
+import 'package:lms/aa_getx/core/utils/type_def.dart';
+import 'package:lms/aa_getx/modules/my_loan/data/data_sources/my_loans_api.dart';
+import 'package:lms/aa_getx/modules/my_loan/domain/entities/all_loan_names_response_entity.dart';
+import 'package:lms/aa_getx/modules/my_loan/domain/repositories/my_loans_repository.dart';
+
+class MyLoansRepositoryImpl extends MyLoansRepository{
+  final MyLoansApi myLoansApi;
+
+  MyLoansRepositoryImpl(this.myLoansApi);
+  @override
+  ResultFuture<AllLoanNamesResponseEntity> getAllLoansNames() async {
+    try{
+      final allLoanNamesResponse = await myLoansApi.getAllLoansNames();
+      return DataSuccess(allLoanNamesResponse.toEntity());
+    } on ServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
+    } on ApiServerException catch (e){
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, e.statusCode!));
+    } catch (e){
+      return DataFailed(ServerFailure(e.toString(),0));
+    }
+  }
+}

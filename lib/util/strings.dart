@@ -62,7 +62,7 @@ class Strings {
   static const String loan_success = 'Your Loan application limit request has been';
   static const String success_received = 'Successfully Received';
   static const String terms1 = "The Request Account info feature allows you to request and export a report of your account information and settings. Examples of this information include your profile photo and group names.";
-  static const String terms2 = "Please note that the report doesn't include your messages. If you wish to export your chat history intead, you can learn how in our Help Center.";
+  static const String terms2 = "Please note that the report doesn't include your messages. If you wish to export your chat history instead, you can learn how in our Help Center.";
   static const String terms3 = "Your report will be available";
   static const String accept_terms_condition = "I accept all Terms & Conditions";
   static const String edit_kyc_confirm_msg = 'The information is retrieved from CKYC portal and bank details are fetched from Broking database.\n\nYou may enter the desired information which you wish to edit.\n\nAny changes you make to your KYC information will have to be validated by documentary evidence. \n\nYou shall be redirected to our';
