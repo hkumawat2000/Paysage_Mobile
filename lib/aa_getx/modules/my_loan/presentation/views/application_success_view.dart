@@ -1,7 +1,6 @@
 
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
-import 'package:lms/new_dashboard/NewDashboardScreen.dart';
 import 'package:lms/util/AssetsImagePath.dart';
 import 'package:lms/util/Colors.dart';
 import 'package:lms/util/Style.dart';
@@ -10,10 +9,11 @@ import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
 
 /// todo: String loanNo; ApplicationSuccess(this.loanNo); while redirecting to ApplicationSuccessView screen add loanNo in arguments
-class ApplicationSuccessView extends GetView<ApplicationSuccessController> {
+class ApplicationSuccessView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    String nm = Get.arguments;
+    final String loanNo = Get.arguments;
+
     return PopScope(
       onPopInvoked: (_)=> OnBackPress.onBackPressDialog(0, Strings.back_btn_disable),
       child: Scaffold(
@@ -64,7 +64,7 @@ class ApplicationSuccessView extends GetView<ApplicationSuccessController> {
                             children: <Widget>[
                               Text("Application Number", style: mediumTextStyle_14_gray),
                               SizedBox(height: 5),
-                              Text(controller.loanNo, style: semiBoldTextStyle_18_gray_dark),
+                              Text(loanNo, style: semiBoldTextStyle_18_gray_dark),
                               SizedBox(height: 15,),
 //                        Text("Note", style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
 //                        SizedBox(height: 5),
@@ -93,11 +93,8 @@ class ApplicationSuccessView extends GetView<ApplicationSuccessController> {
                           child: MaterialButton(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                             minWidth: MediaQuery.of(context).size.width,
-                            onPressed: () async {
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (BuildContext context) => DashBoard()
-                              ));
-                            },
+                            ///todo: uncomment onPressed: ()=> Get.toNamed(dashboardView),
+                            onPressed:null,
                             child: Text(
                               'Home',
                               style: TextStyle(color: red),
@@ -135,8 +132,4 @@ class ApplicationSuccessView extends GetView<ApplicationSuccessController> {
           )),
     );
   }
-}
-
-class ApplicationSuccessController  extends GetxController{
-   String loanNo = "LN10987";  //todo: Get.arguments;
 }
