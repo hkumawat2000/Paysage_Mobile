@@ -20,6 +20,7 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditi
 import 'package:lms/aa_getx/modules/more/presentation/bindings/more_bindings.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/single_my_active_loan_binding.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/application_top_up_success_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/bindings/notification_binding.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/views/notification_view.dart';
@@ -61,6 +62,7 @@ const String youtubeVideoPlayer = "youtube-video-player";
 const String notificationView = "notification-view";
 const String moreView = "more-view";
 const String singleMyActiveLoanView = "single-my-active-loan-view";
+const String applicationTopUpSuccessView = "application-top-Up-success-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 
@@ -170,5 +172,9 @@ List<GetPage> routes = [
     name: '/$singleMyActiveLoanView',
     page: () => SingleMyActiveLoanView(),
     binding: SingleMyActiveLoanBinding(),
+  ),
+  GetPage(
+    name: '/$applicationTopUpSuccessView',
+    page: () => ApplicationTopUpSuccessView(),
   ),
 ];

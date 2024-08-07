@@ -8,9 +8,7 @@ import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_re
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/all_loan_names_response_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_usecase.dart';
-import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
 import 'package:lms/shares/LoanApplicationBloc.dart';
-import 'package:lms/shares/webviewScreen.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:cron/cron.dart';
@@ -205,56 +203,6 @@ class SingleMyActiveLoanController extends GetxController {
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
-  }
-
-  void eSignVerification() {
-    showDialogLoading(Strings.please_wait);
-    loanApplicationBloc
-        .esignVerification(loans.value!.name)
-        .then((value) async {
-      Get.back();
-      if (value.isSuccessFull!) {
-        Utility.showToastMessage(value.message!);
-        eSignProcess(value, value.data!.fileId!);
-      } else if (value.errorCode == 403) {
-        commonDialog(Strings.session_timeout, 4);
-      }
-    });
-  }
-
-  eSignProcess(value, fileId) async {
-    ///todo: change following navigation after WebViewScreenWidget screen is developed
-    String result = await Navigator.push(
-        Get.context!,
-        MaterialPageRoute(
-            builder: (context) =>
-                WebViewScreenWidget(value.message.data.esignUrl, fileId, "")));
-    if (result == Strings.success) {
-      Get.back();
-      showSuccessDialog(value, fileId);
-    } else if (result == Strings.fail) {
-      Get.back();
-      showFailDialog(value, fileId);
-    } else if (result == Strings.cancel) {
-      Get.back();
-      showCancelDialog(value);
-    } else {
-      Utility.showToastMessage(value.message.message);
-    }
-  }
-
-  void createTopUp() {
-    loanApplicationBloc.createTopUp(loans.value!.name, fileId).then((value) {
-      if (value.isSuccessFull!) {
-        /// todo: uncomment and change following code after ApplicationTopUpSuccess page is completed
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (BuildContext context) => ApplicationTopUpSuccess()));
-      } else if (value.errorCode == 403) {
-        commonDialog(Strings.session_timeout, 4);
-      } else {
-        Utility.showToastMessage(value.errorMessage!);
-      }
-    });
   }
 
   withdrawClicked() {
