@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
@@ -79,12 +81,7 @@ class ApplicationTopUpSuccessView extends StatelessWidget {
                     child: MaterialButton(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                       minWidth: MediaQuery.of(context).size.width,
-                      onPressed: () async {
-                        ///todo: uncomment below code and redirect to dashboard screen with Get.toNamed after dashboard is developed
-                        // Navigator.push(context, MaterialPageRoute(
-                        //     builder: (BuildContext context) => DashBoard()
-                        // ));
-                      },
+                      onPressed: ()=> Get.toNamed(dashboardView),
                       child: Text(
                         'Home',
                         style: TextStyle(color: red,fontWeight: FontWeight.bold,fontSize: 16),

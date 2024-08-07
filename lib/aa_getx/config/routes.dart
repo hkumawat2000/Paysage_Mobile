@@ -1,4 +1,5 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/views/dashboard_view.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_consent_bindings.dart';
@@ -65,6 +66,7 @@ const String moreView = "more-view";
 const String singleMyActiveLoanView = "single-my-active-loan-view";
 const String applicationTopUpSuccessView = "application-top-Up-success-view";
 const String applicationSuccessView = "application-success-view";
+const String dashboardView = "dashboard-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 
@@ -182,5 +184,9 @@ List<GetPage> routes = [
   GetPage(
     name: '/$applicationSuccessView',
     page: () => ApplicationSuccessView(),
+  ),
+  GetPage(
+    name: '/$dashboardView',
+    page: () => DashboardView(),
   ),
 ];

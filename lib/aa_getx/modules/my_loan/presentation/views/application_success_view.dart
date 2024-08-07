@@ -1,5 +1,6 @@
 
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/util/AssetsImagePath.dart';
 import 'package:lms/util/Colors.dart';
@@ -93,8 +94,7 @@ class ApplicationSuccessView extends StatelessWidget{
                           child: MaterialButton(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                             minWidth: MediaQuery.of(context).size.width,
-                            ///todo: uncomment onPressed: ()=> Get.toNamed(dashboardView),
-                            onPressed:null,
+                            onPressed: ()=> Get.toNamed(dashboardView),
                             child: Text(
                               'Home',
                               style: TextStyle(color: red),

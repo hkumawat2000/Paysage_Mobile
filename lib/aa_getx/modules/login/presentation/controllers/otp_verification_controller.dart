@@ -200,12 +200,7 @@ class OtpVerificationController extends GetxController {
           } else {
             firebaseEvent(Strings.login_otp_verified, parameter);
             print('----> 3 Token ID${response.data!.registerData!.token}');
-            //TODO Navigate to Dashboard
-            // Navigator.pushAndRemoveUntil(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) => DashBoard()),
-            //     (route) => false);
+            Get.offNamedUntil(dashboardView, (route) => false);
           }
         } else if (response is DataFailed) {
           print('-----> Data Failed Status Code ${response.error!.statusCode}');
