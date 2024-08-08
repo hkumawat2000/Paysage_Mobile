@@ -89,7 +89,7 @@ class Root extends StatelessWidget {
         ),
         navigatorKey: aliceRef.getNavigatorKey(),
         initialBinding: InitialBinding(),
-        initialRoute: splashView,
+        initialRoute: dashboardView,
         getPages: routes,
       ),
     );
