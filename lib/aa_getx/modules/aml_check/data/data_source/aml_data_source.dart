@@ -17,7 +17,7 @@ class AmlDataSourceApiImpl with BaseDio implements AmlCheckDataSourceApi{
   Future<AmlCheckResponseModel> amlCheck() async {
     Dio dio = await getBaseDio();
     try {
-      final response = await dio.get(Apis.amlCheck);
+      final response = await dio.post(Apis.amlCheck);
       if (response.statusCode == 200) {
         return AmlCheckResponseModel.fromJson(response.data);
       } else {
