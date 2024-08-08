@@ -10,10 +10,15 @@ class AmlCheckBinding extends Bindings {
 
   @override
   void dependencies() {
+    Get.lazyPut<AmlDataSourceApiImpl>(
+          () => AmlDataSourceApiImpl(),
+    );
 
-    Get.lazyPut(() => AmlDataSourceApiImp());
-
-    Get.lazyPut(() => AmlCheckRepositoryImpl(Get.find<AmlDataSourceApiImp>()));
+    Get.lazyPut<AmlCheckRepositoryImpl>(
+          () => AmlCheckRepositoryImpl(
+        Get.find<AmlDataSourceApiImpl>(),
+      ),
+    );
 
     Get.lazyPut<AmlCheckUsecase>(
             () => AmlCheckUsecase(Get.find<AmlCheckRepositoryImpl>()));

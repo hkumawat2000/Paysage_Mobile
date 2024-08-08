@@ -36,14 +36,15 @@ class InitialBinding implements Bindings {
 
 
     /// AML Check
-    Get.lazyPut<AmlCheckDataSourceApi>(
-          () => AmlDataSourceApiImp(),
+    Get.lazyPut<AmlDataSourceApiImpl>(
+          () => AmlDataSourceApiImpl(),
       fenix: true,
     );
 
+
     Get.lazyPut<AmlCheckRepositoryImpl>(
           () => AmlCheckRepositoryImpl(
-        Get.find(),
+        Get.find<AmlDataSourceApiImpl>(),
       ),
       fenix: true,
     );

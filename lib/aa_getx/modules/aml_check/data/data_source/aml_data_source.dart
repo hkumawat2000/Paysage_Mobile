@@ -11,7 +11,7 @@ abstract class AmlCheckDataSourceApi {
 }
 
 
-class AmlDataSourceApiImp with BaseDio implements AmlCheckDataSourceApi{
+class AmlDataSourceApiImpl with BaseDio implements AmlCheckDataSourceApi{
 
   @override
   Future<AmlCheckResponseModel> amlCheck() async {
