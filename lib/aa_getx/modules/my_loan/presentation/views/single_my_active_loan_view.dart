@@ -30,7 +30,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
         title: Text(controller.loanNumber.value != null ? controller.loanNumber.value : "", style: mediumTextStyle_18_gray_dark),
       ),
       body: controller.loanDetailsResponse != null
-          ? myActiveLoans()
+          ? Obx(()=>myActiveLoans(),)
           : Center(child: Text(controller.responseText.value)),
       /* loanOpen == 1
             ? loanNumber != null

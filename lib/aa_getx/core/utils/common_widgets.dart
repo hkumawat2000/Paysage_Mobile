@@ -620,3 +620,125 @@ Widget marginShortfallInfo(loanBalance,
     ),
   );
 }
+
+
+//Common Appbar Back Arrow
+class ArrowToolbarBackwardNavigation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      AssetsImagePath.back_button,
+      height: 17.08,
+      width: 8.54,
+      color: appTheme,
+    );
+  }
+}
+
+Widget StockAtCart(String message, String stockAt){
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, top: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            message,
+            style: TextStyle(
+                color: appTheme, fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            stockAt.isNotEmpty
+                ? stockAt.replaceRange(2, stockAt.length - 2, "xxxxxxxxxxxx")
+                : "",
+            style: TextStyle(color: colorDarkGray, fontSize: 18),
+          ),
+        ],
+      ),
+    );
+}
+
+Widget marginShortFall(
+    loanBalance,
+    minimumPledgeAmount,
+    marginShortFallCashAmt,
+    drawingPower,
+    image,
+    Color iconBg,
+    bool isMarginShortfall, String loanType) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 10.0, top: 10, right: 10),
+    child: Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+              Radius.circular(15.0)), // set rounded corner radius
+          // make rounded corner of border
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: iconBg,
+                borderRadius: BorderRadius.all(
+                    Radius.circular(10.0)), // set rounded corner radius
+              ),
+              child: Image.asset(
+                image,
+                width: 40,
+                height: 40,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: [
+                    mediumHeadingText(Strings.margin_shortfall),
+                    SizedBox(width: 05),
+                    GestureDetector(
+                      child: Image.asset(AssetsImagePath.info,
+                          height: 12, width: 12),
+                      onTap: () {
+                        Get.bottomSheet(
+                            backgroundColor: Colors.transparent,
+                            isScrollControlled: true,
+                            marginShortfallInfo(
+                                  loanBalance,
+                                  marginShortFallCashAmt,
+                                  drawingPower,
+                                  minimumPledgeAmount,
+                                  loanType),
+                            );
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  marginShortFallCashAmt < 0
+                      ? negativeValue(marginShortFallCashAmt)
+                      : '₹${numberToString(marginShortFallCashAmt.toStringAsFixed(2))}',
+                  style: boldTextStyle_24,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

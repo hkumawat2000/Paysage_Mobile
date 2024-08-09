@@ -1,13 +1,13 @@
 
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
+import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
+import 'package:lms/aa_getx/core/constants/colors.dart';
+import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
-import 'package:lms/util/AssetsImagePath.dart';
-import 'package:lms/util/Colors.dart';
-import 'package:lms/util/Style.dart';
-import 'package:lms/util/strings.dart';
-import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:flutter/material.dart';
+import 'package:lms/aa_getx/core/utils/style.dart';
+import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 
 /// todo: String loanNo; ApplicationSuccess(this.loanNo); while redirecting to ApplicationSuccessView screen add loanNo in arguments
 class ApplicationSuccessView extends StatelessWidget{

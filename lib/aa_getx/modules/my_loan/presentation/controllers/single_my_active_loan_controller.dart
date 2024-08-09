@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
@@ -8,7 +9,7 @@ import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_re
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/all_loan_names_response_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_usecase.dart';
-import 'package:lms/shares/LoanApplicationBloc.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:cron/cron.dart';
@@ -16,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 
 class SingleMyActiveLoanController extends GetxController {
-  final loanApplicationBloc = LoanApplicationBloc();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var fileId;
   TargetPlatform? platform;
@@ -390,24 +390,18 @@ class SingleMyActiveLoanController extends GetxController {
     parameter[Strings.date_time] = getCurrentDateAndTime();
     firebaseEvent(Strings.margin_shortFall_click, parameter);
 
-    /// todo: uncomment and change following code after MarginShortfallScreen page is completed
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (BuildContext context) =>
-    //             MarginShortfallScreen(
-    //                 loanDetailData!,
-    //                 loanDetailData!.value!.pledgorBoid!,
-    //                 isSellCollateral.value,
-    //                 isTimerDone.value,
-    //                 marginShortfall!.value!.status ==
-    //                     "Request Pending"
-    //                     ? true
-    //                     : false,
-    //                 marginShortfall!.value!.actionTakenMsg ??
-    //                     "",
-    //                 loanType!.value,
-    //                 schemeType!.value)));
+    Get.toNamed(marginShortfallView, arguments: MarginShortfallArguments(
+        loanData: loanDetailData.value,
+        pledgorBoid:  loanDetailData.value!.pledgorBoid!,
+        isSellCollateral: isSellCollateral.value,
+        isSaleTriggered: isTimerDone.value,
+        isRequestPending:  marginShortfall.value!.status ==
+            "Request Pending"
+            ? true
+            : false,
+        msg: marginShortfall.value!.actionTakenMsg ?? "",
+        loanType: loanType.value,
+        schemeType: schemeType.value));
   }
 
   viewLoanStatement() {

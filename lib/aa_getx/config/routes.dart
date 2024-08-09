@@ -20,9 +20,11 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/pin_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditions_webview.dart';
 import 'package:lms/aa_getx/modules/more/presentation/bindings/more_bindings.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/margin_shortfall_binding.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/single_my_active_loan_binding.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/application_success_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/application_top_up_success_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/bindings/notification_binding.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/views/notification_view.dart';
@@ -66,6 +68,7 @@ const String moreView = "more-view";
 const String singleMyActiveLoanView = "single-my-active-loan-view";
 const String applicationTopUpSuccessView = "application-top-Up-success-view";
 const String applicationSuccessView = "application-success-view";
+const String marginShortfallView = "margin-shortfall-view";
 const String dashboardView = "dashboard-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
@@ -188,5 +191,10 @@ List<GetPage> routes = [
   GetPage(
     name: '/$dashboardView',
     page: () => DashboardView(),
+  ),
+  GetPage(
+    name: '/$marginShortfallView',
+    page: () => MarginShortfallView(),
+    binding: MarginShortfallBinding(),
   ),
 ];
