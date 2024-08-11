@@ -10,6 +10,8 @@ import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/controllers/settings_menu_controller.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/change_password_view.dart';
+import 'package:lms/aa_getx/modules/account_settings/presentation/views/help_faq_settings_menu_view.dart';
+import 'package:lms/aa_getx/modules/account_settings/presentation/views/manage_kyc_menu_view.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/manage_settings_view.dart';
 
 import 'package:lms/aa_getx/modules/login/domain/entity/alert_data_response_entity.dart';
@@ -518,9 +520,10 @@ class _SettingsMenuViewState extends State<SettingsMenuView> {
                                         ? Container(
                                             padding: EdgeInsets.fromLTRB(
                                                 50, 0, 0, 10),
-                                            child: SizedBox(),
-                                            //TODO Manage KYC Screen
-                                            //ManageKYCMenu(widget.alertData), //KYC tiles
+                                            child: ManageKycMenuView(
+                                              alertDataResponseEntity: widget
+                                                  .alertDataResponseEntity,
+                                            ),
                                           )
                                         : SizedBox(),
                                   ],
@@ -584,9 +587,7 @@ class _SettingsMenuViewState extends State<SettingsMenuView> {
                                   ? Container(
                                       padding:
                                           EdgeInsets.fromLTRB(50, 0, 0, 10),
-                                      child: SizedBox(),
-                                      //TODO Help FAQ Screen
-                                      //HelpFaqSettingMenu(), // FAQ Web view screen
+                                      child: HelpFaqSettingsMenuView(),
                                     )
                                   : SizedBox(),
                             ],

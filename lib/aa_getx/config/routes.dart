@@ -37,6 +37,7 @@ import 'package:lms/aa_getx/modules/registration/presentation/views/offline_cust
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
+import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 import 'package:lms/login/LoginScreen.dart';
 import 'package:lms/pin/PinScreen.dart';
 import 'package:lms/splash/JailBreakScreen.dart';
@@ -64,6 +65,7 @@ const String youtubeVideoPlayer = "youtube-video-player";
 const String notificationView = "notification-view";
 const String moreView = "more-view";
 const String dashboardView = "dashboard-view";
+const String commonWebview = "common-webview";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 
@@ -172,5 +174,9 @@ List<GetPage> routes = [
   GetPage(
     name: '/$dashboardView',
     page: () => DashboardView(),
+  ),
+   GetPage(
+    name: '/$commonWebview',
+    page: () => CommonWebviewView(),
   ),
 ];
