@@ -85,6 +85,7 @@ class Root extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         useInheritedMediaQuery: true,
         theme: ThemeData(
+          useMaterial3: true,
           fontFamily: 'Montserrat',
         ),
         navigatorKey: aliceRef.getNavigatorKey(),

@@ -198,6 +198,7 @@ class LoginController extends GetxController {
           //TODO Add Get.back
           //        Navigator.pop(context);
           print("object in Login Success");
+
           Get.bottomSheet(
             backgroundColor: Colors.transparent,
             enableDrag: false,

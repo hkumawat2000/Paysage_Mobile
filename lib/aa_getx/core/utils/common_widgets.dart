@@ -24,7 +24,7 @@ class AppIcon extends StatelessWidget {
 }
 
 class OnBackPress {
-  static onBackPressDialog( int isExitApp,  String message ) {
+  static onBackPressDialog(int isExitApp, String message) {
     Get.dialog(
       barrierDismissible: false,
       AlertDialog(
@@ -56,7 +56,7 @@ class OnBackPress {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: new Text( message,
+                  child: new Text(message,
                       style: TextStyle(fontSize: 16.0, color: colorDarkGray)),
                 ), //
               ),
@@ -72,7 +72,8 @@ class OnBackPress {
                   elevation: 1.0,
                   color: appTheme,
                   child: MaterialButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     minWidth: SizeConfig.screenWidth,
                     onPressed: () async {
                       ///isExitApp = 1 == exit app else pop up dialog
@@ -122,15 +123,27 @@ class ArrowForwardNavigation extends StatelessWidget {
   }
 }
 
+class ArrowToolbarBackwardNavigation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      AssetsImagePath.back_button,
+      height: 17.08,
+      width: 8.54,
+      color: appTheme,
+    );
+  }
+}
+
 //Get current date and time
-String getCurrentDateAndTime(){
+String getCurrentDateAndTime() {
   DateTime now = new DateTime.now();
   String formattedDate = DateFormat('MMM dd, yyyy hh:mm a').format(now);
   return formattedDate;
 }
 
 //Common function for firebase event
-void firebaseEvent(String eventName, Map<String, dynamic> parameter){
+void firebaseEvent(String eventName, Map<String, dynamic> parameter) {
   FirebaseAnalytics.instance.logEvent(name: eventName, parameters: parameter);
 }
 
@@ -181,7 +194,6 @@ void showDialogLoading(String message) {
   );
 }
 
-
 Future<void> commonDialog(message, value) {
   /*value 0 = Pop dialog
   value 1 = Complete KYC
@@ -189,7 +201,7 @@ Future<void> commonDialog(message, value) {
   value 4 = Session Timeout
   value 6 = Demat Screen*/
   return Get.dialog(
-    barrierDismissible: value == 5 ? true : false,
+      barrierDismissible: value == 5 ? true : false,
       AlertDialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -202,21 +214,21 @@ Future<void> commonDialog(message, value) {
             children: <Widget>[
               value != 2
                   ? Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  value == 4 || value == 5 || value == 6
-                      ? SizedBox()
-                      : GestureDetector(
-                    child: Icon(
-                      Icons.cancel,
-                      color: colorLightGray,
-                      size: 20,
-                    ),
-                    onTap: () => Get.back(),
-                  ),
-                ],
-              )
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        value == 4 || value == 5 || value == 6
+                            ? SizedBox()
+                            : GestureDetector(
+                                child: Icon(
+                                  Icons.cancel,
+                                  color: colorLightGray,
+                                  size: 20,
+                                ),
+                                onTap: () => Get.back(),
+                              ),
+                      ],
+                    )
                   : Container(),
               Center(
                 child: Padding(
@@ -231,14 +243,15 @@ Future<void> commonDialog(message, value) {
                 height: 45,
                 width: 100,
                 child: Material(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(35)),
                   elevation: 1.0,
                   color: appTheme,
                   child: MaterialButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     minWidth: Get.width, // Set minimum width to screen width
                     onPressed: () async {
-
                       //Todo: replace the following navigation after needed pages are converted into getX
                       if (value == 1) {
                         // Navigator.push(
@@ -252,7 +265,9 @@ Future<void> commonDialog(message, value) {
                         //     MaterialPageRoute(
                         //         builder: (BuildContext context) =>
                         //             SetPinScreen(false, 0)));
-                        Get.toNamed(setPinView, arguments: SetPinArgs(isForOfflineCustomer: false, isLoanOpen: 0));
+                        Get.toNamed(setPinView,
+                            arguments: SetPinArgs(
+                                isForOfflineCustomer: false, isLoanOpen: 0));
                       } else if (value == 3) {
                         Get.back();
                         Get.back();
@@ -267,10 +282,11 @@ Future<void> commonDialog(message, value) {
                         Get.offNamedUntil(
                           pinView,
                           (route) => false,
-                          arguments: PinScreenArguments(isComingFromMore: false),
+                          arguments:
+                              PinScreenArguments(isComingFromMore: false),
                         );
                       } else if (value == 5) {
-                         Get.back();
+                        Get.back();
                         // Navigator.pushAndRemoveUntil(
                         //   context,
                         //   MaterialPageRoute(
@@ -278,7 +294,7 @@ Future<void> commonDialog(message, value) {
                         //   ),
                         //       (route) => false,
                         // );
-                      }else if (value == 6) {
+                      } else if (value == 6) {
                         Get.back();
                         // Navigator.push(
                         //     context,
@@ -298,13 +314,12 @@ Future<void> commonDialog(message, value) {
             ],
           ),
         ),
-      )
-
-  );
+      ));
 }
 
 class RegexValidator {
-  static final String emailRegex = r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})';
+  static final String emailRegex =
+      r'^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})';
   static final String nameRegex = r'^[a-z A-Z,.\-]+$';
 }
 
@@ -327,10 +342,10 @@ void showSnackBar(final GlobalKey<ScaffoldState> _scaffoldKey) {
     content: Text(Strings.no_internet_message),
     action: SnackBarAction(
         label: Strings.ok,
-        onPressed: (){
+        onPressed: () {
           null;
         }
-       // _scaffoldKey.currentState!.hideCurrentSnackBar
+        // _scaffoldKey.currentState!.hideCurrentSnackBar
         ),
     duration: Duration(seconds: 10),
   );
@@ -342,22 +357,20 @@ void showSnackBarWithMessage(
   final snackBarContent = SnackBar(
     content: Text(message),
     action: SnackBarAction(
-        label: Strings.ok,
-        onPressed: (){
-          null;
-        },
+      label: Strings.ok,
+      onPressed: () {
+        null;
+      },
       //  _scaffoldKey.currentState!.hideCurrentSnackBar
-        ),
+    ),
     duration: Duration(days: 365),
   );
- // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
+  // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
 }
 
-
-
-
 //On click of notification redirect user to particular screen
-notificationNavigator(BuildContext context, String screenName, String? loanNumber) async {
+notificationNavigator(
+    BuildContext context, String screenName, String? loanNumber) async {
   /// todo: uncomment following code after dashboard screen is completed and call API after my_loan module is completed
   /*if (screenName == "My Loans") {
     Navigator.push(context, MaterialPageRoute(
@@ -392,4 +405,15 @@ notificationNavigator(BuildContext context, String screenName, String? loanNumbe
       }
     });
   }*/
+
+  //Mask the text
 }
+
+String encryptAcNo(String str) {
+  String encStr = "";
+  for (int i = 0; i < str.length - 4; i++) {
+    encStr += "X";
+  }
+  return str.replaceRange(2, str.length - 2, encStr);
+}
+
