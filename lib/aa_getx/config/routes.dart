@@ -1,4 +1,5 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bindings.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/views/dashboard_view.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
@@ -42,7 +43,6 @@ import 'package:lms/login/LoginScreen.dart';
 import 'package:lms/pin/PinScreen.dart';
 import 'package:lms/splash/JailBreakScreen.dart';
 
-
 const String splashView = "splash-view";
 const String jailBreakView = "jail-break-view";
 const String pinView = "pin-view";
@@ -67,7 +67,6 @@ const String moreView = "more-view";
 const String dashboardView = "dashboard-view";
 const String commonWebview = "common-webview";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
-
 
 List<GetPage> routes = [
   GetPage(
@@ -94,15 +93,8 @@ List<GetPage> routes = [
     page: () => LoginView(),
     binding: LoginBindings(),
   ),
-  GetPage(
-    name: '/$tutorialsView',
-    page: () => WalkthroughScreen()
-
-  ),
-  GetPage(
-    name: '/$offlineCustomerView',
-    page: () => OfflineCustomerScreen()
-  ),
+  GetPage(name: '/$tutorialsView', page: () => WalkthroughScreen()),
+  GetPage(name: '/$offlineCustomerView', page: () => OfflineCustomerScreen()),
   GetPage(
     name: '/$termsAndConditionsWebView',
     page: () => TermsAndConditionsWebview(),
@@ -110,13 +102,15 @@ List<GetPage> routes = [
   ),
   GetPage(
     name: '/$otpVerificationView',
-    page: () => OTPVerificationView(loginSubmitResquestEntity: loginSubmitResquestEntity!,),
+    page: () => OTPVerificationView(
+      loginSubmitResquestEntity: loginSubmitResquestEntity!,
+    ),
     binding: VerifyOtpBindings(),
   ),
   GetPage(
-      name: '/$setPinView',
-      page: () => SetPinView(),
-      binding: SetPinBinding(),
+    name: '/$setPinView',
+    page: () => SetPinView(),
+    binding: SetPinBinding(),
   ),
   GetPage(
     name: '/$offlineCustomerView',
@@ -174,8 +168,9 @@ List<GetPage> routes = [
   GetPage(
     name: '/$dashboardView',
     page: () => DashboardView(),
+    binding: DashboardBindings(),
   ),
-   GetPage(
+  GetPage(
     name: '/$commonWebview',
     page: () => CommonWebviewView(),
   ),
