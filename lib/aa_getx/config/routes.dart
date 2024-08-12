@@ -1,5 +1,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bindings.dart';
+import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
+import 'package:lms/aa_getx/modules/aml_check/presentation/views/aml_check_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/views/dashboard_view.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
@@ -66,6 +68,7 @@ const String notificationView = "notification-view";
 const String moreView = "more-view";
 const String dashboardView = "dashboard-view";
 const String commonWebview = "common-webview";
+const String amlCheckView = "aml-check--view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -173,5 +176,10 @@ List<GetPage> routes = [
   GetPage(
     name: '/$commonWebview',
     page: () => CommonWebviewView(),
+  ),
+  GetPage(
+    name: '/$amlCheckView',
+    page: () => AmlCheckView(),
+    binding: AmlCheckBinding(),
   ),
 ];

@@ -78,4 +78,8 @@ class Apis {
   static final String loanRenewalRequestOtp = "/api/method/lms.loan.request_loan_renewal_otp";
   static final String verifyOtpLoanRenewal = "/api/method/lms.loan.verify_loan_renewal_otp";
   static final String onBoarding = "/api/method/lms.auth.onboarding_screen";
+  static final String amlCheck = "/api/method/lms.user.aml_check";
+  static final String cibilOtpSend = "/api/method/lms.user.register_mobile";
+  static final String cibilOtpVerify = "/api/method/lms.user.validate_otp";
+  static final String cibilOnDemand = "/api/method/lms.user.ondemand_refresh";
 }
