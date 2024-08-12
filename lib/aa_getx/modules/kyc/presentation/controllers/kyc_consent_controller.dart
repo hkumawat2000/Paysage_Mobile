@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:lms/aa_getx/config/routes.dart';
