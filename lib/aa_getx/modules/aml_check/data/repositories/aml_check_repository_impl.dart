@@ -8,20 +8,6 @@ import 'package:lms/aa_getx/core/utils/type_def.dart';
 import 'package:lms/aa_getx/modules/aml_check/data/data_source/aml_data_source.dart';
 import 'package:lms/aa_getx/modules/aml_check/domain/entity/aml_check_response_entity.dart';
 import 'package:lms/aa_getx/modules/aml_check/domain/repositories/aml_check_repository.dart';
-import 'package:lms/aa_getx/modules/login/data/data_sources/login_data_source.dart';
-import 'package:lms/aa_getx/modules/login/data/models/request/forgot_pin_request_model.dart';
-import 'package:lms/aa_getx/modules/login/data/models/request/login_submit_request_model.dart';
-import 'package:lms/aa_getx/modules/login/data/models/request/pin_screen_request_model.dart';
-import 'package:lms/aa_getx/modules/login/data/models/request/verify_forgot_pin_request_model.dart';
-import 'package:lms/aa_getx/modules/login/data/models/request/verify_otp_request_model.dart';
-import 'package:lms/aa_getx/modules/login/domain/entity/auto_login_response_entity.dart';
-import 'package:lms/aa_getx/modules/login/domain/entity/get_terms_and_privacy_response_entity.dart';
-import 'package:lms/aa_getx/modules/login/domain/entity/request/forgot_pin_request_entity.dart';
-import 'package:lms/aa_getx/modules/login/domain/entity/request/login_submit_request_entity.dart';
-import 'package:lms/aa_getx/modules/login/domain/entity/request/pin_screen_request_entity.dart';
-import 'package:lms/aa_getx/modules/login/domain/entity/request/verify_forgot_pin_request_entity.dart';
-import 'package:lms/aa_getx/modules/login/domain/entity/request/verify_otp_request_entity.dart';
-import 'package:lms/aa_getx/modules/login/domain/repositories/login_repository.dart';
 
 /// LoginRepositoryImpl is the concrete implementation of the LoginRepository
 /// interface.
