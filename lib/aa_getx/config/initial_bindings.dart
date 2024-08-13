@@ -1,5 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/modules/aml_check/data/data_source/aml_data_source.dart';
+import 'package:lms/aa_getx/modules/aml_check/data/repositories/aml_check_repository_impl.dart';
 import 'package:lms/aa_getx/modules/registration/data/data_source/registration_api.dart';
 import 'package:lms/aa_getx/modules/registration/data/repositories/registration_repository_impl.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
@@ -31,6 +33,21 @@ class InitialBinding implements Bindings {
       fenix: true,
     );
 
+
+
+    /// AML Check
+    Get.lazyPut<AmlDataSourceApiImpl>(
+          () => AmlDataSourceApiImpl(),
+      fenix: true,
+    );
+
+
+    Get.lazyPut<AmlCheckRepositoryImpl>(
+          () => AmlCheckRepositoryImpl(
+        Get.find<AmlDataSourceApiImpl>(),
+      ),
+      fenix: true,
+    );
   }
 
 }
