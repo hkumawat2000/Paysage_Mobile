@@ -19,7 +19,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
   @override
   Widget build(BuildContext context) {
    // platform = Theme.of(context).platform;
-    return Scaffold(
+    return Obx(()=>Scaffold(
       key: controller.scaffoldKey,
       resizeToAvoidBottomInset: false,
       backgroundColor: colorBg,
@@ -30,7 +30,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
         title: Text(controller.loanNumber.value != null ? controller.loanNumber.value : "", style: mediumTextStyle_18_gray_dark),
       ),
       body: controller.loanDetailsResponse != null
-          ? Obx(()=>myActiveLoans(),)
+          ? myActiveLoans()
           : Center(child: Text(controller.responseText.value)),
       /* loanOpen == 1
             ? loanNumber != null
@@ -40,7 +40,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 : Center(child: Text(""))
             : Center(child: Text("Nothing here! Get your loan now!!"))*/
 //        body: getMyLoansList()
-    );
+    ));
   }
 
   Widget myActiveLoans() {

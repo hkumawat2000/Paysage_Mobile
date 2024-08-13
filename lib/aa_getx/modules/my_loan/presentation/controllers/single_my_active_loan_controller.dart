@@ -87,8 +87,12 @@ class SingleMyActiveLoanController extends GetxController {
           await _getAllLoansNamesUseCase.call();
       if (response is DataSuccess) {
         if (response.data != null) {
-          loanNumber.value = response.data!.allLoansNameData![0].name!;
-          getSingleLoanData(loanNumber);
+          if (response.data!.allLoansNameData != null) {
+            loanNumber.value = response.data!.allLoansNameData![0].name!;
+            getSingleLoanData(loanNumber);
+          } else {
+            responseText.value = Strings.no_loan;
+          }
         } else {
           responseText.value = Strings.no_loan;
         }

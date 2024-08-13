@@ -11,10 +11,8 @@ import 'package:lms/aa_getx/modules/my_loan/domain/entities/request/pledge_otp_r
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/request_pledge_otp_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/controllers/margin_shortfall_pledge_otp_controller.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_pledge_otp_view.dart';
-import 'package:lms/shares/LoanApplicationBloc.dart';
 
 class MarginShortfallEligibleDialogController extends GetxController{
-  final loanApplicationBloc = LoanApplicationBloc();
   Preferences preferences = new Preferences();
   MarginShortfallEligibleArguments pageArguments = Get.arguments;
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();

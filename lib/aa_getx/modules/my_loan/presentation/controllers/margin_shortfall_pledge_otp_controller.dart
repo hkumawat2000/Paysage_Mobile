@@ -14,11 +14,9 @@ import 'package:lms/aa_getx/modules/my_loan/domain/entities/process_cart_respons
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/request/pledge_otp_request_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/create_loan_application_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/request_pledge_otp_usecase.dart';
-import 'package:lms/shares/LoanApplicationBloc.dart';
 
 class MarginShortfallPledgeOtpController extends GetxController with GetSingleTickerProviderStateMixin{
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final loanApplicationBloc = LoanApplicationBloc();
   Timer? timer;
   RxInt start = 120.obs;
   AnimationController? animController;
