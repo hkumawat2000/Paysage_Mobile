@@ -32,10 +32,9 @@ class MarginShortfallController extends GetxController{
 
   MarginShortfallController(this._getLendersUseCase, this._connectionInfo, this._getSecuritiesUseCase);
 
-  void getDetails() async {
-    showDialogLoading(Strings.please_wait);
-
+  Future getDetails() async {
     if (await _connectionInfo.isConnected) {
+      showDialogLoading(Strings.please_wait);
       DataState<LenderResponseEntity> lenderResponse =
           await _getLendersUseCase.call();
       if (lenderResponse is DataSuccess) {
@@ -112,7 +111,7 @@ class MarginShortfallController extends GetxController{
     }
   }
 
-  payAmountClicked() async {
+  Future payAmountClicked() async {
     String? mobile = await preferences.getMobile();
     String email = await preferences.getEmail();
     Utility.isNetworkConnection().then((isNetwork) {
@@ -154,7 +153,7 @@ class MarginShortfallController extends GetxController{
     });
   }
 
-  pledgeMoreClicked()  async {
+  Future pledgeMoreClicked()  async {
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
         if(!marginShortfallArguments.isRequestPending!) {
@@ -195,7 +194,7 @@ class MarginShortfallController extends GetxController{
     });
   }
 
-  sellOrInvokeClicked() async {
+  Future sellOrInvokeClicked() async {
     String? mobile = await preferences.getMobile();
     String email = await preferences.getEmail();
     Utility.isNetworkConnection().then((isNetwork) {

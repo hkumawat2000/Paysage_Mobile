@@ -21,9 +21,13 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditi
 import 'package:lms/aa_getx/modules/more/presentation/bindings/more_bindings.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/margin_shortfall_binding.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/margin_shortfall_eligible_dialog_binding.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/margin_shortfall_pledge_otp_binding.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/single_my_active_loan_binding.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/application_success_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/application_top_up_success_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_eligible_dialog_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_pledge_otp_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/bindings/notification_binding.dart';
@@ -70,6 +74,8 @@ const String applicationTopUpSuccessView = "application-top-Up-success-view";
 const String applicationSuccessView = "application-success-view";
 const String marginShortfallView = "margin-shortfall-view";
 const String dashboardView = "dashboard-view";
+const String marginShortfallPledgeOTPView = "margin-shortfall-pledge-otp-view";
+const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dialog-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 
@@ -196,5 +202,15 @@ List<GetPage> routes = [
     name: '/$marginShortfallView',
     page: () => MarginShortfallView(),
     binding: MarginShortfallBinding(),
+  ),
+  GetPage(
+    name: '/$marginShortfallPledgeOTPView',
+    page: () => MarginShortfallPledgeOTPView(),
+    binding: MarginShortfallPledgeOtpBinding(),
+  ),
+  GetPage(
+    name: '/$marginShortfallEligibleDialogView',
+    page: () => MarginShortfallEligibleDialogView(),
+    binding: MarginShortfallEligibleDialogBinding(),
   ),
 ];

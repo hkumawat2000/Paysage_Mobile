@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lms/aa_getx/config/routes.dart';
@@ -118,6 +119,19 @@ class ArrowForwardNavigation extends StatelessWidget {
       height: 10,
       width: 20,
       color: colorWhite,
+    );
+  }
+}
+
+
+//Common Backward Arrow
+class ArrowBackwardNavigation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      AssetsImagePath.left_arrow,
+      height: 10.45,
+      width: 18.57,
     );
   }
 }
@@ -412,6 +426,7 @@ notificationNavigator(BuildContext context, String screenName, String? loanNumbe
     Navigator.push(context, MaterialPageRoute(
         builder: (context) => DashBoard()));
   } else if (screenName == "Margin Shortfall Action") {
+  ///todo: move below api call to MarginShortfallScreen
     LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
     final myLoansBloc = MyLoansBloc();
     myLoansBloc.getLoanDetails(loanNumber).then((value) {
@@ -740,5 +755,43 @@ Widget marginShortFall(
         ),
       ),
     ),
+  );
+}
+
+void showErrorMessage(String msg) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.grey,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
+//Used common widget for OTP pop-up heading and sub heading
+Widget HeadingSubHeadingWidget(String mainHeading, String subHeading) {
+  return Column(
+    children: <Widget>[
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            mainHeading,
+            style: TextStyle(
+                color: appTheme, fontSize: 22, fontWeight: FontWeight.w700),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Text(
+            subHeading,
+            style: TextStyle(
+                color: colorLightGray,
+                fontSize: 16,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    ],
   );
 }
