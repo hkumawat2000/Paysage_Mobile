@@ -9,19 +9,22 @@ import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/common_response_entities.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/request/pledge_otp_request_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/request_pledge_otp_usecase.dart';
-import 'package:lms/aa_getx/modules/my_loan/presentation/controllers/margin_shortfall_pledge_otp_controller.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_eligible_arguments.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_pledge_otp_arguments.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_pledge_otp_view.dart';
 
 class MarginShortfallEligibleDialogController extends GetxController{
-  Preferences preferences = new Preferences();
-  MarginShortfallEligibleArguments pageArguments = Get.arguments;
-  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
   final ConnectionInfo _connectionInfo;
   final RequestPledgeOtpUseCase _requestPledgeOtpUseCase;
 
   MarginShortfallEligibleDialogController(this._connectionInfo, this._requestPledgeOtpUseCase);
 
-  void pledgeOTP() async {
+  Preferences preferences = new Preferences();
+  MarginShortfallEligibleArguments pageArguments = Get.arguments;
+  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+
+
+  Future<void> pledgeOTP() async {
     if(await _connectionInfo.isConnected){
       showDialogLoading(Strings.please_wait);
       PledgeOTPRequestEntity pledgeOTPRequestEntity = PledgeOTPRequestEntity(instrumentType: pageArguments.loanType);
@@ -62,13 +65,4 @@ class MarginShortfallEligibleDialogController extends GetxController{
       Utility.showToastMessage(Strings.no_internet_message);
     }
   }
-}
-
-class MarginShortfallEligibleArguments{
-  String? cartName,fileId,pledgorBoid,loanName, loanType;
-  double? eligibleLoan, selectedSecuritiesValue;
-
-  MarginShortfallEligibleArguments(
-  {required this.cartName,required  this.fileId,required  this.pledgorBoid,required  this.loanName,
-    required this.loanType,required  this.eligibleLoan, required this.selectedSecuritiesValue});
 }

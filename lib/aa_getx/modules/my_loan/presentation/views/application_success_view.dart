@@ -67,6 +67,7 @@ class ApplicationSuccessView extends StatelessWidget{
                               SizedBox(height: 5),
                               Text(loanNo, style: semiBoldTextStyle_18_gray_dark),
                               SizedBox(height: 15,),
+                              ///DC: already commented
 //                        Text("Note", style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
 //                        SizedBox(height: 5),
 //                        Text("We'll notify you once the OD limit is", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
@@ -102,6 +103,7 @@ class ApplicationSuccessView extends StatelessWidget{
                           ),
                         ),
                       ),
+                      ///DC: already commented
 //                SizedBox(
 //                  width: 15,
 //                ),

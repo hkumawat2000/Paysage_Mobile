@@ -63,19 +63,10 @@ class SingleMyActiveLoanController extends GetxController {
     getData();
     runClone();
     getLoanDetails();
-
-    /// will check the network connection before API call inside this function that's why below code is commented.
-    // Utility.isNetworkConnection().then((isNetwork) {
-    //   if (isNetwork) {
-    //     getLoanDetails();
-    //   } else {
-    //     Utility.showToastMessage(Strings.no_internet_message);
-    //   }
-    // });
     super.onInit();
   }
 
-  runClone() {
+  void runClone() {
     cron.schedule(new Schedule.parse('0 0 * * *'), () async {
       getLoanDetails();
     });
@@ -114,7 +105,6 @@ class SingleMyActiveLoanController extends GetxController {
   }
 
   void getSingleLoanData(loanName) async {
-     //loanDetailsResponse = await myLoansBloc.getLoanDetails(loanName);
     if (await _connectionInfo.isConnected) {
       GetLoanDetailsRequestEntity loanDetailsRequestEntity =
           GetLoanDetailsRequestEntity(
@@ -194,6 +184,7 @@ class SingleMyActiveLoanController extends GetxController {
           } else {
             isPayment.value = false;
           }
+          ///DC: already commented
           // preferences. setDrawingPower(loanDetailsResponse!.data!.loan!.drawingPowerStr!);
           // preferences.setSanctionedLimit(loanDetailsResponse!.data!.loan!.sanctionedLimitStr!);
         }
@@ -209,7 +200,7 @@ class SingleMyActiveLoanController extends GetxController {
     }
   }
 
-  withdrawClicked() {
+  void withdrawClicked() {
     if (loanDetailData.value!.loan!.balance! <=
         loanDetailData.value!.loan!.drawingPower!) {
       Utility.isNetworkConnection().then((isNetwork) {
@@ -233,7 +224,7 @@ class SingleMyActiveLoanController extends GetxController {
     }
   }
 
-  increaseLoanClicked() {
+  void increaseLoanClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         if (loanType == Strings.mutual_fund) {
@@ -278,7 +269,7 @@ class SingleMyActiveLoanController extends GetxController {
     });
   }
 
-  payNowClicked() {
+  void payNowClicked() {
     // if (loanDetailData!.loan!.balance == 0.0) {
     //   paaymentDialog();
     // } else {
@@ -312,7 +303,7 @@ class SingleMyActiveLoanController extends GetxController {
     // }
   }
 
-  addTopUpClicked() {
+  void addTopUpClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         if (loanDetailsResponse!.data!.increaseLoan == 1) {
@@ -335,7 +326,7 @@ class SingleMyActiveLoanController extends GetxController {
     });
   }
 
-  payNowInterestScreenClicked() {
+  void payNowInterestScreenClicked() {
     /// todo: uncomment and change following code after InterestScreen page is completed
     // Navigator.push(
     //     context,
@@ -351,22 +342,8 @@ class SingleMyActiveLoanController extends GetxController {
     //                 interestDueDate!.value)));
   }
 
-  openBottomSheet() {
+  void openBottomSheet() {
     debugPrint("shortfall__${jsonEncode(marginShortfall)}");
-    // showModalBottomSheet(
-    //     backgroundColor: Colors.transparent,
-    //     context: context,
-    //     isScrollControlled: true,
-    //     builder: (BuildContext bc) {
-    //       return marginShortfallInfo(
-    //           context,
-    //           marginShortfall.loanBalance,
-    //           marginShortfall
-    //               .minimumCashAmount,
-    //           drawingPower,
-    //           marginShortfall.shortfallC,
-    //           loanType);
-    //     });
 
     Get.bottomSheet(
       marginShortfallInfo(
@@ -380,7 +357,7 @@ class SingleMyActiveLoanController extends GetxController {
     );
   }
 
-  actionTakenOrRequestPendingClicked() async {
+  Future<void> actionTakenOrRequestPendingClicked() async {
     String? mobile = await preferences.getMobile();
     String email = await preferences.getEmail();
 
@@ -408,7 +385,7 @@ class SingleMyActiveLoanController extends GetxController {
         schemeType: schemeType.value));
   }
 
-  viewLoanStatement() {
+  void viewLoanStatement() {
     /// todo: uncomment and change following code after LoanStatementScreen page is completed
     // Navigator.push(
     //     context,

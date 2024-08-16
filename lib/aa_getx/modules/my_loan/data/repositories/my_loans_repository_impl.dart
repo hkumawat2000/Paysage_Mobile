@@ -82,8 +82,8 @@ class MyLoansRepositoryImpl extends MyLoansRepository{
   @override
   ResultFuture<ProcessCartResponseEntity> createLoanApplication(CreateLoanApplicationRequestEntity createLoanApplicationRequestEntity) async {
     try{
-      CreateLoanApplicationRequestModel requestModel = CreateLoanApplicationRequestModel.fromEntity(createLoanApplicationRequestEntity);
-      final response = await myLoansApi.createLoanApplication(requestModel);
+      CreateLoanApplicationRequestModel createLoanApplicationRequestModel = CreateLoanApplicationRequestModel.fromEntity(createLoanApplicationRequestEntity);
+      final response = await myLoansApi.createLoanApplication(createLoanApplicationRequestModel);
       return DataSuccess(response.toEntity());
     } on ServerException catch (e){
       return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));

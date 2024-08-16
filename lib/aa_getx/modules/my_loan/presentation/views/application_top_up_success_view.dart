@@ -89,6 +89,7 @@ class ApplicationTopUpSuccessView extends StatelessWidget {
                     ),
                   ),
                 ),
+                ///DC: already commented
 //                SizedBox(
 //                  width: 15,
 //                ),

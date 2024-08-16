@@ -51,51 +51,7 @@ class MarginShortfallController extends GetxController{
               selectedBoolLevelList.add(true);
             });
           }
-          SecuritiesRequestEntity securitiesRequestEntity =
-              SecuritiesRequestEntity(
-                  lender: selectedLenderList.join(","),
-                  level: selectedLevelList.join(","),
-                  demat: marginShortfallArguments.pledgorBoid);
-          DataState<SecuritiesResponseEntity> securitiesResponse =
-              await _getSecuritiesUseCase.call(SecuritiesRequestParams(
-                  securitiesRequestEntity: securitiesRequestEntity));
-          Get.back();
-          if(securitiesResponse is DataSuccess){
-            if(securitiesResponse.data != null){
-              sharesList = securitiesResponse.data!.securityData!.securities!;
-              List<SecuritiesListDataEntity> securities = [];
-              for (var i = 0; i < sharesList.length; i++) {
-                if (sharesList[i].isEligible == true && sharesList[i].quantity != 0
-                    && sharesList[i].price != 0 && sharesList[i].stockAt == marginShortfallArguments.pledgorBoid) {
-                  var temp = sharesList[i];
-                  // temp.quantity = temp.quantity;
-                  securities.add(sharesList[i]);
-                }
-              }
-              lenderInfo.addAll(securitiesResponse.data!.securityData!.lenderInfo!);
-              // stockAt = List.generate(securities.length, (index) => securities[index].stockAt!).toSet().toList();
-
-              if (securities.length != 0) {
-                ///todo: uncomment following code after NewIncreaseLoanScreen is developed
-                //   Navigator.push(context, MaterialPageRoute(
-                //       builder: (BuildContext context) => NewIncreaseLoanScreen(marginShortfallArguments.loanData!.marginShortfall, Strings.margin_shortfall, securities, widget.pledgorBoid,
-                //           marginShortfallArguments.loanData!.loan!.name!,
-                //           lenderInfo,
-                //           lenderList,
-                //           levelList)));
-              } else {
-                commonDialog( Strings.not_fetch, 0);
-              }
-            }
-          } else if( securitiesResponse is DataFailed){
-            if (securitiesResponse.error!.statusCode! == 403) {
-              commonDialog( Strings.session_timeout, 4);
-            } else if (securitiesResponse.error!.statusCode! == 404) {
-              commonDialog( Strings.not_fetch, 0);
-            } else {
-              Utility.showToastMessage(securitiesResponse.error!.message);
-            }
-          }
+          getSecurities();
         }
       } else if (lenderResponse is DataFailed) {
         if (lenderResponse.error!.statusCode! == 403) {
@@ -241,5 +197,54 @@ class MarginShortfallController extends GetxController{
         Utility.showToastMessage(Strings.no_internet_message);
       }
     });
+  }
+
+  Future<void> getSecurities() async {
+    SecuritiesRequestEntity securitiesRequestEntity = SecuritiesRequestEntity(
+        lender: selectedLenderList.join(","),
+        level: selectedLevelList.join(","),
+        demat: marginShortfallArguments.pledgorBoid);
+    DataState<SecuritiesResponseEntity> securitiesResponse =
+        await _getSecuritiesUseCase.call(SecuritiesRequestParams(
+            securitiesRequestEntity: securitiesRequestEntity));
+    Get.back();
+    if (securitiesResponse is DataSuccess) {
+      if (securitiesResponse.data != null) {
+        sharesList = securitiesResponse.data!.securityData!.securities!;
+        List<SecuritiesListDataEntity> securities = [];
+        for (var i = 0; i < sharesList.length; i++) {
+          if (sharesList[i].isEligible == true &&
+              sharesList[i].quantity != 0 &&
+              sharesList[i].price != 0 &&
+              sharesList[i].stockAt == marginShortfallArguments.pledgorBoid) {
+            var temp = sharesList[i];
+            // temp.quantity = temp.quantity;
+            securities.add(sharesList[i]);
+          }
+        }
+        lenderInfo.addAll(securitiesResponse.data!.securityData!.lenderInfo!);
+        // stockAt = List.generate(securities.length, (index) => securities[index].stockAt!).toSet().toList();
+
+        if (securities.length != 0) {
+          ///todo: uncomment following code after NewIncreaseLoanScreen is developed
+          //   Navigator.push(context, MaterialPageRoute(
+          //       builder: (BuildContext context) => NewIncreaseLoanScreen(marginShortfallArguments.loanData!.marginShortfall, Strings.margin_shortfall, securities, widget.pledgorBoid,
+          //           marginShortfallArguments.loanData!.loan!.name!,
+          //           lenderInfo,
+          //           lenderList,
+          //           levelList)));
+        } else {
+          commonDialog(Strings.not_fetch, 0);
+        }
+      }
+    } else if (securitiesResponse is DataFailed) {
+      if (securitiesResponse.error!.statusCode! == 403) {
+        commonDialog(Strings.session_timeout, 4);
+      } else if (securitiesResponse.error!.statusCode! == 404) {
+        commonDialog(Strings.not_fetch, 0);
+      } else {
+        Utility.showToastMessage(securitiesResponse.error!.message);
+      }
+    }
   }
 }

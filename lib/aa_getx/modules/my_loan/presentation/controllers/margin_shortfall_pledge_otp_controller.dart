@@ -14,8 +14,15 @@ import 'package:lms/aa_getx/modules/my_loan/domain/entities/process_cart_respons
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/request/pledge_otp_request_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/create_loan_application_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/request_pledge_otp_usecase.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_pledge_otp_arguments.dart';
 
 class MarginShortfallPledgeOtpController extends GetxController with GetSingleTickerProviderStateMixin{
+  final ConnectionInfo _connectionInfo;
+  final RequestPledgeOtpUseCase _requestPledgeOtpUseCase;
+  final CreateLoanApplicationUseCase _createLoanApplicationUseCase;
+
+  MarginShortfallPledgeOtpController(this._connectionInfo, this._requestPledgeOtpUseCase, this._createLoanApplicationUseCase);
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Timer? timer;
   RxInt start = 120.obs;
@@ -28,11 +35,6 @@ class MarginShortfallPledgeOtpController extends GetxController with GetSingleTi
   MarginShortfallPledgeOtpArguments pageArguments = Get.arguments;
   TextEditingController otpController = TextEditingController();
   RxBool retryAvailable = false.obs;
-  final ConnectionInfo _connectionInfo;
-  final RequestPledgeOtpUseCase _requestPledgeOtpUseCase;
-  final CreateLoanApplicationUseCase _createLoanApplicationUseCase;
-
-  MarginShortfallPledgeOtpController(this._connectionInfo, this._requestPledgeOtpUseCase, this._createLoanApplicationUseCase);
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -180,7 +182,7 @@ class MarginShortfallPledgeOtpController extends GetxController with GetSingleTi
     });
   }
 
-  otpFieldCompleted(String otp) {
+  void otpFieldCompleted(String otp) {
     otpValue = otp;
     if (otpValue!.length >= 4) {
       isSubmitBtnClickable = false;
@@ -195,10 +197,4 @@ class MarginShortfallPledgeOtpController extends GetxController with GetSingleTi
       isSubmitBtnClickable = true;
     }
   }
-}
-
-class MarginShortfallPledgeOtpArguments{
-  String? cartName, fileId, pledgorBoid,instrumentType;
-
-  MarginShortfallPledgeOtpArguments({required this.cartName,required this.fileId,required this.pledgorBoid,required this.instrumentType});
 }

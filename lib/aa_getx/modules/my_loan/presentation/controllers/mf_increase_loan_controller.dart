@@ -1,12 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
-import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/mf_increase_loan_arguments.dart';
 import 'package:lms/lender/LenderBloc.dart';
 import 'package:lms/network/requestbean/MFSchemeRequest.dart';
 import 'package:lms/network/responsebean/MFSchemeResponse.dart';
@@ -91,18 +89,4 @@ class MfIncreaseLoanController extends GetxController{
      // });
     });
   }
-
-
-}
-
-class MFIncreaseLoanArguments {
-  String? loanName, comingFrom, loanType, schemeType;
-  LoanDetailDataEntity? loanData;
-
-  MFIncreaseLoanArguments(
-      {required this.loanName,
-        required this.comingFrom,
-        required this.loanData,
-        required this.loanType,
-        required this.schemeType});
 }

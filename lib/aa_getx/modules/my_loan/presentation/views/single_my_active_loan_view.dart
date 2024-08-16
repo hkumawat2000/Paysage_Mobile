@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
@@ -8,7 +7,6 @@ import 'package:lms/util/AssetsImagePath.dart';
 import 'package:lms/util/Colors.dart';
 import 'package:lms/util/Style.dart';
 import 'package:lms/util/strings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -27,11 +25,12 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
         backgroundColor: colorBg,
         elevation: 0,
         centerTitle: true,
-        title: Text(controller.loanNumber.value != null ? controller.loanNumber.value : "", style: mediumTextStyle_18_gray_dark),
+        title: Text(controller.loanNumber.value, style: mediumTextStyle_18_gray_dark),
       ),
       body: controller.loanDetailsResponse != null
           ? myActiveLoans()
           : Center(child: Text(controller.responseText.value)),
+      ///DC: already commented
       /* loanOpen == 1
             ? loanNumber != null
                 ? loanDetailData != null
@@ -220,11 +219,6 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
   }
 
   _launchURL(pathPDF) async {
-    // String dummy = pathPDF;
-    // print("pathPDF ==> $pathPDF");
-    // String loan_agreementStr =  pathPDF;
-    // var loan_agreementArray = loan_agreementStr.split('//');
-    // var loan_agreement =loan_agreementArray[0] + "//" + loan_agreementArray[1] + "/" + loan_agreementArray[2];
     if (await canLaunchUrl(pathPDF)) {
       await launchUrl(pathPDF);
     } else {
@@ -302,7 +296,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                   ),
                 ),
               ),
-              onTap: controller.increaseLoanClicked(),
+              onTap: ()=> controller.increaseLoanClicked(),
             ),
             SizedBoxWidthWidget(10.0),
             GestureDetector(

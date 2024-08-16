@@ -21,7 +21,7 @@ abstract class MyLoansApi{
 
   Future<CommonResponseModel> requestPledgeOTP(PledgeOTPRequestModel pledgeOTPRequestModel);
 
-  Future<ProcessCartResponseModel> createLoanApplication(CreateLoanApplicationRequestModel requestModel);
+  Future<ProcessCartResponseModel> createLoanApplication(CreateLoanApplicationRequestModel createLoanApplicationRequestModel);
 }
 
 class MyLoansApiImpl with BaseDio implements MyLoansApi{
@@ -89,10 +89,10 @@ class MyLoansApiImpl with BaseDio implements MyLoansApi{
   }
 
   @override
-  Future<ProcessCartResponseModel> createLoanApplication(CreateLoanApplicationRequestModel requestModel) async {
+  Future<ProcessCartResponseModel> createLoanApplication(CreateLoanApplicationRequestModel createLoanApplicationRequestModel) async {
     Dio dio = await getBaseDio();
     try {
-      final response = await dio.post(Apis.cartProcess, data: requestModel.toJson());
+      final response = await dio.post(Apis.cartProcess, data: createLoanApplicationRequestModel.toJson());
       if(response.statusCode == 200){
         return ProcessCartResponseModel.fromJson(response.data);
       } else {
