@@ -917,4 +917,5 @@ class Strings {
   static const String nextTxt = "Next";
 
   static const String yourLoanApplicationIsUnderProcessString= "Your loan application is under process.";
+  static const String somethingWentWrongTryAgainString = "Something went wrong! Try Again";
 }

@@ -2,7 +2,6 @@
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/controllers/margin_shortfall_controller.dart';
-import 'package:lms/common_widgets/ResusableIcon.dart';
 import 'package:lms/common_widgets/constants.dart';
 import 'package:lms/util/AssetsImagePath.dart';
 import 'package:lms/util/Colors.dart';
