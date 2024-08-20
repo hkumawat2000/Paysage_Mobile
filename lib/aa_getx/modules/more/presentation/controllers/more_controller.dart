@@ -70,7 +70,7 @@ class MoreController extends GetxController{
   @override
   void onInit() {
     getLastLogInDetails();
-    getLoanDetails();
+    getActiveLoans();
     autoFetchData();
     super.onInit();
   }
@@ -128,7 +128,7 @@ class MoreController extends GetxController{
       versionName.value = version;
   }
 
-  Future<void> getLoanDetails() async {
+  Future<void> getActiveLoans() async {
     if (await _connectionInfo.isConnected){
       DataState<MyLoansResponseEntity> response = await _getMyActiveLoansUseCase.call();
 
@@ -140,73 +140,13 @@ class MoreController extends GetxController{
           drawingPower = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].drawingPower;
           totalCollateral = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue;
           sanctionedLimit = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue;
+          ///DC: already commented
           // preferences.setLoanApplicationNo(loanName!);
           // preferences.setDrawingPower(drawingPower.toString());
           // preferences.setSanctionedLimit(sanctionedLimit.toString());
-          GetLoanDetailsRequestEntity loanDetailsRequestEntity = GetLoanDetailsRequestEntity(loanName:loanName.value, transactionsPerPage: 15, transactionsStart: 0,);
-          DataState<LoanDetailsResponseEntity> loanDetailsResponse = await _getLoanDetailsUseCase.call(GetLoanDetailsParams(loanDetailsRequestEntity: loanDetailsRequestEntity));
-
-         if(loanDetailsResponse is DataSuccess){
-           if(loanDetailsResponse.data != null) {
-               drawingPowerStr.value = loanDetailsResponse.data!.data!.loan!.drawingPowerStr!;
-               totalCollateralStr.value = loanDetailsResponse.data!.data!.loan!.totalCollateralValueStr!;
-               stockAt.value = loanDetailsResponse.data!.data!.pledgorBoid!;
-               loanType!.value = loanDetailsResponse.data!.data!.loan!.instrumentType!;
-               loanType!.value = loanDetailsResponse.data!.data!.loan!.schemeType!;
-               if (loanDetailsResponse.data!.data!.loan != null) {
-                 loanBalance!.value = loanDetailsResponse.data!.data!.loan!.balance!;
-               }
-
-               if (loanDetailsResponse.data!.data!.increaseLoan != null) {
-                 isIncreaseLoanExist.value = true;
-               } else {
-                 isIncreaseLoanExist.value = false;
-               }
-               if (loanDetailsResponse.data!.data!.topUpApplication == null) {
-                 isTopUpExist.value = true;
-                 topUpApplicationName.value = loanDetailsResponse.data!.data!.topUpApplicationName!;
-               } else {
-                 isTopUpExist.value = false;
-               }
-               if (loanDetailsResponse.data!.data!.unpledge != null) {
-                 isUnpledgeExist.value = true;
-                 if (loanDetailsResponse.data!.data!.unpledge!.unpledgeMsgWhileMarginShortfall != null) {
-                   unPledgeMarginShortFallMsg!.value = loanDetailsResponse.data!.data!.unpledge!.unpledgeMsgWhileMarginShortfall!;
-                 }
-               } else {
-                 isUnpledgeExist.value = false;
-               }
-               if (loanDetailsResponse.data!.data!.sellCollateral != null) {
-                 isSellCollateralExist.value = true;
-               } else {
-                 isSellCollateralExist.value = false;
-               }
-               if (loanDetailsResponse.data!.data!.isSellTriggered == 1) {
-                 isSellTriggered.value = true;
-               } else {
-                 isSellTriggered.value = false;
-               }
-               if (loanDetailsResponse.data!.data!.marginShortfall != null) {
-                 isMarginShortFall.value = true;
-                 marginShortfall = loanDetailsResponse.data!.data!.marginShortfall!;
-               } else {
-                 isMarginShortFall.value = false;
-               }
-
-               if (loanDetailsResponse.data!.data!.interest != null) {
-                 interest!.value = loanDetailsResponse.data!.data!.interest!;
-               }
-
-               isPayment!.value = loanDetailsResponse.data!.data!.paymentAlreadyInProcess!;
-
-               isAPIRespond.value = true;
-               isLoanExist.value = true;
-
-           } else {
-             commonDialog(loanDetailsResponse.error!.message, 3);
-                        isAPIRespond.value = true;
-           }
-         }
+          if(loanName.isNotEmpty){
+            getLoanDetails();
+          }
         } else {
           isAPIRespond.value = true;
           canPledge.value = response.data!.message!.data!.canPledge!;
@@ -298,6 +238,7 @@ class MoreController extends GetxController{
   void yesClicked() {
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
+        ///DC: already commented
         // preferences.clearPreferences();
         // preferences.setMobilet(mobileExist);
         // preferences.setEmail(userEmail);
@@ -437,7 +378,7 @@ class MoreController extends GetxController{
     });
   }
 
-  unPledgeClicked() {
+  void unPledgeClicked() {
     Utility.isNetworkConnection()
         .then((isNetwork) {
       if (isNetwork) {
@@ -487,7 +428,7 @@ class MoreController extends GetxController{
     });
   }
 
-  feedbackClicked() {
+  void feedbackClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         ///todo: change following code after NewFeedbackScreen screen completed
@@ -535,5 +476,78 @@ class MoreController extends GetxController{
             Strings.no_internet_message);
       }
     });
+  }
+
+  Future<void> getLoanDetails() async {
+    GetLoanDetailsRequestEntity loanDetailsRequestEntity = GetLoanDetailsRequestEntity(loanName:loanName.value, transactionsPerPage: 15, transactionsStart: 0,);
+    DataState<LoanDetailsResponseEntity> loanDetailsResponse = await _getLoanDetailsUseCase.call(GetLoanDetailsParams(loanDetailsRequestEntity: loanDetailsRequestEntity));
+
+    if(loanDetailsResponse is DataSuccess){
+      if(loanDetailsResponse.data != null) {
+        drawingPowerStr.value = loanDetailsResponse.data!.data!.loan!.drawingPowerStr!;
+        totalCollateralStr.value = loanDetailsResponse.data!.data!.loan!.totalCollateralValueStr!;
+        stockAt.value = loanDetailsResponse.data!.data!.pledgorBoid!;
+        loanType!.value = loanDetailsResponse.data!.data!.loan!.instrumentType!;
+        loanType!.value = loanDetailsResponse.data!.data!.loan!.schemeType!;
+        if (loanDetailsResponse.data!.data!.loan != null) {
+          loanBalance!.value = loanDetailsResponse.data!.data!.loan!.balance!;
+        }
+
+        if (loanDetailsResponse.data!.data!.increaseLoan != null) {
+          isIncreaseLoanExist.value = true;
+        } else {
+          isIncreaseLoanExist.value = false;
+        }
+        if (loanDetailsResponse.data!.data!.topUpApplication == null) {
+          isTopUpExist.value = true;
+          topUpApplicationName.value = loanDetailsResponse.data!.data!.topUpApplicationName!;
+        } else {
+          isTopUpExist.value = false;
+        }
+        if (loanDetailsResponse.data!.data!.unpledge != null) {
+          isUnpledgeExist.value = true;
+          if (loanDetailsResponse.data!.data!.unpledge!.unpledgeMsgWhileMarginShortfall != null) {
+            unPledgeMarginShortFallMsg!.value = loanDetailsResponse.data!.data!.unpledge!.unpledgeMsgWhileMarginShortfall!;
+          }
+        } else {
+          isUnpledgeExist.value = false;
+        }
+        if (loanDetailsResponse.data!.data!.sellCollateral != null) {
+          isSellCollateralExist.value = true;
+        } else {
+          isSellCollateralExist.value = false;
+        }
+        if (loanDetailsResponse.data!.data!.isSellTriggered == 1) {
+          isSellTriggered.value = true;
+        } else {
+          isSellTriggered.value = false;
+        }
+        if (loanDetailsResponse.data!.data!.marginShortfall != null) {
+          isMarginShortFall.value = true;
+          marginShortfall = loanDetailsResponse.data!.data!.marginShortfall!;
+        } else {
+          isMarginShortFall.value = false;
+        }
+
+        if (loanDetailsResponse.data!.data!.interest != null) {
+          interest!.value = loanDetailsResponse.data!.data!.interest!;
+        }
+
+        isPayment!.value = loanDetailsResponse.data!.data!.paymentAlreadyInProcess!;
+
+        isAPIRespond.value = true;
+        isLoanExist.value = true;
+
+      } else {
+        commonDialog(loanDetailsResponse.error!.message, 3);
+        isAPIRespond.value = true;
+      }
+    } else if (loanDetailsResponse is DataFailed) {
+      if (loanDetailsResponse.error!.statusCode == 403) {
+        commonDialog(Strings.session_timeout, 4);
+      } else {
+        Utility.showToastMessage(loanDetailsResponse.error!.message);
+      }
+    }
   }
 }

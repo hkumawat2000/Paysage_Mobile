@@ -9,7 +9,7 @@ import 'package:lms/aa_getx/modules/more/presentation/controllers/more_controlle
 import 'package:shimmer/shimmer.dart';
 
 class MoreView extends GetView<MoreController> {
-
+  ///DC: already commented
   // void userLogout(BuildContext context) async {
   //   String firebaseToken = await preferences.getFirebaseToken();
   //   LogoutRequestBean logoutRequestBean = LogoutRequestBean(firebaseToken: firebaseToken);
@@ -119,17 +119,17 @@ class MoreView extends GetView<MoreController> {
                         child: Column(
                           children: [
                             Text(
-                              controller.userFullName.value ?? "",
+                              controller.userFullName.value,
                               style: boldTextStyle_24,
                               textAlign: TextAlign.center,
                             ),
                             SizedBox(
                               height: 6,
                             ),
-                            controller.lastLogin == ""
-                                ? Text(controller.lastLogin != ""
-                                ? 'Last Login : ${controller.lastLogin}' : "",
-                                style: boldTextStyle_14, textAlign: TextAlign.center)
+                            controller.lastLogin.isNotEmpty
+                                ? Text('Last Login : ${controller.lastLogin}',
+                                style: boldTextStyle_14,
+                                textAlign: TextAlign.center)
                                 : SizedBox(),
                           ],
                         ),
@@ -152,6 +152,7 @@ class MoreView extends GetView<MoreController> {
                     onTap: ()=> controller.increaseLimitClicked(),
                   )
                       : SizedBox(),
+                  ///DC: already commented
 //                  isLoanExist ? GestureDetector(
 //                    onTap: () {
 //                      if (loanBalance <= drawingPower) {
@@ -226,6 +227,7 @@ class MoreView extends GetView<MoreController> {
                     ),
                   )
                       : SizedBox(),
+                  ///DC: already commented
 //                  userEsign != null ? GestureDetector(
 //                    onTap: () {
 //                      Navigator.push(context,
@@ -273,6 +275,7 @@ class MoreView extends GetView<MoreController> {
                       tileText: controller.loanType == Strings.mutual_fund ? Strings.approved_scheme: Strings.approved_security,
                     ),
                   ),
+                  ///DC: already commented
                   // : SizedBox(),
                   /* SizedBox(
                     height: 15,
@@ -387,6 +390,7 @@ class MoreView extends GetView<MoreController> {
                       tileText: "Feedback",
                     ),
                   ),
+                  ///DC: already commented
                   // GestureDetector(
                   //   child: ReusableMoreIconTileCard(
                   //     assetsImagePath: AssetsImagePath.phone,
@@ -461,6 +465,7 @@ class MoreView extends GetView<MoreController> {
                     ),
                     onTap: ()=> controller.contactUsClicked(),
                   ),
+                  ///DC: already commented
 //                  GestureDetector(
 //                    child: ReusableMoreIconTileCard(
 //                      assetsImagePath: AssetsImagePath.settings,
@@ -501,6 +506,7 @@ class MoreView extends GetView<MoreController> {
                     ),
                     onTap: ()=>controller.fAQClicked() ,
                   ),
+                  ///DC: already commented
                   // GestureDetector(
                   //   child: ReusableMoreIconTileCard(
                   //     assetsImagePath: AssetsImagePath.privacy_policy,
@@ -605,7 +611,7 @@ class MoreView extends GetView<MoreController> {
 
   Widget version() {
     return Center(
-      child: Text('Version ${controller.versionName != null ? controller.versionName : ""}'),
+      child: Text('Version ${controller.versionName.isNotEmpty ? controller.versionName : ""}'),
     );
   }
 }

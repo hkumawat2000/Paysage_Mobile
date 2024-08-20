@@ -23,6 +23,16 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/pin_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditions_webview.dart';
 import 'package:lms/aa_getx/modules/more/presentation/bindings/more_bindings.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/margin_shortfall_binding.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/margin_shortfall_eligible_dialog_binding.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/margin_shortfall_pledge_otp_binding.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/bindings/single_my_active_loan_binding.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/application_success_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/application_top_up_success_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_eligible_dialog_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_pledge_otp_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/margin_shortfall_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/bindings/notification_binding.dart';
 import 'package:lms/aa_getx/modules/notification/presentation/views/notification_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/bindings/splash_binding.dart';
@@ -33,6 +43,8 @@ import 'package:lms/aa_getx/modules/authentication/presentation/bindings/fingerp
 import 'package:lms/aa_getx/modules/authentication/presentation/views/enable_fingerprint_dialog_view.dart';
 import 'package:lms/aa_getx/modules/authentication/presentation/views/fingerprint_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/walkthrough_view.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/presentation/bindings/my_pledge_security_binding.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/offline_customer_binding.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/registration_binding.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/set_pin_binding.dart';
@@ -66,9 +78,16 @@ const String kycAddressView = "kyc-address-view";
 const String youtubeVideoPlayer = "youtube-video-player";
 const String notificationView = "notification-view";
 const String moreView = "more-view";
+const String singleMyActiveLoanView = "single-my-active-loan-view";
+const String applicationTopUpSuccessView = "application-top-Up-success-view";
+const String applicationSuccessView = "application-success-view";
+const String marginShortfallView = "margin-shortfall-view";
 const String dashboardView = "dashboard-view";
 const String commonWebview = "common-webview";
 const String amlCheckView = "aml-check--view";
+const String marginShortfallPledgeOTPView = "margin-shortfall-pledge-otp-view";
+const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dialog-view";
+const String myPledgedSecuritiesView = "my-pledged-securities-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -169,6 +188,19 @@ List<GetPage> routes = [
     binding: MoreBinding(),
   ),
   GetPage(
+    name: '/$singleMyActiveLoanView',
+    page: () => SingleMyActiveLoanView(),
+    binding: SingleMyActiveLoanBinding(),
+  ),
+  GetPage(
+    name: '/$applicationTopUpSuccessView',
+    page: () => ApplicationTopUpSuccessView(),
+  ),
+  GetPage(
+    name: '/$applicationSuccessView',
+    page: () => ApplicationSuccessView(),
+  ),
+  GetPage(
     name: '/$dashboardView',
     page: () => DashboardView(),
     binding: DashboardBindings(),
@@ -178,8 +210,28 @@ List<GetPage> routes = [
     page: () => CommonWebviewView(),
   ),
   GetPage(
+    name: '/$marginShortfallView',
+    page: () => MarginShortfallView(),
+    binding: MarginShortfallBinding(),
+  ),
+  GetPage(
+    name: '/$marginShortfallPledgeOTPView',
+    page: () => MarginShortfallPledgeOTPView(),
+    binding: MarginShortfallPledgeOtpBinding(),
+  ),
+  GetPage(
+    name: '/$marginShortfallEligibleDialogView',
+    page: () => MarginShortfallEligibleDialogView(),
+    binding: MarginShortfallEligibleDialogBinding(),
+  ),
+  GetPage(
     name: '/$amlCheckView',
     page: () => AmlCheckView(),
     binding: AmlCheckBinding(),
+  ),
+  GetPage(
+    name: '/$myPledgedSecuritiesView',
+    page: () => MyPledgeSecurityView(),
+    binding: MyPledgeSecurityBinding(),
   ),
 ];

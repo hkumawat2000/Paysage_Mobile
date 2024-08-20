@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lms/aa_getx/config/routes.dart';
@@ -135,6 +136,19 @@ class ArrowToolbarBackwardNavigation extends StatelessWidget {
   }
 }
 
+
+//Common Backward Arrow
+class ArrowBackwardNavigation extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      AssetsImagePath.left_arrow,
+      height: 10.45,
+      width: 18.57,
+    );
+  }
+}
+
 //Get current date and time
 String getCurrentDateAndTime() {
   DateTime now = new DateTime.now();
@@ -193,6 +207,7 @@ void showDialogLoading(String message) {
     ),
   );
 }
+
 
 Future<void> commonDialog(message, value) {
   /*value 0 = Pop dialog
@@ -368,6 +383,55 @@ void showSnackBarWithMessage(
   // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
 }
 
+//Common Script Name Text
+Widget scripsNameText(string) {
+  return Text(
+    string,
+    style: boldTextStyle_18,
+  );
+}
+
+
+//Common Sub Heading Text
+Widget subHeadingText(string, {isNeg = false}) {
+  return Text(
+    string,
+    style: boldTextStyle_24.copyWith(color: isNeg ? colorGreen : appTheme),
+  );
+}
+
+//Change Number to String e.g. 1000 => 1,000
+String numberToString(String str) {
+  return str.replaceAllMapped(
+      new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+}
+
+//For negative value show minus symbol as prefix
+String negativeValue(double value) {
+  return '-₹${numberToString(value.abs().toStringAsFixed(2))}';
+}
+
+
+//Common width sized box
+class SizedBoxWidthWidget extends StatelessWidget {
+  final width;
+
+  SizedBoxWidthWidget(this.width);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: width);
+  }
+}
+
+//Common Medium Heading Text
+Widget mediumHeadingText(string) {
+  return Text(
+    string,
+    style: mediumTextStyle_12_gray,
+  );
+}
+
 //On click of notification redirect user to particular screen
 notificationNavigator(
     BuildContext context, String screenName, String? loanNumber) async {
@@ -379,6 +443,7 @@ notificationNavigator(
     Navigator.push(context, MaterialPageRoute(
         builder: (context) => DashBoard()));
   } else if (screenName == "Margin Shortfall Action") {
+  ///todo: move below api call to MarginShortfallScreen
     LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
     final myLoansBloc = MyLoansBloc();
     myLoansBloc.getLoanDetails(loanNumber).then((value) {
@@ -417,3 +482,378 @@ String encryptAcNo(String str) {
   return str.replaceRange(2, str.length - 2, encStr);
 }
 
+
+
+
+Widget marginShortfallInfo(loanBalance,
+    marginShortFallCashAmt, drawingPower, marginShortfall, loanType) {
+  return new Scaffold(
+    backgroundColor: Colors.transparent,
+    bottomNavigationBar: AnimatedPadding(
+      duration: Duration(milliseconds: 150),
+      curve: Curves.easeOut,
+      padding:
+      EdgeInsets.only(bottom: Get.mediaQuery.viewInsets.bottom),
+      child: Container(
+        height: 350,
+        width: 375,
+        decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: new BorderRadius.only(
+            topLeft: const Radius.circular(25.0),
+            topRight: const Radius.circular(25.0),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 50,
+              ),
+              Text(
+                Strings.margin_shortfall,
+                style: TextStyle(
+                    color: appTheme, fontWeight: FontWeight.bold, fontSize: 24),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      "Loan Balance",
+                      style: TextStyle(fontSize: 18, color: colorLightGray),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    loanBalance < 0
+                        ? negativeValue(loanBalance)
+                        : "₹${numberToString(loanBalance.toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: loanBalance < 0 ? colorGreen : colorDarkGray),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      "Required Drawing Power",
+                      style: TextStyle(fontSize: 18, color: colorLightGray),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    drawingPower + marginShortFallCashAmt < 0
+                        ? negativeValue(drawingPower + marginShortFallCashAmt)
+                        : "₹${numberToString((drawingPower + marginShortFallCashAmt).toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: colorDarkGray),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      "Existing Drawing Power",
+                      style: TextStyle(fontSize: 18, color: colorLightGray),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    drawingPower < 0
+                        ? negativeValue(drawingPower)
+                        : "₹${numberToString(drawingPower.toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: colorDarkGray),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Divider(
+                thickness: 1.5,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    Strings.margin_shortfall,
+                    style: TextStyle(
+                        color: appTheme,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    marginShortFallCashAmt < 0
+                        ? negativeValue(marginShortFallCashAmt)
+                        : "₹${numberToString(marginShortFallCashAmt.toStringAsFixed(2))}",
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold, color: red),
+                  ) ,
+                ],
+              ),
+              SizedBox(
+                height: 27,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 45,
+                    width: 120,
+                    child: Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
+                      elevation: 1.0,
+                      color: appTheme,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        minWidth: Get.width,
+                        onPressed: ()=> Get.back(),
+                        child: Text(
+                          "Ok",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget StockAtCart(String message, String stockAt){
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, top: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            message,
+            style: TextStyle(
+                color: appTheme, fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            stockAt.isNotEmpty
+                ? stockAt.replaceRange(2, stockAt.length - 2, "xxxxxxxxxxxx")
+                : "",
+            style: TextStyle(color: colorDarkGray, fontSize: 18),
+          ),
+        ],
+      ),
+    );
+}
+
+Widget marginShortFall(
+    loanBalance,
+    minimumPledgeAmount,
+    marginShortFallCashAmt,
+    drawingPower,
+    image,
+    Color iconBg,
+    bool isMarginShortfall, String loanType) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 10.0, top: 10, right: 10),
+    child: Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+              Radius.circular(15.0)), // set rounded corner radius
+          // make rounded corner of border
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: iconBg,
+                borderRadius: BorderRadius.all(
+                    Radius.circular(10.0)), // set rounded corner radius
+              ),
+              child: Image.asset(
+                image,
+                width: 40,
+                height: 40,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: [
+                    mediumHeadingText(Strings.margin_shortfall),
+                    SizedBox(width: 05),
+                    GestureDetector(
+                      child: Image.asset(AssetsImagePath.info,
+                          height: 12, width: 12),
+                      onTap: () {
+                        Get.bottomSheet(
+                            backgroundColor: Colors.transparent,
+                            isScrollControlled: true,
+                            marginShortfallInfo(
+                                  loanBalance,
+                                  marginShortFallCashAmt,
+                                  drawingPower,
+                                  minimumPledgeAmount,
+                                  loanType),
+                            );
+                      },
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  marginShortFallCashAmt < 0
+                      ? negativeValue(marginShortFallCashAmt)
+                      : '₹${numberToString(marginShortFallCashAmt.toStringAsFixed(2))}',
+                  style: boldTextStyle_24,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+void showErrorMessage(String msg) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.grey,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
+//Used common widget for OTP pop-up heading and sub heading
+Widget HeadingSubHeadingWidget(String mainHeading, String subHeading) {
+  return Column(
+    children: <Widget>[
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            mainHeading,
+            style: TextStyle(
+                color: appTheme, fontSize: 22, fontWeight: FontWeight.w700),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Text(
+            subHeading,
+            style: TextStyle(
+                color: colorLightGray,
+                fontSize: 16,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+class ReusableIconTextContainerCard extends StatelessWidget {
+  ReusableIconTextContainerCard(
+      {required this.cardText, required this.cardIcon, required this.circleColor});
+  final String cardText;
+  final Image cardIcon;
+  final Color circleColor;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 1,
+      color: colorWhite,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: circleColor,
+              ),
+              child: cardIcon,
+            ),
+            Text(
+                cardText, style: subHeading
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+//Common Script Value Text
+Widget scripsValueText(string) {
+  return Text(
+    string,
+    style: boldTextStyle_18_gray_dark,
+  );
+}

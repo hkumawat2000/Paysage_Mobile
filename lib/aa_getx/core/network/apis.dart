@@ -82,4 +82,5 @@ class Apis {
   static final String cibilOtpSend = "/api/method/lms.user.register_mobile";
   static final String cibilOtpVerify = "/api/method/lms.user.validate_otp";
   static final String cibilOnDemand = "/api/method/lms.user.ondemand_refresh";
+  static final String requestPledgeOtp = "api/method/lms.cart.request_pledge_otp";
 }
