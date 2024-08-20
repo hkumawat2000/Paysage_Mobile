@@ -34,9 +34,9 @@ class MyPledgeSecurityController extends GetxController{
   RxDouble drawingPower = 0.0.obs;
   RxDouble loanBalance = 0.0.obs;
   RxString responseText = Strings.please_wait.obs;
-  MyPledgedSecuritiesDetailsResponseEntity? pledgedResponse;
+  Rx<MyPledgedSecuritiesDetailsResponseEntity?> pledgedResponse = Rxn<MyPledgedSecuritiesDetailsResponseEntity>();
   RxList<AllPledgedSecuritiesEntity> allPledgedSecurities = <AllPledgedSecuritiesEntity>[].obs;
-  List<bool> pressDownList = [];
+  RxList<bool> pressDownList = <bool>[].obs;
   List<SellList> sellList = [];
   List<UnPledgeList> unPledgeList = [];
   RxBool isIncreaseLoan = false.obs;
@@ -87,50 +87,50 @@ class MyPledgeSecurityController extends GetxController{
       DataState<MyPledgedSecuritiesDetailsResponseEntity> response = await _getMyPledgedSecuritiesUseCase.call(MyPledgedSecuritiesRequestParams(myPledgedSecuritiesRequestEntity: myPledgedSecuritiesRequestEntity));
       if(response is DataSuccess){
         if(response.data != null){
-          pledgedResponse = response.data!;
-          loanType.value = pledgedResponse!.myPledgedSecuritiesData!.instrumentType ?? "";
-          schemeType.value = pledgedResponse!.myPledgedSecuritiesData!.schemeType ?? "";
-          totalValue.value = pledgedResponse!.myPledgedSecuritiesData!.totalValue ?? 0.0;
-          selectedScrips.value = pledgedResponse!.myPledgedSecuritiesData!.numberOfScrips.toString();
-          drawingPower.value = pledgedResponse!.myPledgedSecuritiesData!.drawingPower ?? 0.0;
-          loanBalance.value = pledgedResponse!.myPledgedSecuritiesData!.balance ?? 0.0;
+          pledgedResponse.value = response.data!;
+          loanType.value = pledgedResponse.value!.myPledgedSecuritiesData!.instrumentType ?? "";
+          schemeType.value = pledgedResponse.value!.myPledgedSecuritiesData!.schemeType ?? "";
+          totalValue.value = pledgedResponse.value!.myPledgedSecuritiesData!.totalValue ?? 0.0;
+          selectedScrips.value = pledgedResponse.value!.myPledgedSecuritiesData!.numberOfScrips.toString();
+          drawingPower.value = pledgedResponse.value!.myPledgedSecuritiesData!.drawingPower ?? 0.0;
+          loanBalance.value = pledgedResponse.value!.myPledgedSecuritiesData!.balance ?? 0.0;
           // allPledgedSecurities = pledgedResponse.data.allPledgedSecurities;
 
-          for(int i=0; i< pledgedResponse!.myPledgedSecuritiesData!.allPledgedSecurities!.length; i++){
-            if(pledgedResponse!.myPledgedSecuritiesData!.instrumentType == Strings.shares) {
-              if (pledgedResponse!.myPledgedSecuritiesData!.allPledgedSecurities![i].pledgedQuantity!.toInt() != 0) {
-                allPledgedSecurities.add(pledgedResponse!.myPledgedSecuritiesData!.allPledgedSecurities![i]);
+          for(int i=0; i< pledgedResponse.value!.myPledgedSecuritiesData!.allPledgedSecurities!.length; i++){
+            if(pledgedResponse.value!.myPledgedSecuritiesData!.instrumentType == Strings.shares) {
+              if (pledgedResponse.value!.myPledgedSecuritiesData!.allPledgedSecurities![i].pledgedQuantity!.toInt() != 0) {
+                allPledgedSecurities.add(pledgedResponse.value!.myPledgedSecuritiesData!.allPledgedSecurities![i]);
               }
             } else {
-              if (pledgedResponse!.myPledgedSecuritiesData!.allPledgedSecurities![i].pledgedQuantity! >= 0.001) {
-                allPledgedSecurities.add(pledgedResponse!.myPledgedSecuritiesData!.allPledgedSecurities![i]);
+              if (pledgedResponse.value!.myPledgedSecuritiesData!.allPledgedSecurities![i].pledgedQuantity! >= 0.001) {
+                allPledgedSecurities.add(pledgedResponse.value!.myPledgedSecuritiesData!.allPledgedSecurities![i]);
               }
             }
           }
 
           selectedScrips.value = allPledgedSecurities.length.toString();
 
-          if(pledgedResponse!.myPledgedSecuritiesData!.increaseLoan != null){
+          if(pledgedResponse.value!.myPledgedSecuritiesData!.increaseLoan != null){
             isIncreaseLoan.value = true;
           } else {
             isIncreaseLoan.value = false;
           }
 
-          if(pledgedResponse!.myPledgedSecuritiesData!.unpledge != null){
+          if(pledgedResponse.value!.myPledgedSecuritiesData!.unpledge != null){
             isUnpledge.value = true;
-            if(pledgedResponse!.myPledgedSecuritiesData!.unpledge!.unpledgeMsgWhileMarginShortfall != null) {
-              unPledgeMarginShortFallMsg.value = pledgedResponse!.myPledgedSecuritiesData!.unpledge!.unpledgeMsgWhileMarginShortfall!;
+            if(pledgedResponse.value!.myPledgedSecuritiesData!.unpledge!.unpledgeMsgWhileMarginShortfall != null) {
+              unPledgeMarginShortFallMsg.value = pledgedResponse.value!.myPledgedSecuritiesData!.unpledge!.unpledgeMsgWhileMarginShortfall!;
             }
           } else {
             isUnpledge.value = false;
           }
 
-          if(pledgedResponse!.myPledgedSecuritiesData!.sellCollateral != null){
+          if(pledgedResponse.value!.myPledgedSecuritiesData!.sellCollateral != null){
             isSellCollateral.value = true;
           } else {
             isSellCollateral.value = false;
           }
-          if(pledgedResponse!.myPledgedSecuritiesData!.isSellTriggered == 1){
+          if(pledgedResponse.value!.myPledgedSecuritiesData!.isSellTriggered == 1){
             isSellTriggered.value = true;
           } else {
             isSellTriggered.value = false;
@@ -207,7 +207,7 @@ class MyPledgeSecurityController extends GetxController{
           }
         } else {
           if(isIncreaseLoan.value){
-            if(pledgedResponse!.myPledgedSecuritiesData!.topUpApplication == 1){
+            if(pledgedResponse.value!.myPledgedSecuritiesData!.topUpApplication == 1){
               if (await _connectionInfo.isConnected) {
                 showDialogLoading(Strings.please_wait);
                 GetLoanDetailsRequestEntity loanDetailsRequestEntity =
@@ -253,7 +253,7 @@ class MyPledgeSecurityController extends GetxController{
                 Utility.showToastMessage(Strings.no_internet_message);
               }
             }else{
-              commonDialog( "Your top-up application: ${pledgedResponse!.myPledgedSecuritiesData!.topUpApplicationName} is pending", 0);
+              commonDialog( "Your top-up application: ${pledgedResponse.value!.myPledgedSecuritiesData!.topUpApplicationName} is pending", 0);
             }
           } else {
             commonDialog(Strings.increase_loan_request_pending, 0);

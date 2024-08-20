@@ -21,7 +21,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
         centerTitle: true,
         title: Text(controller.loanName.value, style: mediumTextStyle_18_gray_dark),
       ),
-      body: controller.pledgedResponse != null ? myPledgedSecuritiesBody() : Center(child: Text(controller.responseText.value)),
+      body: controller.pledgedResponse.value != null ? myPledgedSecuritiesBody() : Center(child: Text(controller.responseText.value)),
     ));
   }
 
@@ -370,6 +370,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
                     ),
                   ]),
                 ]),
+                Obx(()=>
                 Visibility(
                   visible: controller.pressDownList[index],
                   child: Padding(
@@ -419,7 +420,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
                       ],
                     ),
                   ),
-                )
+                ),),
               ],
             ),
           ),
