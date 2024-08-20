@@ -15,7 +15,7 @@ class DashboardView extends GetView<DashboardController> {
       child: Scaffold(
         body: Stack(
           children: <Widget>[
-            controller.children[controller.selectedIndex!.value],
+            Obx(() =>controller.children[controller.selectedIndex!.value]),
             Positioned(
               left: 0,
               right: 0,
@@ -43,11 +43,12 @@ class DashboardView extends GetView<DashboardController> {
       ),
       child: ClipRRect(
           borderRadius: BorderRadius.circular(40),
-          child: BottomNavigationBar(
+          child:  Obx(() =>BottomNavigationBar(
             backgroundColor: colorWhite,
             type: BottomNavigationBarType.fixed,
-            currentIndex: controller.selectedIndex!.value,
-            onTap: controller.onItemTapped,
+            currentIndex: controller.selectedIndex.value,
+           // onTap: controller.onItemTapped,
+            onTap: (newIndex) => controller.selectedIndex(newIndex),
             items: [
               BottomNavigationBarItem(
                 label: "",
@@ -144,7 +145,7 @@ class DashboardView extends GetView<DashboardController> {
                 // title: Container(),
               ),
             ],
-          )),
+          ),),),
     );
   }
 }

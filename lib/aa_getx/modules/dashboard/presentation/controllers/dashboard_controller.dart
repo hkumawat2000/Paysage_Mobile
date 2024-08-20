@@ -12,6 +12,10 @@ import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/entities/force_update_response_entity.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/usecases/force_update_usecase.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
+import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
+import 'package:lms/my_loan/SingleMyActiveLoanScreen.dart';
+import 'package:lms/new_dashboard/NewDashboardScreen.dart';
+import 'package:lms/pledged_securities/MyPledgedListScreen.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:lms/util/strings.dart';
@@ -33,20 +37,20 @@ class DashboardController extends GetxController {
   Preferences preferences = Preferences();
   static var notificationId, messageId;
 
-  RxInt? selectedIndex = 0.obs;
+  RxInt selectedIndex = 0.obs;
 
   RxString storeURL = "".obs;
   RxString storeWhatsNew = "".obs;
   RxString storeVersion = "".obs;
 
   final List<Widget> children = [
-    // HomeScreen(),
-    // MyPledgeSecurityScreen(),
-    // SingleMyActiveLoanScreen(),
-    // MoreScreen()
+    HomeScreen(),
+    MyPledgeSecurityScreen(),
+    SingleMyActiveLoanScreen(),
+    MoreView()
   ];
 
-  DashboardArguments dashboardArguments = Get.arguments;
+  DashboardArguments dashboardArguments = DashboardArguments(isFromPinScreen: false,selectedIndex: 1);/// Todo: uncomment this Get.arguments;
 
   @override
   void onInit() {
