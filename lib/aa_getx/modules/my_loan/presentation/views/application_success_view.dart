@@ -7,7 +7,6 @@ import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
-import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 
 /// todo: String loanNo; ApplicationSuccess(this.loanNo); while redirecting to ApplicationSuccessView screen add loanNo in arguments
 class ApplicationSuccessView extends StatelessWidget{

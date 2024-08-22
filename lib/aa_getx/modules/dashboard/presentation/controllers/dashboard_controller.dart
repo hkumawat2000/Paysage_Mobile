@@ -13,14 +13,13 @@ import 'package:lms/aa_getx/modules/dashboard/domain/entities/force_update_respo
 import 'package:lms/aa_getx/modules/dashboard/domain/usecases/force_update_usecase.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
-import 'package:lms/my_loan/SingleMyActiveLoanScreen.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
 import 'package:lms/new_dashboard/NewDashboardScreen.dart';
-import 'package:lms/pledged_securities/MyPledgedListScreen.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:lms/util/strings.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:overlay_support/overlay_support.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class DashboardController extends GetxController {
@@ -45,8 +44,8 @@ class DashboardController extends GetxController {
 
   final List<Widget> children = [
     HomeScreen(),
-    MyPledgeSecurityScreen(),
-    SingleMyActiveLoanScreen(),
+    MyPledgeSecurityView(),
+    SingleMyActiveLoanView(),
     MoreView()
   ];
 
@@ -122,7 +121,7 @@ class DashboardController extends GetxController {
   }
 
   void onItemTapped(int index) {
-    selectedIndex!.value = index;
+    selectedIndex.value = index;
   }
 
   fcmConfigure() async {

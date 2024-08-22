@@ -4,6 +4,8 @@ import 'package:lms/aa_getx/core/error/exception.dart';
 import 'package:lms/aa_getx/core/network/apis.dart';
 import 'package:lms/aa_getx/core/network/base_dio.dart';
 import 'package:lms/aa_getx/modules/dashboard/data/models/force_update_response_model.dart';
+import 'package:lms/aa_getx/modules/dashboard/data/models/loan_summary_response_model.dart';
+import 'package:lms/aa_getx/modules/dashboard/data/models/new_dashboard_response_model.dart';
 
 /// DashboardDataSource is an abstract class defining the contract for fetching
 /// data from various sources.
@@ -11,6 +13,10 @@ import 'package:lms/aa_getx/modules/dashboard/data/models/force_update_response_
 /// implementations should implement, such as fetching data from a remote API, local database, or any other data source.
 abstract class DashboardDataSource {
   Future<ForceUpdateResponseModel> forceUpdate();
+
+  Future<NewDashboardResponseModel> getDashboardData();
+
+  Future<LoanSummaryResponseModel> getLoanSummaryData();
 }
 
 /// DashboardDataSourceDataSourceImpl is the concrete implementation of the DashboardDataSource
@@ -26,6 +32,36 @@ class DashboardDataSourceDataSourceImpl
       final response = await dio.get(Apis.forceUpdate);
       if (response.statusCode == 200) {
         return ForceUpdateResponseModel.fromJson(response.data);
+      } else {
+        throw ServerException(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw handleDioClientError(e);
+    }
+  }
+
+  @override
+  Future<NewDashboardResponseModel> getDashboardData() async {
+    Dio dio = await getBaseDio();
+    try {
+      final response = await dio.get(Apis.dashboard);
+      if (response.statusCode == 200) {
+        return NewDashboardResponseModel.fromJson(response.data);
+      } else {
+        throw ServerException(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw handleDioClientError(e);
+    }
+  }
+
+  @override
+  Future<LoanSummaryResponseModel> getLoanSummaryData() async{
+    Dio dio = await getBaseDio();
+    try {
+      final response = await dio.get(Apis.loanSummary);
+      if (response.statusCode == 200) {
+        return LoanSummaryResponseModel.fromJson(response.data);
       } else {
         throw ServerException(response.statusMessage);
       }

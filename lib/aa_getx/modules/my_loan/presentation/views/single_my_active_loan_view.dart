@@ -27,7 +27,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
         centerTitle: true,
         title: Text(controller.loanNumber.value, style: mediumTextStyle_18_gray_dark),
       ),
-      body: controller.loanDetailsResponse != null
+      body: controller.loanDetailData != null
           ? myActiveLoans()
           : Center(child: Text(controller.responseText.value)),
       ///DC: already commented
@@ -60,7 +60,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
             padding: const EdgeInsets.only(left: 16.0, top: 15),
             child: Row(
               children: <Widget>[
-                scripsNameText(controller.loanDetailData.value!.transactions!.length != 0 ? Strings.recent_transactions : "")
+                scripsNameText(controller.loanDetailData?.value.transactions!.length != 0 ? Strings.recent_transactions : "")
               ],
             ),
           ),
@@ -120,7 +120,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                   style: boldTextStyle_14,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      _launchURL(controller.baseURL + controller.loanDetailData.value!.loan!.loanAgreement!);
+                                      _launchURL(controller.baseURL + controller.loanDetailData!.value.loan!.loanAgreement!);
                                     },
                                 ),
                               ),
@@ -132,9 +132,9 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              subHeadingText(controller.sanctionedValue < 0
-                                  ? negativeValue(controller.sanctionedValue)
-                                  : '₹${numberToString(controller.sanctionedValue.toStringAsFixed(2))}'),
+                              subHeadingText(controller.sanctionedValue.value < 0
+                                  ? negativeValue(controller.sanctionedValue.value)
+                                  : '₹${numberToString(controller.sanctionedValue.value.toStringAsFixed(2))}'),
                               // subHeadingText('₹$sanctionedValue'),
                               Padding(
                                 padding: EdgeInsets.only(top: 3.0, left: 10.0),
@@ -339,7 +339,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
   Widget activeLoanItem() {
     return Column(
       children: <Widget>[
-        controller.loanDetailData.value!.topUp != null
+        controller.loanDetailData!.value.topUp != null
             ? Padding(
           padding:
           const EdgeInsets.only(top: 15.0, left: 12.0, right: 12.0),
@@ -412,10 +412,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                             ),
                             Row(
                               children: [
-                                subHeadingText(controller.loanDetailData.value!.topUp! < 0
+                                subHeadingText(controller.loanDetailData!.value.topUp! < 0
                                     ? negativeValue(
-                                    controller.loanDetailData.value!.topUp!)
-                                    : '₹${numberToString(controller.loanDetailData.value!.topUp!.toStringAsFixed(2))}'),
+                                    controller.loanDetailData!.value.topUp!)
+                                    : '₹${numberToString(controller.loanDetailData!.value.topUp!.toStringAsFixed(2))}'),
                                 // subHeadingText('₹${numberToString(loanDetailData!.topUp!.toStringAsFixed(2))}'),
                               ],
                             )
@@ -446,7 +446,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
           ),
         )
             : Container(),
-        controller.loanDetailData.value!.loan!.totalCollateralValue != null
+        controller.loanDetailData!.value.loan!.totalCollateralValue != null
             ? Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 12.0),
           child: Row(
@@ -493,6 +493,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                             ),
                             SizedBox(
                               width: 16,
+
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -501,9 +502,9 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                 SizedBox(
                                   height: 5,
                                 ),
-                                subHeadingText(controller.loanDetailData.value!.loan!.totalCollateralValue! < 0
-                                    ? negativeValue(controller.loanDetailData.value!.loan!.totalCollateralValue!)
-                                    : '₹${numberToString(controller.loanDetailData.value!.loan!.totalCollateralValue!.toStringAsFixed(2))}'),
+                                subHeadingText(controller.loanDetailData!.value.loan!.totalCollateralValue! < 0
+                                    ? negativeValue(controller.loanDetailData!.value.loan!.totalCollateralValue!)
+                                    : '₹${numberToString(controller.loanDetailData!.value.loan!.totalCollateralValue!.toStringAsFixed(2))}'),
                                 // subHeadingText('₹${loanDetailData!.loan!.totalCollateralValueStr}'),
                               ],
                             ),
@@ -872,9 +873,9 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: controller.loanDetailData.value!.transactions!.length,
+      itemCount: controller.loanDetailData!.value.transactions!.length,
       itemBuilder: (context, index) {
-        return recentTransactionItem(controller.loanDetailData.value!.transactions!, index);
+        return recentTransactionItem(controller.loanDetailData!.value.transactions!, index);
       },
     );
   }

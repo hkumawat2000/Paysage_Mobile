@@ -857,3 +857,11 @@ Widget scripsValueText(string) {
     style: boldTextStyle_18_gray_dark,
   );
 }
+
+//Common Large Heading Text
+Widget largeHeadingText(string) {
+  return Text(
+    string,
+    style: extraBoldTextStyle_30,
+  );
+}

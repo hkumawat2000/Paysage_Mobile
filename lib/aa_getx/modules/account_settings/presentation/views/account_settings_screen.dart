@@ -16,8 +16,8 @@ import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/controllers/account_settings_controller.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/settings_menu_view.dart';
 
-class AccountSettingsScreen extends GetView<AccountSettingsController> {
-  AccountSettingsScreen();
+class AccountSettingsView extends GetView<AccountSettingsController> {
+  AccountSettingsView();
 
   @override
   Widget build(BuildContext context) {
