@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_controller.dart';
 
@@ -60,7 +61,7 @@ class CibilView extends GetView<CibilController> {
             SizedBox(height: 20),
             GestureDetector(
               onTap: (){
-                
+                Get.offNamed(cibilResultView);
               },
               child: Container(
                 width: Get.width,

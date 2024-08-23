@@ -2,6 +2,8 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/bindings/account_settings_bindings.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_settings_screen.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_binding.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_result_binding.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_result_view.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bindings.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
@@ -92,6 +94,7 @@ const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dial
 const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
 const String cibilView = "cibil-view";
+const String cibilResultView = "cibil-result-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -247,5 +250,10 @@ List<GetPage> routes = [
     name: '/$cibilView',
     page: () => CibilView(),
     binding: CibilBinding(),
+  ),
+  GetPage(
+    name: '/$cibilResultView',
+    page: () => CibilResultView(),
+    binding: CibilResultBinding(),
   ),
 ];
