@@ -10,10 +10,73 @@ class CibilView extends GetView<CibilController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorBg,
-      body: Center(
-        child: MaterialButton(
-          onPressed: () => controller.cibilCheckApi(),
-          child: Text("CIBIL..."),
+      appBar: AppBar(
+        backgroundColor: colorBg,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        child: Column(
+          children: [
+            SizedBox(height: 30),
+            Center(
+              child: Text("Check your CIBIL score for free.\nIt takes less than a minute",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(height: 30),
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                border: Border.all(
+                    width: 0.1
+                ),
+                color: colorLightGray2,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.check_circle, color: colorGreen, size: 18),
+                      SizedBox(width: 10),
+                      Expanded(child: Text("Your CIBIL score does not decrease after you check it.")),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(Icons.check_circle, color: colorGreen, size: 18),
+                      SizedBox(width: 10),
+                      Expanded(child: Text("Paysage.ai does not share credit report data with any third party")),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            SizedBox(height: 20),
+            GestureDetector(
+              onTap: (){
+                
+              },
+              child: Container(
+                width: Get.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 0.1
+                  ),
+                  color: colorLightBlue,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                padding: EdgeInsets.all(10),
+                child: Center(child: Text("Check your score now", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)),
+              ),
+            ),
+            SizedBox(height: 20),
+          ],
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
@@ -2077,7 +2078,7 @@ class HomeView extends GetView<HomeController> {
                               textAlign: TextAlign.center),
                         ],
                       ),
-                      onTap: ()=> commonDialog(Strings.coming_soon, 0),
+                      onTap: ()=> Get.toNamed(cibilView),
                     ),
                   ),
                   Expanded(
