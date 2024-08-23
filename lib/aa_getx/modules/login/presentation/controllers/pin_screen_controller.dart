@@ -9,6 +9,7 @@ import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/auto_login_response_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/pin_screen_request_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/usecases/pin_screeen_usecase.dart';
@@ -255,7 +256,7 @@ class PinScreenController extends GetxController {
               (route) => false);
         } else {
           //TODO Navigate To Dashboard
-          Get.offNamedUntil(dashboardView, (route) => false);
+          Get.offNamedUntil(dashboardView, (route) => false, arguments: DashboardArguments(selectedIndex: 0, isFromPinScreen: true));
 
           // Navigator.pushReplacement(
           //     context, MaterialPageRoute(builder: (BuildContext context) => DashBoard(isFromPinScreen: true)));
