@@ -194,8 +194,9 @@ void showDialogLoading(String message) {
     AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       content: Container(
-        height: 100,
-        width: 30, // Adjust width as needed
+        // height: 50,
+        // width: 10, // Adjust width as needed
+        padding: EdgeInsets.all(8),
         child: Row(
           children: [
             CircularProgressIndicator(),
