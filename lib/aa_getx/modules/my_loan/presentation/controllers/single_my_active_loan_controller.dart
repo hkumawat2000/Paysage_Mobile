@@ -27,7 +27,7 @@ class SingleMyActiveLoanController extends GetxController {
   Rx<MarginShortfallEntity?> marginShortfall = MarginShortfallEntity().obs;
   Rx<InterestEntity?> interest = InterestEntity().obs;
   //Rx<LoanDetailDataEntity>? loanDetailData = LoanDetailDataEntity().obs;
-  Rx<LoanDetailDataEntity>? loanDetailData;
+  Rx<LoanDetailDataEntity> loanDetailData= LoanDetailDataEntity().obs;
   Preferences preferences = new Preferences();
   var now = new DateTime.now();
   RxBool loanDialogVisibility = true.obs;
@@ -121,10 +121,10 @@ class SingleMyActiveLoanController extends GetxController {
 
       if (loanDetailsResponse is DataSuccess) {
         if (loanDetailsResponse.data!.data!.loan != null) {
-          loanDetailData!.value = loanDetailsResponse.data!.data!;
-          drawingPower = loanDetailData!.value.loan!.drawingPower;
-          sanctionedValue.value = loanDetailData!.value.loan!.sanctionedLimit!;
-          loanBalance = loanDetailData!.value.loan!.balance;
+          loanDetailData.value = loanDetailsResponse.data!.data!;
+          drawingPower = loanDetailData.value.loan!.drawingPower;
+          sanctionedValue.value = loanDetailData.value.loan!.sanctionedLimit!;
+          loanBalance = loanDetailData.value.loan!.balance;
           loans.value = loanDetailsResponse.data!.data!.loan;
           loanNumber.value = loanDetailsResponse.data!.data!.loan!.name!;
           loanType.value =
@@ -204,12 +204,12 @@ class SingleMyActiveLoanController extends GetxController {
   }
 
   void withdrawClicked() {
-    if (loanDetailData!.value.loan!.balance! <=
-        loanDetailData!.value.loan!.drawingPower!) {
+    if (loanDetailData.value.loan!.balance! <=
+        loanDetailData.value.loan!.drawingPower!) {
       Utility.isNetworkConnection().then((isNetwork) {
         if (isNetwork) {
-          if (loanDetailData!.value.loanRenewalIsExpired == 1 &&
-              loanDetailData!.value.loan!.balance! > 0) {
+          if (loanDetailData.value.loanRenewalIsExpired == 1 &&
+              loanDetailData.value.loan!.balance! > 0) {
             commonDialog("Account debit freeze\nWithdrawal disabled", 0);
           } else {
             /// todo: uncomment and change following code after LoanWithdrawScreen page is completed
@@ -242,7 +242,7 @@ class SingleMyActiveLoanController extends GetxController {
           }
         } else {
           if (isIncreaseLoan.value) {
-            if (loanDetailData!.value.topUpApplication == 1) {
+            if (loanDetailData.value.topUpApplication == 1) {
               /// todo: uncomment and change following code after IncreaseLoanLimit page is completed
               // Navigator.push(
               //     context,
@@ -256,10 +256,10 @@ class SingleMyActiveLoanController extends GetxController {
               //                 loanDetailData!.value!.loan!.totalCollateralValueStr,
               //                 loanDetailData!.value!.pledgorBoid)));
               debugPrint(
-                  "loanDetailData!.pledgorBoid${loanDetailData!.value.pledgorBoid}");
+                  "loanDetailData!.pledgorBoid${loanDetailData.value.pledgorBoid}");
             } else {
               commonDialog(
-                  "Your top-up application: ${loanDetailData!.value.topUpApplicationName} is pending",
+                  "Your top-up application: ${loanDetailData.value.topUpApplicationName} is pending",
                   0);
             }
           } else {
@@ -280,7 +280,7 @@ class SingleMyActiveLoanController extends GetxController {
       if (isNetwork) {
         debugPrint("interest${jsonEncode(interest)}");
 
-        if (loanDetailData!.value.paymentAlreadyInProcess == 0) {
+        if (loanDetailData.value.paymentAlreadyInProcess == 0) {
           /// todo: uncomment and change following code after PaymentScreen page is completed
           // Navigator.push(
           //     context,
@@ -309,7 +309,7 @@ class SingleMyActiveLoanController extends GetxController {
   void addTopUpClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        if (loanDetailData!.value.increaseLoan == 1) {
+        if (loanDetailData.value.increaseLoan == 1) {
           /// todo: uncomment and change following code after SubmitTopUP page is completed
           // Navigator.push(
           //     context,
@@ -320,7 +320,7 @@ class SingleMyActiveLoanController extends GetxController {
           //                 loanNumber)));
         } else {
           commonDialog(
-              "Your increase loan application: ${loanDetailData!.value.increaseLoanName.toString()} is pending",
+              "Your increase loan application: ${loanDetailData.value.increaseLoanName.toString()} is pending",
               0);
         }
       } else {
@@ -369,14 +369,14 @@ class SingleMyActiveLoanController extends GetxController {
     parameter[Strings.mobile_no] = mobile;
     parameter[Strings.email] = email;
     parameter[Strings.margin_shortfall_name] = marginShortfall.value!.name;
-    parameter[Strings.loan_number] = loanDetailData!.value.loan!.name;
+    parameter[Strings.loan_number] = loanDetailData.value.loan!.name;
     parameter[Strings.margin_shortfall_status] = marginShortfall.value!.status;
     parameter[Strings.date_time] = getCurrentDateAndTime();
     firebaseEvent(Strings.margin_shortFall_click, parameter);
 
     Get.toNamed(marginShortfallView, arguments: MarginShortfallArguments(
-        loanData: loanDetailData!.value,
-        pledgorBoid:  loanDetailData!.value.pledgorBoid!,
+        loanData: loanDetailData.value,
+        pledgorBoid:  loanDetailData.value.pledgorBoid!,
         isSellCollateral: isSellCollateral.value,
         isSaleTriggered: isTimerDone.value,
         isRequestPending:  marginShortfall.value!.status ==
