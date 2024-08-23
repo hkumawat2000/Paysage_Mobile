@@ -12,6 +12,7 @@ import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/entities/force_update_response_entity.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/usecases/force_update_usecase.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/views/home_view.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
@@ -43,7 +44,7 @@ class DashboardController extends GetxController {
   RxString storeVersion = "".obs;
 
   final List<Widget> children = [
-    HomeScreen(),
+    HomeView(),
     MyPledgeSecurityView(),
     SingleMyActiveLoanView(),
     MoreView()
