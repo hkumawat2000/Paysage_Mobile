@@ -39,22 +39,23 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
     with TickerProviderStateMixin, CodeAutoFill {
 // Due to use of modal bottom sheet and it only accepts a widget and not a classs which is extended with GetView.
 // So to access the Controller I need to declare it here.
-  final OtpVerificationController otpVerificationController = Get.find<OtpVerificationController>();
-  // Get.put(
-  //   OtpVerificationController(
-  //     Get.put(
-  //       LoginUseCase(
-  //           Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
-  //     ),
-  //     Get.put(
-  //       VerifyOtpUsecase(
-  //           Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
-  //     ),
-  //     Get.put(
-  //       ConnectionInfoImpl(Connectivity()),
-  //     ),
-  //   ),
-  // );
+  final OtpVerificationController otpVerificationController =
+  //Get.find<OtpVerificationController>();
+  Get.put(
+    OtpVerificationController(
+      Get.put(
+        LoginUseCase(
+            Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
+      ),
+      Get.put(
+        VerifyOtpUsecase(
+            Get.put(LoginRepositoryImpl(Get.put(LoginDataSourceImpl())))),
+      ),
+      Get.put(
+        ConnectionInfoImpl(Connectivity()),
+      ),
+    ),
+  );
   
   @override
   void codeUpdated() {
@@ -71,14 +72,15 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        key: otpVerificationController.scaffoldKey,
+       // key: otpVerificationController.scaffoldKey,
         backgroundColor: Colors.transparent,
         bottomNavigationBar: AnimatedPadding(
           duration: Duration(milliseconds: 150),
           curve: Curves.easeOut,
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(
+          child: 
+          Container(
             // height: 369,
             // width: 375,
             decoration: new BoxDecoration(
@@ -209,7 +211,6 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
                             otpVerificationController.isSubmitBtnClickable =
                                 true.obs;
                           }
-                          // setState(() {});
                         },
                         beforeTextPaste: (text) {
                           printLog("Allowing to paste $text");

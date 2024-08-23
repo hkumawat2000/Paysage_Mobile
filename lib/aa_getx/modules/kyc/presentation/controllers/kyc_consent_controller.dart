@@ -27,8 +27,8 @@ class KycConsentController extends GetxController {
   RxInt loanRenewal = 0.obs;
   String isAPICallingText = Strings.please_wait;
   String? cKycDocName;
-  UserKycDocResponseEntity userKycDocResponseEntity =
-      UserKycDocResponseEntity();
+ Rx<UserKycDocResponseEntity> userKycDocResponseEntity =
+      UserKycDocResponseEntity().obs;
   KycConsentArguments kycConsentArguments = KycConsentArguments();
 
   @override
@@ -62,8 +62,8 @@ class KycConsentController extends GetxController {
               consentDetailsRequestEntity: consentDetailsRequestEntity));
 
       if (response is DataSuccess) {
-        userKycDocResponseEntity =
-            response.data!.consentDetailData!.userKycDoc!;
+        userKycDocResponseEntity.value =
+            response.data!.consentDetailData!.userKycDoc! ;
         cKycDocName = response.data!.consentDetailData!.userKycDoc!.name;
         isApiCalling.value = false;
       } else if (response is DataFailed) {

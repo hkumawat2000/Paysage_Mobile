@@ -38,6 +38,7 @@ class MoreRepositoryImpl implements MoreRepository{
   ResultFuture<LoanDetailsResponseEntity> getLoanDetails(GetLoanDetailsRequestEntity getLoanDetailsRequestEntity) async{
     try {
       GetLoanDetailsRequestModel getLoanDetailsRequestModel = GetLoanDetailsRequestModel.fromEntity(getLoanDetailsRequestEntity);
+      debugPrint("request : ${getLoanDetailsRequestEntity.loanName}");
       final getLoanDetailsResponse =
           await moreApi.getLoanDetails(getLoanDetailsRequestModel);
       debugPrint("response : $getLoanDetailsResponse");

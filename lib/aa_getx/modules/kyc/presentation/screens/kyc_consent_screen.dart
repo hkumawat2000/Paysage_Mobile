@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
@@ -43,26 +45,26 @@ class KycConsentScreen extends GetView<KycConsentController> {
                       SizedBox(height: 20),
                       Text(Strings.name, style: mediumTextStyle_14_gray),
                       SizedBox(height: 5),
-                      Text(controller.userKycDocResponseEntity.fullname!,
+                      Text(controller.userKycDocResponseEntity.value.fullname!,
                           style: regularTextStyle_18_gray_dark),
                       SizedBox(height: 20),
                       Text("Pan Number", style: mediumTextStyle_14_gray),
                       SizedBox(height: 5),
-                      Text(controller.userKycDocResponseEntity.panNo!,
+                      Text(controller.userKycDocResponseEntity.value.panNo!,
                           style: regularTextStyle_18_gray_dark),
                       SizedBox(height: 20),
                       Text("CKYC Number", style: mediumTextStyle_14_gray),
                       SizedBox(height: 5),
-                      Text(controller.userKycDocResponseEntity.ckycNo!,
+                      Text(controller.userKycDocResponseEntity.value.ckycNo!,
                           style: regularTextStyle_18_gray_dark),
                       SizedBox(height: 20),
                       Text(Strings.email, style: mediumTextStyle_14_gray),
                       SizedBox(height: 5),
                       Text(
-                        controller.userKycDocResponseEntity.email != null && controller.userKycDocResponseEntity.email!.isNotEmpty
-                            ? controller.userKycDocResponseEntity.email!.replaceRange(
+                        controller.userKycDocResponseEntity.value.email != null && controller.userKycDocResponseEntity.value.email!.isNotEmpty
+                            ? controller.userKycDocResponseEntity.value.email!.replaceRange(
                                 controller.userEmail.indexOf('@') > 4 ? 4 : 2,
-                                controller.userKycDocResponseEntity.email!.indexOf('@'),
+                                controller.userKycDocResponseEntity.value.email!.indexOf('@'),
                                 "XXXXX")
                             : "-",
                         style: regularTextStyle_18_gray_dark,
@@ -71,8 +73,8 @@ class KycConsentScreen extends GetView<KycConsentController> {
                       Text("Mobile Number", style: mediumTextStyle_14_gray),
                       SizedBox(height: 5),
                       Text(
-                        controller.userKycDocResponseEntity.mobNum != null && controller.userKycDocResponseEntity.mobNum!.isNotEmpty
-                            ? encryptAcNo(controller.userKycDocResponseEntity.mobNum!)
+                        controller.userKycDocResponseEntity.value.mobNum != null && controller.userKycDocResponseEntity.value.mobNum!.isNotEmpty
+                            ? encryptAcNo(controller.userKycDocResponseEntity.value.mobNum!)
                             : "-",
                         style: regularTextStyle_18_gray_dark,
                       ),
@@ -80,7 +82,7 @@ class KycConsentScreen extends GetView<KycConsentController> {
                       Text("Gender", style: mediumTextStyle_14_gray),
                       SizedBox(height: 5),
                       Text(
-                        controller.userKycDocResponseEntity.genderFull!,
+                        controller.userKycDocResponseEntity.value.genderFull!,
                         style: regularTextStyle_18_gray_dark,
                       ),
                       SizedBox(height: 10),

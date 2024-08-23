@@ -20,26 +20,46 @@ class ImageDetails {
   String? branchCode;
   String? image;
   String? doctype;
+  ImageDetails({
+    this.name,
+    this.owner,
+    this.creation,
+    this.modified,
+    this.modifiedBy,
+    this.parent,
+    this.parentfield,
+    this.parenttype,
+    this.idx,
+    this.docstatus,
+    this.sequenceNo,
+    this.imageType,
+    this.imageCode,
+    this.imageName,
+    this.globalFlag,
+    this.branchCode,
+    this.image,
+    this.doctype,
+  });
 
-  ImageDetails(
-      {this.name,
-      this.owner,
-      this.creation,
-      this.modified,
-      this.modifiedBy,
-      this.parent,
-      this.parentfield,
-      this.parenttype,
-      this.idx,
-      this.docstatus,
-      this.sequenceNo,
-      this.imageType,
-      this.imageCode,
-      this.imageName,
-      this.globalFlag,
-      this.branchCode,
-      this.image,
-      this.doctype});
+  // ImageDetails(
+  //     {this.name,
+  //     this.owner,
+  //     this.creation,
+  //     this.modified,
+  //     this.modifiedBy,
+  //     this.parent,
+  //     this.parentfield,
+  //     this.parenttype,
+  //     this.idx,
+  //     this.docstatus,
+  //     this.sequenceNo,
+  //     this.imageType,
+  //     this.imageCode,
+  //     this.imageName,
+  //     this.globalFlag,
+  //     this.branchCode,
+  //     this.image,
+  //     this.doctype});
 
   ImageDetails.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -105,4 +125,27 @@ class ImageDetails {
         image: image,
         doctype: doctype,
       );
+
+  factory ImageDetails.fromEntity(ImageDetails imageDetails) {
+    return ImageDetails(
+      name: imageDetails.name != null ? imageDetails.name as String : null,
+      owner: imageDetails.owner != null ? imageDetails.owner as String : null,
+      creation: imageDetails.creation != null ? imageDetails.creation as String : null,
+      modified: imageDetails.modified != null ? imageDetails.modified as String : null,
+      modifiedBy: imageDetails.modifiedBy != null ? imageDetails.modifiedBy as String : null,
+      parent: imageDetails.parent != null ? imageDetails.parent as String : null,
+      parentfield: imageDetails.parentfield != null ? imageDetails.parentfield as String : null,
+      parenttype: imageDetails.parenttype != null ? imageDetails.parenttype as String : null,
+      idx: imageDetails.idx != null ? imageDetails.idx as int : null,
+      docstatus: imageDetails.docstatus != null ? imageDetails.docstatus as int : null,
+      sequenceNo: imageDetails.sequenceNo != null ? imageDetails.sequenceNo as String : null,
+      imageType: imageDetails.imageType != null ? imageDetails.imageType as String : null,
+      imageCode: imageDetails.imageCode != null ? imageDetails.imageCode as String : null,
+      imageName: imageDetails.imageName != null ? imageDetails.imageName as String : null,
+      globalFlag: imageDetails.globalFlag != null ? imageDetails.globalFlag as String : null,
+      branchCode: imageDetails.branchCode != null ? imageDetails.branchCode as String : null,
+      image: imageDetails.image != null ? imageDetails.image as String : null,
+      doctype: imageDetails.doctype != null ? imageDetails.doctype as String : null,
+    );
+  }
 }

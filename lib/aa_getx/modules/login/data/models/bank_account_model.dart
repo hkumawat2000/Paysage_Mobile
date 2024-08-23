@@ -145,4 +145,41 @@ class BankAccount {
       district: district,
   
   );
+
+  factory BankAccount.fromEntity(BankAccount bankAccount) {
+    return BankAccount(
+      name: bankAccount.name != null ? bankAccount.name as String : null,
+      owner: bankAccount.owner != null ? bankAccount.owner as String : null,
+      creation: bankAccount.creation != null ? bankAccount.creation as String : null,
+      modified: bankAccount.modified != null ? bankAccount.modified as String : null,
+      modifiedBy: bankAccount.modifiedBy != null ? bankAccount.modifiedBy as String : null,
+      parent: bankAccount.parent != null ? bankAccount.parent as String : null,
+      parentfield: bankAccount.parentfield != null ? bankAccount.parentfield as String : null,
+      parenttype: bankAccount.parenttype != null ? bankAccount.parenttype as String : null,
+      idx: bankAccount.idx != null ? bankAccount.idx as int : null,
+      docstatus: bankAccount.docstatus != null ? bankAccount.docstatus as int : null,
+      bankStatus: bankAccount.bankStatus != null ? bankAccount.bankStatus as String : null,
+      bank: bankAccount.bank != null ? bankAccount.bank as String : null,
+      branch: bankAccount.branch != null ? bankAccount.branch as String : null,
+      accountNumber: bankAccount.accountNumber != null ? bankAccount.accountNumber as String : null,
+      ifsc: bankAccount.ifsc != null ? bankAccount.ifsc as String : null,
+      city: bankAccount.city != null ? bankAccount.city as String : null,
+      isDefault: bankAccount.isDefault != null ? bankAccount.isDefault as int : null,
+      razorpayFundAccountId: bankAccount.razorpayFundAccountId != null ? bankAccount.razorpayFundAccountId as String : null,
+      accountHolderName: bankAccount.accountHolderName != null ? bankAccount.accountHolderName as String : null,
+      personalizedCheque: bankAccount.personalizedCheque != null ? bankAccount.personalizedCheque as String : null,
+      accountType: bankAccount.accountType != null ? bankAccount.accountType as String : null,
+      razorpayFundAccountValidationId: bankAccount.razorpayFundAccountValidationId != null ? bankAccount.razorpayFundAccountValidationId as String : null,
+      notificationSent: bankAccount.notificationSent != null ? bankAccount.notificationSent as int : null,
+      doctype: bankAccount.doctype != null ? bankAccount.doctype as String : null,
+      bankCode: bankAccount.bankCode != null ? bankAccount.bankCode as String : null,
+      state: bankAccount.state != null ? bankAccount.state as String : null,
+      bankAddress: bankAccount.bankAddress != null ? bankAccount.bankAddress as String : null,
+      contact: bankAccount.contact != null ? bankAccount.contact as String : null,
+      micr: bankAccount.micr != null ? bankAccount.micr as String : null,
+      bankMode: bankAccount.bankMode != null ? bankAccount.bankMode as String : null,
+      bankZipCode: bankAccount.bankZipCode != null ? bankAccount.bankZipCode as String : null,
+      district: bankAccount.district != null ? bankAccount.district as String : null,
+    );
+  }
 }

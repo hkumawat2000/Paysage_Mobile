@@ -18,24 +18,42 @@ class IdentityDetails {
   String? identNum;
   String? idverStatus;
   String? doctype;
+  IdentityDetails({
+    this.name,
+    this.owner,
+    this.creation,
+    this.modified,
+    this.modifiedBy,
+    this.parent,
+    this.parentfield,
+    this.parenttype,
+    this.idx,
+    this.docstatus,
+    this.sequenceNo,
+    this.identType,
+    this.identCategory,
+    this.identNum,
+    this.idverStatus,
+    this.doctype,
+  });
 
-  IdentityDetails(
-      {this.name,
-      this.owner,
-      this.creation,
-      this.modified,
-      this.modifiedBy,
-      this.parent,
-      this.parentfield,
-      this.parenttype,
-      this.idx,
-      this.docstatus,
-      this.sequenceNo,
-      this.identType,
-      this.identCategory,
-      this.identNum,
-      this.idverStatus,
-      this.doctype});
+  // IdentityDetails(
+  //     {this.name,
+  //     this.owner,
+  //     this.creation,
+  //     this.modified,
+  //     this.modifiedBy,
+  //     this.parent,
+  //     this.parentfield,
+  //     this.parenttype,
+  //     this.idx,
+  //     this.docstatus,
+  //     this.sequenceNo,
+  //     this.identType,
+  //     this.identCategory,
+  //     this.identNum,
+  //     this.idverStatus,
+  //     this.doctype});
 
   IdentityDetails.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -95,4 +113,25 @@ class IdentityDetails {
         idverStatus: idverStatus,
         doctype: doctype,
       );
+
+  factory IdentityDetails.fromEntity(IdentityDetails identityDetails) {
+    return IdentityDetails(
+      name: identityDetails.name != null ? identityDetails.name as String : null,
+      owner: identityDetails.owner != null ? identityDetails.owner as String : null,
+      creation: identityDetails.creation != null ? identityDetails.creation as String : null,
+      modified: identityDetails.modified != null ? identityDetails.modified as String : null,
+      modifiedBy: identityDetails.modifiedBy != null ? identityDetails.modifiedBy as String : null,
+      parent: identityDetails.parent != null ? identityDetails.parent as String : null,
+      parentfield: identityDetails.parentfield != null ? identityDetails.parentfield as String : null,
+      parenttype: identityDetails.parenttype != null ? identityDetails.parenttype as String : null,
+      idx: identityDetails.idx != null ? identityDetails.idx as int : null,
+      docstatus: identityDetails.docstatus != null ? identityDetails.docstatus as int : null,
+      sequenceNo: identityDetails.sequenceNo != null ? identityDetails.sequenceNo as String : null,
+      identType: identityDetails.identType != null ? identityDetails.identType as String : null,
+      identCategory: identityDetails.identCategory != null ? identityDetails.identCategory as String : null,
+      identNum: identityDetails.identNum != null ? identityDetails.identNum as String : null,
+      idverStatus: identityDetails.idverStatus != null ? identityDetails.idverStatus as String : null,
+      doctype: identityDetails.doctype != null ? identityDetails.doctype as String : null,
+    );
+  }
 }

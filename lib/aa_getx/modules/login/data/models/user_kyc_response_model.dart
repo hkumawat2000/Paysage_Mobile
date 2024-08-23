@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:lms/aa_getx/modules/login/data/models/bank_account_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/identity_details_response_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/image_details_response_model.dart';
@@ -490,4 +491,166 @@ class UserKyc {
         imageDetails: imageDetails?.map((x) => x.toEntity()).toList(),
         bankAccount: bankAccount?.map((x) => x.toEntity()).toList(),
       );
+
+  factory UserKyc.fromEntity(UserKyc userKyc) {
+    return UserKyc(
+      name: userKyc.name != null ? userKyc.name as String : null,
+      owner: userKyc.owner != null ? userKyc.owner as String : null,
+      creation: userKyc.creation != null ? userKyc.creation as String : null,
+      modified: userKyc.modified != null ? userKyc.modified as String : null,
+      modifiedBy:
+          userKyc.modifiedBy != null ? userKyc.modifiedBy as String : null,
+      idx: userKyc.idx != null ? userKyc.idx as int : null,
+      docstatus: userKyc.docstatus != null ? userKyc.docstatus as int : null,
+      user: userKyc.user != null ? userKyc.user as String : null,
+      panNo: userKyc.panNo != null ? userKyc.panNo as String : null,
+      consentGiven:
+          userKyc.consentGiven != null ? userKyc.consentGiven as int : null,
+      kycStatus: userKyc.kycStatus != null ? userKyc.kycStatus as String : null,
+      kycType: userKyc.kycType != null ? userKyc.kycType as String : null,
+      dateOfBirth:
+          userKyc.dateOfBirth != null ? userKyc.dateOfBirth as String : null,
+      email: userKyc.email != null ? userKyc.email as String : null,
+      constiType:
+          userKyc.constiType != null ? userKyc.constiType as String : null,
+      accType: userKyc.accType != null ? userKyc.accType as String : null,
+      ckycNo: userKyc.ckycNo != null ? userKyc.ckycNo as String : null,
+      prefix: userKyc.prefix != null ? userKyc.prefix as String : null,
+      fname: userKyc.fname != null ? userKyc.fname as String : null,
+      mname: userKyc.mname != null ? userKyc.mname as String : null,
+      lname: userKyc.lname != null ? userKyc.lname as String : null,
+      fullname: userKyc.fullname != null ? userKyc.fullname as String : null,
+      maidenPrefix:
+          userKyc.maidenPrefix != null ? userKyc.maidenPrefix as String : null,
+      maidenFname:
+          userKyc.maidenFname != null ? userKyc.maidenFname as String : null,
+      maidenMname:
+          userKyc.maidenMname != null ? userKyc.maidenMname as String : null,
+      maidenLname:
+          userKyc.maidenLname != null ? userKyc.maidenLname as String : null,
+      maidenFullname: userKyc.maidenFullname != null
+          ? userKyc.maidenFullname as String
+          : null,
+      fatherspouseFlag: userKyc.fatherspouseFlag != null
+          ? userKyc.fatherspouseFlag as String
+          : null,
+      fatherPrefix:
+          userKyc.fatherPrefix != null ? userKyc.fatherPrefix as String : null,
+      fatherFname:
+          userKyc.fatherFname != null ? userKyc.fatherFname as String : null,
+      fatherMname:
+          userKyc.fatherMname != null ? userKyc.fatherMname as String : null,
+      fatherLname:
+          userKyc.fatherLname != null ? userKyc.fatherLname as String : null,
+      fatherFullname: userKyc.fatherFullname != null
+          ? userKyc.fatherFullname as String
+          : null,
+      motherPrefix:
+          userKyc.motherPrefix != null ? userKyc.motherPrefix as String : null,
+      motherFname:
+          userKyc.motherFname != null ? userKyc.motherFname as String : null,
+      motherMname:
+          userKyc.motherMname != null ? userKyc.motherMname as String : null,
+      motherLname:
+          userKyc.motherLname != null ? userKyc.motherLname as String : null,
+      motherFullname: userKyc.motherFullname != null
+          ? userKyc.motherFullname as String
+          : null,
+      gender: userKyc.gender != null ? userKyc.gender as String : null,
+      dob: userKyc.dob != null ? userKyc.dob as String : null,
+      pan: userKyc.pan != null ? userKyc.pan as String : null,
+      permLine1: userKyc.permLine1 != null ? userKyc.permLine1 as String : null,
+      permLine2: userKyc.permLine2 != null ? userKyc.permLine2 as String : null,
+      permLine3: userKyc.permLine3 != null ? userKyc.permLine3 as String : null,
+      permCity: userKyc.permCity != null ? userKyc.permCity as String : null,
+      permDist: userKyc.permDist != null ? userKyc.permDist as String : null,
+      permState: userKyc.permState != null ? userKyc.permState as String : null,
+      permCountry:
+          userKyc.permCountry != null ? userKyc.permCountry as String : null,
+      permPin: userKyc.permPin != null ? userKyc.permPin as String : null,
+      permPoa: userKyc.permPoa != null ? userKyc.permPoa as String : null,
+      permCorresSameflag: userKyc.permCorresSameflag != null
+          ? userKyc.permCorresSameflag as String
+          : null,
+      corresLine1:
+          userKyc.corresLine1 != null ? userKyc.corresLine1 as String : null,
+      corresLine2:
+          userKyc.corresLine2 != null ? userKyc.corresLine2 as String : null,
+      corresLine3:
+          userKyc.corresLine3 != null ? userKyc.corresLine3 as String : null,
+      corresCity:
+          userKyc.corresCity != null ? userKyc.corresCity as String : null,
+      corresDist:
+          userKyc.corresDist != null ? userKyc.corresDist as String : null,
+      corresState:
+          userKyc.corresState != null ? userKyc.corresState as String : null,
+      corresCountry: userKyc.corresCountry != null
+          ? userKyc.corresCountry as String
+          : null,
+      corresPin: userKyc.corresPin != null ? userKyc.corresPin as String : null,
+      corresPoa: userKyc.corresPoa != null ? userKyc.corresPoa as String : null,
+      resiStdCode:
+          userKyc.resiStdCode != null ? userKyc.resiStdCode as String : null,
+      resiTelNum:
+          userKyc.resiTelNum != null ? userKyc.resiTelNum as String : null,
+      offStdCode:
+          userKyc.offStdCode != null ? userKyc.offStdCode as String : null,
+      offTelNum: userKyc.offTelNum != null ? userKyc.offTelNum as String : null,
+      mobCode: userKyc.mobCode != null ? userKyc.mobCode as String : null,
+      mobNum: userKyc.mobNum != null ? userKyc.mobNum as String : null,
+      emailId: userKyc.emailId != null ? userKyc.emailId as String : null,
+      remarks: userKyc.remarks != null ? userKyc.remarks as String : null,
+      decDate: userKyc.decDate != null ? userKyc.decDate as String : null,
+      decPlace: userKyc.decPlace != null ? userKyc.decPlace as String : null,
+      kycDate: userKyc.kycDate != null ? userKyc.kycDate as String : null,
+      docSub: userKyc.docSub != null ? userKyc.docSub as String : null,
+      kycName: userKyc.kycName != null ? userKyc.kycName as String : null,
+      kycDesignation: userKyc.kycDesignation != null
+          ? userKyc.kycDesignation as String
+          : null,
+      kycBranch: userKyc.kycBranch != null ? userKyc.kycBranch as String : null,
+      kycEmpcode:
+          userKyc.kycEmpcode != null ? userKyc.kycEmpcode as String : null,
+      orgName: userKyc.orgName != null ? userKyc.orgName as String : null,
+      orgCode: userKyc.orgCode != null ? userKyc.orgCode as String : null,
+      numIdentity:
+          userKyc.numIdentity != null ? userKyc.numIdentity as String : null,
+      numRelated:
+          userKyc.numRelated != null ? userKyc.numRelated as String : null,
+      numImages: userKyc.numImages != null ? userKyc.numImages as String : null,
+      address: userKyc.address != null ? userKyc.address as String : null,
+      isEdited: userKyc.isEdited != null ? userKyc.isEdited as int : null,
+      doctype: userKyc.doctype != null ? userKyc.doctype as String : null,
+      identityDetails: userKyc.identityDetails != null
+          ? List<IdentityDetails>.from(
+              (userKyc.identityDetails as List<dynamic>).map<IdentityDetails?>(
+                (x) => IdentityDetails.fromEntity(x as IdentityDetails),
+              ),
+            )
+          : null,
+      relatedPersonDetails: userKyc.relatedPersonDetails != null
+          ? List<RelatedPersonDetails>.from(
+              (userKyc.relatedPersonDetails as List<dynamic>)
+                  .map<RelatedPersonDetails?>(
+                (x) =>
+                    RelatedPersonDetails.fromEntity(x as RelatedPersonDetails),
+              ),
+            )
+          : null,
+      imageDetails: userKyc.imageDetails != null
+          ? List<ImageDetails>.from(
+              (userKyc.imageDetails as List<dynamic>).map<ImageDetails?>(
+                (x) => ImageDetails.fromEntity(x as ImageDetails),
+              ),
+            )
+          : null,
+      bankAccount: userKyc.bankAccount != null
+          ? List<BankAccount>.from(
+              (userKyc.bankAccount as List<dynamic>).map<BankAccount?>(
+                (x) => BankAccount.fromEntity(x as BankAccount),
+              ),
+            )
+          : null,
+    );
+  }
 }

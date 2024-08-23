@@ -7,13 +7,16 @@ import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/type_def.dart';
 import 'package:lms/aa_getx/modules/login/data/data_sources/login_data_source.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/forgot_pin_request_model.dart';
+import 'package:lms/aa_getx/modules/login/data/models/request/get_profile_and_set_alert_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/login_submit_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/pin_screen_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/verify_forgot_pin_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/verify_otp_request_model.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/auto_login_response_entity.dart';
+import 'package:lms/aa_getx/modules/login/domain/entity/get_profile_and_set_alert_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/get_terms_and_privacy_response_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/forgot_pin_request_entity.dart';
+import 'package:lms/aa_getx/modules/login/domain/entity/request/get_profile_and_set_alert_request_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/login_submit_request_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/pin_screen_request_entity.dart';
 import 'package:lms/aa_getx/modules/login/domain/entity/request/verify_forgot_pin_request_entity.dart';
@@ -135,8 +138,24 @@ class LoginRepositoryImpl implements LoginRepository {
     } on ServerException catch (e) {
       return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
     } on ApiServerException catch (e) {
-      // ErrorEntity eInfo = createErrorEntity(e);
-      print("object Exception");
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, e.statusCode!));
+    } catch (e) {
+      return DataFailed(UnknownFailure(e.toString(), 0));
+    }
+  }
+
+   ResultFuture<GetProfileAndSetAlertDetailsResponseEntity> getProfileandSetAlert(
+      GetProfileAndSetAlertRequestEntity getProfileAndSetAlertRequestEntity) async {
+    try {
+      GetProfileAndSetAlertRequestModel getProfileAndSetAlertRequestModel =
+      GetProfileAndSetAlertRequestModel.fromEntity(
+          getProfileAndSetAlertRequestEntity);
+      final getProfileResponse =
+      await loginDataSource.getProfileandSetAlert(getProfileAndSetAlertRequestModel);
+      return DataSuccess(getProfileResponse.toEntity());
+    } on ServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
+    } on ApiServerException catch (e) {
       return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, e.statusCode!));
     } catch (e) {
       return DataFailed(UnknownFailure(e.toString(), 0));

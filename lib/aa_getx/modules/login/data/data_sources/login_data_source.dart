@@ -4,8 +4,10 @@ import 'package:lms/aa_getx/core/error/exception.dart';
 import 'package:lms/aa_getx/core/network/apis.dart';
 import 'package:lms/aa_getx/core/network/base_dio.dart';
 import 'package:lms/aa_getx/modules/login/data/models/auto_login_response.dart';
+import 'package:lms/aa_getx/modules/login/data/models/get_profile_and_set_alerts_response_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/get_terms_and_privacy_response_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/forgot_pin_request_model.dart';
+import 'package:lms/aa_getx/modules/login/data/models/request/get_profile_and_set_alert_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/login_submit_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/pin_screen_request_model.dart';
 import 'package:lms/aa_getx/modules/login/data/models/request/verify_forgot_pin_request_model.dart';
@@ -22,9 +24,12 @@ abstract class LoginDataSource {
   Future<AuthLoginResponse> verifyOtp(
       VerifyOtpRequestModel verifyOtpRequestModel);
   Future<AuthLoginResponse> getPin(PinScreenRequestModel pinScreenRequestModel);
-  Future<AuthLoginResponse> forgotPinOtp(ForgotPinRequestModel forgotPinRequestModel);
-    Future<AuthLoginResponse> verifyForgotPinOtp(VerifyForgotPinRequestModel verifyforgotPinRequestModel);
-
+  Future<AuthLoginResponse> forgotPinOtp(
+      ForgotPinRequestModel forgotPinRequestModel);
+  Future<AuthLoginResponse> verifyForgotPinOtp(
+      VerifyForgotPinRequestModel verifyforgotPinRequestModel);
+  Future<GetProfileAndSetAlertsResponseModel> getProfileandSetAlert(
+      GetProfileAndSetAlertRequestModel getProfileAndSetAlertRequestModel);
 }
 
 /// LoginDataSourceImpl is the concrete implementation of the LoginDataSource
@@ -131,6 +136,25 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
       );
       if (response.statusCode == 200) {
         return AuthLoginResponse.fromJson(response.data);
+      } else {
+        throw ServerException(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw handleDioClientError(e);
+    }
+  }
+
+
+  Future<GetProfileAndSetAlertsResponseModel> getProfileandSetAlert(
+      GetProfileAndSetAlertRequestModel getProfileAndSetAlertRequestModel) async {
+    Dio dio = await getBaseDio();
+    try {
+      final response = await dio.post(
+        Apis.getProfileSetAlert,
+        data: getProfileAndSetAlertRequestModel.toJson(),
+      );
+      if (response.statusCode == 200) {
+        return GetProfileAndSetAlertsResponseModel.fromJson(response.data);
       } else {
         throw ServerException(response.statusMessage);
       }

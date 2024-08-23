@@ -69,6 +69,7 @@ class PinScreenController extends GetxController {
     savePin(await _preferences.getPin());
     mobileNumber(await _preferences.getMobile());
     deviceInfo(await getDeviceInfo());
+    newToken = doesFirebaseTokenExist;
     // bool kycCompleteSrt = await preferences.getUserKYC();
     // String? loanNoSrt = await preferences.getLoanApplicationNo();
 
@@ -254,6 +255,8 @@ class PinScreenController extends GetxController {
               (route) => false);
         } else {
           //TODO Navigate To Dashboard
+          Get.offNamedUntil(dashboardView, (route) => false);
+
           // Navigator.pushReplacement(
           //     context, MaterialPageRoute(builder: (BuildContext context) => DashBoard(isFromPinScreen: true)));
         }
