@@ -18,6 +18,7 @@ class CibilView extends GetView<CibilController> {
         padding: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
           children: [
+            Text(controller.emptyStr),
             SizedBox(height: 30),
             Center(
               child: Text("Check your CIBIL score for free.\nIt takes less than a minute",

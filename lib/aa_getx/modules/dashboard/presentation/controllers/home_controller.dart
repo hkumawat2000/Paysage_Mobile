@@ -94,6 +94,8 @@ class HomeController extends GetxController{
   RxString bankStatus = "".obs;
   RxString baseURL = "".obs;
   RxString kycDocName="".obs;
+  RxString hitID = "".obs;
+  RxString cibilScore = "".obs;
   RxBool isExpired = false.obs;
   RxBool isTimerShow = true.obs;
   RxList<LoanRenewalApplicationEntity>? loanRenewal = <LoanRenewalApplicationEntity>[].obs;
@@ -196,6 +198,8 @@ class HomeController extends GetxController{
             viewEmailVisible.value = customer.value!.isEmailVerified == 1 ? false : true;
             // isKYCUpdatePending = customer!.kycUpdate == 0 ? true : false;
             isKYCComplete.value = customer.value!.kycUpdate == 1 ? true : false;
+            hitID.value = customer.value!.hitId ?? "";
+            cibilScore.value = customer.value!.cibilScore ?? "";
             // preferences!.setUserKYC(isKYCComplete);
           }
 
