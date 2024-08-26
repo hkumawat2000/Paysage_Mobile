@@ -9,8 +9,10 @@ class CibilResultController extends GetxController {
 
   CibilResultArgs cibilResultArgs = Get.arguments;
   String? hitId;
-  RxString? cibilScore;
-  RxString? cibilScoreDate;
+  String cibilScore = "";
+  RxString cibilScoreDate = "".obs;
+
+  RxString cibilScoreResult = "".obs;
 
   final CibilOnDemandUsecase cibilOnDemandUsecase;
 
@@ -25,11 +27,12 @@ class CibilResultController extends GetxController {
 
   getArgument(){
     hitId = cibilResultArgs.hitId;
-    cibilScore!.value = cibilResultArgs.cibilScore!;
-    cibilScoreDate!.value = cibilResultArgs.cibilScoreDate!;
-    // if(hitId!.isNotEmpty){
-    //   cibilScoreResult.value = cibilScore!;
-    // }
+    cibilScore = cibilResultArgs.cibilScore!;
+    cibilScoreDate.value = cibilResultArgs.cibilScoreDate ?? "";
+    print("cibilScore ==> ${cibilScore}");
+    if(hitId!.isNotEmpty){
+      cibilScoreResult.value = cibilScore;
+    }
   }
 
   callOnDematRefresh() async {
@@ -42,8 +45,8 @@ class CibilResultController extends GetxController {
     );
     if (response is DataSuccess) {
       if (response.data!.cibilDataEntity != null) {
-        cibilScore!.value = response.data!.cibilDataEntity!.cibilScore!.toString();
-        cibilScoreDate!.value = response.data!.cibilDataEntity!.cibilScoreDate!;
+        cibilScore = response.data!.cibilDataEntity!.cibilScore!.toString();
+        cibilScoreDate.value = response.data!.cibilDataEntity!.cibilScoreDate!;
       }
     } else if (response is DataFailed) {
       Utility.showToastMessage(response.error!.message);

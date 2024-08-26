@@ -1287,7 +1287,7 @@ class HomeController extends GetxController{
 
   creditCheckClick() {
     if(hitID.value.isNotEmpty){
-      Get.offNamed(cibilResultView, arguments: CibilResultArgs(
+      Get.toNamed(cibilResultView, arguments: CibilResultArgs(
         hitId: hitID.value,
         cibilScore: cibilScore.value,
         cibilScoreDate: cibilScoreDate.value,

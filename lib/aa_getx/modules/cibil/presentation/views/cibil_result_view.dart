@@ -28,16 +28,17 @@ class CibilResultView extends GetView<CibilResultController> {
                           child: Column(
                             children: [
                               Text(
-                                controller.cibilScore!.value,
+                                controller.cibilScoreResult.value,
                                 style: TextStyle(
                                   fontSize: 34,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              SizedBox(height: 10),
                               Text(
                                 "Last CIBIL score fetched on : ${controller.cibilScoreDate}",
                                 style: TextStyle(
-                                  fontSize: 34,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -50,9 +51,7 @@ class CibilResultView extends GetView<CibilResultController> {
               ),
             ),
             GestureDetector(
-              onTap: (){
-
-              },
+              onTap: () => controller.callOnDematRefresh(),
               child: Container(
                 width: Get.width,
                 decoration: BoxDecoration(
