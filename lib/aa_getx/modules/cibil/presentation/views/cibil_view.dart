@@ -58,7 +58,8 @@ class CibilView extends GetView<CibilController> {
                 ],
               ),
             ),
-            Spacer(),
+            Expanded(child: Text("")),
+            // Spacer(),
             SizedBox(height: 20),
             GestureDetector(
               onTap: (){

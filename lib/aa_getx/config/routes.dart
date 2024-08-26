@@ -261,7 +261,7 @@ List<GetPage> routes = [
   ),
   GetPage(
     name: '/$cibilOtpView',
-    page: () => CibilOtpView(),
+    page: () => CibilOtpView("", ""),
     binding: CibilOtpBinding(),
   ),
 ];

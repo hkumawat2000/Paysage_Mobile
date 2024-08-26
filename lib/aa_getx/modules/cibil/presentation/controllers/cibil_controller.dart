@@ -42,7 +42,7 @@ class CibilController extends GetxController {
         enableDrag: false,
         isDismissible: false,
         isScrollControlled: true,
-        CibilOtpView(),
+        CibilOtpView(hitID, cibilScore),
       );
     } else {
       Utility.showToastMessage(Strings.no_internet_message);

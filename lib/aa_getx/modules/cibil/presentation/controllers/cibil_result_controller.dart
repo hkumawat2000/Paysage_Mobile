@@ -18,6 +18,9 @@ class CibilResultController extends GetxController {
   getArgument(){
     hitId = cibilResultArgs.hitId;
     cibilScore = cibilResultArgs.cibilScore;
+
+    print("HITID =========> $hitId");
+    print("HITID =========> $cibilScore");
     if(hitId!.isNotEmpty){
       cibilScoreResult.value = cibilScore!;
     }

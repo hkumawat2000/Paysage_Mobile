@@ -2,15 +2,23 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_otp_controller.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_result_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CibilOtpView extends GetView<CibilOtpController>{
+
+  String? hitId;
+  String? cibilScore;
+
+  CibilOtpView(this.hitId, this.cibilScore);
+
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
@@ -46,7 +54,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                       height: 40,
                     ),
                     Text(
-                      Strings.otp_verification,
+                      Strings.cibil_otp_verification,
                       style: TextStyle(
                           color: appTheme,
                           fontSize: 22,
@@ -55,41 +63,18 @@ class CibilOtpView extends GetView<CibilOtpController>{
                     SizedBox(
                       height: 16,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        text:
-                        "${Strings.enter_otp}",
-                        style: TextStyle(
-                          color: colorLightGray,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          TextSpan(text: "  "),
-                          TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => Navigator.pop(context),
-                            text: Strings.edit_number,
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: red,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                    Text("${Strings.cibil_enter_otp}",
+                      style: TextStyle(
+                        color: colorLightGray,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 20, right: 20),
-                    //   child: HeadingSubHeadingWidget(
-                    //       Strings.otp, Strings.enter_otp + " " + "${widget.mobileNumber}"),
-                    // ),
                     SizedBox(
-                      height: 39,
+                      height: 20,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       child: PinCodeTextField(
                         controller: controller.otpTextController,
                         cursorColor: appTheme,
@@ -104,17 +89,10 @@ class CibilOtpView extends GetView<CibilOtpController>{
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                         ],
-                        length: 4,
+                        length: 6,
                         obscureText: false,
                         autoFocus: true,
                         animationType: AnimationType.fade,
-                        // validator: (v) {
-                        //   if (v!.length < 3) {
-                        //     return "";
-                        //   } else {
-                        //     return null;
-                        //   }
-                        // },
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.underline,
                           inactiveColor: colorGrey,
@@ -126,9 +104,8 @@ class CibilOtpView extends GetView<CibilOtpController>{
                         onCompleted: (otp) {
                           printLog("Completed::$otp");
                           controller.otpValue = otp;
-                          if (controller.otpValue!.length >= 4) {
-                            controller.isSubmitBtnClickable =
-                                false.obs;
+                          if (controller.otpValue!.length >= 6) {
+                            controller.isSubmitBtnClickable = true.obs;
                             Utility.isNetworkConnection().then((isNetwork) {
                               if (isNetwork) {
                                 // controller.otpVerify(
@@ -138,35 +115,29 @@ class CibilOtpView extends GetView<CibilOtpController>{
                                 //   widget.loginSubmitResquestEntity.appVersion,
                                 // );
                               } else {
-                                Utility.showToastMessage(
-                                    Strings.no_internet_message);
+                                Utility.showToastMessage(Strings.no_internet_message);
                               }
                             });
                           } else {
-                            controller.isSubmitBtnClickable =
-                                true.obs;
+                            controller.isSubmitBtnClickable = false.obs;
                           }
                         },
                         onChanged: (value) {
                           printLog("onChange => $value");
-                          if (value.length >= 4) {
-                            controller.isSubmitBtnClickable =
-                                false.obs;
+                          if (value.length >= 6) {
+                            controller.isSubmitBtnClickable(true);
                           } else {
-                            controller.isSubmitBtnClickable =
-                                true.obs;
+                            controller.isSubmitBtnClickable(false);
                           }
                         },
                         beforeTextPaste: (text) {
                           printLog("Allowing to paste $text");
-                          //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                          //but you can show anything you want here, like your pop up saying wrong paste format or etc
                           return true;
                         },
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 30,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -176,24 +147,25 @@ class CibilOtpView extends GetView<CibilOtpController>{
                           height: 45,
                           width: 140,
                           child: Material(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(35)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                             elevation: 1.0,
-                            color: controller
-                                .isSubmitBtnClickable.isTrue
-                                ? colorLightGray
-                                : appTheme,
+                            color: controller.isSubmitBtnClickable.isTrue
+                                ? appTheme
+                                : colorLightGray,
                             child: AbsorbPointer(
-                              absorbing: !controller
-                                  .isSubmitBtnClickable.value,
+                              absorbing: !controller.isSubmitBtnClickable.value,
                               child: MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(35)),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                                 minWidth: MediaQuery.of(context).size.width,
                                 onPressed: () async {
-                                  Utility.isNetworkConnection()
-                                      .then((isNetwork) {
+                                  Utility.isNetworkConnection().then((isNetwork) {
                                     if (isNetwork) {
+                                      Get.toNamed(cibilResultView,
+                                        arguments: CibilResultArgs(
+                                          hitId: hitId,
+                                          cibilScore: cibilScore,
+                                        ),
+                                      );
                                       // controller.otpVerify(
                                       //   widget.loginSubmitResquestEntity.mobileNumber,
                                       //   widget.loginSubmitResquestEntity.firebase_token,
@@ -201,8 +173,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                                       //   widget.loginSubmitResquestEntity.appVersion,
                                       // );
                                     } else {
-                                      Utility.showToastMessage(
-                                          Strings.no_internet_message);
+                                      Utility.showToastMessage(Strings.no_internet_message);
                                     }
                                   });
                                 },
@@ -217,17 +188,14 @@ class CibilOtpView extends GetView<CibilOtpController>{
                     SizedBox(
                       height: 30,
                     ),
-                    Obx(
-                          ()=> Row(
+                    Obx(()=> Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Text("${controller.isResendOTPClickable.value}"),
                           Padding(
                             padding: const EdgeInsets.only(left: 20, right: 20),
                             child: AbsorbPointer(
-                              absorbing: !controller
-                                  .isResendOTPClickable.value,
+                              absorbing: !controller.isResendOTPClickable.value,
                               child: InkWell(
                                 onTap: () async {
                                   Utility.isNetworkConnection().then((isNetwork) {
@@ -246,16 +214,14 @@ class CibilOtpView extends GetView<CibilOtpController>{
                                       //   // );
                                       // }
                                     } else {
-                                      Utility.showToastMessage(
-                                          Strings.no_internet_message);
+                                      Utility.showToastMessage(Strings.no_internet_message);
                                     }
                                   });
                                 },
                                 child: Text(
                                   Strings.resend_otp,
                                   style: TextStyle(
-                                      color: controller
-                                          .isResendOTPClickable.isFalse
+                                      color: controller.isResendOTPClickable.isFalse
                                           ? colorGrey
                                           : appTheme,
                                       fontSize: 16,
@@ -282,17 +248,11 @@ class CibilOtpView extends GetView<CibilOtpController>{
   }
 
   Widget _timerAndRetrySection() {
-    // return
-    //   AnimatedBuilder(
-    //   animation: otpVerificationController.controller!,
-    //   builder: (context, child) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // retryAvailable
-          //     ?
           Text(
             '${controller.start.value}',
             style: TextStyle(
@@ -305,8 +265,6 @@ class CibilOtpView extends GetView<CibilOtpController>{
         ],
       ),
     );
-    //   },
-    // );
   }
 
 }

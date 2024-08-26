@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class CibilOtpController extends GetxController{
   RxBool isResendOTPClickable = false.obs;
-  RxBool isSubmitBtnClickable = true.obs;
+  RxBool isSubmitBtnClickable = false.obs;
   final TextEditingController otpTextController = TextEditingController();
   Timer? _timer;
   RxInt start = 0.obs;
