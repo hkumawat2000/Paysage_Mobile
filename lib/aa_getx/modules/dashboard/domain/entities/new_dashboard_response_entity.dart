@@ -61,6 +61,7 @@ class CustomerEntity {
   String? doctype;
   String? hitId;
   String? cibilScore;
+  String? cibilScoreDate;
 
   CustomerEntity(
       {this.name,
@@ -87,6 +88,7 @@ class CustomerEntity {
         this.user,
         this.hitId,
         this.cibilScore,
+        this.cibilScoreDate,
         this.doctype});
 }
 

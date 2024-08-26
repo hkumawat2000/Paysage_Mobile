@@ -33,6 +33,7 @@ class CibilController extends GetxController {
   getArgumentData(){
     cibilScore = cibilArgs.cibilScore!;
     hitID = cibilArgs.hitId!;
+    print("Hit ID ====>> $hitID");
     if(hitID!.isNotEmpty){
       Get.offNamed(cibilResultView, arguments: CibilResultArgs(
         hitId: hitID,
