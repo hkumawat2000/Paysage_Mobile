@@ -17,6 +17,14 @@ import 'package:flutter/material.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 
 class SingleMyActiveLoanController extends GetxController {
+
+  final ConnectionInfo _connectionInfo;
+  final GetAllLoansNamesUseCase _getAllLoansNamesUseCase;
+  final GetLoanDetailsUseCase _getLoanDetailsUseCase;
+
+  SingleMyActiveLoanController(this._connectionInfo,
+      this._getAllLoansNamesUseCase, this._getLoanDetailsUseCase);
+  
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var fileId;
   TargetPlatform? platform;
@@ -53,12 +61,7 @@ class SingleMyActiveLoanController extends GetxController {
   var cron = new Cron();
   RxString loanType = "".obs;
   RxString schemeType = "".obs;
-  final ConnectionInfo _connectionInfo;
-  final GetAllLoansNamesUseCase _getAllLoansNamesUseCase;
-  final GetLoanDetailsUseCase _getLoanDetailsUseCase;
 
-  SingleMyActiveLoanController(this._connectionInfo,
-      this._getAllLoansNamesUseCase, this._getLoanDetailsUseCase);
 
   @override
   void onInit() {
