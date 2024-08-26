@@ -11,6 +11,7 @@ import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_controller.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_result_controller.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/entities/loan_summary_response_entity.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/controllers/home_controller.dart';
 import 'package:shimmer/shimmer.dart';
@@ -2079,10 +2080,7 @@ class HomeView extends GetView<HomeController> {
                               textAlign: TextAlign.center),
                         ],
                       ),
-                      onTap: () => Get.toNamed(cibilView, arguments: CibilArgs(
-                        hitId: controller.hitID.value,
-                        cibilScore: controller.cibilScore.value
-                      )),
+                      onTap: ()  => controller.creditCheckClick(),
                     ),
                   ),
                   Expanded(

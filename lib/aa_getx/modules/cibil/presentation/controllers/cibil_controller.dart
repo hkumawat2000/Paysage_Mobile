@@ -17,6 +17,7 @@ class CibilController extends GetxController {
   CibilArgs cibilArgs = Get.arguments;
   String? cibilScore;
   String? hitID;
+  String? cibilScoreDate;
   String emptyStr = "";
 
   final CibilSendOtpUsecase cibilSendOtpUsecase;
@@ -32,14 +33,16 @@ class CibilController extends GetxController {
 
   getArgumentData(){
     cibilScore = cibilArgs.cibilScore!;
+    cibilScoreDate = cibilArgs.cibilScoreDate!;
     hitID = cibilArgs.hitId!;
     print("Hit ID ====>> $hitID");
-    if(hitID!.isNotEmpty){
-      Get.offNamed(cibilResultView, arguments: CibilResultArgs(
-        hitId: hitID,
-        cibilScore: cibilScore
-      ));
-    }
+    // if(hitID!.isNotEmpty){
+    //   Get.offNamed(cibilResultView, arguments: CibilResultArgs(
+    //     hitId: hitID,
+    //     cibilScore: cibilScore,
+    //     cibilScoreDate: cibilScoreDate
+    //   ));
+    // }
   }
 
   Future<void> cibilCheckOTPApi() async {
@@ -77,6 +80,7 @@ class CibilController extends GetxController {
 class CibilArgs {
   String? hitId;
   String? cibilScore;
+  String? cibilScoreDate;
 
-  CibilArgs({this.hitId, this.cibilScore});
+  CibilArgs({this.hitId, this.cibilScore, this.cibilScoreDate});
 }

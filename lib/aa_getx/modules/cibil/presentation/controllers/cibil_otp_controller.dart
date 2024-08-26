@@ -41,6 +41,7 @@ class CibilOtpController extends GetxController{
             arguments: CibilResultArgs(
               hitId: stdOneId,
               cibilScore: response.data!.otpVerityDataEntity!.cibilScore!.toString(),
+              cibilScoreDate: response.data!.otpVerityDataEntity!.cibilScoreDate!.toString(),
             )
         );
       }

@@ -23,7 +23,28 @@ class CibilResultView extends GetView<CibilResultController> {
                   children: [
                     Text("Your Credit Report", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
                     SizedBox(height: 20),
-                    Obx(() => Center(child: Text(controller.cibilScoreResult.value, style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),))),
+                    Obx(() =>
+                        Center(
+                          child: Column(
+                            children: [
+                              Text(
+                                controller.cibilScore!.value,
+                                style: TextStyle(
+                                  fontSize: 34,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "Last CIBIL score fetched on : ${controller.cibilScoreDate}",
+                                style: TextStyle(
+                                  fontSize: 34,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ),
                   ],
                 ),
               ),

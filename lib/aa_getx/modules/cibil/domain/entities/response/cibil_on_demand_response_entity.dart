@@ -11,8 +11,10 @@ class CibilOnDemandResponseEntity {
 
 class CibilOnDemandResponseDataEntity {
   int? cibilScore;
-  
+  String? cibilScoreDate;
+
   CibilOnDemandResponseDataEntity({
     this.cibilScore,
+    this.cibilScoreDate,
   });
 }

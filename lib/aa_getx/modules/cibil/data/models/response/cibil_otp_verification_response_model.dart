@@ -47,19 +47,24 @@ class CibilOtpVerificationResponseModel {
 
 class CibilOtpVerificationResponseDataModel {
   int? cibilScore;
+  String? cibilScoreDate;
+
   CibilOtpVerificationResponseDataModel({
     this.cibilScore,
+    this.cibilScoreDate,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'cibil_score': cibilScore,
+      'cibil_score_date': cibilScoreDate,
     };
   }
 
   factory CibilOtpVerificationResponseDataModel.fromMap(Map<String, dynamic> map) {
     return CibilOtpVerificationResponseDataModel(
       cibilScore: map['cibil_score'] != null ? map['cibil_score'] as int : null,
+      cibilScoreDate: map['cibil_score_date'] != null ? map['cibil_score_date'] as String : null,
     );
   }
 
@@ -69,13 +74,14 @@ class CibilOtpVerificationResponseDataModel {
 
   CibilOtpVerificationResponseDataEntity toEntity() =>
   CibilOtpVerificationResponseDataEntity(
-      cibilScore: cibilScore,
-  
+    cibilScore: cibilScore,
+    cibilScoreDate: cibilScoreDate,
   );
 
   factory CibilOtpVerificationResponseDataModel.fromEntity(CibilOtpVerificationResponseDataEntity cibilOtpVerificationResponseDataEntity) {
     return CibilOtpVerificationResponseDataModel(
       cibilScore: cibilOtpVerificationResponseDataEntity.cibilScore != null ? cibilOtpVerificationResponseDataEntity.cibilScore as int : null,
+      cibilScoreDate: cibilOtpVerificationResponseDataEntity.cibilScoreDate != null ? cibilOtpVerificationResponseDataEntity.cibilScoreDate as String : null,
     );
   }
 }

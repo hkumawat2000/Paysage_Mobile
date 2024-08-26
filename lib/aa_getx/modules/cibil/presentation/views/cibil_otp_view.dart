@@ -164,6 +164,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                                         arguments: CibilResultArgs(
                                           hitId: hitId,
                                           cibilScore: cibilScore,
+                                          cibilScoreDate: "",
                                         ),
                                       );
                                       // controller.otpVerify(
