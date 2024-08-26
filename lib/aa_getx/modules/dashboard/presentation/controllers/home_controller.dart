@@ -22,7 +22,7 @@ import 'package:lms/aa_getx/modules/dashboard/presentation/views/home_view.dart'
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
-import 'package:lms/my_loan/MyLoansBloc.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -36,7 +36,6 @@ class HomeController extends GetxController{
   Preferences? preferences = Preferences();
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
   Rx<CustomerEntity?> customer = CustomerEntity().obs;
-  MyLoansBloc myLoansBloc = MyLoansBloc();
   RxBool isTimerDone = false.obs;
   RxBool isAPIResponded = false.obs;
   RxBool isLoanAPIResponded = false.obs;
@@ -413,65 +412,6 @@ class HomeController extends GetxController{
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
-
-    /*newDashboardBloc.getLoanSummaryData().then((value) async{
-        if (value.isSuccessFull!) {
-          ///todo uncomment this loanSummaryCardFunction(value);
-          PackageInfo packageInfo = await PackageInfo.fromPlatform();
-          String packageName = packageInfo.packageName;
-          String localVersion = packageInfo.version;
-          String storeVersion;
-          if(packageName == Strings.ios_prod_package || packageName == Strings.android_prod_package) {
-            if(Platform.isAndroid) {
-              storeURL = value.loanSummaryData!.versionDetails!.playStoreLink!;
-              storeVersion = value.loanSummaryData!.versionDetails!.androidVersion!;
-            } else {
-              storeURL = value.loanSummaryData!.versionDetails!.appStoreLink!;
-              storeVersion = value.loanSummaryData!.versionDetails!.iosVersion!;
-            }
-            storeWhatsNew = value.loanSummaryData!.versionDetails!.whatsNew!;
-            bool canUpdateValue = await Utility().canUpdateVersion(storeVersion, localVersion);
-            debugPrint("storeVersion2 ==> $storeVersion");
-            debugPrint("localVersion2 ==> $localVersion");
-            debugPrint("canUpdateValue2 ==> $canUpdateValue");
-            if(canUpdateValue != null && canUpdateValue && value.loanSummaryData!.versionDetails!.forceUpdate == 0){
-              isUpdateRequired = true;
-              isUpdateFlushVisible.value = true;
-            }
-          }
-
-            loanType.value = value.loanSummaryData!.instrumentType!;
-            schemeType.value = value.loanSummaryData!.schemeType!;
-            if(value.loanSummaryData!.loanRenewalApplication != null && value.loanSummaryData!.loanRenewalApplication!.length != 0){
-              ///todo uncomment this  loanRenewal!.addAll(value.loanSummaryData!.loanRenewalApplication!);
-              if(loanRenewal![0].isExpired == 1){
-                isExpired.value = true;
-                if(loanRenewal![0].actionStatus == "Pending"){
-                  isTimerShow.value = false;
-                }
-                if(loanRenewal![0].timeRemaining != null){
-                  timerDays.value = int.parse(value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[0][0]); // 5D:12h:35m:20s
-                  timerHours.value = int.parse((value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[1]).substring(0, 2));
-                  timerMin.value = int.parse((value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[2]).substring(0, 2));
-                  timerSec.value = int.parse((value.loanSummaryData!.loanRenewalApplication![0].timeRemaining!.split(":")[3]).substring(0, 2));
-                }
-              }
-            }
-            isLoanAPIResponded.value = true;
-            if (isDashBoardAPIResponded.value && isLoanAPIResponded.value) {
-              isAPIResponded.value = true;
-            }
-            if (value.loanSummaryData!.topupList!.length != 0) {
-              isViewTopUpCard.value = true;
-            }
-            if (value.loanSummaryData!.activeLoans!.length != 0 ||
-                value.loanSummaryData!.actionableLoan!.length != 0 ||
-                value.loanSummaryData!.underProcessLa!.length != 0 ||
-                value.loanSummaryData!.underProcessLoanRenewalApp!.length != 0) {
-              isViewLoanSummaryCard.value = true;
-            }
-        }
-    });*/
   }
 
   setValuesInPreference() async {
@@ -617,57 +557,62 @@ class HomeController extends GetxController{
   }
 
   Future<void> marginShortfallClicked() async {
-
-
-
-    Utility.isNetworkConnection().then((isNetwork) {
-      if (isNetwork) {
-        showDialogLoading( Strings.please_wait);
-        ///todo: Need to move below api call in margin shortfall onInit
-        myLoansBloc.getLoanDetails(marginShortfallList[0].name).then((value) async {
-          Get.back();
-          if (value.isSuccessFull!) {
-            Preferences preferences = Preferences();
-            // await preferences.setPledgorBoid(value.data!.pledgorBoid!);
-            if (value.data!.sellCollateral == null) {
-              isMarginSellCollateral = true;
-            } else {
-              isMarginSellCollateral = false;
-            }
-
-
-            String? mobile = await preferences.getMobile();
-            String email = await preferences.getEmail();
-            // Firebase Event
-            Map<String, dynamic> parameter = new Map<String, dynamic>();
-            parameter[Strings.mobile_no] = mobile;
-            parameter[Strings.email] = email;
-            parameter[Strings.margin_shortfall_name] = value.data!.marginShortfall!.name;
-            parameter[Strings.loan_number] = value.data!.loan!.name;
-            parameter[Strings.margin_shortfall_status] = marginShortfallList[0].status;
-            parameter[Strings.date_time] = getCurrentDateAndTime();
-            firebaseEvent(Strings.margin_shortFall_click, parameter);
-
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (BuildContext context) =>
-            //         MarginShortfallScreen(
-            //             value.data!,
-            //             value.data!.pledgorBoid!,
-            //             isMarginSellCollateral,
-            //             marginShortfallList[0].status == "Sell Triggered" ? true : false,
-            //             marginShortfallList[0].status == "Request Pending" ? true : false,
-            //             value.data!.marginShortfall!.actionTakenMsg ?? "",
-            //             loanType!,schemeType!)));
-          } else if (value.errorCode == 403) {
-            commonDialog(Strings.session_timeout, 4);
+    showDialogLoading(Strings.please_wait);
+    if (await _connectionInfo.isConnected) {
+      GetLoanDetailsRequestEntity loanDetailsRequestEntity =
+      GetLoanDetailsRequestEntity(
+        loanName: marginShortfallList[0].name,
+        transactionsPerPage: 15,
+        transactionsStart: 0,
+      );
+      DataState<LoanDetailsResponseEntity> loanDetailsResponse =
+      await _getLoanDetailsUseCase.call(GetLoanDetailsParams(
+          loanDetailsRequestEntity: loanDetailsRequestEntity));
+      Get.back();
+      if (loanDetailsResponse is DataSuccess) {
+        if (loanDetailsResponse.data != null) {
+          Preferences preferences = Preferences();
+          // await preferences.setPledgorBoid(value.data!.pledgorBoid!); ///DC: commented before development
+          if (loanDetailsResponse.data!.data!.sellCollateral == null) {
+            isMarginSellCollateral = true;
           } else {
-            commonDialog( value.errorMessage, 0);
+            isMarginSellCollateral = false;
           }
-        });
-      } else {
-        Utility.showToastMessage(Strings.no_internet_message);
+
+
+          String? mobile = await preferences.getMobile();
+          String email = await preferences.getEmail();
+          // Firebase Event
+          Map<String, dynamic> parameter = new Map<String, dynamic>();
+          parameter[Strings.mobile_no] = mobile;
+          parameter[Strings.email] = email;
+          parameter[Strings.margin_shortfall_name] = loanDetailsResponse.data!.data!.marginShortfall!.name;
+          parameter[Strings.loan_number] = loanDetailsResponse.data!.data!.loan!.name;
+          parameter[Strings.margin_shortfall_status] = marginShortfallList[0].status;
+          parameter[Strings.date_time] = getCurrentDateAndTime();
+          firebaseEvent(Strings.margin_shortFall_click, parameter);
+
+          Get.toNamed(marginShortfallView,
+              arguments: MarginShortfallArguments(
+                  loanData: loanDetailsResponse.data!.data,
+                  pledgorBoid: loanDetailsResponse.data!.data!.pledgorBoid,
+                  isSellCollateral: isMarginSellCollateral,
+                  isSaleTriggered: marginShortfallList[0].status == "Sell Triggered" ? true : false,
+                  isRequestPending: marginShortfallList[0].status == "Request Pending" ? true : false,
+                  msg: loanDetailsResponse.data!.data!.marginShortfall!.actionTakenMsg ?? "",
+                  loanType: loanType.value,
+                  schemeType: schemeType.value));
+        }
+      } else if (loanDetailsResponse is DataFailed) {
+        if (loanDetailsResponse.error!.statusCode == 403) {
+          commonDialog(Strings.session_timeout, 4);
+        } else {
+          Utility.showToastMessage(loanDetailsResponse.error!.message);
+        }
       }
-    });
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
   }
 
   void goToInterestScreen() {
