@@ -16,8 +16,10 @@ class CibilOtpView extends GetView<CibilOtpController>{
 
   String? hitId;
   String? cibilScore;
+  String? stdOneID;
+  String? stdTwoID;
 
-  CibilOtpView(this.hitId, this.cibilScore);
+  CibilOtpView(this.hitId, this.cibilScore, this.stdOneID, this.stdTwoID);
 
   @override
   Widget build(BuildContext context) {
@@ -108,12 +110,10 @@ class CibilOtpView extends GetView<CibilOtpController>{
                             controller.isSubmitBtnClickable = true.obs;
                             Utility.isNetworkConnection().then((isNetwork) {
                               if (isNetwork) {
-                                // controller.otpVerify(
-                                //   widget.loginSubmitResquestEntity.mobileNumber,
-                                //   widget.loginSubmitResquestEntity.firebase_token,
-                                //   widget.loginSubmitResquestEntity.platform,
-                                //   widget.loginSubmitResquestEntity.appVersion,
-                                // );
+                                controller.otpVerify(
+                                  stdOneID!,
+                                  stdTwoID!,
+                                );
                               } else {
                                 Utility.showToastMessage(Strings.no_internet_message);
                               }
@@ -160,7 +160,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                                 onPressed: () async {
                                   Utility.isNetworkConnection().then((isNetwork) {
                                     if (isNetwork) {
-                                      Get.toNamed(cibilResultView,
+                                      Get.offNamed(cibilResultView,
                                         arguments: CibilResultArgs(
                                           hitId: hitId,
                                           cibilScore: cibilScore,

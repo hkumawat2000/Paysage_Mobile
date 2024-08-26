@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
+import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/cibil/domain/entities/response/cibil_send_otp_response_entity.dart';
+import 'package:lms/aa_getx/modules/cibil/domain/usecases/cibil_send_otp_usecase.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_result_controller.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_otp_view.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_result_view.dart';
@@ -15,7 +18,10 @@ class CibilController extends GetxController {
   String? cibilScore;
   String? hitID;
   String emptyStr = "";
-  CibilController(this._connectionInfo);
+
+  final CibilSendOtpUsecase cibilSendOtpUsecase;
+
+  CibilController(this._connectionInfo, this.cibilSendOtpUsecase);
 
 
   @override
@@ -37,13 +43,29 @@ class CibilController extends GetxController {
 
   Future<void> cibilCheckOTPApi() async {
     if (await _connectionInfo.isConnected) {
-      Get.bottomSheet(
-        backgroundColor: Colors.transparent,
-        enableDrag: false,
-        isDismissible: false,
-        isScrollControlled: true,
-        CibilOtpView(hitID, cibilScore),
-      );
+      DataState<CibilSendOtpResponseEntity> response = await cibilSendOtpUsecase.call();
+      if (response is DataSuccess) {
+        if (response.data!.cibilOtpDataEntity != null) {
+          if(response.data!.cibilOtpDataEntity!.otpGenerationStatus == "1"){
+            Get.bottomSheet(
+              backgroundColor: Colors.transparent,
+              enableDrag: false,
+              isDismissible: false,
+              isScrollControlled: true,
+              CibilOtpView(
+                hitID,
+                cibilScore,
+                response.data!.cibilOtpDataEntity!.stdOneHitID!,
+                response.data!.cibilOtpDataEntity!.stdTwoHitId!,
+              ),
+            );
+          } else {
+            Utility.showToastMessage(response.data!.cibilOtpDataEntity!.errorMessage!);
+          }
+        }
+      } else if (response is DataFailed) {
+        Utility.showToastMessage(response.error!.message);
+      }
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
