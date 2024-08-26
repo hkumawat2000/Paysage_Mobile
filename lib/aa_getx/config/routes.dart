@@ -45,6 +45,8 @@ import 'package:lms/aa_getx/modules/authentication/presentation/bindings/fingerp
 import 'package:lms/aa_getx/modules/authentication/presentation/views/enable_fingerprint_dialog_view.dart';
 import 'package:lms/aa_getx/modules/authentication/presentation/views/fingerprint_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/walkthrough_view.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/bindings/payment_binding.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/views/payment_view.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/bindings/my_pledge_security_binding.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/offline_customer_binding.dart';
@@ -89,6 +91,7 @@ const String marginShortfallPledgeOTPView = "margin-shortfall-pledge-otp-view";
 const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dialog-view";
 const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
+const String paymentView = "payment-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -239,5 +242,10 @@ List<GetPage> routes = [
     name: '/$accountSettingsView',
     page: () => AccountSettingsView(),
     binding: AccountSettingsBindings(),
+  ),
+  GetPage(
+    name: '/$paymentView',
+    page: () => PaymentView(),
+    binding: PaymentBinding(),
   ),
 ];

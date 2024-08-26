@@ -1,7 +1,5 @@
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
@@ -9,7 +7,6 @@ import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
-import 'package:lms/aa_getx/modules/more/data/models/loan_details_response_model.dart';
 import 'package:lms/aa_getx/modules/payment/presentation/controllers/payment_controller.dart';
 
 class PaymentView extends GetView<PaymentController> {
@@ -20,7 +17,7 @@ class PaymentView extends GetView<PaymentController> {
       onTap: (){
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
+      child: Obx(()=>Scaffold(
           backgroundColor: colorBg,
           appBar: AppBar(
             backgroundColor: colorBg,
@@ -33,11 +30,12 @@ class PaymentView extends GetView<PaymentController> {
             title: Text(controller.paymentArguments.loanName != null ? controller.paymentArguments.loanName : "",
                 style: mediumTextStyle_18_gray_dark),
           ),
-          body: getWithdrawDetails()),
+          //body: getWithdrawDetails()),
+          body: controller.loanDetailData.value.isBlank == true? SizedBox():paymentLoanDetails())),
     );
   }
 
-  Widget getWithdrawDetails() {
+/*  Widget getWithdrawDetails() {
     return StreamBuilder(
       stream: controller.paymentBloc.paymentLoan,
       builder: (context, AsyncSnapshot<LoanDetailData> snapshot) {
@@ -60,10 +58,10 @@ class PaymentView extends GetView<PaymentController> {
         }
       },
     );
-  }
+  }*/
 
 
-  Widget paymentLoanDetails(AsyncSnapshot<LoanDetailData> snapshot) {
+  Widget paymentLoanDetails() {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +76,7 @@ class PaymentView extends GetView<PaymentController> {
                   ],
                 ),
                 SizedBox(height: 10),
-                loanPaymentDetails(snapshot),
+                controller.loanDetailData.value.isBlank == true? SizedBox():loanPaymentDetails(),
                 SizedBox(height: 10),
               ],
             ),
@@ -88,14 +86,14 @@ class PaymentView extends GetView<PaymentController> {
             child: Column(
               children: [
                 controller.paymentArguments.isMarginShortfall!
-                    ? marginShortFall(
-                    controller.loanBalance,
+                    ? controller.loanDetailData.value.isBlank!? SizedBox(): marginShortFall(
+                    controller.loanBalance.value,
                     controller.paymentArguments.marginShortfallAmount,
                     controller.paymentArguments.minimumCashAmount,
                     controller.drawingPower,
                     AssetsImagePath.business_finance,
                     colorLightRed,
-                    true, snapshot.data!.loan!.instrumentType!)
+                    true,  controller.loanDetailData.value!.loan!.instrumentType!)
                     : Container(),
                 SizedBox(
                   height: 10,
@@ -123,12 +121,8 @@ class PaymentView extends GetView<PaymentController> {
     );
   }
 
-  Widget loanPaymentDetails(AsyncSnapshot<LoanDetailData> snapshot) {
+  Widget loanPaymentDetails() {
     // drawingPower = numberToString(snapshot.data!.loan!.drawingPower!.toStringAsFixed(2));
-    controller.drawingPower = snapshot.data!.loan!.drawingPower!;
-    controller.drawingPowerStr = snapshot.data!.loan!.drawingPowerStr!;
-    controller.sanctionedLimit = numberToString(snapshot.data!.loan!.sanctionedLimit!.toStringAsFixed(2));
-    controller.loanBalance = snapshot.data!.loan!.balance;
     return Center(
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -176,12 +170,12 @@ class PaymentView extends GetView<PaymentController> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                subHeadingText(controller.loanBalance != null
-                    ? controller.loanBalance! < 0
-                    ? negativeValue(controller.loanBalance!)
-                    : "₹${numberToString(controller.loanBalance!.toStringAsFixed(2))}"
+                subHeadingText(controller.loanBalance.value == 0.0
+                    ? controller.loanBalance.value < 0
+                    ? negativeValue(controller.loanBalance.value)
+                    : "₹${numberToString(controller.loanBalance.value.toStringAsFixed(2))}"
                     : "0",
-                    isNeg: controller.loanBalance! < 0 ? true : false),
+                    isNeg: controller.loanBalance.value < 0 ? true : false),
                 SizedBox(height: 4),
                 Text(Strings.loan_balance, style: subHeading),
               ],
@@ -233,11 +227,11 @@ class PaymentView extends GetView<PaymentController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
+       Row(
           children: <Widget>[
             Radio(
               value: 1,
-              groupValue: controller.id,
+              groupValue: controller.id.value,
               activeColor: appTheme,
               onChanged: (val)=>controller.radioId1Selected(),
             ),
@@ -249,7 +243,7 @@ class PaymentView extends GetView<PaymentController> {
           children: [
             Radio(
               value: 2,
-              groupValue: controller.id,
+              groupValue: controller.id.value,
               activeColor: appTheme,
               onChanged: (val)=>controller.radioId2Selected() ,
             ),
@@ -294,17 +288,6 @@ class PaymentView extends GetView<PaymentController> {
     );
   }
 
-  Widget _buildNoDataWidget() {
-    return NoDataWidget();
-  }
-
-  Widget _buildLoadingWidget() {
-    return LoadingWidget();
-  }
-
-  Widget _buildErrorWidget(String error) {
-    return ErrorMessageWidget(error);
-  }
 }
 
 

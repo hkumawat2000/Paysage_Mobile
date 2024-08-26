@@ -1,5 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class RazorPayRequest {
+import 'package:lms/aa_getx/modules/payment/domain/entities/request/razor_pay_request_entity.dart';
+
+class RazorPayRequestModel {
   String? loanName;
   double? amount;
   String? orderId;
@@ -8,16 +9,16 @@ class RazorPayRequest {
   String? loanTransactionName;
   IsFailed? isFailed;
 
-  RazorPayRequest(
+  RazorPayRequestModel(
       {this.loanName,
-        this.amount,
-        this.orderId,
-        this.loanMarginShortfallName,
-        this.isForInterest,
-        this.loanTransactionName,
-        this.isFailed});
+      this.amount,
+      this.orderId,
+      this.loanMarginShortfallName,
+      this.isForInterest,
+      this.loanTransactionName,
+      this.isFailed});
 
-  RazorPayRequest.fromJson(Map<String, dynamic> json) {
+  RazorPayRequestModel.fromJson(Map<String, dynamic> json) {
     loanName = json['loan_name'];
     amount = json['amount'];
     orderId = json['order_id'];
@@ -43,36 +44,17 @@ class RazorPayRequest {
     return data;
   }
 
-  RazorPayRequestEntity toEntity() =>
-      RazorPayRequestEntity(
-        loanName:loanName,
-        amount:amount,
-        orderId:orderId,
-        loanMarginShortfallName:loanMarginShortfallName,
-        isForInterest:isForInterest,
-        loanTransactionName:loanTransactionName,
-        isFailed:isFailed?.toEntity(),
-
-      );
-}
-
-class RazorPayRequestEntity {
-  String? loanName;
-  double? amount;
-  String? orderId;
-  String? loanMarginShortfallName;
-  int? isForInterest;
-  String? loanTransactionName;
-  IsFailedEntity? isFailed;
-
-  RazorPayRequestEntity(
-      {this.loanName,
-        this.amount,
-        this.orderId,
-        this.loanMarginShortfallName,
-        this.isForInterest,
-        this.loanTransactionName,
-        this.isFailed});
+  factory RazorPayRequestModel.fromEntity(RazorPayRequestEntity razorPayRequestEntity) {
+    return RazorPayRequestModel(
+      loanName:razorPayRequestEntity.loanName != null ? razorPayRequestEntity.loanName as String : null,
+      amount:razorPayRequestEntity.amount != null ? razorPayRequestEntity.amount as double : null,
+      orderId:razorPayRequestEntity.orderId != null ? razorPayRequestEntity.orderId as String : null,
+      loanMarginShortfallName:razorPayRequestEntity.loanMarginShortfallName != null ? razorPayRequestEntity.loanMarginShortfallName as String : null,
+      isForInterest:razorPayRequestEntity.isForInterest != null ? razorPayRequestEntity.isForInterest as int : null,
+      loanTransactionName:razorPayRequestEntity.loanTransactionName != null ? razorPayRequestEntity.loanTransactionName as String : null,
+      isFailed:razorPayRequestEntity.isFailed != null ? IsFailed.fromEntity(razorPayRequestEntity.isFailed as IsFailedEntity) : null,
+    );
+  }
 }
 
 class IsFailed {
@@ -102,16 +84,6 @@ class IsFailed {
     return data;
   }
 
-  IsFailedEntity toEntity() =>
-      IsFailedEntity(
-        code: code,
-        description: description,
-        source: source,
-        step: step,
-        reason: reason,
-
-      );
-
   factory IsFailed.fromEntity(IsFailedEntity isFailed) {
     return IsFailed(
       code: isFailed.code != null ? isFailed.code as String : null,
@@ -121,15 +93,4 @@ class IsFailed {
       reason: isFailed.reason != null ? isFailed.reason as String : null,
     );
   }
-}
-
-
-class IsFailedEntity {
-  String? code;
-  String? description;
-  String? source;
-  String? step;
-  String? reason;
-
-  IsFailedEntity({this.code, this.description, this.source, this.step, this.reason});
 }
