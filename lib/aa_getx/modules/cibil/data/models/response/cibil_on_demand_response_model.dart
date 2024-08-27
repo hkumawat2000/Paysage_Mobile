@@ -22,7 +22,7 @@ class CibilOnDemandResponseModel {
   factory CibilOnDemandResponseModel.fromMap(Map<String, dynamic> map) {
     return CibilOnDemandResponseModel(
       message: map['message'] != null ? map['message'] as String : null,
-      cibilData: map['data'] != null ? CibilOnDemandResponseDataModel.fromMap(map['data'] as Map<String,dynamic>) : null,
+      cibilData: map['data'] != null ? CibilOnDemandResponseDataModel.fromJson(map['data']) : null,
     );
   }
 

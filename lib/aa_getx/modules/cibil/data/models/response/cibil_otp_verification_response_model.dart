@@ -22,7 +22,7 @@ class CibilOtpVerificationResponseModel {
   factory CibilOtpVerificationResponseModel.fromMap(Map<String, dynamic> map) {
     return CibilOtpVerificationResponseModel(
       message: map['message'] != null ? map['message'] as String : null,
-      cibilData: map['data'] != null ? CibilOtpVerificationResponseDataModel.fromMap(map['data'] as Map<String,dynamic>) : null,
+      cibilData: map['data'] != null ? CibilOtpVerificationResponseDataModel.fromJson(map['data']) : null,
     );
   }
 

@@ -22,10 +22,7 @@ class CibilSendOtpResponseModel {
   factory CibilSendOtpResponseModel.fromMap(Map<String, dynamic> map) {
     return CibilSendOtpResponseModel(
       message: map['message'] != null ? map['message'] as String : null,
-      cibilOtpData: map['data'] != null
-          ? CibilSendOtpResponseDataModel.fromJson(
-              map['data'])
-          : null,
+      cibilOtpData: map['data'] != null ? CibilSendOtpResponseDataModel.fromJson(map['data']) : null,
     );
   }
 
