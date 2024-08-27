@@ -62,9 +62,7 @@ class CibilView extends GetView<CibilController> {
             // Spacer(),
             SizedBox(height: 20),
             GestureDetector(
-              onTap: (){
-                controller.cibilCheckOTPApi();
-              },
+              onTap: () => controller.cibilCheckOTPApi(),
               child: Container(
                 width: Get.width,
                 decoration: BoxDecoration(
