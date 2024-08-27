@@ -14,6 +14,8 @@ import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/preferences.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_controller.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_result_controller.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/entities/loan_summary_response_entity.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/entities/new_dashboard_response_entity.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/usecases/get_dashboard_data_usecase.dart';
@@ -93,6 +95,9 @@ class HomeController extends GetxController{
   RxString bankStatus = "".obs;
   RxString baseURL = "".obs;
   RxString kycDocName="".obs;
+  RxString hitID = "".obs;
+  RxString cibilScore = "".obs;
+  RxString cibilScoreDate = "".obs;
   RxBool isExpired = false.obs;
   RxBool isTimerShow = true.obs;
   RxList<LoanRenewalApplicationEntity>? loanRenewal = <LoanRenewalApplicationEntity>[].obs;
@@ -195,6 +200,9 @@ class HomeController extends GetxController{
             viewEmailVisible.value = customer.value!.isEmailVerified == 1 ? false : true;
             // isKYCUpdatePending = customer!.kycUpdate == 0 ? true : false;
             isKYCComplete.value = customer.value!.kycUpdate == 1 ? true : false;
+            hitID.value = customer.value!.hitId ?? "";
+            cibilScore.value = customer.value!.cibilScore ?? "";
+            cibilScoreDate.value = customer.value!.cibilScoreDate ?? "";
             // preferences!.setUserKYC(isKYCComplete);
           }
 
@@ -997,6 +1005,7 @@ class HomeController extends GetxController{
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         ///todo: uncomment below code after CompleteKYCScreen is developed
+        Get.toNamed(kycView);
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(
@@ -1219,6 +1228,22 @@ class HomeController extends GetxController{
         }
       }
 
+  }
+
+  creditCheckClick() {
+    if(hitID.value.isNotEmpty){
+      Get.toNamed(cibilResultView, arguments: CibilResultArgs(
+        hitId: hitID.value,
+        cibilScore: cibilScore.value,
+        cibilScoreDate: cibilScoreDate.value,
+      ));
+    } else {
+      Get.toNamed(cibilView, arguments: CibilArgs(
+        hitId: hitID.value,
+        cibilScore: cibilScore.value,
+        cibilScoreDate: cibilScoreDate.value,
+      ));
+    }
   }
 
 }

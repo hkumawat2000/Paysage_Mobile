@@ -11,7 +11,10 @@ class CibilOtpVerificationResponseEntity {
 
 class CibilOtpVerificationResponseDataEntity {
   int? cibilScore;
+  String? cibilScoreDate;
+
   CibilOtpVerificationResponseDataEntity({
     this.cibilScore,
+    this.cibilScoreDate
   });
 }

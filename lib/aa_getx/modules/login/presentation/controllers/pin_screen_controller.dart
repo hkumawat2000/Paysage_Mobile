@@ -161,7 +161,6 @@ class PinScreenController extends GetxController {
           enterPinTextEditingController.text.isNotEmpty &&
           enterPinTextEditingController.text.length == 4 &&
           enterPin!.length == 4) {
-        showDialogLoading(Strings.please_wait);
         getPinApiCall(Strings.pin);
       } else {
         Utility.showToastMessage(Strings.message_valid_PIN);
@@ -203,6 +202,7 @@ class PinScreenController extends GetxController {
 
   Future<void> getPinApiCall(String isComingFrom) async {
     if (await _connectionInfo.isConnected) {
+      showDialogLoading(Strings.please_wait);
       PinScreenRequestEntity pinScreenRequestDataEntity =
           PinScreenRequestEntity(
         mobileNumber: mobileNumber.value,

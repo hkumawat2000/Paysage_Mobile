@@ -51,7 +51,7 @@ class KycController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    consentTextApi();
     super.onInit();
   }
 
@@ -166,7 +166,6 @@ class KycController extends GetxController {
                   await _searchKycUseCase.call(
                 KycSearchParams(searchKycRequestEntity: searchKycRequestEntity),
               );
-
               if (response is DataSuccess) {
                 Get.back();
                 if (response.data!.searchData != null) {
@@ -253,7 +252,11 @@ class KycController extends GetxController {
         getConsentDetailsRequestEntity: getConsentDetailsRequestEntity,
       ));
       if (response is DataSuccess) {
-      } else if (response is DataFailed) {}
+        isApiCallInProgress(false);
+        consentKycText.value = response.data!.consentDetails!.consent!;
+      } else if (response is DataFailed) {
+        isApiCallInProgress(false);
+      }
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
