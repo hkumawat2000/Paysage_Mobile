@@ -6,7 +6,7 @@ import 'package:lms/aa_getx/modules/cibil/domain/entities/response/cibil_send_ot
 class CibilSendOtpResponseModel {
   String? message;
   CibilSendOtpResponseDataModel? cibilOtpData;
-  
+
   CibilSendOtpResponseModel({
     this.message,
     this.cibilOtpData,
@@ -22,37 +22,49 @@ class CibilSendOtpResponseModel {
   factory CibilSendOtpResponseModel.fromMap(Map<String, dynamic> map) {
     return CibilSendOtpResponseModel(
       message: map['message'] != null ? map['message'] as String : null,
-      cibilOtpData: map['data'] != null ? CibilSendOtpResponseDataModel.fromMap(map['data'] as Map<String,dynamic>) : null,
+      cibilOtpData: map['data'] != null
+          ? CibilSendOtpResponseDataModel.fromJson(
+              map['data'])
+          : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CibilSendOtpResponseModel.fromJson(String source) => CibilSendOtpResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  CibilSendOtpResponseModel.fromJson(Map<String, dynamic> json) {
+    message = json['message'];
+    cibilOtpData = json['data'] != null
+        ? new CibilSendOtpResponseDataModel.fromJson(json['data'])
+        : null;
+  }
 
-  CibilSendOtpResponseEntity toEntity() =>
-  CibilSendOtpResponseEntity(
-      message: message,
-      cibilOtpDataEntity: cibilOtpData?.toEntity(),
-  
-  );
+  //factory CibilSendOtpResponseModel.fromJson(String source) => CibilSendOtpResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  factory CibilSendOtpResponseModel.fromEntity(CibilSendOtpResponseEntity cibilSendOtpResponseEntity) {
+  CibilSendOtpResponseEntity toEntity() => CibilSendOtpResponseEntity(
+        message: message,
+        cibilOtpDataEntity: cibilOtpData?.toEntity(),
+      );
+
+  factory CibilSendOtpResponseModel.fromEntity(
+      CibilSendOtpResponseEntity cibilSendOtpResponseEntity) {
     return CibilSendOtpResponseModel(
-      message: cibilSendOtpResponseEntity.message != null ? cibilSendOtpResponseEntity.message as String : null,
-      cibilOtpData: cibilSendOtpResponseEntity.cibilOtpDataEntity != null ? CibilSendOtpResponseDataModel.fromEntity(cibilSendOtpResponseEntity.cibilOtpDataEntity as CibilSendOtpResponseDataEntity) : null,
+      message: cibilSendOtpResponseEntity.message != null
+          ? cibilSendOtpResponseEntity.message as String
+          : null,
+      cibilOtpData: cibilSendOtpResponseEntity.cibilOtpDataEntity != null
+          ? CibilSendOtpResponseDataModel.fromEntity(cibilSendOtpResponseEntity
+              .cibilOtpDataEntity as CibilSendOtpResponseDataEntity)
+          : null,
     );
   }
 }
-
-
 
 class CibilSendOtpResponseDataModel {
   String? errorMessage;
   String? stdOneHitID;
   String? stdTwoHitId;
   String? otpGenerationStatus;
-  
+
   CibilSendOtpResponseDataModel({
     this.errorMessage,
     this.stdOneHitID,
@@ -71,32 +83,59 @@ class CibilSendOtpResponseDataModel {
 
   factory CibilSendOtpResponseDataModel.fromMap(Map<String, dynamic> map) {
     return CibilSendOtpResponseDataModel(
-      errorMessage: map['errorString'] != null ? map['errorString'] as String : null,
-      stdOneHitID: map['stgOneHitId'] != null ? map['stgOneHitId'] as String : null,
-      stdTwoHitId: map['stgTwoHitId'] != null ? map['stgTwoHitId'] as String : null,
-      otpGenerationStatus: map['otpGenerationStatus'] != null ? map['otpGenerationStatus'] as String : null,
+      errorMessage:
+          map['errorString'] != null ? map['errorString'] as String : null,
+      stdOneHitID:
+          map['stgOneHitId'] != null ? map['stgOneHitId'] as String : null,
+      stdTwoHitId:
+          map['stgTwoHitId'] != null ? map['stgTwoHitId'] as String : null,
+      otpGenerationStatus: map['otpGenerationStatus'] != null
+          ? map['otpGenerationStatus'] as String
+          : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CibilSendOtpResponseDataModel.fromJson(String source) => CibilSendOtpResponseDataModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  CibilSendOtpResponseDataModel.fromJson(Map<String, dynamic> json) {
+     errorMessage =
+          json['errorString'] != null ? json['errorString'] as String : null;
+      stdOneHitID =
+          json['stgOneHitId'] != null ? json['stgOneHitId'] as String : null;
+      stdTwoHitId =
+          json['stgTwoHitId'] != null ? json['stgTwoHitId'] as String : null;
+      otpGenerationStatus = json['otpGenerationStatus'] != null
+          ? json['otpGenerationStatus'] as String
+          : null;
+  }
 
-  CibilSendOtpResponseDataEntity toEntity() =>
-  CibilSendOtpResponseDataEntity(
-      errorMessage: errorMessage,
-      stdOneHitID: stdOneHitID,
-      stdTwoHitId: stdTwoHitId,
-      otpGenerationStatus: otpGenerationStatus,
-  
-  );
+  // factory CibilSendOtpResponseDataModel.fromJson(String source) =>
+  //     CibilSendOtpResponseDataModel.fromMap(
+  //         json.decode(source) as Map<String, dynamic>);
 
-  factory CibilSendOtpResponseDataModel.fromEntity(CibilSendOtpResponseDataEntity cibilSendOtpResponseDataEntity) {
+  CibilSendOtpResponseDataEntity toEntity() => CibilSendOtpResponseDataEntity(
+        errorMessage: errorMessage,
+        stdOneHitID: stdOneHitID,
+        stdTwoHitId: stdTwoHitId,
+        otpGenerationStatus: otpGenerationStatus,
+      );
+
+  factory CibilSendOtpResponseDataModel.fromEntity(
+      CibilSendOtpResponseDataEntity cibilSendOtpResponseDataEntity) {
     return CibilSendOtpResponseDataModel(
-      errorMessage: cibilSendOtpResponseDataEntity.errorMessage != null ? cibilSendOtpResponseDataEntity.errorMessage as String : null,
-      stdOneHitID: cibilSendOtpResponseDataEntity.stdOneHitID != null ? cibilSendOtpResponseDataEntity.stdOneHitID as String : null,
-      stdTwoHitId: cibilSendOtpResponseDataEntity.stdTwoHitId != null ? cibilSendOtpResponseDataEntity.stdTwoHitId as String : null,
-      otpGenerationStatus: cibilSendOtpResponseDataEntity.otpGenerationStatus != null ? cibilSendOtpResponseDataEntity.otpGenerationStatus as String : null,
+      errorMessage: cibilSendOtpResponseDataEntity.errorMessage != null
+          ? cibilSendOtpResponseDataEntity.errorMessage as String
+          : null,
+      stdOneHitID: cibilSendOtpResponseDataEntity.stdOneHitID != null
+          ? cibilSendOtpResponseDataEntity.stdOneHitID as String
+          : null,
+      stdTwoHitId: cibilSendOtpResponseDataEntity.stdTwoHitId != null
+          ? cibilSendOtpResponseDataEntity.stdTwoHitId as String
+          : null,
+      otpGenerationStatus:
+          cibilSendOtpResponseDataEntity.otpGenerationStatus != null
+              ? cibilSendOtpResponseDataEntity.otpGenerationStatus as String
+              : null,
     );
   }
 }
