@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
@@ -47,7 +48,9 @@ class CibilController extends GetxController {
 
   Future<void> cibilCheckOTPApi() async {
     if (await _connectionInfo.isConnected) {
+      showDialogLoading(Strings.please_wait);
       DataState<CibilSendOtpResponseEntity> response = await cibilSendOtpUsecase.call();
+      Get.back();
       if (response is DataSuccess) {
         if (response.data!.cibilOtpDataEntity != null) {
           if(response.data!.cibilOtpDataEntity!.otpGenerationStatus == "1"){

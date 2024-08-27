@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/cibil/domain/entities/request/cibil_on_demand_request_entity.dart';
@@ -36,6 +38,7 @@ class CibilResultController extends GetxController {
   }
 
   callOnDematRefresh() async {
+    showDialogLoading(Strings.please_wait);
     DataState<CibilOnDemandResponseEntity> response = await cibilOnDemandUsecase.call(
         CibilOnDemandParams(
             cibilOnDemandRequestEntity: CibilOnDemandRequestEntity(
@@ -43,6 +46,7 @@ class CibilResultController extends GetxController {
             )
         )
     );
+    Get.back();
     if (response is DataSuccess) {
       if (response.data!.cibilDataEntity != null) {
         cibilScore = response.data!.cibilDataEntity!.cibilScore!.toString();

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
+import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/cibil/domain/entities/request/cibil_otp_verification_request_entity.dart';
@@ -23,6 +25,7 @@ class CibilOtpController extends GetxController{
   CibilOtpController(this.cibilOtpVerificationUsecase);
 
   otpVerify(String stdOneId, String stdTwoId) async {
+    showDialogLoading(Strings.please_wait);
     DataState<CibilOtpVerificationResponseEntity> response =
     await cibilOtpVerificationUsecase.call(
       CibilOtpVerificationParams(
@@ -34,7 +37,7 @@ class CibilOtpController extends GetxController{
         ),
       ),
     );
-
+    Get.back();
     if (response is DataSuccess) {
       if (response.data!.otpVerityDataEntity != null) {
         Get.offNamed(cibilResultView,

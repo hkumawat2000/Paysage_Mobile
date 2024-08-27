@@ -160,19 +160,10 @@ class CibilOtpView extends GetView<CibilOtpController>{
                                 onPressed: () async {
                                   Utility.isNetworkConnection().then((isNetwork) {
                                     if (isNetwork) {
-                                      Get.offNamed(cibilResultView,
-                                        arguments: CibilResultArgs(
-                                          hitId: hitId,
-                                          cibilScore: cibilScore,
-                                          cibilScoreDate: "",
-                                        ),
+                                      controller.otpVerify(
+                                        stdOneID!,
+                                        stdTwoID!,
                                       );
-                                      // controller.otpVerify(
-                                      //   widget.loginSubmitResquestEntity.mobileNumber,
-                                      //   widget.loginSubmitResquestEntity.firebase_token,
-                                      //   widget.loginSubmitResquestEntity.platform,
-                                      //   widget.loginSubmitResquestEntity.appVersion,
-                                      // );
                                     } else {
                                       Utility.showToastMessage(Strings.no_internet_message);
                                     }
