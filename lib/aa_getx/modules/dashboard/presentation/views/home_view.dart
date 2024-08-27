@@ -98,7 +98,7 @@ class HomeView extends GetView<HomeController> {
                 minWidth: 10,
                 child: Text("UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                 onPressed: ()=>
-                  Utility().forceUpdatePopUp(context, false, controller.storeURL!, controller.storeWhatsNew!),
+                  Utility().forceUpdatePopUp( false, controller.storeURL!, controller.storeWhatsNew!),
               ),
             ),
             messageText: Column(

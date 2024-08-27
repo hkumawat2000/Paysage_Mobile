@@ -11,14 +11,14 @@ class GetLoanDetailsRequestModel{
       {this.loanName,this.transactionsPerPage, this.transactionsStart});
 
   GetLoanDetailsRequestModel.fromJson(Map<String, dynamic> json) {
-    loanName = json['loanName'];
+    loanName = json['loan_name'];
     transactionsPerPage = json['transactions_per_page'];
     transactionsStart = json['transactions_start'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['loanName'] = loanName;
+    data['loan_name'] = loanName;
     data['transactions_per_page'] = this.transactionsPerPage;
     data['transactions_start'] = this.transactionsStart;
     return data;

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
+import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/controllers/dashboard_controller.dart';
 
@@ -10,12 +12,13 @@ class DashboardView extends GetView<DashboardController> {
 
    @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: controller.onBackPressed,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (_) => OnBackPress.onBackPressDialog(1,Strings.exit_app),
       child: Scaffold(
         body: Stack(
           children: <Widget>[
-            Obx(() =>controller.children[controller.selectedIndex!.value]),
+            Obx(() =>controller.children[controller.selectedIndex.value]),
             Positioned(
               left: 0,
               right: 0,
