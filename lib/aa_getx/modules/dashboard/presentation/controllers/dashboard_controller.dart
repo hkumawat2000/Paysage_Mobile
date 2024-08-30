@@ -409,8 +409,9 @@ class DashboardController extends GetxController {
     } else if (screenName == "Dashboard") {
       Get.toNamed(dashboardView);
     } else if (screenName == "Margin Shortfall Action") {
-      showDialogLoading( Strings.please_wait);
+
       if (await _connectionInfo.isConnected) {
+        showDialogLoading( Strings.please_wait);
         GetLoanDetailsRequestEntity loanDetailsRequestEntity =
         GetLoanDetailsRequestEntity(
           loanName: loanNumber,
@@ -420,7 +421,7 @@ class DashboardController extends GetxController {
         DataState<LoanDetailsResponseEntity> loanDetailsResponse =
         await _getLoanDetailsUseCase.call(GetLoanDetailsParams(
             loanDetailsRequestEntity: loanDetailsRequestEntity));
-
+        Get.back();
         if (loanDetailsResponse is DataSuccess) {
           if (loanDetailsResponse.data != null) {
             if (loanDetailsResponse.data!.data != null) {

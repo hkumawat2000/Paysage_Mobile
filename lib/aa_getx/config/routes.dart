@@ -1,6 +1,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/bindings/account_settings_bindings.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_settings_screen.dart';
+import 'package:lms/aa_getx/modules/account_statement/presentation/views/loan_statement_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bindings.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/views/aml_check_view.dart';
@@ -92,6 +93,8 @@ const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dial
 const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
 const String paymentView = "payment-view";
+const String loanStatementView = "loan-statement-view";
+const String downloadStatementView = "download-statement-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -248,4 +251,13 @@ List<GetPage> routes = [
     page: () => PaymentView(),
     binding: PaymentBinding(),
   ),
+  GetPage(
+    name: '/$loanStatementView',
+    page: () => LoanStatementView(),
+  ),
+  // GetPage(
+  //   name: '/$downloadStatementView',
+  //   page: () => DownloadStatementView(loanName, isComingFrom, tabController),
+  //   binding: DownloadStatementBinding(),
+  // ),
 ];
