@@ -155,8 +155,8 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                   color: Colors.grey,
                                 ),
                               ),
-                              subHeadingText(controller.drawingPower < 0
-                                  ? negativeValue(controller.drawingPower)
+                              subHeadingText(controller.drawingPower.value < 0
+                                  ? negativeValue(controller.drawingPower.value)
                                   : '₹${numberToString(controller.drawingPower.toStringAsFixed(2))}'),
                               // subHeadingText('₹$drawingPower'),
                             ],
@@ -181,12 +181,12 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                             children: <Widget>[
                               // subHeadingText('₹${numberToString(loanBalance.toStringAsFixed(2))}'),
                               Text(
-                                controller.loanBalance < 0
-                                    ? negativeValue(controller.loanBalance)
+                                controller.loanBalance.value < 0
+                                    ? negativeValue(controller.loanBalance.value)
                                     : '₹${numberToString(controller.loanBalance.toStringAsFixed(2))}',
                                 textAlign: TextAlign.center,
                                 style: boldTextStyle_24.copyWith(
-                                    color: controller.loanBalance < 0
+                                    color: controller.loanBalance.value < 0
                                         ? colorGreen
                                         : appTheme),
                               ),
@@ -459,7 +459,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 ),
               )
             : Container(),
-        controller.loanDetailData.value.loan!.totalCollateralValue != null
+        controller.totalCollateralValue != null
             ? Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Row(
@@ -686,17 +686,34 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 ),
               )
             : Container(),
-        controller.marginShortfall != null
+        controller.marginShortfall.value != null
             ? Padding(
-                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                child: Card(
-                  elevation: 3,
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
+          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+          child: Card(
+            elevation: 3,
+            child: Container(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.white, width: 3.0),
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 10,
                       color: Colors.white,
-                      border: Border.all(color: Colors.white, width: 3.0),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      offset: Offset(1, 3))
+                ], // make rounded corner of border
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10.0),
+                    padding: EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      color: colorLightRed,
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(8.0)),
                       boxShadow: [
                         BoxShadow(
                             blurRadius: 10,
@@ -704,210 +721,193 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                             offset: Offset(1, 3))
                       ], // make rounded corner of border
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Image.asset(
+                      AssetsImagePath.business_finance,
+                      height: 35.04,
+                      width: 35.2,
+                      color: red,
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10.0),
-                          padding: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: colorLightRed,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 10,
-                                  color: Colors.white,
-                                  offset: Offset(1, 3))
-                            ], // make rounded corner of border
-                          ),
-                          child: Image.asset(
-                            AssetsImagePath.business_finance,
-                            height: 35.04,
-                            width: 35.2,
-                            color: red,
-                          ),
+                        Row(
+                          children: [
+                            mediumHeadingText(Strings.margin_shortfall),
+                            SizedBox(width: 05),
+                            GestureDetector(
+                              child: Image.asset(AssetsImagePath.info,
+                                  height: 12, width: 12),
+                              onTap: () => controller.openBottomSheet(),
+                            )
+                          ],
                         ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  mediumHeadingText(Strings.margin_shortfall),
-                                  SizedBox(width: 05),
-                                  GestureDetector(
-                                    child: Image.asset(AssetsImagePath.info,
-                                        height: 12, width: 12),
-                                    onTap: () => controller.openBottomSheet(),
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: 5),
-                              subHeadingText(controller.marginShortfall.value!
-                                          .minimumCashAmount! <
-                                      0
-                                  ? negativeValue(controller.marginShortfall
-                                      .value!.minimumCashAmount!)
-                                  : '₹${numberToString(controller.marginShortfall.value!.minimumCashAmount!.toStringAsFixed(2))}'),
-                            ],
-                          ),
-                        ),
-                        Column(children: [
-                          controller.isActionTaken.value
-                              ? SizedBox()
-                              : Container(
-                                  width: 75,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: appTheme,
-                                      ),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(6))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Column(
-                                      children: [
-                                        !controller.isTimerDone.value
-                                            ? controller.isTodayHoliday == 1
-                                                ? Column(children: [
-                                                    Text(Strings.time_remaining,
-                                                        style: TextStyle(
-                                                            fontSize: 9,
-                                                            color:
-                                                                Colors.indigo)),
-                                                    Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                vertical: 5),
-                                                        child: Text(
-                                                            '${controller.marginShortfall.value!.deadlineInHrs}',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .red))),
-                                                  ])
-                                                : TweenAnimationBuilder<
-                                                        Duration>(
-                                                    duration: Duration(
-                                                        hours: controller
-                                                            .hours.value,
-                                                        minutes: controller
-                                                            .min.value,
-                                                        seconds: controller
-                                                            .sec.value),
-                                                    tween: Tween(
-                                                        begin: Duration(
-                                                            hours: controller
-                                                                .hours.value,
-                                                            minutes: controller
-                                                                .min.value,
-                                                            seconds: controller
-                                                                .sec.value),
-                                                        end: Duration.zero),
-                                                    onEnd: () => controller
-                                                        .isTimerDone
-                                                        .value = true,
-                                                    builder:
-                                                        (BuildContext context,
-                                                            Duration? value,
-                                                            Widget? child) {
-                                                      final hours =
-                                                          (value!.inHours)
-                                                              .toString();
-                                                      final minutes =
-                                                          (value.inMinutes % 60)
-                                                              .toString()
-                                                              .padLeft(2, '0');
-                                                      final seconds =
-                                                          (value.inSeconds % 60)
-                                                              .toString()
-                                                              .padLeft(2, '0');
-                                                      String hour = '';
-                                                      if (hours == '0') {
-                                                        hour = '';
-                                                      } else {
-                                                        hour = '$hours:';
-                                                      }
-                                                      return Column(
-                                                        children: [
-                                                          Text(
-                                                              Strings
-                                                                  .time_remaining,
-                                                              style: TextStyle(
-                                                                  fontSize: 8,
-                                                                  color: Colors
-                                                                      .indigo)),
-                                                          Padding(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical: 5),
-                                                              child: Text(
-                                                                  '$hour$minutes:$seconds',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .red))),
-                                                        ],
-                                                      );
-                                                    })
-                                            : Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 5),
-                                                child: Text(
-                                                    Strings.sale_triggered,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: red,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 11)),
-                                              ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: appTheme,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                            onPressed: () =>
-                                controller.actionTakenOrRequestPendingClicked(),
-                            child: Text(
-                              controller.marginShortfall.value!.status ==
-                                      "Request Pending"
-                                  ? "Action Taken"
-                                  : Strings.take_action,
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: colorWhite,
-                                  fontWeight: semiBold),
-                            ),
-                          ),
-                        ]),
+                        SizedBox(height: 5),
+                        subHeadingText(controller.marginShortfall.value!
+                            .minimumCashAmount! <
+                            0
+                            ? negativeValue(controller.marginShortfall
+                            .value!.minimumCashAmount!)
+                            : '₹${numberToString(controller.marginShortfall.value!.minimumCashAmount!.toStringAsFixed(2))}'),
                       ],
                     ),
                   ),
-                ),
-              )
+                  Column(children: [
+                    controller.isActionTaken.value
+                        ? SizedBox()
+                        : Container(
+                      width: 75,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: appTheme,
+                          ),
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(6))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Column(
+                          children: [
+                            !controller.isTimerDone.value
+                                ? controller.isTodayHoliday == 1
+                                ? Column(children: [
+                              Text(Strings.time_remaining,
+                                  style: TextStyle(
+                                      fontSize: 9,
+                                      color:
+                                      Colors.indigo)),
+                              Padding(
+                                  padding:
+                                  const EdgeInsets
+                                      .symmetric(
+                                      vertical: 5),
+                                  child: Text(
+                                      '${controller.marginShortfall.value!.deadlineInHrs}',
+                                      textAlign: TextAlign
+                                          .center,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight:
+                                          FontWeight
+                                              .bold,
+                                          color: Colors
+                                              .red))),
+                            ])
+                                : TweenAnimationBuilder<
+                                Duration>(
+                                duration: Duration(
+                                    hours: controller
+                                        .hours.value,
+                                    minutes: controller
+                                        .min.value,
+                                    seconds: controller
+                                        .sec.value),
+                                tween: Tween(
+                                    begin: Duration(
+                                        hours: controller
+                                            .hours.value,
+                                        minutes: controller
+                                            .min.value,
+                                        seconds: controller
+                                            .sec.value),
+                                    end: Duration.zero),
+                                onEnd: () => controller
+                                    .isTimerDone
+                                    .value = true,
+                                builder:
+                                    (BuildContext context,
+                                    Duration? value,
+                                    Widget? child) {
+                                  final hours =
+                                  (value!.inHours)
+                                      .toString();
+                                  final minutes =
+                                  (value.inMinutes % 60)
+                                      .toString()
+                                      .padLeft(2, '0');
+                                  final seconds =
+                                  (value.inSeconds % 60)
+                                      .toString()
+                                      .padLeft(2, '0');
+                                  String hour = '';
+                                  if (hours == '0') {
+                                    hour = '';
+                                  } else {
+                                    hour = '$hours:';
+                                  }
+                                  return Column(
+                                    children: [
+                                      Text(
+                                          Strings
+                                              .time_remaining,
+                                          style: TextStyle(
+                                              fontSize: 8,
+                                              color: Colors
+                                                  .indigo)),
+                                      Padding(
+                                          padding: const EdgeInsets
+                                              .symmetric(
+                                              vertical: 5),
+                                          child: Text(
+                                              '$hour$minutes:$seconds',
+                                              textAlign:
+                                              TextAlign
+                                                  .center,
+                                              style: TextStyle(
+                                                  fontSize:
+                                                  12,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .bold,
+                                                  color: Colors
+                                                      .red))),
+                                    ],
+                                  );
+                                })
+                                : Padding(
+                              padding:
+                              const EdgeInsets.symmetric(
+                                  vertical: 5),
+                              child: Text(
+                                  Strings.sale_triggered,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: red,
+                                      fontWeight:
+                                      FontWeight.bold,
+                                      fontSize: 11)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: appTheme,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      onPressed: () =>
+                          controller.actionTakenOrRequestPendingClicked(),
+                      child: Text(
+                        controller.marginShortfall.value!.status ==
+                            "Request Pending"
+                            ? "Action Taken"
+                            : Strings.take_action,
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: colorWhite,
+                            fontWeight: semiBold),
+                      ),
+                    ),
+                  ]),
+                ],
+              ),
+            ),
+          ),
+        )
             : Container(),
       ],
     );
