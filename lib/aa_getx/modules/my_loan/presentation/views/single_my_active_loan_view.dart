@@ -13,25 +13,26 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
-
   @override
   Widget build(BuildContext context) {
-   // platform = Theme.of(context).platform;
-    return Obx(()=>Scaffold(
-      key: controller.scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      backgroundColor: colorBg,
-      appBar: AppBar(
-        backgroundColor: colorBg,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(controller.loanNumber.value, style: mediumTextStyle_18_gray_dark),
-      ),
-      body: controller.loanDetailData != null && controller.loanDetailData.isBlank!
-          ? myActiveLoans()
-          : Center(child: Text(controller.responseText.value)),
-      ///DC: already commented
-      /* loanOpen == 1
+    // platform = Theme.of(context).platform;
+    return Obx(() => Scaffold(
+          key: controller.scaffoldKey,
+          resizeToAvoidBottomInset: false,
+          backgroundColor: colorBg,
+          appBar: AppBar(
+            backgroundColor: colorBg,
+            elevation: 0,
+            centerTitle: true,
+            title: Text(controller.loanNumber.value,
+                style: mediumTextStyle_18_gray_dark),
+          ),
+          body: controller.loanDetailData.isBlank == true
+              ? Center(child: Text(controller.responseText.value))
+              : myActiveLoans(),
+
+          ///DC: already commented
+          /* loanOpen == 1
             ? loanNumber != null
                 ? loanDetailData != null
                     ? myActiveLoans(loanDetailData
@@ -39,7 +40,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 : Center(child: Text(""))
             : Center(child: Text("Nothing here! Get your loan now!!"))*/
 //        body: getMyLoansList()
-    ));
+        ));
   }
 
   Widget myActiveLoans() {
@@ -60,7 +61,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
             padding: const EdgeInsets.only(left: 16.0, top: 15),
             child: Row(
               children: <Widget>[
-                scripsNameText(controller.loanDetailData.value.transactions!.length != 0 ? Strings.recent_transactions : "")
+                scripsNameText(
+                    controller.loanDetailData.value.transactions!.length != 0
+                        ? Strings.recent_transactions
+                        : "")
               ],
             ),
           ),
@@ -88,12 +92,14 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                       color: colorLightBlue,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15.0),
-                          topRight: Radius.circular(15.0)), // set rounded corner radius
+                          topRight: Radius.circular(
+                              15.0)), // set rounded corner radius
                     ),
                     child: Column(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(top: 16.0, left: 22.0, right: 15.0),
+                          padding: const EdgeInsets.only(
+                              top: 16.0, left: 22.0, right: 15.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -103,8 +109,8 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                 decoration: BoxDecoration(
                                   color: colorLightBlue,
                                   border: Border.all(color: appTheme, width: 1),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20.0)),
                                 ),
                                 child: MaterialButton(
                                   onPressed: null,
@@ -120,19 +126,25 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                   style: boldTextStyle_14,
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      _launchURL(controller.baseURL + controller.loanDetailData.value.loan!.loanAgreement!);},
+                                      _launchURL(controller.baseURL +
+                                          controller.loanDetailData.value.loan!
+                                              .loanAgreement!);
+                                    },
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0),
+                          padding: const EdgeInsets.only(
+                              top: 10.0, left: 20.0, right: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              subHeadingText(controller.sanctionedValue.value < 0
-                                  ? negativeValue(controller.sanctionedValue.value)
+                              subHeadingText(controller.sanctionedValue.value <
+                                      0
+                                  ? negativeValue(
+                                      controller.sanctionedValue.value)
                                   : '₹${numberToString(controller.sanctionedValue.value.toStringAsFixed(2))}'),
                               // subHeadingText('₹$sanctionedValue'),
                               Padding(
@@ -143,15 +155,16 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                   color: Colors.grey,
                                 ),
                               ),
-                              subHeadingText(controller.drawingPower < 0
-                                  ? negativeValue(controller.drawingPower)
+                              subHeadingText(controller.drawingPower.value < 0
+                                  ? negativeValue(controller.drawingPower.value)
                                   : '₹${numberToString(controller.drawingPower.toStringAsFixed(2))}'),
                               // subHeadingText('₹$drawingPower'),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20.0, bottom: 8.0, right: 20.0),
+                          padding: const EdgeInsets.only(
+                              left: 20.0, bottom: 8.0, right: 20.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -161,18 +174,21 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20.0, bottom: 8.0, right: 20.0),
+                          padding: const EdgeInsets.only(
+                              left: 20.0, bottom: 8.0, right: 20.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               // subHeadingText('₹${numberToString(loanBalance.toStringAsFixed(2))}'),
-                              Text(controller.loanBalance < 0
-                                  ? negativeValue(controller.loanBalance)
-                                  : '₹${numberToString(controller.loanBalance.toStringAsFixed(2))}',
+                              Text(
+                                controller.loanBalance.value < 0
+                                    ? negativeValue(controller.loanBalance.value)
+                                    : '₹${numberToString(controller.loanBalance.toStringAsFixed(2))}',
                                 textAlign: TextAlign.center,
                                 style: boldTextStyle_24.copyWith(
-                                    color: controller.loanBalance < 0 ? colorGreen : appTheme
-                                ),
+                                    color: controller.loanBalance.value < 0
+                                        ? colorGreen
+                                        : appTheme),
                               ),
                               Text(Strings.loan_balance, style: subHeading),
                             ],
@@ -190,8 +206,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                               padding: const EdgeInsets.all(15.0),
                               child: Text(
                                 Strings.view_statement,
-                                style:
-                                TextStyle(fontSize: 12, fontWeight: regular, color: colorWhite),
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: regular,
+                                    color: colorWhite),
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -202,7 +220,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                       bottomLeft: Radius.circular(15.0),
                                       bottomRight: Radius.circular(15.0))),
                             ),
-                            onPressed: ()=> controller.viewLoanStatement(),
+                            onPressed: () => controller.viewLoanStatement(),
                           ),
                         ),
                       ],
@@ -235,7 +253,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             GestureDetector(
-              onTap: ()=> controller.withdrawClicked(),
+              onTap: () => controller.withdrawClicked(),
               child: Card(
                 elevation: 1,
                 color: colorWhite,
@@ -254,12 +272,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           shape: BoxShape.circle,
                           color: colorWhite,
                         ),
-                        child: Image.asset(AssetsImagePath.atm, height: 58, width: 58, fit: BoxFit.cover),
+                        child: Image.asset(AssetsImagePath.atm,
+                            height: 58, width: 58, fit: BoxFit.cover),
                       ),
-                      Text(
-                          Strings.withdraw,
-                          style: subHeading
-                      ),
+                      Text(Strings.withdraw, style: subHeading),
                     ],
                   ),
                 ),
@@ -285,21 +301,19 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           shape: BoxShape.circle,
                           color: colorWhite,
                         ),
-                        child: Image.asset(AssetsImagePath.increase_loan_icon, height: 58, width: 58, fit: BoxFit.cover),
+                        child: Image.asset(AssetsImagePath.increase_loan_icon,
+                            height: 58, width: 58, fit: BoxFit.cover),
                       ),
-                      Text(
-                          Strings.increase_loan,
-                          style: subHeading
-                      ),
+                      Text(Strings.increase_loan, style: subHeading),
                     ],
                   ),
                 ),
               ),
-              onTap: ()=> controller.increaseLoanClicked(),
+              onTap: () => controller.increaseLoanClicked(),
             ),
             SizedBoxWidthWidget(10.0),
             GestureDetector(
-              onTap: ()=> controller.payNowClicked(),
+              onTap: () => controller.payNowClicked(),
               child: Card(
                 elevation: 1,
                 color: colorWhite,
@@ -318,12 +332,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           shape: BoxShape.circle,
                           color: colorWhite,
                         ),
-                        child: Image.asset(AssetsImagePath.pay_now, height: 58, width: 58, fit: BoxFit.cover),
+                        child: Image.asset(AssetsImagePath.pay_now,
+                            height: 58, width: 58, fit: BoxFit.cover),
                       ),
-                      Text(
-                          Strings.pay_now,
-                          style: subHeading
-                      ),
+                      Text(Strings.pay_now, style: subHeading),
                     ],
                   ),
                 ),
@@ -340,142 +352,52 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
       children: <Widget>[
         controller.loanDetailData.value.topUp != null
             ? Padding(
-          padding:
-          const EdgeInsets.only(top: 15.0, left: 12.0, right: 12.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 4),
-                      child: Text(
-                        Strings.top_up_message,
-                        style: TextStyle(
-                            color: appTheme,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
+                padding:
+                    const EdgeInsets.only(top: 15.0, left: 12.0, right: 12.0),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 4),
+                            child: Text(
+                              Strings.top_up_message,
+                              style: TextStyle(
+                                  color: appTheme,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              Card(
-                elevation: 3,
-                child: Container(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.white, width: 3.0),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 10,
-                          color: Colors.white,
-                          offset: Offset(1, 3))
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.symmetric(vertical: 10.0),
-                        padding: EdgeInsets.all(10.0),
+                    Card(
+                      elevation: 3,
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         decoration: BoxDecoration(
-                          color: colorLightYellow,
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(8.0)),
-                          // set rounded corner radius
+                          color: Colors.white,
+                          border: Border.all(color: Colors.white, width: 3.0),
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           boxShadow: [
                             BoxShadow(
                                 blurRadius: 10,
                                 color: Colors.white,
                                 offset: Offset(1, 3))
-                          ], // make rounded corner of border
-                        ),
-                        child: Image.asset(
-                          AssetsImagePath.top_up_icon,
-                          height: 40.04,
-                          width: 40.2,
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            mediumHeadingText(Strings.available_top),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                subHeadingText(controller.loanDetailData.value.topUp! < 0
-                                    ? negativeValue(
-                                    controller.loanDetailData.value.topUp!)
-                                    : '₹${numberToString(controller.loanDetailData.value.topUp!.toStringAsFixed(2))}'),
-                                // subHeadingText('₹${numberToString(loanDetailData!.topUp!.toStringAsFixed(2))}'),
-                              ],
-                            )
                           ],
                         ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: appTheme,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        onPressed: ()=> controller.addTopUpClicked(),
-                        child: Text(
-                          Strings.add_top_up,
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
-            : Container(),
-        controller.loanDetailData.value.loan!.totalCollateralValue != null
-            ? Padding(
-          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-          child: Row(
-            children: <Widget>[
-              Flexible(
-                child: Card(
-                  elevation: 3,
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.white, width: 3.0),
-                      // set border width
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      // set rounded corner radius
-                      boxShadow: [
-                        BoxShadow(blurRadius: 10, color: Colors.white, offset: Offset(1, 3))
-                      ], // make rounded corner of border
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               padding: EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
-                                color: colorLightGreen,
-                                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                                color: colorLightYellow,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8.0)),
                                 // set rounded corner radius
                                 boxShadow: [
                                   BoxShadow(
@@ -485,71 +407,163 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                 ], // make rounded corner of border
                               ),
                               child: Image.asset(
-                                AssetsImagePath.bitcoin_green,
-                                height: 35.04,
-                                width: 35.2,
+                                AssetsImagePath.top_up_icon,
+                                height: 40.04,
+                                width: 40.2,
                               ),
                             ),
-                            SizedBox(
-                              width: 16,
-
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  mediumHeadingText(Strings.available_top),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      subHeadingText(controller
+                                                  .loanDetailData.value.topUp! <
+                                              0
+                                          ? negativeValue(controller
+                                              .loanDetailData.value.topUp!)
+                                          : '₹${numberToString(controller.loanDetailData.value.topUp!.toStringAsFixed(2))}'),
+                                      // subHeadingText('₹${numberToString(loanDetailData!.topUp!.toStringAsFixed(2))}'),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                mediumHeadingText(Strings.collateral_value),
-                                SizedBox(
-                                  height: 5,
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: appTheme,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                subHeadingText(controller.loanDetailData.value.loan!.totalCollateralValue! < 0
-                                    ? negativeValue(controller.loanDetailData.value.loan!.totalCollateralValue!)
-                                    : '₹${numberToString(controller.loanDetailData.value.loan!.totalCollateralValue!.toStringAsFixed(2))}'),
-                                // subHeadingText('₹${loanDetailData!.loan!.totalCollateralValueStr}'),
-                              ],
+                              ),
+                              onPressed: () => controller.addTopUpClicked(),
+                              child: Text(
+                                Strings.add_top_up,
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        )
+              )
             : Container(),
-        controller.interest != null && controller.interest.value!.totalInterestAmt != 0
+        controller.totalCollateralValue != null
             ? Padding(
-          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-          child: Row(
-            children: <Widget>[
-              Flexible(
-                child: Card(
-                  elevation: 3,
-                  child: Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.white, width: 3.0),
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(10.0)),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 10,
-                            color: Colors.white,
-                            offset: Offset(1, 3))
-                      ],
-                    ),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10.0),
-                          // padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Card(
+                        elevation: 3,
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
                           decoration: BoxDecoration(
-                            color: colorLightRed,
+                            color: Colors.white,
+                            border: Border.all(color: Colors.white, width: 3.0),
+                            // set border width
                             borderRadius:
-                            BorderRadius.all(Radius.circular(8.0)),
+                                BorderRadius.all(Radius.circular(10.0)),
+                            // set rounded corner radius
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 10,
+                                  color: Colors.white,
+                                  offset: Offset(1, 3))
+                            ], // make rounded corner of border
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Container(
+                                    margin:
+                                        EdgeInsets.symmetric(vertical: 10.0),
+                                    padding: EdgeInsets.all(10.0),
+                                    decoration: BoxDecoration(
+                                      color: colorLightGreen,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0)),
+                                      // set rounded corner radius
+                                      boxShadow: [
+                                        BoxShadow(
+                                            blurRadius: 10,
+                                            color: Colors.white,
+                                            offset: Offset(1, 3))
+                                      ], // make rounded corner of border
+                                    ),
+                                    child: Image.asset(
+                                      AssetsImagePath.bitcoin_green,
+                                      height: 35.04,
+                                      width: 35.2,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      mediumHeadingText(
+                                          Strings.collateral_value),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      subHeadingText(controller
+                                                  .loanDetailData
+                                                  .value
+                                                  .loan!
+                                                  .totalCollateralValue! <
+                                              0
+                                          ? negativeValue(controller
+                                              .loanDetailData
+                                              .value
+                                              .loan!
+                                              .totalCollateralValue!)
+                                          : '₹${numberToString(controller.loanDetailData.value.loan!.totalCollateralValue!.toStringAsFixed(2))}'),
+                                      // subHeadingText('₹${loanDetailData!.loan!.totalCollateralValueStr}'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Container(),
+        controller.interest != null &&
+                controller.interest.value!.totalInterestAmt != 0
+            ? Padding(
+                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Card(
+                        elevation: 3,
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.white, width: 3.0),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
                             boxShadow: [
                               BoxShadow(
                                   blurRadius: 10,
@@ -557,100 +571,122 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                   offset: Offset(1, 3))
                             ],
                           ),
-                          child: Image.asset(
-                            AssetsImagePath.pay_now,
-                            height: 56,
-                            width: 56,
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Row(
-                                children: [
-                                  mediumHeadingText(Strings.interest_due),
-                                  SizedBox(width: 10),
-                                  GestureDetector(
-                                    child: Image.asset(
-                                        AssetsImagePath.info,
-                                        height: 12,
-                                        width: 12),
-                                    onTap: ()=>
-                                      commonDialog(
-                                          controller.interest.value!.infoMsg, 0),
-                                  ),
-                                ],
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 10.0),
+                                // padding: EdgeInsets.all(10.0),
+                                decoration: BoxDecoration(
+                                  color: colorLightRed,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8.0)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 10,
+                                        color: Colors.white,
+                                        offset: Offset(1, 3))
+                                  ],
+                                ),
+                                child: Image.asset(
+                                  AssetsImagePath.pay_now,
+                                  height: 56,
+                                  width: 56,
+                                ),
                               ),
-                              SizedBox(height: 5),
-                              subHeadingText(controller.interest.value!.totalInterestAmt !=
-                                  null
-                                  ? controller.interest.value!.totalInterestAmt! < 0
-                                  ? negativeValue(
-                                  controller.interest.value!.totalInterestAmt!)
-                                  : '₹${numberToString(controller.interest.value!.totalInterestAmt!.toStringAsFixed(2))}'
-                                  : ""),
-                              // subHeadingText(interest!.totalInterestAmt != null
-                              //     ? '₹${numberToString(interest!.totalInterestAmt!.toStringAsFixed(2))}'
-                              //     : ""),
-                              Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  mediumHeadingText("Days Past Due - "),
-                                  Text(
-                                    "${controller.dpdText}",
-                                    style: TextStyle(
-                                        color: appTheme,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold),
+                              SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Row(
+                                      children: [
+                                        mediumHeadingText(Strings.interest_due),
+                                        SizedBox(width: 10),
+                                        GestureDetector(
+                                          child: Image.asset(
+                                              AssetsImagePath.info,
+                                              height: 12,
+                                              width: 12),
+                                          onTap: () => commonDialog(
+                                              controller
+                                                  .interest.value!.infoMsg,
+                                              0),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    subHeadingText(controller.interest.value!
+                                                .totalInterestAmt !=
+                                            null
+                                        ? controller.interest.value!
+                                                    .totalInterestAmt! <
+                                                0
+                                            ? negativeValue(controller.interest
+                                                .value!.totalInterestAmt!)
+                                            : '₹${numberToString(controller.interest.value!.totalInterestAmt!.toStringAsFixed(2))}'
+                                        : ""),
+                                    // subHeadingText(interest!.totalInterestAmt != null
+                                    //     ? '₹${numberToString(interest!.totalInterestAmt!.toStringAsFixed(2))}'
+                                    //     : ""),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        mediumHeadingText("Days Past Due - "),
+                                        Text(
+                                          "${controller.dpdText}",
+                                          style: TextStyle(
+                                              color: appTheme,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  // FittedBox(
+                                  //     fit: BoxFit.fitWidth,
+                                  //     child: Text("${interestDueDate}",
+                                  //         style: TextStyle(fontSize: 10))),
+                                  SizedBox(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: red,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                      onPressed: () => controller
+                                          .payNowInterestScreenClicked(),
+                                      child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Text(
+                                          Strings.pay_now,
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: colorWhite,
+                                              fontWeight: semiBold),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        Column(
-                          children: <Widget>[
-                            // FittedBox(
-                            //     fit: BoxFit.fitWidth,
-                            //     child: Text("${interestDueDate}",
-                            //         style: TextStyle(fontSize: 10))),
-                            SizedBox(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: red,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(20),
-                                  ),
-                                ),
-                                onPressed: ()=> controller.payNowInterestScreenClicked(),
-                                child: FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: Text(
-                                    Strings.pay_now,
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        color: colorWhite,
-                                        fontWeight: semiBold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        )
+              )
             : Container(),
-        controller.marginShortfall != null
+        controller.marginShortfall.value != null
             ? Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 12.0),
           child: Card(
@@ -704,16 +740,16 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                             GestureDetector(
                               child: Image.asset(AssetsImagePath.info,
                                   height: 12, width: 12),
-                              onTap: ()=> controller.openBottomSheet(),
+                              onTap: () => controller.openBottomSheet(),
                             )
                           ],
                         ),
                         SizedBox(height: 5),
-                        subHeadingText(controller.marginShortfall
-                            .value!.minimumCashAmount! <
+                        subHeadingText(controller.marginShortfall.value!
+                            .minimumCashAmount! <
                             0
-                            ? negativeValue(
-                            controller.marginShortfall.value!.minimumCashAmount!)
+                            ? negativeValue(controller.marginShortfall
+                            .value!.minimumCashAmount!)
                             : '₹${numberToString(controller.marginShortfall.value!.minimumCashAmount!.toStringAsFixed(2))}'),
                       ],
                     ),
@@ -761,17 +797,24 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                 : TweenAnimationBuilder<
                                 Duration>(
                                 duration: Duration(
-                                    hours: controller.hours.value,
-                                    minutes: controller.min.value,
-                                    seconds: controller.sec.value),
+                                    hours: controller
+                                        .hours.value,
+                                    minutes: controller
+                                        .min.value,
+                                    seconds: controller
+                                        .sec.value),
                                 tween: Tween(
                                     begin: Duration(
-                                        hours: controller.hours.value,
-                                        minutes: controller.min.value,
-                                        seconds: controller.sec.value),
+                                        hours: controller
+                                            .hours.value,
+                                        minutes: controller
+                                            .min.value,
+                                        seconds: controller
+                                            .sec.value),
                                     end: Duration.zero),
-                                onEnd: ()=>
-                                    controller.isTimerDone.value = true,
+                                onEnd: () => controller
+                                    .isTimerDone
+                                    .value = true,
                                 builder:
                                     (BuildContext context,
                                     Duration? value,
@@ -846,9 +889,11 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      onPressed: ()=> controller.actionTakenOrRequestPendingClicked(),
+                      onPressed: () =>
+                          controller.actionTakenOrRequestPendingClicked(),
                       child: Text(
-                        controller.marginShortfall.value!.status == "Request Pending"
+                        controller.marginShortfall.value!.status ==
+                            "Request Pending"
                             ? "Action Taken"
                             : Strings.take_action,
                         style: TextStyle(
@@ -874,12 +919,14 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
       shrinkWrap: true,
       itemCount: controller.loanDetailData.value.transactions!.length,
       itemBuilder: (context, index) {
-        return recentTransactionItem(controller.loanDetailData.value.transactions!, index);
+        return recentTransactionItem(
+            controller.loanDetailData.value.transactions!, index);
       },
     );
   }
 
-  Widget recentTransactionItem(List<TransactionsEntity> transactionList, index) {
+  Widget recentTransactionItem(
+      List<TransactionsEntity> transactionList, index) {
     var displayDate = transactionList[index].time;
     var displayDateFormatter = new DateFormat.yMMMd();
     var date = DateTime.parse(displayDate!);
@@ -913,7 +960,8 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           SizedBox(
                             height: 5,
                           ),
-                          mediumHeadingText(transactionList[index].transactionType)
+                          mediumHeadingText(
+                              transactionList[index].transactionType)
                         ],
                       ),
                     ),
@@ -924,13 +972,21 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           Flexible(
                             // child: Text('₹${transactionList[index].amount.toString()}',
                             //     style: extraBoldTextStyle_18_gray_dark),
-                            child: Text(double.parse(transactionList[index].amount.toString().replaceAll(",", "")) < 0
-                                ? negativeValue(double.parse(transactionList[index].amount.toString().replaceAll(",", "")))
-                                : '₹${transactionList[index].amount.toString()}',
+                            child: Text(
+                                double.parse(transactionList[index]
+                                            .amount
+                                            .toString()
+                                            .replaceAll(",", "")) <
+                                        0
+                                    ? negativeValue(double.parse(
+                                        transactionList[index]
+                                            .amount
+                                            .toString()
+                                            .replaceAll(",", "")))
+                                    : '₹${transactionList[index].amount.toString()}',
                                 style: extraBoldTextStyle_18_gray_dark),
                           ),
                           SizedBox(width: 5),
-
                           Container(
                               alignment: Alignment.center,
                               height: 26,
@@ -938,7 +994,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                               padding: EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
-                                color: transactionList[index].recordType.toString() == "DR"
+                                color: transactionList[index]
+                                            .recordType
+                                            .toString() ==
+                                        "DR"
                                     ? colorLightRed
                                     : colorLightGreen,
                               ),
@@ -946,7 +1005,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: semiBold,
-                                      color: transactionList[index].recordType.toString() == "DR"
+                                      color: transactionList[index]
+                                                  .recordType
+                                                  .toString() ==
+                                              "DR"
                                           ? red
                                           : colorGreen))),
                         ],
@@ -961,5 +1023,4 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
       ),
     );
   }
-
 }

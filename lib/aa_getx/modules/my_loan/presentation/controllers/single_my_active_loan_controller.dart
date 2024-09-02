@@ -4,6 +4,7 @@ import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
+import 'package:lms/aa_getx/modules/account_statement/presentation/arguments/loan_statement_arguments.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
@@ -20,11 +21,12 @@ class SingleMyActiveLoanController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var fileId;
   TargetPlatform? platform;
-  var drawingPower, loanBalance;
+  RxDouble loanBalance= 0.0.obs;
+  RxDouble drawingPower= 0.0.obs;
   RxDouble sanctionedValue =0.0.obs;
   RxString baseURL = "".obs;
   Rx<LoanEntity?> loans = LoanEntity().obs;
-  Rx<MarginShortfallEntity?> marginShortfall = MarginShortfallEntity().obs;
+  Rx<MarginShortfallEntity> marginShortfall = MarginShortfallEntity().obs;
   Rx<InterestEntity?> interest = InterestEntity().obs;
   //Rx<LoanDetailDataEntity>? loanDetailData = LoanDetailDataEntity().obs;
   Rx<LoanDetailDataEntity> loanDetailData= LoanDetailDataEntity().obs;
@@ -41,7 +43,7 @@ class SingleMyActiveLoanController extends GetxController {
   RxBool isMarginShortFall = false.obs;
   RxBool isTimerDone = false.obs;
   RxBool isActionTaken = false.obs;
-
+  RxDouble? totalCollateralValue;
   // int hours = 0, min = 0, sec = 0;
   RxInt hours = 0.obs;
   RxInt min = 0.obs;
@@ -122,19 +124,20 @@ class SingleMyActiveLoanController extends GetxController {
       if (loanDetailsResponse is DataSuccess) {
         if (loanDetailsResponse.data!.data!.loan != null) {
           loanDetailData.value = loanDetailsResponse.data!.data!;
-          drawingPower = loanDetailData.value.loan!.drawingPower;
+          drawingPower.value = loanDetailData.value.loan!.drawingPower!;
           sanctionedValue.value = loanDetailData.value.loan!.sanctionedLimit!;
-          loanBalance = loanDetailData.value.loan!.balance;
+          loanBalance.value = loanDetailData.value.loan!.balance!;
           loans.value = loanDetailsResponse.data!.data!.loan;
           loanNumber.value = loanDetailsResponse.data!.data!.loan!.name!;
           loanType.value =
               loanDetailsResponse.data!.data!.loan!.instrumentType ?? "";
           schemeType.value =
               loanDetailsResponse.data!.data!.loan!.schemeType ?? "";
+          totalCollateralValue?.value = loanDetailData.value.loan!.totalCollateralValue ?? 0.0;
           if (loanDetailsResponse.data!.data!.marginShortfall != null) {
             isMarginShortFall.value = true;
             marginShortfall.value =
-                loanDetailsResponse.data!.data!.marginShortfall;
+                loanDetailsResponse.data!.data!.marginShortfall!;
             if (loanDetailsResponse
                     .data!.data!.marginShortfall!.deadlineInHrs !=
                 null) {
@@ -352,7 +355,7 @@ class SingleMyActiveLoanController extends GetxController {
       marginShortfallInfo(
           marginShortfall.value!.loanBalance,
           marginShortfall.value!.minimumCashAmount,
-          drawingPower,
+          drawingPower.value,
           marginShortfall.value!.shortfallC,
           loanType),
       backgroundColor: Colors.transparent,
@@ -395,5 +398,6 @@ class SingleMyActiveLoanController extends GetxController {
     //     MaterialPageRoute(
     //         builder: (BuildContext context) => LoanStatementScreen(loanNumber,
     //             loanDetailData!.value!.loan!.balance, loanDetailData!.value!.loan!.drawingPower, loanType)));
+    Get.toNamed(loanStatementView, arguments: LoanStatementArguments(loanName: loanNumber.value, loanBalance: loanDetailData!.value!.loan!.balance, drawingPower: loanDetailData!.value!.loan!.drawingPower, loanType: loanType.value));
   }
 }
