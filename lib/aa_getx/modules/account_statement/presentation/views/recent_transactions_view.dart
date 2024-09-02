@@ -1,10 +1,19 @@
-
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
+import 'package:lms/aa_getx/modules/account_statement/domain/entities/loan_statement_response_entity.dart';
+import 'package:lms/aa_getx/modules/account_statement/domain/entities/recent_transactions_response_entity.dart';
+import 'package:lms/aa_getx/modules/account_statement/domain/usecases/get_loan_statements_usecase.dart';
+import 'package:lms/aa_getx/modules/account_statement/domain/usecases/get_recent_transactions.dart';
+import 'package:lms/aa_getx/modules/account_statement/presentation/controllers/recent_transaction_controller.dart';
+import 'package:lms/aa_getx/modules/account_statement/data/data_sources/account_statement_data_source.dart';
+import 'package:lms/aa_getx/modules/account_statement/data/repositories/account_statement_repository_impl.dart';
 
 class RecentTransactionView extends StatefulWidget {
   final loanName;
@@ -21,6 +30,22 @@ class RecentTransactionView extends StatefulWidget {
 }
 
 class RecentTransactionViewState extends State<RecentTransactionView> {
+  final RecentTransactionController controller =
+  Get.put(
+    RecentTransactionController(
+      Get.put(
+        ConnectionInfoImpl(Connectivity()),
+      ),
+      Get.put(
+        GetLoanStatementsUseCase(
+            Get.put(AccountStatementRepositoryImpl(Get.put(AccountStatementDataSourceImpl())))),
+      ),
+      Get.put(
+        GetRecentTransactionsUseCase(
+            Get.put(AccountStatementRepositoryImpl(Get.put(AccountStatementDataSourceImpl())))),
+      ),
+    ),
+  );
   final loanName;
   final loanType;
   final isComingFrom;
@@ -29,67 +54,36 @@ class RecentTransactionViewState extends State<RecentTransactionView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    controller.loanName = loanName;
+    controller.isComingFrom = isComingFrom;
+    return Obx(()=>Scaffold(
       backgroundColor: colorBg,
-      body: widget.isComingFrom == Strings.loan_statement
-          ? getTransactionList()
-          : getPledgeSecuritiesTransactions(),
-    );
+    body: widget.isComingFrom == Strings.loan_statement
+          ? controller.loanTransactionList.isBlank! ? Container() : transactionList(controller.loanTransactionList)
+          : controller.pledgedSecuritiesTransactionList.isBlank! ? Container() : pledgeSecuritiesTransactionList(controller.pledgedSecuritiesTransactionList),
+    ));
   }
 
-
-  Widget getPledgeSecuritiesTransactions(){
-    return StreamBuilder(
-      stream: loanStatementBloc.transactions,
-      builder: (context, AsyncSnapshot<List<PledgedSecuritiesTransactions>> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data == null || snapshot.data!.length == 0) {
-            return _buildNoDataWidget();
-          } else {
-            // Firebase Event
-            Map<String, dynamic> parameter = new Map<String, dynamic>();
-            parameter[Strings.mobile_no] = mobile;
-            parameter[Strings.email] = email;
-            parameter[Strings.loan_number] = widget.loanName;
-            parameter[Strings.date_time] = getCurrentDateAndTime();
-            firebaseEvent(Strings.view_pledge_statement, parameter);
-            return pledgeSecuritiesTransactionList(snapshot);
-          }
-        } else if (snapshot.hasError) {
-          if(snapshot.error == "403") {
-            SchedulerBinding.instance.addPostFrameCallback((_) {
-              commonDialog(context, Strings.session_timeout, 4);
-            });
-            return _buildErrorWidget(Strings.session_timeout);
-          }
-          return _buildErrorWidget(snapshot.error.toString());
-        } else {
-          return _buildLoadingWidget();
-        }
-      },
-    );
-  }
-
-  Widget pledgeSecuritiesTransactionList(AsyncSnapshot<List<PledgedSecuritiesTransactions>> snapshot) {
+  Widget pledgeSecuritiesTransactionList(List<PledgedSecuritiesTransactionsEntity> pledgedSecuritiesTransactionList) {
     return Padding(
       padding: const EdgeInsets.only(left: 4.0, right: 4.0, top: 4.0),
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: snapshot.data!.length,
+        itemCount: pledgedSecuritiesTransactionList.length,
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           if (index == 14) {
             return downloadStatementMore();
           } else {
-            return recentSecuritiesTransactionItem(snapshot.data!, index);
+            return recentSecuritiesTransactionItem(pledgedSecuritiesTransactionList, index);
           }
         },
       ),
     );
   }
 
-  Widget recentSecuritiesTransactionItem(List<PledgedSecuritiesTransactions> transactionList, index) {
+  Widget recentSecuritiesTransactionItem(List<PledgedSecuritiesTransactionsEntity> transactionList, index) {
     var displayDate = transactionList[index].creation;
     var displayDateFormatter = new DateFormat.yMMMd();
     var date = DateTime.parse(displayDate!);
@@ -184,54 +178,21 @@ class RecentTransactionViewState extends State<RecentTransactionView> {
       }
     }
   }
-
-  Widget getTransactionList() {
-    return StreamBuilder(
-      stream: loanStatementBloc.withdrawLoan,
-      builder: (context, AsyncSnapshot<List<LoanTransactionList>> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data == null || snapshot.data!.length == 0) {
-            return _buildNoDataWidget();
-          } else {
-            // Firebase Event
-            Map<String, dynamic> parameter = new Map<String, dynamic>();
-            parameter[Strings.mobile_no] = mobile;
-            parameter[Strings.email] = email;
-            parameter[Strings.loan_number] = widget.loanName;
-            parameter[Strings.date_time] = getCurrentDateAndTime();
-            firebaseEvent(Strings.view_loan_statement, parameter);
-            return transactionList(snapshot);
-          }
-        } else if (snapshot.hasError) {
-          if(snapshot.error == "403") {
-            SchedulerBinding.instance.addPostFrameCallback((_) {
-              commonDialog(context, Strings.session_timeout, 4);
-            });
-            return _buildErrorWidget(Strings.session_timeout);
-          }
-          return _buildErrorWidget(snapshot.error.toString());
-        } else {
-          return _buildLoadingWidget();
-        }
-      },
-    );
-  }
-
-  Widget transactionList(AsyncSnapshot<List<LoanTransactionList>> snapshot) {
+  Widget transactionList(List<LoanTransactionListEntity> loanTransactionList) {
     return Padding(
       padding: const EdgeInsets.only(left: 4.0, right: 4.0,top: 4.0),
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: snapshot.data!.length,
+        itemCount: loanTransactionList.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
-          return recentTransactionItem(snapshot.data!, index);
+          return recentTransactionItem(loanTransactionList, index);
         },
       ),
     );
   }
 
-  Widget recentTransactionItem(List<LoanTransactionList> transactionList, index) {
+  Widget recentTransactionItem(List<LoanTransactionListEntity> transactionList, index) {
     var displayDate = transactionList[index].time;
     var displayDateFormatter = new DateFormat.yMMMd();
     var date = DateTime.parse(displayDate!);
