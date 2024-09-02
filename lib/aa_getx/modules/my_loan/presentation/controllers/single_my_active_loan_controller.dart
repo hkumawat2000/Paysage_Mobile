@@ -55,6 +55,8 @@ class SingleMyActiveLoanController extends GetxController {
   var cron = new Cron();
   RxString loanType = "".obs;
   RxString schemeType = "".obs;
+  var minimumCashAmount;
+  var transactionsList;
   final ConnectionInfo _connectionInfo;
   final GetAllLoansNamesUseCase _getAllLoansNamesUseCase;
   final GetLoanDetailsUseCase _getLoanDetailsUseCase;
@@ -138,6 +140,8 @@ class SingleMyActiveLoanController extends GetxController {
             isMarginShortFall.value = true;
             marginShortfall.value =
                 loanDetailsResponse.data!.data!.marginShortfall!;
+            minimumCashAmount = marginShortfall.value.minimumCashAmount;
+            transactionsList = loanDetailData.value.transactions;
             if (loanDetailsResponse
                     .data!.data!.marginShortfall!.deadlineInHrs !=
                 null) {
@@ -353,10 +357,10 @@ class SingleMyActiveLoanController extends GetxController {
 
     Get.bottomSheet(
       marginShortfallInfo(
-          marginShortfall.value!.loanBalance,
-          marginShortfall.value!.minimumCashAmount,
+          marginShortfall.value.loanBalance,
+          marginShortfall.value.minimumCashAmount,
           drawingPower.value,
-          marginShortfall.value!.shortfallC,
+          marginShortfall.value.shortfallC,
           loanType),
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -371,9 +375,9 @@ class SingleMyActiveLoanController extends GetxController {
     Map<String, dynamic> parameter = new Map<String, dynamic>();
     parameter[Strings.mobile_no] = mobile;
     parameter[Strings.email] = email;
-    parameter[Strings.margin_shortfall_name] = marginShortfall.value!.name;
+    parameter[Strings.margin_shortfall_name] = marginShortfall.value.name;
     parameter[Strings.loan_number] = loanDetailData.value.loan!.name;
-    parameter[Strings.margin_shortfall_status] = marginShortfall.value!.status;
+    parameter[Strings.margin_shortfall_status] = marginShortfall.value.status;
     parameter[Strings.date_time] = getCurrentDateAndTime();
     firebaseEvent(Strings.margin_shortFall_click, parameter);
 
@@ -382,11 +386,11 @@ class SingleMyActiveLoanController extends GetxController {
         pledgorBoid:  loanDetailData.value.pledgorBoid!,
         isSellCollateral: isSellCollateral.value,
         isSaleTriggered: isTimerDone.value,
-        isRequestPending:  marginShortfall.value!.status ==
+        isRequestPending:  marginShortfall.value.status ==
             "Request Pending"
             ? true
             : false,
-        msg: marginShortfall.value!.actionTakenMsg ?? "",
+        msg: marginShortfall.value.actionTakenMsg ?? "",
         loanType: loanType.value,
         schemeType: schemeType.value));
   }
@@ -398,6 +402,6 @@ class SingleMyActiveLoanController extends GetxController {
     //     MaterialPageRoute(
     //         builder: (BuildContext context) => LoanStatementScreen(loanNumber,
     //             loanDetailData!.value!.loan!.balance, loanDetailData!.value!.loan!.drawingPower, loanType)));
-    Get.toNamed(loanStatementView, arguments: LoanStatementArguments(loanName: loanNumber.value, loanBalance: loanDetailData!.value!.loan!.balance, drawingPower: loanDetailData!.value!.loan!.drawingPower, loanType: loanType.value));
+    Get.toNamed(loanStatementView, arguments: LoanStatementArguments(loanName: loanNumber.value, loanBalance: loanDetailData.value.loan!.balance, drawingPower: loanDetailData.value.loan!.drawingPower, loanType: loanType.value));
   }
 }
