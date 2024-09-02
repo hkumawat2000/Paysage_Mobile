@@ -151,6 +151,9 @@ class Customer {
   String? lastName;
   String? user;
   String? doctype;
+  String? hitId;
+  String? cibilScore;
+  String? cibilScoreDate;
 
   Customer(
       {this.name,
@@ -175,6 +178,9 @@ class Customer {
         this.fullName,
         this.lastName,
         this.user,
+        this.hitId,
+        this.cibilScore,
+        this.cibilScoreDate,
         this.doctype});
 
   Customer.fromJson(Map<String, dynamic> json) {
@@ -200,6 +206,9 @@ class Customer {
     fullName = json['full_name'];
     lastName = json['last_name'];
     user = json['user'];
+    hitId = json['hit_id'];
+    cibilScore = json['cibil_score'];
+    cibilScoreDate = json['cibil_score_date'];
     doctype = json['doctype'];
   }
 
@@ -227,6 +236,9 @@ class Customer {
     data['full_name'] = this.fullName;
     data['last_name'] = this.lastName;
     data['user'] = this.user;
+    data['hit_id'] = this.hitId;
+    data['cibil_score'] = this.cibilScore;
+    data['cibil_score_date'] = this.cibilScoreDate;
     data['doctype'] = this.doctype;
     return data;
   }
@@ -255,8 +267,10 @@ class Customer {
         fullName:fullName,
         lastName:lastName,
         user:user,
+        hitId: hitId,
+        cibilScore: cibilScore,
+        cibilScoreDate: cibilScoreDate,
         doctype:doctype,
-
       );
 }
 

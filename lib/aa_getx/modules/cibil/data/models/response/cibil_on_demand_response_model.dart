@@ -22,7 +22,7 @@ class CibilOnDemandResponseModel {
   factory CibilOnDemandResponseModel.fromMap(Map<String, dynamic> map) {
     return CibilOnDemandResponseModel(
       message: map['message'] != null ? map['message'] as String : null,
-      cibilData: map['data'] != null ? CibilOnDemandResponseDataModel.fromMap(map['data'] as Map<String,dynamic>) : null,
+      cibilData: map['data'] != null ? CibilOnDemandResponseDataModel.fromJson(map['data']) : null,
     );
   }
 
@@ -45,28 +45,26 @@ class CibilOnDemandResponseModel {
   }
 }
 
-
-
-
-
-
-
 class CibilOnDemandResponseDataModel {
   int? cibilScore;
-  
+  String? cibilScoreDate;
+
   CibilOnDemandResponseDataModel({
     this.cibilScore,
+    this.cibilScoreDate,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'cibil_score': cibilScore,
+      'cibil_score_date': cibilScoreDate,
     };
   }
 
   factory CibilOnDemandResponseDataModel.fromMap(Map<String, dynamic> map) {
     return CibilOnDemandResponseDataModel(
       cibilScore: map['cibil_score'] != null ? map['cibil_score'] as int : null,
+      cibilScoreDate: map['cibil_score_date'] != null ? map['cibil_score_date'] as String : null,
     );
   }
 
@@ -76,13 +74,14 @@ class CibilOnDemandResponseDataModel {
 
   CibilOnDemandResponseDataEntity toEntity() =>
   CibilOnDemandResponseDataEntity(
-      cibilScore: cibilScore,
-  
+    cibilScore: cibilScore,
+    cibilScoreDate: cibilScoreDate,
   );
 
   factory CibilOnDemandResponseDataModel.fromEntity(CibilOnDemandResponseDataEntity cibilOnDemandResponseDataEntity) {
     return CibilOnDemandResponseDataModel(
       cibilScore: cibilOnDemandResponseDataEntity.cibilScore != null ? cibilOnDemandResponseDataEntity.cibilScore as int : null,
+      cibilScoreDate: cibilOnDemandResponseDataEntity.cibilScoreDate != null ? cibilOnDemandResponseDataEntity.cibilScoreDate as String : null,
     );
   }
 }

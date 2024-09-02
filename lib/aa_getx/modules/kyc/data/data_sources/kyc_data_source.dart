@@ -76,7 +76,7 @@ class KycDataSourceImpl with BaseDio implements KycDataSource {
       GetConsentDetailsRequestModel getConsentDetailsRequestModel) async {
     Dio dio = await getBaseDio();
     try {
-      final response = await dio.post(
+      final response = await dio.get(
         Apis.consentText,
         data: getConsentDetailsRequestModel.toJson(),
       );
