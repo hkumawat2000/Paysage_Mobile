@@ -9,6 +9,8 @@ import 'package:lms/aa_getx/modules/account_statement/data/models/request/loan_s
 
 abstract class AccountStatementDataSource {
   Future<LoanStatementResponseModel> submitLoanStatements(LoanStatementRequestModel loanStatementRequestModel);
+
+  Future<LoanStatementResponseModel> getLoanStatements(LoanStatementRequestModel loanStatementRequestModel);
 }
 
 class AccountStatementDataSourceImpl with BaseDio implements AccountStatementDataSource{
@@ -17,7 +19,23 @@ class AccountStatementDataSourceImpl with BaseDio implements AccountStatementDat
   Future<LoanStatementResponseModel> submitLoanStatements(LoanStatementRequestModel loanStatementRequestModel) async{
     Dio dio = await getBaseDio();
     try {
-      final response = await dio.get(Apis.submitLoanStatement,
+      final response = await dio.get(Apis.submitOrGetLoanStatement,
+          queryParameters: loanStatementRequestModel.toJson());
+      if (response.statusCode == 200) {
+        return LoanStatementResponseModel.fromJson(response.data);
+      } else {
+        throw ServerException(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw handleDioClientError(e);
+    }
+  }
+
+  @override
+  Future<LoanStatementResponseModel> getLoanStatements(LoanStatementRequestModel loanStatementRequestModel) async {
+    Dio dio = await getBaseDio();
+    try {
+      final response = await dio.get(Apis.submitOrGetLoanStatement,
           queryParameters: loanStatementRequestModel.toJson());
       if (response.statusCode == 200) {
         return LoanStatementResponseModel.fromJson(response.data);

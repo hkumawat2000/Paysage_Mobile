@@ -6,4 +6,6 @@ import 'package:lms/aa_getx/modules/account_statement/domain/entities/request/lo
 abstract class AccountStatementRepository{
   ResultFuture<LoanStatementResponseEntity> submitLoanStatements(LoanStatementRequestEntity loanStatementRequestEntity);
 
+  ResultFuture<LoanStatementResponseEntity> getLoanStatements(LoanStatementRequestEntity loanStatementRequestEntity);
+
 }

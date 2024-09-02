@@ -31,4 +31,24 @@ class AccountStatementRepositoryImpl extends AccountStatementRepository{
     }
   }
 
+  @override
+  ResultFuture<LoanStatementResponseEntity> getLoanStatements(LoanStatementRequestEntity loanStatementRequestEntity) async {
+    try {
+      LoanStatementRequestModel loanStatementRequestModel =
+      LoanStatementRequestModel.fromEntity(
+          loanStatementRequestEntity);
+      final getLoanStatementsResponse =
+      await accountStatementDataSource.getLoanStatements(
+          loanStatementRequestModel);
+      return DataSuccess(getLoanStatementsResponse.toEntity());
+    } on ServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
+    } on ApiServerException catch (e) {
+      return DataFailed(
+          ServerFailure(e.message ?? Strings.defaultErrorMsg, e.statusCode!));
+    } catch (e) {
+      return DataFailed(ServerFailure(e.toString(), 0));
+    }
+  }
+
 }
