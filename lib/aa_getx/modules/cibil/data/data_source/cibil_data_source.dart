@@ -38,7 +38,7 @@ class CibilDataSourceImpl with BaseDio implements CibilDataSource {
   Future<CibilOtpVerificationResponseModel> cibilOtpVerification(CibilOtpVerificationRequestModel cibilOtpVerificationRequestModel) async {
     Dio dio = await getBaseDio();
     try {
-      final response = await dio.post(Apis.cibilOnDemand, data: cibilOtpVerificationRequestModel.toJson());
+      final response = await dio.post(Apis.cibilOtpVerify, data: cibilOtpVerificationRequestModel.toJson());
       if (response.statusCode == 200) {
         return CibilOtpVerificationResponseModel.fromJson(response.data);
       } else {

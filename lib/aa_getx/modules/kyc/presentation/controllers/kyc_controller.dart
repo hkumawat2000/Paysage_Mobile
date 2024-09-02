@@ -263,6 +263,11 @@ class KycController extends GetxController {
           isAPICallingText = response.error!.message;
         }
       }
+        isApiCallInProgress(false);
+        consentKycText.value = response.data!.consentDetails!.consent!;
+      } else if (response is DataFailed) {
+        isApiCallInProgress(false);
+      }
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }

@@ -3,12 +3,15 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_controller.dart';
+import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_result_controller.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/entities/loan_summary_response_entity.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/controllers/home_controller.dart';
 import 'package:shimmer/shimmer.dart';
@@ -95,7 +98,7 @@ class HomeView extends GetView<HomeController> {
                 minWidth: 10,
                 child: Text("UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
                 onPressed: ()=>
-                  Utility().forceUpdatePopUp(context, false, controller.storeURL!, controller.storeWhatsNew!),
+                  Utility().forceUpdatePopUp( false, controller.storeURL!, controller.storeWhatsNew!),
               ),
             ),
             messageText: Column(
@@ -2077,7 +2080,7 @@ class HomeView extends GetView<HomeController> {
                               textAlign: TextAlign.center),
                         ],
                       ),
-                      onTap: ()=> commonDialog(Strings.coming_soon, 0),
+                      onTap: ()  => controller.creditCheckClick(),
                     ),
                   ),
                   Expanded(
