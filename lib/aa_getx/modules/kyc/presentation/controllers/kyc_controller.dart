@@ -256,18 +256,15 @@ class KycController extends GetxController {
         consentKycText.value = response.data!.consentDetails!.consent!;
         isApiCallInProgress.value = false;
       } else if (response is DataFailed) {
-        if(response.error!.statusCode == 403){
+        if (response.error!.statusCode == 403) {
           isAPICallingText = Strings.session_timeout;
           commonDialog(Strings.session_timeout, 4);
-        }else{
+        } else {
           isAPICallingText = response.error!.message;
         }
       }
-        isApiCallInProgress(false);
-        consentKycText.value = response.data!.consentDetails!.consent!;
-      } else if (response is DataFailed) {
-        isApiCallInProgress(false);
-      }
+      isApiCallInProgress(false);
+      consentKycText.value = response.data!.consentDetails!.consent!;
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
