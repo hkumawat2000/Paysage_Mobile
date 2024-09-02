@@ -40,7 +40,6 @@ class OtpVerificationController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     initSmsListener();
     startTime();
     super.onInit();

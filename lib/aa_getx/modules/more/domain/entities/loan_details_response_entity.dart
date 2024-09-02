@@ -10,7 +10,6 @@ class LoanDetailDataEntity {
   List<TransactionsEntity>? transactions;
   MarginShortfallEntity? marginShortfall;
   InterestEntity? interest;
-
   // TopUp topUp;
   double? topUp;
   int? increaseLoan;
@@ -26,8 +25,25 @@ class LoanDetailDataEntity {
   String? pledgorBoid;
   int? loanRenewalIsExpired;
 
-  LoanDetailDataEntity(
-      {this.loan, this.transactions, this.marginShortfall, this.interest, this.topUp, this.increaseLoan, this.increaseLoanName, this.collateralLedger, this.topUpApplication, this.topUpApplicationName, this.invokeChargeDetails, this.sellCollateral, this.isSellTriggered, this.unpledge, this.paymentAlreadyInProcess, this.pledgorBoid, this.loanRenewalIsExpired});
+  LoanDetailDataEntity({
+    this.loan,
+    this.transactions,
+    this.marginShortfall,
+    this.interest,
+    this.topUp,
+    this.increaseLoan,
+    this.increaseLoanName,
+    this.collateralLedger,
+    this.topUpApplication,
+    this.topUpApplicationName,
+    this.invokeChargeDetails,
+    this.sellCollateral,
+    this.isSellTriggered,
+    this.unpledge,
+    this.paymentAlreadyInProcess,
+    this.pledgorBoid,
+    this.loanRenewalIsExpired,
+  });
 }
 
 class InvokeChargeDetailsEntity {
@@ -36,10 +52,11 @@ class InvokeChargeDetailsEntity {
   double? invokeInitiateChargesMinimumAmount;
   double? invokeInitiateChargesMaximumAmount;
 
-  InvokeChargeDetailsEntity({this.invokeInitiateChargeType,
-    this.invokeInitiateCharges,
-    this.invokeInitiateChargesMinimumAmount,
-    this.invokeInitiateChargesMaximumAmount});
+  InvokeChargeDetailsEntity(
+      {this.invokeInitiateChargeType,
+      this.invokeInitiateCharges,
+      this.invokeInitiateChargesMinimumAmount,
+      this.invokeInitiateChargesMaximumAmount});
 }
 
 class CollateralLedgerEntity {
@@ -82,34 +99,35 @@ class LoanEntity {
   String? sanctionedLimitStr;
   String? balanceStr;
 
-  LoanEntity({this.allowableLtv,
-    this.balance,
-    this.creation,
-    this.customer,
-    this.docstatus,
-    this.doctype,
-    this.drawingPower,
-    this.actualDrawingPower,
-    this.expiryDate,
-    this.idx,
-    this.items,
-    this.lender,
-    this.loanAgreement,
-    this.modified,
-    this.modifiedBy,
-    this.name,
-    this.instrumentType,
-    this.schemeType,
-    this.owner,
-    this.parent,
-    this.parentfield,
-    this.parenttype,
-    this.sanctionedLimit,
-    this.totalCollateralValue,
-    this.balanceStr,
-    this.drawingPowerStr,
-    this.sanctionedLimitStr,
-    this.totalCollateralValueStr});
+  LoanEntity(
+      {this.allowableLtv,
+      this.balance,
+      this.creation,
+      this.customer,
+      this.docstatus,
+      this.doctype,
+      this.drawingPower,
+      this.actualDrawingPower,
+      this.expiryDate,
+      this.idx,
+      this.items,
+      this.lender,
+      this.loanAgreement,
+      this.modified,
+      this.modifiedBy,
+      this.name,
+      this.instrumentType,
+      this.schemeType,
+      this.owner,
+      this.parent,
+      this.parentfield,
+      this.parenttype,
+      this.sanctionedLimit,
+      this.totalCollateralValue,
+      this.balanceStr,
+      this.drawingPowerStr,
+      this.sanctionedLimitStr,
+      this.totalCollateralValueStr});
 }
 
 class ItemsEntity {
@@ -137,29 +155,30 @@ class ItemsEntity {
   bool? check;
   int? remaningQty;
 
-  ItemsEntity({this.amount,
-    this.creation,
-    this.docstatus,
-    this.doctype,
-    this.errorCode,
-    this.idx,
-    this.isin,
-    this.modified,
-    this.modifiedBy,
-    this.name,
-    this.owner,
-    this.parent,
-    this.parentfield,
-    this.parenttype,
-    this.pledgedQuantity,
-    this.eligiblePercentage,
-    this.price,
-    this.psn,
-    this.securityCategory,
-    this.securityName,
-    this.folio,
-    this.check,
-    this.remaningQty });
+  ItemsEntity(
+      {this.amount,
+      this.creation,
+      this.docstatus,
+      this.doctype,
+      this.errorCode,
+      this.idx,
+      this.isin,
+      this.modified,
+      this.modifiedBy,
+      this.name,
+      this.owner,
+      this.parent,
+      this.parentfield,
+      this.parenttype,
+      this.pledgedQuantity,
+      this.eligiblePercentage,
+      this.price,
+      this.psn,
+      this.securityCategory,
+      this.securityName,
+      this.folio,
+      this.check,
+      this.remaningQty});
 }
 
 class TransactionsEntity {
@@ -205,44 +224,46 @@ class MarginShortfallEntity {
   String? shortfallCStr;
   int? isTodayHoliday;
 
-  MarginShortfallEntity({this.name,
-    this.creation,
-    this.modified,
-    this.modifiedBy,
-    this.owner,
-    this.docstatus,
-    this.idx,
-    this.loan,
-    this.totalCollateralValue,
-    this.allowableLtv,
-    this.drawingPower,
-    this.loanBalance,
-    this.minimumCollateralValue,
-    this.ltv,
-    this.surplusMargin,
-    this.shortfall,
-    this.shortfallC,
-    this.minimumPledgeAmount,
-    this.minimumCashAmount,
-    this.shortfallPercentage,
-    this.marginShortfallAction,
-    this.advisablePledgeAmount,
-    this.advisableCashAmount,
-    this.status,
-    this.isBankHoliday,
-    this.deadline,
-    this.actionTakenMsg,
-    this.linkedApplication,
-    this.deadlineInHrs,
-    this.shortfallCStr,
-    this.isTodayHoliday});
+  MarginShortfallEntity(
+      {this.name,
+      this.creation,
+      this.modified,
+      this.modifiedBy,
+      this.owner,
+      this.docstatus,
+      this.idx,
+      this.loan,
+      this.totalCollateralValue,
+      this.allowableLtv,
+      this.drawingPower,
+      this.loanBalance,
+      this.minimumCollateralValue,
+      this.ltv,
+      this.surplusMargin,
+      this.shortfall,
+      this.shortfallC,
+      this.minimumPledgeAmount,
+      this.minimumCashAmount,
+      this.shortfallPercentage,
+      this.marginShortfallAction,
+      this.advisablePledgeAmount,
+      this.advisableCashAmount,
+      this.status,
+      this.isBankHoliday,
+      this.deadline,
+      this.actionTakenMsg,
+      this.linkedApplication,
+      this.deadlineInHrs,
+      this.shortfallCStr,
+      this.isTodayHoliday});
 }
 
 class LinkedApplicationEntity {
   LoanApplicationEntity? loanApplication;
   SellCollateralApplicationEntity? sellCollateralApplication;
 
-  LinkedApplicationEntity({this.loanApplication, this.sellCollateralApplication});
+  LinkedApplicationEntity(
+      {this.loanApplication, this.sellCollateralApplication});
 }
 
 class LoanApplicationEntity {
@@ -272,31 +293,32 @@ class LoanApplicationEntity {
   String? pledgorBoid;
   String? pledgeeBoid;
 
-  LoanApplicationEntity({this.name,
-    this.creation,
-    this.modified,
-    this.modifiedBy,
-    this.owner,
-    this.docstatus,
-    this.idx,
-    this.totalCollateralValue,
-    this.totalCollateralValueStr,
-    this.drawingPower,
-    this.drawingPowerStr,
-    this.lender,
-    this.status,
-    this.pledgedTotalCollateralValue,
-    this.pledgedTotalCollateralValueStr,
-    this.loanMarginShortfall,
-    this.customer,
-    this.customerName,
-    this.allowableLtv,
-    this.expiryDate,
-    this.loan,
-    this.pledgeStatus,
-    this.workflowState,
-    this.pledgorBoid,
-    this.pledgeeBoid});
+  LoanApplicationEntity(
+      {this.name,
+      this.creation,
+      this.modified,
+      this.modifiedBy,
+      this.owner,
+      this.docstatus,
+      this.idx,
+      this.totalCollateralValue,
+      this.totalCollateralValueStr,
+      this.drawingPower,
+      this.drawingPowerStr,
+      this.lender,
+      this.status,
+      this.pledgedTotalCollateralValue,
+      this.pledgedTotalCollateralValueStr,
+      this.loanMarginShortfall,
+      this.customer,
+      this.customerName,
+      this.allowableLtv,
+      this.expiryDate,
+      this.loan,
+      this.pledgeStatus,
+      this.workflowState,
+      this.pledgorBoid,
+      this.pledgeeBoid});
 }
 
 class SellCollateralApplicationEntity {
@@ -316,21 +338,22 @@ class SellCollateralApplicationEntity {
   String? workflowState;
   String? loanMarginShortfall;
 
-  SellCollateralApplicationEntity({this.name,
-    this.creation,
-    this.modified,
-    this.modifiedBy,
-    this.owner,
-    this.docstatus,
-    this.idx,
-    this.loan,
-    this.totalCollateralValue,
-    this.lender,
-    this.customer,
-    this.sellingCollateralValue,
-    this.status,
-    this.workflowState,
-    this.loanMarginShortfall});
+  SellCollateralApplicationEntity(
+      {this.name,
+      this.creation,
+      this.modified,
+      this.modifiedBy,
+      this.owner,
+      this.docstatus,
+      this.idx,
+      this.loan,
+      this.totalCollateralValue,
+      this.lender,
+      this.customer,
+      this.sellingCollateralValue,
+      this.status,
+      this.workflowState,
+      this.loanMarginShortfall});
 }
 
 class InterestEntity {
@@ -341,7 +364,11 @@ class InterestEntity {
   int? dpdText;
 
   InterestEntity(
-      {this.totalInterestAmt, this.dueDate, this.dueBtnTxt, this.infoMsg, this.dpdText});
+      {this.totalInterestAmt,
+      this.dueDate,
+      this.dueBtnTxt,
+      this.infoMsg,
+      this.dpdText});
 }
 
 class TopUpEntity {
@@ -362,5 +389,6 @@ class UnpledgeValueEntity {
   double? minimumCollateralValue;
   double? maximumUnpledgeAmount;
 
-  UnpledgeValueEntity({this.minimumCollateralValue, this.maximumUnpledgeAmount});
+  UnpledgeValueEntity(
+      {this.minimumCollateralValue, this.maximumUnpledgeAmount});
 }

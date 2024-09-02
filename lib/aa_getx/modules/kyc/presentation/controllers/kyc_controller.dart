@@ -166,6 +166,7 @@ class KycController extends GetxController {
                   await _searchKycUseCase.call(
                 KycSearchParams(searchKycRequestEntity: searchKycRequestEntity),
               );
+
               if (response is DataSuccess) {
                 Get.back();
                 if (response.data!.searchData != null) {
@@ -252,6 +253,16 @@ class KycController extends GetxController {
         getConsentDetailsRequestEntity: getConsentDetailsRequestEntity,
       ));
       if (response is DataSuccess) {
+        consentKycText.value = response.data!.consentDetails!.consent!;
+        isApiCallInProgress.value = false;
+      } else if (response is DataFailed) {
+        if(response.error!.statusCode == 403){
+          isAPICallingText = Strings.session_timeout;
+          commonDialog(Strings.session_timeout, 4);
+        }else{
+          isAPICallingText = response.error!.message;
+        }
+      }
         isApiCallInProgress(false);
         consentKycText.value = response.data!.consentDetails!.consent!;
       } else if (response is DataFailed) {
