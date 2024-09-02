@@ -1,6 +1,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/bindings/account_settings_bindings.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_settings_screen.dart';
+import 'package:lms/aa_getx/modules/account_statement/presentation/views/loan_statement_view.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_binding.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_otp_binding.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_result_binding.dart';
@@ -51,6 +52,8 @@ import 'package:lms/aa_getx/modules/authentication/presentation/bindings/fingerp
 import 'package:lms/aa_getx/modules/authentication/presentation/views/enable_fingerprint_dialog_view.dart';
 import 'package:lms/aa_getx/modules/authentication/presentation/views/fingerprint_view.dart';
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/walkthrough_view.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/bindings/payment_binding.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/views/payment_view.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/bindings/my_pledge_security_binding.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/offline_customer_binding.dart';
@@ -95,6 +98,9 @@ const String marginShortfallPledgeOTPView = "margin-shortfall-pledge-otp-view";
 const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dialog-view";
 const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
+const String paymentView = "payment-view";
+const String loanStatementView = "loan-statement-view";
+const String downloadStatementView = "download-statement-view";
 const String cibilView = "cibil-view";
 const String cibilResultView = "cibil-result-view";
 const String cibilOtpView = "cibil-otp-view";
@@ -249,6 +255,20 @@ List<GetPage> routes = [
     page: () => AccountSettingsView(),
     binding: AccountSettingsBindings(),
   ),
+  GetPage(
+    name: '/$paymentView',
+    page: () => PaymentView(),
+    binding: PaymentBinding(),
+  ),
+  GetPage(
+    name: '/$loanStatementView',
+    page: () => LoanStatementView(),
+  ),
+  // GetPage(
+  //   name: '/$downloadStatementView',
+  //   page: () => DownloadStatementView(loanName, isComingFrom, tabController),
+  //   binding: DownloadStatementBinding(),
+  // ),
   GetPage(
     name: '/$cibilView',
     page: () => CibilView(),

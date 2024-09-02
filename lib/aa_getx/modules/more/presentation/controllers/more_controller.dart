@@ -17,11 +17,10 @@ import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecas
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_my_active_loans_usecase.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_profile_set_alert_usecase.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
-import 'package:lms/login/LoginBloc.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 
 class MoreController extends GetxController{
-  final loginBloc = LoginBloc();
   RxString versionName = ''.obs;
   RxString profilePhotoUrl = ''.obs;
   Preferences preferences = Preferences();
@@ -42,7 +41,7 @@ class MoreController extends GetxController{
   RxBool isKYCCompleted = false.obs;
   RxBool isEmailVerified = false.obs;
   RxBool isAPIRespond = false.obs;
-  RxInt? isPayment;
+  RxInt isPayment = 0.obs;
   RxBool isLoanExist = false.obs;
   RxBool isIncreaseLoanExist = false.obs;
   RxBool isTopUpExist = false.obs;
@@ -328,23 +327,18 @@ class MoreController extends GetxController{
     Utility.isNetworkConnection()
         .then((isNetwork) {
       if (isNetwork) {
-        if (isPayment == 0) {
-          ///todo: change following code after PaymentScreen screen completed
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (BuildContext context) => PaymentScreen(
-          //             loanName,
-          //             // isMarginShortFall,
-          //             marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
-          //             marginShortfall != null ? marginShortfall!.shortfallC : "",
-          //             marginShortfall != null ? marginShortfall!.minimumCollateralValue : "",
-          //             marginShortfall != null ? marginShortfall!.totalCollateralValue : "",
-          //             marginShortfall != null
-          //                 && marginShortfall!.status != "Sell Triggered"
-          //                 && marginShortfall!.status != "Request Pending" ? marginShortfall!.name : "",
-          //             marginShortfall != null ? marginShortfall!.minimumCashAmount! : 0.0,
-          //             interest != null ? 1 : 0)));
+        if (isPayment.value == 0) {
+          Get.toNamed(paymentView, arguments: PaymentArguments(
+              loanName: loanName.value,
+              isMarginShortfall: marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
+              marginShortfallAmount: marginShortfall != null ? marginShortfall!.shortfallC : "",
+              minimumCollateralValue: marginShortfall != null ? marginShortfall!.minimumCollateralValue : "",
+              totalCollateralValue:  marginShortfall != null ? marginShortfall!.totalCollateralValue : "",
+              marginShortfallLoanName:  marginShortfall != null
+                  && marginShortfall!.status != "Sell Triggered"
+                  && marginShortfall!.status != "Request Pending" ? marginShortfall!.name : "",
+              minimumCashAmount: marginShortfall != null ? marginShortfall!.minimumCashAmount! : 0.0,
+              isForInterest: interest.value.isBlank! ? 1 : 0));
         } else {
           commonDialog(
               Strings.pending_payment, 0);
@@ -531,7 +525,7 @@ class MoreController extends GetxController{
           interest.value = loanDetailsResponse.data!.data!.interest!;
         }
 
-        isPayment!.value = loanDetailsResponse.data!.data!.paymentAlreadyInProcess!;
+        isPayment.value = loanDetailsResponse.data!.data!.paymentAlreadyInProcess!;
 
         isAPIRespond.value = true;
         isLoanExist.value = true;
