@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/arguments/loan_statement_arguments.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/controllers/loan_statement_screen_tab_controller.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/views/download_statement_view.dart';
+import 'package:lms/aa_getx/modules/account_statement/presentation/views/recent_transactions_view.dart';
 import 'package:lms/common_widgets/constants.dart';
-import 'package:lms/account_statement//RecentTransactionView.dart';
 import 'package:lms/util/Colors.dart';
 import 'package:lms/util/Style.dart';
 import 'package:lms/util/strings.dart';
@@ -141,7 +141,7 @@ class LoanStatementScreenTab extends GetView<LoanStatementScreenTabController> {
           child: TabBarView(
             controller: controller.tabController,
             children: <Widget>[
-              RecentTransactionViewScreen(
+              RecentTransactionView(
                 controller.loanName.value,
                 Strings.loan_statement,
                 controller.tabController!,
@@ -152,32 +152,6 @@ class LoanStatementScreenTab extends GetView<LoanStatementScreenTabController> {
                 Strings.loan_statement,
                 controller.tabController!,
               ),
-              /*GetBuilder<LoanStatementScreenTabController>(
-                builder: (controller) {
-                  return GetX<DownloadStatementController>(
-                    initState: (state) {
-                      Get.lazyPut<AccountStatementDataSourceImpl>(
-                            () => AccountStatementDataSourceImpl(),
-                      );
-
-                      Get.lazyPut<AccountStatementRepositoryImpl>(
-                            () => AccountStatementRepositoryImpl(
-                          Get.find<AccountStatementDataSourceImpl>(),
-                        ),
-                      );
-
-                      Get.lazyPut<SubmitLoanStatementUseCase>(
-                              () => SubmitLoanStatementUseCase(Get.find<AccountStatementRepositoryImpl>()));
-                    },
-                    init: DownloadStatementController(Get.find<ConnectionInfo>(), Get.find<SubmitLoanStatementUseCase>()),
-                    builder: (controller) => DownloadStatementView(
-                      controller.loanName.value,
-                      Strings.loan_statement,
-                      controller.tabController!,
-                    ),
-                  );
-                },
-              ),*/
             ],
           ),
         ),

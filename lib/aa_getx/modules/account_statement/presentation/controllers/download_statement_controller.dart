@@ -15,7 +15,7 @@ import 'package:lms/aa_getx/modules/account_statement/domain/entities/request/lo
 import 'package:lms/aa_getx/modules/account_statement/domain/usecases/submit_loan_statement_usecase.dart';
 import 'package:lms/account_statement/LoanStatementBloc.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class DownloadStatementController extends GetxController {
   final ConnectionInfo _connectionInfo;
@@ -211,8 +211,8 @@ class DownloadStatementController extends GetxController {
 //    var loan_agreementArray = loan_agreementStr.split('.pdf');
 ////    var loan_agreement = loan_agreementArray[1];
 //    printLog("loan_agreement$loan_agreementArray");
-    if (await canLaunchUrl(pathURL)) {
-      await launchUrl(pathURL);
+    if (await canLaunchUrlString(pathURL)) {
+      await launchUrlString(pathURL);
     } else {
       throw 'Could not launch $pathURL';
     }
