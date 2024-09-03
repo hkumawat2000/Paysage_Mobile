@@ -1036,12 +1036,8 @@ class HomeController extends GetxController{
         parameter[Strings.email] = customer.value!.user;
         parameter[Strings.date_time] = getCurrentDateAndTime();
         firebaseEvent(Strings.new_loan_click, parameter);
-        ///todo: uncomment below code after ApprovedSharesScreen is developed
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             ApprovedSharesScreen()));
+        Get.toNamed(approvedSharesView);
+       
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }

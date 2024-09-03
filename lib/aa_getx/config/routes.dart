@@ -1,6 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/bindings/account_settings_bindings.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_settings_screen.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/bindings/approved_shares_and_mf_bindings.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/views/approved_shares_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bindings.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/views/aml_check_view.dart';
@@ -89,6 +91,7 @@ const String marginShortfallPledgeOTPView = "margin-shortfall-pledge-otp-view";
 const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dialog-view";
 const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
+const String approvedSharesView = "approved-shares-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -239,5 +242,10 @@ List<GetPage> routes = [
     name: '/$accountSettingsView',
     page: () => AccountSettingsView(),
     binding: AccountSettingsBindings(),
+  ),
+  GetPage(
+    name: '/$approvedSharesView',
+    page: () => ApprovedSharesView(),
+    binding: ApprovedSharesAndMfBindings(),
   ),
 ];
