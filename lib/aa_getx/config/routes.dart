@@ -1,6 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/bindings/account_settings_bindings.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_settings_screen.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/bindings/approved_shares_and_mf_bindings.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/views/approved_shares_view.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/views/loan_statement_view.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_binding.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_otp_binding.dart';
@@ -56,6 +58,7 @@ import 'package:lms/aa_getx/modules/payment/presentation/bindings/payment_bindin
 import 'package:lms/aa_getx/modules/payment/presentation/views/payment_view.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/bindings/my_pledge_security_binding.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledged_transactions_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/offline_customer_binding.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/registration_binding.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/bindings/set_pin_binding.dart';
@@ -98,12 +101,14 @@ const String marginShortfallPledgeOTPView = "margin-shortfall-pledge-otp-view";
 const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dialog-view";
 const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
+const String approvedSharesView = "approved-shares-view";
 const String paymentView = "payment-view";
 const String loanStatementView = "loan-statement-view";
 const String downloadStatementView = "download-statement-view";
 const String cibilView = "cibil-view";
 const String cibilResultView = "cibil-result-view";
 const String cibilOtpView = "cibil-otp-view";
+const String myPledgedTransactionsView = "my-pledged-transactions-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -283,5 +288,14 @@ List<GetPage> routes = [
     name: '/$cibilOtpView',
     page: () => CibilOtpView("", "", "", ""),
     binding: CibilOtpBinding(),
+  ),
+  GetPage(
+    name: '/$myPledgedTransactionsView',
+    page: () => MyPledgedTransactionsView(),
+  ),
+  GetPage(
+    name: '/$approvedSharesView',
+    page: () => ApprovedSharesView(),
+    binding: ApprovedSharesAndMfBindings(),
   ),
 ];
