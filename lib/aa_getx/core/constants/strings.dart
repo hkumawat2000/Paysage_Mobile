@@ -39,6 +39,7 @@ class Strings {
       'Mobile number should not be start with 0';
   static const String success_otp_sent = 'OTP Sent Successfully';
   static const String enter_otp = 'OTP has been sent on your mobile number';
+  static const String cibil_enter_otp = 'OTP has been sent on the linked mobile number';
   static const String four_digit_enter_otp =
       '4 digit OTP has been sent on your mobile number';
   static const String resend_otp = 'Resend OTP';
@@ -843,6 +844,7 @@ class Strings {
   static const String detail_information = 'Detail Information';
   static const String information_declaration =
       "I declare that the details furnished above are true and correct to the best of my knowledge. I undertake to inform you for any changes take therein, immediately.";
+  static const String cibil_otp_verification = 'Cibil OTP Verification';
   static const String otp_verification = 'OTP Verification';
   static const String otp_sent_text = 'OTP has been sent on your mobile number';
   static const String edit_pan_details = 'Edit PAN details';

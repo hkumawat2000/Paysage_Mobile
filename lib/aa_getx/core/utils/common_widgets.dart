@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -467,48 +468,6 @@ Widget mediumHeadingText(string) {
   );
 }
 
-//On click of notification redirect user to particular screen
-notificationNavigator(
-    BuildContext context, String screenName, String? loanNumber) async {
-  /// todo: uncomment following code after dashboard screen is completed and call API after my_loan module is completed
-  /*if (screenName == "My Loans") {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => DashBoard(selectedIndex: 2)));
-  } else if (screenName == "Dashboard") {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => DashBoard()));
-  } else if (screenName == "Margin Shortfall Action") {
-  ///todo: move below api call to MarginShortfallScreen
-    LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-    final myLoansBloc = MyLoansBloc();
-    myLoansBloc.getLoanDetails(loanNumber).then((value) {
-      Navigator.pop(context);
-      if (value.isSuccessFull!) {
-        if(value.data!.marginShortfall == null){
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => DashBoard(selectedIndex: 2)));
-        } else {
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => MarginShortfallScreen(
-                  value.data!,
-                  value.data!.pledgorBoid!,
-                  value.data!.sellCollateral == null ? true : false,
-                  value.data!.marginShortfall!.status == "Sell Triggered" ? true : false,
-                  value.data!.marginShortfall!.status == "Request Pending" ? true : false,
-                  value.data!.marginShortfall!.actionTakenMsg ?? "",
-                  value.data!.loan!.instrumentType!, value.data!.loan!.schemeType!)));
-        }
-      } else if (value.errorCode == 403) {
-        commonDialog(Strings.session_timeout, 4);
-      } else {
-        commonDialog(value.errorMessage, 0);
-      }
-    });
-  }*/
-
-  //Mask the text
-}
-
 String encryptAcNo(String str) {
   String encStr = "";
   for (int i = 0; i < str.length - 4; i++) {
@@ -517,8 +476,16 @@ String encryptAcNo(String str) {
   return str.replaceRange(2, str.length - 2, encStr);
 }
 
-
-
+class NavigationBackImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      AssetsImagePath.back_button,
+      height: 17,
+      width: 8.5,
+    );
+  }
+}
 
 Widget marginShortfallInfo(loanBalance,
     marginShortFallCashAmt, drawingPower, marginShortfall, loanType) {
@@ -899,4 +866,44 @@ Widget largeHeadingText(string) {
     string,
     style: extraBoldTextStyle_30,
   );
+}
+
+Widget NoDataWidget() {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(Strings.no_data),
+      ],
+    ),
+  );
+}
+
+Widget LoadingWidget() {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(Strings.please_wait),
+        CircularProgressIndicator(),
+      ],
+    ),
+  );
+}
+
+Widget ErrorMessageWidget(String error) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(error),
+      ],
+    ),
+  );
+}
+
+//Round down to 1000
+double roundDouble(double value, int places) {
+  num mod = pow(10.0, places);
+  return ((value * mod).round().toDouble() / mod);
 }

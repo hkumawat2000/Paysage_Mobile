@@ -17,6 +17,9 @@ import 'package:lms/aa_getx/modules/my_loan/data/data_sources/my_loans_api.dart'
 import 'package:lms/aa_getx/modules/my_loan/data/repositories/my_loans_repository_impl.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/controllers/single_my_active_loan_controller.dart';
+import 'package:lms/aa_getx/modules/notification/data/data_source/notification_api.dart';
+import 'package:lms/aa_getx/modules/notification/data/repositories/notification_repository_impl.dart';
+import 'package:lms/aa_getx/modules/notification/domain/usecases/delete_clear_notification_usecase.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/data/data_sources/pledged_securities_api.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/data/repositories/pledged_securities_repository_impl.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/get_my_pledged_securities_usecase.dart';
@@ -40,10 +43,30 @@ class DashboardBindings extends Bindings {
     Get.lazyPut<ForceUpdateUsecase>(
         () => ForceUpdateUsecase(Get.find<DashboardRepositoryImpl>()));
 
+    Get.lazyPut<NotificationApiImpl>(
+          () => NotificationApiImpl(),
+    );
+
+    Get.lazyPut<NotificationRepositoryImpl>(
+          () => NotificationRepositoryImpl(Get.find<NotificationApiImpl>()),
+    );
+
+    Get.lazyPut<DeleteOrClearNotificationUseCase>(() =>
+        DeleteOrClearNotificationUseCase(
+            Get.find<NotificationRepositoryImpl>()));
+
+    Get.lazyPut<MoreApiImpl>(()=>MoreApiImpl());
+
+    Get.lazyPut<MoreRepositoryImpl>(()=>MoreRepositoryImpl(Get.find<MoreApiImpl>()));
+
+    Get.lazyPut<GetLoanDetailsUseCase>(()=> GetLoanDetailsUseCase(Get.find<MoreRepositoryImpl>()));
+
     Get.lazyPut<DashboardController>(
       () => DashboardController(
         Get.find<ConnectionInfo>(),
         Get.find<ForceUpdateUsecase>(),
+        Get.find<DeleteOrClearNotificationUseCase>(),
+        Get.find<GetLoanDetailsUseCase>(),
       ),
     );
 
@@ -53,12 +76,6 @@ class DashboardBindings extends Bindings {
 
     Get.lazyPut<GetLoanSummaryDataUseCase>(
             () => GetLoanSummaryDataUseCase(Get.find<DashboardRepositoryImpl>()));
-
-    Get.lazyPut<MoreApiImpl>(()=>MoreApiImpl());
-
-    Get.lazyPut<MoreRepositoryImpl>(()=>MoreRepositoryImpl(Get.find<MoreApiImpl>()));
-
-    Get.lazyPut<GetLoanDetailsUseCase>(()=> GetLoanDetailsUseCase(Get.find<MoreRepositoryImpl>()));
 
     Get.lazyPut<HomeController>(
           () => HomeController(

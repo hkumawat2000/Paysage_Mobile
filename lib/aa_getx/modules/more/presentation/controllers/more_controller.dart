@@ -17,18 +17,15 @@ import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecas
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_my_active_loans_usecase.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_profile_set_alert_usecase.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
-import 'package:lms/login/LoginBloc.dart';
-import 'package:lms/network/responsebean/LoanApplicationResponseBean.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 
 class MoreController extends GetxController{
-  final loginBloc = LoginBloc();
   RxString versionName = ''.obs;
   RxString profilePhotoUrl = ''.obs;
   Preferences preferences = Preferences();
   Utility utility = Utility();
   // RegisterData? registerData;
-  LoanApplicationData? list;
   RxString loanName = "".obs;
   RxString mobileExist = "".obs;
   RxString userEmail = "".obs;
@@ -37,14 +34,14 @@ class MoreController extends GetxController{
   RxString stockAt = "".obs;
   RxString userFullName="".obs;
   RxString lastLogin= "".obs;
-  double? drawingPower,
-      totalCollateral,
-      sanctionedLimit;
-  RxDouble? loanBalance;
+  RxDouble drawingPower= 0.0.obs,
+      totalCollateral= 0.0.obs,
+      sanctionedLimit= 0.0.obs;
+  RxDouble loanBalance= 0.0.obs;
   RxBool isKYCCompleted = false.obs;
   RxBool isEmailVerified = false.obs;
   RxBool isAPIRespond = false.obs;
-  RxInt? isPayment;
+  RxInt isPayment = 0.obs;
   RxBool isLoanExist = false.obs;
   RxBool isIncreaseLoanExist = false.obs;
   RxBool isTopUpExist = false.obs;
@@ -55,9 +52,9 @@ class MoreController extends GetxController{
   RxBool isMarginShortFall = false.obs;
   RxInt canPledge = 0.obs;
   MarginShortfallEntity? marginShortfall;
-  RxString? unPledgeMarginShortFallMsg;
-  Rx<InterestEntity>? interest;
-  RxString? loanType;
+  RxString unPledgeMarginShortFallMsg = "".obs;
+  Rx<InterestEntity> interest= InterestEntity().obs;
+  RxString loanType="".obs;
   String? schemeType;
   String? kycType;
   final GetMyActiveLoansUseCase _getMyActiveLoansUseCase;
@@ -137,9 +134,9 @@ class MoreController extends GetxController{
         if (response.data!.message!.data!.loans!.length  != 0) {
           canPledge.value = response.data!.message!.data!.canPledge!;
           loanName.value = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].name!;
-          drawingPower = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].drawingPower;
-          totalCollateral = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue;
-          sanctionedLimit = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue;
+          drawingPower.value = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].drawingPower!;
+          totalCollateral.value = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue!;
+          sanctionedLimit.value = response.data!.message!.data!.loans![response.data!.message!.data!.loans!.length - 1].totalCollateralValue!;
           ///DC: already commented
           // preferences.setLoanApplicationNo(loanName!);
           // preferences.setDrawingPower(drawingPower.toString());
@@ -330,23 +327,18 @@ class MoreController extends GetxController{
     Utility.isNetworkConnection()
         .then((isNetwork) {
       if (isNetwork) {
-        if (isPayment == 0) {
-          ///todo: change following code after PaymentScreen screen completed
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (BuildContext context) => PaymentScreen(
-          //             loanName,
-          //             // isMarginShortFall,
-          //             marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
-          //             marginShortfall != null ? marginShortfall!.shortfallC : "",
-          //             marginShortfall != null ? marginShortfall!.minimumCollateralValue : "",
-          //             marginShortfall != null ? marginShortfall!.totalCollateralValue : "",
-          //             marginShortfall != null
-          //                 && marginShortfall!.status != "Sell Triggered"
-          //                 && marginShortfall!.status != "Request Pending" ? marginShortfall!.name : "",
-          //             marginShortfall != null ? marginShortfall!.minimumCashAmount! : 0.0,
-          //             interest != null ? 1 : 0)));
+        if (isPayment.value == 0) {
+          Get.toNamed(paymentView, arguments: PaymentArguments(
+              loanName: loanName.value,
+              isMarginShortfall: marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
+              marginShortfallAmount: marginShortfall != null ? marginShortfall!.shortfallC : "",
+              minimumCollateralValue: marginShortfall != null ? marginShortfall!.minimumCollateralValue : "",
+              totalCollateralValue:  marginShortfall != null ? marginShortfall!.totalCollateralValue : "",
+              marginShortfallLoanName:  marginShortfall != null
+                  && marginShortfall!.status != "Sell Triggered"
+                  && marginShortfall!.status != "Request Pending" ? marginShortfall!.name : "",
+              minimumCashAmount: marginShortfall != null ? marginShortfall!.minimumCashAmount! : 0.0,
+              isForInterest: interest.value.isBlank! ? 1 : 0));
         } else {
           commonDialog(
               Strings.pending_payment, 0);
@@ -382,7 +374,7 @@ class MoreController extends GetxController{
     Utility.isNetworkConnection()
         .then((isNetwork) {
       if (isNetwork) {
-        if (unPledgeMarginShortFallMsg == null) {
+        if (unPledgeMarginShortFallMsg.isEmpty) {
           if (isUnpledgeExist.value) {
             if(loanType == Strings.shares) {
               ///todo: change following code after UnpledgeSharesScreen screen completed
@@ -487,10 +479,10 @@ class MoreController extends GetxController{
         drawingPowerStr.value = loanDetailsResponse.data!.data!.loan!.drawingPowerStr!;
         totalCollateralStr.value = loanDetailsResponse.data!.data!.loan!.totalCollateralValueStr!;
         stockAt.value = loanDetailsResponse.data!.data!.pledgorBoid!;
-        loanType!.value = loanDetailsResponse.data!.data!.loan!.instrumentType!;
-        loanType!.value = loanDetailsResponse.data!.data!.loan!.schemeType!;
+        loanType.value = loanDetailsResponse.data!.data!.loan!.instrumentType!;
+        loanType.value = loanDetailsResponse.data!.data!.loan!.schemeType!;
         if (loanDetailsResponse.data!.data!.loan != null) {
-          loanBalance!.value = loanDetailsResponse.data!.data!.loan!.balance!;
+          loanBalance.value = loanDetailsResponse.data!.data!.loan!.balance!;
         }
 
         if (loanDetailsResponse.data!.data!.increaseLoan != null) {
@@ -507,7 +499,7 @@ class MoreController extends GetxController{
         if (loanDetailsResponse.data!.data!.unpledge != null) {
           isUnpledgeExist.value = true;
           if (loanDetailsResponse.data!.data!.unpledge!.unpledgeMsgWhileMarginShortfall != null) {
-            unPledgeMarginShortFallMsg!.value = loanDetailsResponse.data!.data!.unpledge!.unpledgeMsgWhileMarginShortfall!;
+            unPledgeMarginShortFallMsg.value = loanDetailsResponse.data!.data!.unpledge!.unpledgeMsgWhileMarginShortfall!;
           }
         } else {
           isUnpledgeExist.value = false;
@@ -530,10 +522,10 @@ class MoreController extends GetxController{
         }
 
         if (loanDetailsResponse.data!.data!.interest != null) {
-          interest!.value = loanDetailsResponse.data!.data!.interest!;
+          interest.value = loanDetailsResponse.data!.data!.interest!;
         }
 
-        isPayment!.value = loanDetailsResponse.data!.data!.paymentAlreadyInProcess!;
+        isPayment.value = loanDetailsResponse.data!.data!.paymentAlreadyInProcess!;
 
         isAPIRespond.value = true;
         isLoanExist.value = true;

@@ -6,27 +6,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:lms/aa_getx/config/routes.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
-import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
+import 'package:lms/aa_getx/core/utils/preferences.dart';
+import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/entities/force_update_response_entity.dart';
 import 'package:lms/aa_getx/modules/dashboard/domain/usecases/force_update_usecase.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/views/home_view.dart';
+import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
+import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_request_entity.dart';
+import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
+import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/views/single_my_active_loan_view.dart';
+import 'package:lms/aa_getx/modules/notification/domain/entities/notification_response_entity.dart';
+import 'package:lms/aa_getx/modules/notification/domain/entities/request/delete_notification_entity.dart';
+import 'package:lms/aa_getx/modules/notification/domain/usecases/delete_clear_notification_usecase.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
-import 'package:lms/new_dashboard/NewDashboardScreen.dart';
-import 'package:lms/util/Preferences.dart';
-import 'package:lms/util/Utility.dart';
 import 'package:lms/util/strings.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+
 class DashboardController extends GetxController {
   final ConnectionInfo _connectionInfo;
   final ForceUpdateUsecase _forceUpdateUsecase;
-  DashboardController(this._connectionInfo, this._forceUpdateUsecase);
+  final DeleteOrClearNotificationUseCase _deleteOrClearNotificationUseCase;
+  final GetLoanDetailsUseCase _getLoanDetailsUseCase;
+
+  DashboardController(this._connectionInfo, this._forceUpdateUsecase, this._deleteOrClearNotificationUseCase, this._getLoanDetailsUseCase);
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final FirebaseInAppMessaging _firebaseInAppMessaging =
@@ -36,7 +47,8 @@ class DashboardController extends GetxController {
   final LocalAuthentication _localAuthentication = LocalAuthentication();
   Preferences preferences = Preferences();
   static var notificationId, messageId;
-
+  //DashboardArguments dashboardArguments = DashboardArguments(isFromPinScreen: false,selectedIndex: 1);/// Todo: uncomment this Get.arguments;
+  DashboardArguments? dashboardArguments = Get.arguments;
   RxInt selectedIndex = 0.obs;
 
   RxString storeURL = "".obs;
@@ -50,10 +62,10 @@ class DashboardController extends GetxController {
     MoreView()
   ];
 
-  DashboardArguments dashboardArguments = DashboardArguments(isFromPinScreen: false,selectedIndex: 1);/// Todo: uncomment this Get.arguments;
 
   @override
   void onInit() {
+    selectedIndex.value = dashboardArguments != null ? dashboardArguments!.selectedIndex : 0;
     forceUpdate();
     fcmConfigure();
     redirectNotification();
@@ -86,6 +98,14 @@ class DashboardController extends GetxController {
               storeVersion.value =
                   response.data!.forceUpdateDataEntity!.iosVersion!;
             }
+            storeWhatsNew.value = response.data!.forceUpdateDataEntity!.whatsNew!;
+            bool canUpdateValue = await Utility().canUpdateVersion(storeVersion.value, localVersion);
+            debugPrint("storeVersion ==> $storeVersion");
+            debugPrint("localVersion ==> $localVersion");
+            debugPrint("canUpdateValue ==> $canUpdateValue");
+            if(canUpdateValue != null && canUpdateValue && response.data!.forceUpdateDataEntity!.forceUpdate == 1){
+              Utility().forceUpdatePopUp( true, storeURL.value, storeWhatsNew.value);
+            }
           }
         }
       }
@@ -99,7 +119,7 @@ class DashboardController extends GetxController {
     String notificationLoan = await preferences.getNotificationLoan();
 
     if (screenToOpen != "") {
-      await notificationNavigator(Get.context!, screenToOpen, notificationLoan);
+      await notificationNavigator(screenToOpen, notificationLoan);
       await preferences.setNotificationRedirect("");
       await preferences.setNotificationLoan("");
     }
@@ -108,17 +128,27 @@ class DashboardController extends GetxController {
   Future<void> redirectSms() async {
     String screenToOpen = await preferences.getSmsRedirection();
     if (screenToOpen != null && screenToOpen.isNotEmpty) {
-      await smsNavigator(Get.context!, screenToOpen);
+      await smsNavigator(screenToOpen);
       await preferences.setSmsRedirection("");
     }
   }
 
-  Future<bool> onBackPressed() async {
-    return await showDialog(
-          context: Get.context!,
-          builder: (context) => onBackPressDialog(1, Strings.exit_app),
-        ) ??
-        false;
+  ////On click of sms link redirect user to particular screen
+  smsNavigator(String screenName) async {
+    if (screenName == "my_securities") {
+      // Navigator.push(context, MaterialPageRoute(
+      //     builder: (context) => DashBoard(selectedIndex: 1)));
+      Get.toNamed(dashboardView, arguments: DashboardArguments(selectedIndex: 1,isFromPinScreen: false));
+    } else if (screenName == "contact_us") {
+      ///todo: uncomment below code after ContactUsScreen is developed
+      // Navigator.push(context, MaterialPageRoute(
+      //     builder: (context) => ContactUsScreen()));
+    } else if (screenName == "my_loans") {
+      // Navigator.push(context, MaterialPageRoute(
+      //     builder: (context) => DashBoard(selectedIndex: 2)));
+      Get.toNamed(dashboardView, arguments: DashboardArguments(selectedIndex: 2,isFromPinScreen: false));
+    }
+    await Preferences().setSmsRedirection("");
   }
 
   void onItemTapped(int index) {
@@ -130,10 +160,10 @@ class DashboardController extends GetxController {
     String firebaseTokenExist = await preferences.getFirebaseToken();
     FirebaseMessaging.instance.getToken().then((token) {
       if (firebaseTokenExist != token) {
-        printLog("==========> New Token Created <==========");
+        debugPrint("==========> New Token Created <==========");
         preferences.setFirebaseToken(token!);
       }
-      printLog("firebaseToken ==> $token");
+      debugPrint("firebaseToken ==> $token");
     });
 
     var initializationSettingsAndroid =
@@ -167,14 +197,14 @@ class DashboardController extends GetxController {
 
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
-    if (initialMessage != null && dashboardArguments.isFromPinScreen) {
+    if (initialMessage != null && dashboardArguments!.isFromPinScreen) {
       _handleMessageOnLaunch(initialMessage);
     }
 
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessageOnResume);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      printLog("==================> FCM <==================");
+      debugPrint("==================> FCM <==================");
       //printLog("onMessage :: ${json.encode(message.data)}");
       if (message.messageId != messageId) {
         if (message.notification != null &&
@@ -199,28 +229,44 @@ class DashboardController extends GetxController {
   void _handleMessageOnLaunch(RemoteMessage message) async {
     if (message.notification != null && message.notification!.title != null) {
       if (notificationId != message.data['notification_id']) {
-        printLog("==================> FCM <==================");
-       // printLog("onLaunch :: ${json.encode(message.data)}");
+        debugPrint("==================> FCM <==================");
+        // printLog("onLaunch :: ${json.encode(message.data)}");
         preferences.setNotificationId(message.data['notification_id']);
         notificationId = message.data['notification_id'].toString();
         Future.delayed(const Duration(milliseconds: 100), () {});
-        //TODO TO use notification api to delete / clear
-        // if (mounted) {
-        //   LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-        //   notificationBloc
-        //       .deleteOrClearNotification(1, 0, message.data["name"])
-        //       .then((value) async {
-        //     Navigator.pop(context);
-        //     if (value.isSuccessFull!) {
-        //       await notificationNavigator(
-        //           context, message.data["screen"], message.data["loan_no"]);
-        //     } else if (value.errorCode == 403) {
-        //       commonDialog(context, Strings.session_timeout, 4);
-        //     } else {
-        //       Utility.showToastMessage(value.errorMessage!);
-        //     }
-        //   });
-        // }
+
+        DeleteNotificationEntity deleteNotificationEntity =
+            DeleteNotificationEntity(
+                isForRead: 1,
+                isForClear: 0,
+                notificationName: message.data["name"]);
+        if (await _connectionInfo.isConnected) {
+          showDialogLoading(Strings.please_wait);
+          DataState<NotificationResponseEntity> response =
+              await _deleteOrClearNotificationUseCase.call(
+                  DeleteNotificationParams(
+                      deleteNotificationEntity: deleteNotificationEntity));
+          Get.back(); //pop dialog
+          debugPrint("response block");
+          debugPrint("response   ${response.data}");
+          if (response is DataSuccess) {
+            if (response.data != null) {
+              await notificationNavigator(message.data["screen"],
+                  message.data["loan_no"]);
+            }
+          } else if (response is DataFailed) {
+            if (response.error!.statusCode == 403) {
+              commonDialog(Strings.session_timeout, 4);
+              debugPrint(
+                  "response.error!.statusCode  ${response.error!.statusCode}");
+            } else {
+              Utility.showToastMessage(response.error!.message);
+              debugPrint("response.error!.message  ${response.error!.message}");
+            }
+          }
+        } else {
+          Utility.showToastMessage(Strings.no_internet_message);
+        }
       }
     }
   }
@@ -228,53 +274,87 @@ class DashboardController extends GetxController {
   void _handleMessageOnResume(RemoteMessage message) async {
     if (message.notification != null && message.notification!.title != null) {
       if (notificationId != message.data['notification_id']) {
-        printLog("==================> FCM <==================");
+        debugPrint("==================> FCM <==================");
         //printLog("onResume :: ${json.encode(message.data)}");
         preferences.setNotificationId(message.data['notification_id']);
         preferences.setNotificationRedirect(message.data["screen"] ?? "");
         preferences.setNotificationLoan(message.data["loan_no"] ?? "");
         notificationId = message.data['notification_id'].toString();
         Future.delayed(const Duration(milliseconds: 100), () {});
-        //TODO
-        // if (mounted) {
-        //   LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-        //   notificationBloc.deleteOrClearNotification(1, 0, message.data["name"]).then((value) async {
-        //     Navigator.pop(context);
-        //     if (value.isSuccessFull!) {
-        //       await notificationNavigator(context, message.data["screen"], message.data["loan_no"]);
-        //       await preferences.setNotificationRedirect("");
-        //       await preferences.setNotificationLoan("");
-        //     } else if(value.errorCode == 403) {
-        //       commonDialog(context, Strings.session_timeout, 4);
-        //     } else {
-        //       Utility.showToastMessage(value.errorMessage!);
-        //     }
-        //   });
-        // }
+
+        DeleteNotificationEntity deleteNotificationEntity =
+        DeleteNotificationEntity(
+            isForRead: 1,
+            isForClear: 0,
+            notificationName: message.data["name"]);
+        if (await _connectionInfo.isConnected) {
+          showDialogLoading(Strings.please_wait);
+          DataState<NotificationResponseEntity> response =
+          await _deleteOrClearNotificationUseCase.call(
+              DeleteNotificationParams(
+                  deleteNotificationEntity: deleteNotificationEntity));
+          Get.back(); //pop dialog
+          debugPrint("response block");
+          debugPrint("response   ${response.data}");
+          if (response is DataSuccess) {
+            if (response.data != null) {
+              await notificationNavigator(message.data["screen"], message.data["loan_no"]);
+              await preferences.setNotificationRedirect("");
+              await preferences.setNotificationLoan("");
+            }
+          } else if (response is DataFailed) {
+            if (response.error!.statusCode == 403) {
+              commonDialog(Strings.session_timeout, 4);
+              debugPrint(
+                  "response.error!.statusCode  ${response.error!.statusCode}");
+            } else {
+              Utility.showToastMessage(response.error!.message);
+              debugPrint("response.error!.message  ${response.error!.message}");
+            }
+          }
+        } else {
+          Utility.showToastMessage(Strings.no_internet_message);
+        }
       }
     }
   }
 
   Future selectNotification(String? payload) async {
     if (payload != null) {
-      printLog("payload ===>> $payload");
+      debugPrint("payload ===>> $payload");
       String screen = payload.split("&")[0];
       String loan = payload.split("&")[1];
       String name = payload.split("&")[2];
-      printLog("Screen ===>> $screen");
-      printLog("Loan ===>> $loan");
-      printLog("Name ===>> $name");
-      // LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-      // notificationBloc.deleteOrClearNotification(1, 0, name).then((value) async {
-      //   Navigator.pop(context);
-      //   if (value.isSuccessFull!) {
-      //     await notificationNavigator(context, screen, loan);
-      //   } else if(value.errorCode == 403) {
-      //     commonDialog(context, Strings.session_timeout, 4);
-      //   } else {
-      //     Utility.showToastMessage(value.errorMessage!);
-      //   }
-      // });
+      debugPrint("Screen ===>> $screen");
+      debugPrint("Loan ===>> $loan");
+      debugPrint("Name ===>> $name");
+
+      DeleteNotificationEntity deleteNotificationEntity =
+      DeleteNotificationEntity(
+          isForRead: 1,
+          isForClear: 0,
+          notificationName: name);
+      if (await _connectionInfo.isConnected) {
+        showDialogLoading(Strings.please_wait);
+        DataState<NotificationResponseEntity> response =
+        await _deleteOrClearNotificationUseCase.call(
+            DeleteNotificationParams(
+                deleteNotificationEntity: deleteNotificationEntity));
+        Get.back(); //pop dialog
+        if (response is DataSuccess) {
+          if (response.data != null) {
+            await notificationNavigator( screen, loan);
+          }
+        } else if (response is DataFailed) {
+          if (response.error!.statusCode == 403) {
+            commonDialog(Strings.session_timeout, 4);
+          } else {
+            Utility.showToastMessage(response.error!.message);
+          }
+        }
+      } else {
+        Utility.showToastMessage(Strings.no_internet_message);
+      }
     }
   }
 
@@ -320,5 +400,75 @@ class DashboardController extends GetxController {
     );
 
     return NotificationDetails(android: androidNotificationDetails);
+  }
+
+  //On click of notification redirect user to particular screen
+  notificationNavigator( String screenName, String? loanNumber) async {
+    if (screenName == "My Loans") {
+      Get.toNamed(dashboardView, arguments: DashboardArguments(selectedIndex: 2,isFromPinScreen: false));
+    } else if (screenName == "Dashboard") {
+      Get.toNamed(dashboardView);
+    } else if (screenName == "Margin Shortfall Action") {
+
+      if (await _connectionInfo.isConnected) {
+        showDialogLoading( Strings.please_wait);
+        GetLoanDetailsRequestEntity loanDetailsRequestEntity =
+        GetLoanDetailsRequestEntity(
+          loanName: loanNumber,
+          transactionsPerPage: 15,
+          transactionsStart: 0,
+        );
+        DataState<LoanDetailsResponseEntity> loanDetailsResponse =
+        await _getLoanDetailsUseCase.call(GetLoanDetailsParams(
+            loanDetailsRequestEntity: loanDetailsRequestEntity));
+        Get.back();
+        if (loanDetailsResponse is DataSuccess) {
+          if (loanDetailsResponse.data != null) {
+            if (loanDetailsResponse.data!.data != null) {
+              if (loanDetailsResponse.data!.data!.marginShortfall == null) {
+                Get.toNamed(dashboardView,
+                    arguments: DashboardArguments(
+                        selectedIndex: 2, isFromPinScreen: false));
+              } else {
+                Get.toNamed(marginShortfallView,
+                    arguments: MarginShortfallArguments(
+                        loanData: loanDetailsResponse.data!.data,
+                        pledgorBoid:
+                            loanDetailsResponse.data!.data!.pledgorBoid,
+                        isSellCollateral:
+                            loanDetailsResponse.data!.data!.sellCollateral == null
+                                ? true
+                                : false,
+                        isSaleTriggered: loanDetailsResponse
+                                    .data!.data!.marginShortfall!.status ==
+                                "Sell Triggered"
+                            ? true
+                            : false,
+                        isRequestPending: loanDetailsResponse
+                                    .data!.data!.marginShortfall!.status ==
+                                "Request Pending"
+                            ? true
+                            : false,
+                        msg: loanDetailsResponse
+                                .data!.data!.marginShortfall!.actionTakenMsg ??
+                            "",
+                        loanType: loanDetailsResponse
+                            .data!.data!.loan!.instrumentType!,
+                        schemeType:
+                            loanDetailsResponse.data!.data!.loan!.schemeType!));
+              }
+            }
+          }
+        }else if (loanDetailsResponse is DataFailed) {
+          if (loanDetailsResponse.error!.statusCode == 403) {
+            commonDialog(Strings.session_timeout, 4);
+          } else {
+            Utility.showToastMessage(loanDetailsResponse.error!.message);
+          }
+        }
+      } else {
+        Utility.showToastMessage(Strings.no_internet_message);
+      }
+    }
   }
 }

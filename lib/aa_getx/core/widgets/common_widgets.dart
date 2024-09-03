@@ -101,8 +101,8 @@ class HomeMenuItem extends StatelessWidget {
 }
 
 //Will not print the statement on log in release build
-void printLog(String? log){
-  if(!kReleaseMode){
+void printLog(String? log) {
+  if (!kReleaseMode) {
     print(log);
   }
 }
@@ -114,7 +114,7 @@ double roundDouble(double value, int places) {
 }
 
 //Get device info
-Future<String>? getDeviceInfo() async{
+Future<String>? getDeviceInfo() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   String? deviceManufacturer, deviceModel, oSVersion;
   if (Platform.isAndroid) {
@@ -127,7 +127,6 @@ Future<String>? getDeviceInfo() async{
     printLog('Android Version $oSVersion');
     printLog('Device Model $deviceModel');
     return "(Android version : $oSVersion), (Manufacturer : $deviceManufacturer), (Model : $deviceModel)";
-
   } else if (Platform.isIOS) {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
     deviceModel = iosInfo.model;
@@ -136,8 +135,7 @@ Future<String>? getDeviceInfo() async{
     printLog('Device Model ${iosInfo.model}');
     printLog('iOS version ${iosInfo.systemVersion}');
     return "(iOS version : $oSVersion) (Model : $deviceModel)";
-
-  }else{
+  } else {
     return " ";
   }
 }
@@ -203,7 +201,7 @@ Widget bottomBoxText(string) {
 String getInitials(String? string, int? limitTo) {
   var buffer = StringBuffer();
   var split = string!.split(' ');
-  for (var i = 0 ; i < (limitTo ?? split.length); i ++) {
+  for (var i = 0; i < (limitTo ?? split.length); i++) {
     buffer.write(split[i][0]);
   }
   return buffer.toString();
@@ -260,11 +258,13 @@ Future<void> commonDialog(BuildContext context, message, value) {
                 height: 45,
                 width: 100,
                 child: Material(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(35)),
                   elevation: 1.0,
                   color: appTheme,
                   child: MaterialButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     minWidth: MediaQuery.of(context).size.width,
                     onPressed: () async {
                       if (value == 1) {
@@ -299,7 +299,7 @@ Future<void> commonDialog(BuildContext context, message, value) {
                           ),
                           (route) => false,
                         );
-                      }else if (value == 6) {
+                      } else if (value == 6) {
                         Navigator.pop(context);
                         // Navigator.push(
                         //     context,
@@ -427,104 +427,108 @@ Future<void> commonDialog(BuildContext context, message, value) {
 //   ) ?? false;
 // }
 
-
 //Back-press of CKYC consent 1/2 screen dialog
 Future<bool> backPressYesNoDialog(BuildContext context) async {
   return await showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0))),
-        content: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: new Text(Strings.sure_go_back,
-                      style: regularTextStyle_16_dark),
-                ), //
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            content: Container(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 40,
-                    width: 100,
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35),
-                          side: BorderSide(color: red)),
-                      elevation: 1.0,
-                      color: colorWhite,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                        minWidth: MediaQuery.of(context).size.width,
-                        onPressed: () async {
-                          Utility.isNetworkConnection().then((isNetwork) {
-                            if (isNetwork) {
-                              Navigator.pop(context);
-                            } else{
-                              Utility.showToastMessage(Strings.no_internet_message);
-                            }
-                          });
-                        },
-                        child: Text(
-                          Strings.no,
-                          style: buttonTextRed,
-                        ),
-                      ),
-                    ),
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: new Text(Strings.sure_go_back,
+                          style: regularTextStyle_16_dark),
+                    ), //
                   ),
                   SizedBox(
-                    width: 5,
+                    height: 10,
                   ),
-                  Container(
-                    height: 40,
-                    width: 100,
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35)),
-                      elevation: 1.0,
-                      color: appTheme,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                        minWidth: MediaQuery.of(context).size.width,
-                        onPressed: () async {
-                          Utility.isNetworkConnection().then((isNetwork) {
-                            if (isNetwork) {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            }else{
-                              Utility.showToastMessage(Strings.no_internet_message);
-                            }
-                          });
-                        },
-                        child: Text(
-                          Strings.yes,
-                          style: buttonTextWhite,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 100,
+                        child: Material(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35),
+                              side: BorderSide(color: red)),
+                          elevation: 1.0,
+                          color: colorWhite,
+                          child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35)),
+                            minWidth: MediaQuery.of(context).size.width,
+                            onPressed: () async {
+                              Utility.isNetworkConnection().then((isNetwork) {
+                                if (isNetwork) {
+                                  Navigator.pop(context);
+                                } else {
+                                  Utility.showToastMessage(
+                                      Strings.no_internet_message);
+                                }
+                              });
+                            },
+                            child: Text(
+                              Strings.no,
+                              style: buttonTextRed,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        height: 40,
+                        width: 100,
+                        child: Material(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
+                          elevation: 1.0,
+                          color: appTheme,
+                          child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35)),
+                            minWidth: MediaQuery.of(context).size.width,
+                            onPressed: () async {
+                              Utility.isNetworkConnection().then((isNetwork) {
+                                if (isNetwork) {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                } else {
+                                  Utility.showToastMessage(
+                                      Strings.no_internet_message);
+                                }
+                              });
+                            },
+                            child: Text(
+                              Strings.yes,
+                              style: buttonTextWhite,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
-        ),
-      );
-    },
-  ) ?? false;
+              ),
+            ),
+          );
+        },
+      ) ??
+      false;
 }
 
 //Change Number to String e.g. 1000 => 1,000
@@ -532,7 +536,6 @@ String numberToString(String str) {
   return str.replaceAllMapped(
       new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
 }
-
 
 //For negative value show minus symbol as prefix
 String negativeValue(double value) {
@@ -549,11 +552,10 @@ String encryptAcNo(String str) {
 }
 
 //Round down to 1000
-roundDownTo(double amount){
-  double result = (amount~/1000) * 1000;
+roundDownTo(double amount) {
+  double result = (amount ~/ 1000) * 1000;
   return result.toStringAsFixed(2);
 }
-
 
 // Widget pledgeCart(totalValue, totalScripts, bool resetValue, totalValueText) {
 //   var total_value;
@@ -614,7 +616,8 @@ Widget marginShortFall(
     drawingPower,
     image,
     Color iconBg,
-    bool isMarginShortfall, String loanType) {
+    bool isMarginShortfall,
+    String loanType) {
   return Padding(
     padding: const EdgeInsets.only(left: 10.0, top: 10, right: 10),
     child: Card(
@@ -669,7 +672,7 @@ Widget marginShortFall(
                                   marginShortFallCashAmt,
                                   drawingPower,
                                   minimumPledgeAmount,
-                              loanType);
+                                  loanType);
                             });
                       },
                     )
@@ -756,7 +759,7 @@ Widget marginShortfallInfo(BuildContext context, loanBalance,
                       style: TextStyle(fontSize: 18, color: colorLightGray),
                     ),
                   ),
-                   SizedBox(
+                  SizedBox(
                     width: 15,
                   ),
                   Text(
@@ -850,7 +853,7 @@ Widget marginShortfallInfo(BuildContext context, loanBalance,
                         : "₹${numberToString(marginShortFallCashAmt.toStringAsFixed(2))}",
                     style: TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold, color: red),
-                  ) ,
+                  ),
                 ],
               ),
               SizedBox(
@@ -869,7 +872,8 @@ Widget marginShortfallInfo(BuildContext context, loanBalance,
                       elevation: 1.0,
                       color: appTheme,
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(35)),
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
                           Navigator.pop(context);
@@ -900,10 +904,10 @@ void showSnackBar(final GlobalKey<ScaffoldState> _scaffoldKey) {
     content: Text(Strings.no_internet_message),
     action: SnackBarAction(
         label: Strings.ok,
-        onPressed: (){
+        onPressed: () {
           null;
         }
-       // _scaffoldKey.currentState!.hideCurrentSnackBar
+        // _scaffoldKey.currentState!.hideCurrentSnackBar
         ),
     duration: Duration(seconds: 10),
   );
@@ -916,15 +920,15 @@ void showSnackBarWithMessage(
   final snackBarContent = SnackBar(
     content: Text(message),
     action: SnackBarAction(
-        label: Strings.ok,
-        onPressed: (){
-          null;
-        },
+      label: Strings.ok,
+      onPressed: () {
+        null;
+      },
       //  _scaffoldKey.currentState!.hideCurrentSnackBar
-        ),
+    ),
     duration: Duration(days: 365),
   );
- // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
+  // _scaffoldKey.currentState!.showSnackBar(snackBarContent);
 }
 
 class onBackPressDialog extends StatefulWidget {
@@ -984,7 +988,8 @@ class onBackPressDialogState extends State<onBackPressDialog> {
                 elevation: 1.0,
                 color: appTheme,
                 child: MaterialButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(35)),
                   minWidth: MediaQuery.of(context).size.width,
                   onPressed: () async {
                     if (widget.isExitApp == 1) {
@@ -1010,7 +1015,6 @@ class onBackPressDialogState extends State<onBackPressDialog> {
     );
   }
 }
-
 
 class NavigationBackImage extends StatelessWidget {
   @override
@@ -1094,45 +1098,54 @@ class SizedBoxWidthWidget extends StatelessWidget {
 }
 
 //Common function for firebase event
-void firebaseEvent(String eventName, Map<String, dynamic> parameter){
+void firebaseEvent(String eventName, Map<String, dynamic> parameter) {
   FirebaseAnalytics.instance.logEvent(name: eventName, parameters: parameter);
 }
 
 //Get current date and time
-String getCurrentDateAndTime(){
+String getCurrentDateAndTime() {
   DateTime now = new DateTime.now();
   String formattedDate = DateFormat('MMM dd, yyyy hh:mm a').format(now);
   return formattedDate;
 }
 
-
 //On click of notification redirect user to particular screen
-notificationNavigator(BuildContext context, String screenName, String? loanNumber) async {
+notificationNavigator(
+    BuildContext context, String screenName, String? loanNumber) async {
   if (screenName == "My Loans") {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => DashBoard(selectedIndex: 2)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DashBoard(selectedIndex: 2)));
   } else if (screenName == "Dashboard") {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => DashBoard()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DashBoard()));
   } else if (screenName == "Margin Shortfall Action") {
     LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
     final myLoansBloc = MyLoansBloc();
     myLoansBloc.getLoanDetails(loanNumber).then((value) {
       Navigator.pop(context);
       if (value.isSuccessFull!) {
-        if(value.data!.marginShortfall == null){
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => DashBoard(selectedIndex: 2)));
+        if (value.data!.marginShortfall == null) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DashBoard(selectedIndex: 2)));
         } else {
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) => MarginShortfallScreen(
-                  value.data!,
-                  value.data!.pledgorBoid!,
-                  value.data!.sellCollateral == null ? true : false,
-                  value.data!.marginShortfall!.status == "Sell Triggered" ? true : false,
-                  value.data!.marginShortfall!.status == "Request Pending" ? true : false,
-                  value.data!.marginShortfall!.actionTakenMsg ?? "",
-                  value.data!.loan!.instrumentType!, value.data!.loan!.schemeType!)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MarginShortfallScreen(
+                      value.data!,
+                      value.data!.pledgorBoid!,
+                      value.data!.sellCollateral == null ? true : false,
+                      value.data!.marginShortfall!.status == "Sell Triggered"
+                          ? true
+                          : false,
+                      value.data!.marginShortfall!.status == "Request Pending"
+                          ? true
+                          : false,
+                      value.data!.marginShortfall!.actionTakenMsg ?? "",
+                      value.data!.loan!.instrumentType!,
+                      value.data!.loan!.schemeType!)));
         }
       } else if (value.errorCode == 403) {
         commonDialog(context, Strings.session_timeout, 4);
@@ -1178,14 +1191,56 @@ class StockAtCart extends StatelessWidget {
 ////On click of sms link redirect user to particular screen
 smsNavigator(BuildContext context, String screenName) async {
   if (screenName == "my_securities") {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => DashBoard(selectedIndex: 1)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DashBoard(selectedIndex: 1)));
   } else if (screenName == "contact_us") {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => ContactUsScreen()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ContactUsScreen()));
   } else if (screenName == "my_loans") {
-    Navigator.push(context, MaterialPageRoute(
-        builder: (context) => DashBoard(selectedIndex: 2)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => DashBoard(selectedIndex: 2)));
   }
   await Preferences().setSmsRedirection("");
+}
+
+class NoDataWidget extends StatelessWidget {
+  const NoDataWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildNoDataWidget();
+  }
+
+  Widget _buildNoDataWidget() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(Strings.no_data),
+        ],
+      ),
+    );
+  }
+}
+
+class ErrorMessageWidget extends StatefulWidget {
+  final String? error;
+  const ErrorMessageWidget({super.key, this.error});
+
+  @override
+  State<ErrorMessageWidget> createState() => _ErrorMessageWidgetState();
+}
+
+class _ErrorMessageWidgetState extends State<ErrorMessageWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(widget.error!),
+        ],
+      ),
+    );
+  }
 }

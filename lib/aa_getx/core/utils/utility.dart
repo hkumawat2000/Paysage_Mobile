@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:lms/util/strings.dart';
 import 'package:lms/widgets/WidgetCommon.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -178,29 +179,36 @@ class Utility {
     }
     return false;
   }
+bool canClose(bool isForceUpdate){
+    if(isForceUpdate) {
+      SystemNavigator.pop();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   //Force/Manual update dialog
- forceUpdatePopUp(BuildContext context, bool isForceUpdate, String storeURL, String storeWhatsNew) async {
-   return showDialog(
-     context: context,
+ forceUpdatePopUp( bool isForceUpdate, String storeURL, String storeWhatsNew) async {
+   return Get.dialog(
      barrierDismissible: isForceUpdate ? false : true,
-     builder: (context) {
-       return WillPopScope(
-         onWillPop: () async {
-           if(isForceUpdate) {
-             SystemNavigator.pop();
-             return false;
-           } else {
-             return true;
-           }
-         },
+       PopScope(
+         // onPopInvoked: (_) {
+         //   if(isForceUpdate) {
+         //     SystemNavigator.pop();
+         //     return false;
+         //   } else {
+         //     return true;
+         //   }
+         // },
+         onPopInvoked: (_) => canClose(isForceUpdate),
          child: Platform.isAndroid ? AlertDialog(
            title: Text('Update Available!'),
            content:Text("New version of the app is available; Kindly update the app to continue.\n\nWhat's New: \n$storeWhatsNew"),
            actions: <Widget>[
              isForceUpdate ? SizedBox() : TextButton(
                child: new Text('Not Now', style: TextStyle(color:Colors.blue),),
-               onPressed: () => Navigator.pop(context),
+               onPressed: () => Get.back(),
              ),
              TextButton(
                child: new Text(isForceUpdate ? 'Update Now' : 'Update', style: TextStyle(color:Colors.blue),),
@@ -238,7 +246,7 @@ class Utility {
                children: [
                  CupertinoDialogAction(
                    child: Text("Not Now", style: TextStyle(color:Colors.blue),),
-                   onPressed: () => Navigator.pop(context),
+                   onPressed: () => Get.back(),
                  ),
                  CupertinoDialogAction(
                    child: Text("Update Now", style: TextStyle(color:Colors.blue),),
@@ -256,8 +264,8 @@ class Utility {
              ),
            ],
          ),
-       );
-     },
+       )
+
    );
  }
 
