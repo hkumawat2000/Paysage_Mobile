@@ -1,21 +1,27 @@
+
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/core/constants/colors.dart';
+import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
+import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/arguments/loan_statement_arguments.dart';
-import 'package:lms/aa_getx/modules/account_statement/presentation/controllers/loan_statement_screen_tab_controller.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/views/download_statement_view.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/views/recent_transactions_view.dart';
-import 'package:lms/common_widgets/constants.dart';
-import 'package:lms/util/Colors.dart';
-import 'package:lms/util/Style.dart';
-import 'package:lms/util/strings.dart';
-import 'package:lms/widgets/WidgetCommon.dart';
-import 'package:flutter/material.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/presentation/controllers/recent_transactions_screen_tab_controller.dart';
 
-class LoanStatementView extends StatelessWidget {
+class MyPledgedTransactionsView extends StatelessWidget{
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     LoanStatementArguments loanStatementArguments = Get.arguments;
-    //Get.lazyPut(()=>LoanStatementController());
+
     return Scaffold(
+      key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
       backgroundColor: colorBg,
       appBar: AppBar(
         elevation: 0,
@@ -34,21 +40,23 @@ class LoanStatementView extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: headingText('Loan Statement'),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: headingText(Strings.recent_transactions),
+                ),
               ),
             ],
           ),
           SizedBox(height: 10),
-          loanStatementCard(loanStatementArguments),
-          Expanded(child: LoanStatementScreenTab(loanStatementArguments.loanName, loanStatementArguments.loanType)),
+          recentTransactionCard(loanStatementArguments),
+          Expanded(child: RecentTransactionScreenTab(loanStatementArguments.loanName, loanStatementArguments.loanType)),
         ],
       ),
     );
   }
 
-  Widget loanStatementCard(LoanStatementArguments loanStatementArguments) {
+  Widget recentTransactionCard(LoanStatementArguments loanStatementArguments) {
     return Stack(
       children: <Widget>[
         Padding(
@@ -92,9 +100,6 @@ class LoanStatementView extends StatelessWidget {
                           : '₹${numberToString(loanStatementArguments.drawingPower!.toStringAsFixed(2))}',
                         style: boldTextStyle_18,
                       ),
-                      // Text('₹${numberToString(widget.drawingPower.toStringAsFixed(2))}',
-                      //   style: boldTextStyle_18,
-                      // ),
                       Text(Strings.drawing_power, style : subHeading),
                     ],
                   ),
@@ -108,50 +113,44 @@ class LoanStatementView extends StatelessWidget {
   }
 }
 
-class LoanStatementScreenTab extends GetView<LoanStatementScreenTabController> {
+
+class RecentTransactionScreenTab extends GetView<RecentTransactionScreenTabController>  {
   final loanName;
   final loanType;
 
-  LoanStatementScreenTab(this.loanName, this.loanType);
+  RecentTransactionScreenTab(this.loanName, this.loanType);
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(()=>LoanStatementScreenTabController());
+    Get.lazyPut(() => RecentTransactionScreenTabController());
     controller.loanName.value = loanName;
     controller.loanType.value = loanType;
-
     return Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
-          child: TabBar(
-            controller: controller.tabController,
-            labelColor: red,
-            indicatorColor: red,
-            unselectedLabelColor: appTheme,
-            indicatorWeight: 1.0,
-            labelStyle: TextStyle(fontSize: 11.5),
-            tabs: <Widget>[
-              Tab(text: 'Recent Transactions'),
-              Tab(text: 'Download Statement'),
-            ],
+          child: DefaultTabController(
+            length: 2,
+            child: TabBar(
+              controller: controller.tabController,
+              labelColor: red,
+              indicatorColor: red,
+              unselectedLabelColor: appTheme,
+              indicatorWeight: 1.0,
+              labelStyle: TextStyle(fontSize: 11.5),
+              tabs: <Widget>[
+                Tab(text: 'Recent Transactions'),
+                Tab(text: 'Download Statement'),
+              ],
+            ),
           ),
         ),
         Expanded(
           child: TabBarView(
             controller: controller.tabController,
             children: <Widget>[
-              RecentTransactionView(
-                controller.loanName.value,
-                Strings.loan_statement,
-                controller.tabController!,
-                controller.loanType.value,
-              ),
-              DownloadStatementView(
-                controller.loanName.value,
-                Strings.loan_statement,
-                controller.tabController!,
-              ),
+              RecentTransactionView(controller.loanName.value, Strings.recent_transactions , controller.tabController!, controller.loanType.value),
+              DownloadStatementView(controller.loanName.value, Strings.recent_transactions, controller.tabController!),
             ],
           ),
         ),
@@ -159,5 +158,3 @@ class LoanStatementScreenTab extends GetView<LoanStatementScreenTabController> {
     );
   }
 }
-
-

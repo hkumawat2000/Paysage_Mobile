@@ -51,7 +51,7 @@ class DownloadStatementController extends GetxController {
     const TransactionDuration("current_year", "Current Financial Year"),
     const TransactionDuration("custom_date", "Select Custom Dates")
   ].obs;
-  TransactionDuration? durationSelected;
+  final durationSelected = Rxn<TransactionDuration>();
   RxString durationValueSelected = "".obs;
   List _formatList = ['pdf', 'excel'];
   List requestType = ["Download", "Email"];
@@ -166,7 +166,7 @@ class DownloadStatementController extends GetxController {
           parameter[Strings.mobile_no] = mobile;
           parameter[Strings.email] = email;
           parameter[Strings.loan_number] = loanName;
-          parameter[Strings.statement_type] = durationSelected!.name;
+          parameter[Strings.statement_type] = durationSelected.value?.name;
           parameter[Strings.email_or_download] =
           isDownloaded.value ? "Download" : "Email";
           parameter[Strings.date_time] = getCurrentDateAndTime();
@@ -206,11 +206,6 @@ class DownloadStatementController extends GetxController {
   }
 
   _launchURL(pathURL) async {
-//    String dummy = pathPDF;
-//    String loan_agreementStr = dummy;
-//    var loan_agreementArray = loan_agreementStr.split('.pdf');
-////    var loan_agreement = loan_agreementArray[1];
-//    printLog("loan_agreement$loan_agreementArray");
     if (await canLaunchUrlString(pathURL)) {
       await launchUrlString(pathURL);
     } else {
@@ -251,39 +246,10 @@ class DownloadStatementController extends GetxController {
     final permissionStatus = await Permission.storage.request();
     if (permissionStatus.isGranted) {
       debugPrint('granted');
-
-      // final id = await FlutterDownloader.enqueue(
-      //     url: url,
-      //     savedDir: savePath,
-      //     fileName: isFor == "pdf" ? "file${DateTime.now().toString()}.pdf" : "file${DateTime.now().toString()}.xlsx",
-      //     showNotification: true,
-      //     openFileFromNotification: true
-      // );
       showFlushBar("Statement downloading...");
     } else {
       Utility.showToastMessage('Permission deined');
     }
-
-    // //get pdf from link
-    // LoadingDialogWidget.showDialogLoading(context, Strings.downloading_file);
-    // Response response = await dio.get(
-    //   url,
-    //   // onReceiveProgress: showDownloadProgress,
-    //   //Received data with List<int>
-    //   options: Options(
-    //       responseType: ResponseType.bytes,
-    //       followRedirects: false,
-    //       validateStatus: (status) {
-    //         return status < 500;
-    //       }),
-    // );
-    // Navigator.pop(context);
-    // showFlushBar("Statement downloaded successfully");
-    // //write in download folder
-    // File file = File(savePath);
-    // var raf = file.openSync(mode: FileMode.write);
-    // raf.writeFromSync(response.data);
-    // await raf.close();
   }
 
   void showFlushBar(String msg) {
@@ -305,11 +271,11 @@ class DownloadStatementController extends GetxController {
   }
 
   durationSelectedFunction(TransactionDuration? newValue) {
-      durationSelected = newValue!;
-      debugPrint("durationSelected?.value ==>${durationSelected?.id}");
-      durationValueSelected.value = durationSelected!.id;
-      debugPrint(durationSelected!.id);
-      if (durationSelected!.id == 'custom_date') {
+      durationSelected.value = newValue!;
+      debugPrint("durationSelected?.value ==>${durationSelected.value!.id}");
+      durationValueSelected.value = durationSelected.value!.id;
+      debugPrint(durationSelected.value!.id);
+      if (durationSelected.value!.id == 'custom_date') {
         isCustomDateVisible.value = !isCustomDateVisible.value;
       } else {
         isCustomDateVisible.value = false;
