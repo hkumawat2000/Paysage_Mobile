@@ -51,7 +51,7 @@ class KycController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    consentTextApi();
     super.onInit();
   }
 

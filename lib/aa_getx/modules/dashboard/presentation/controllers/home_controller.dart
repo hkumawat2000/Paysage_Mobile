@@ -1051,6 +1051,7 @@ class HomeController extends GetxController{
   void goToCompleteKYCScreen() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
+        Get.toNamed(kycView);
         ///todo: uncomment below code after CompleteKYCScreen is developed
         // Navigator.push(
         //     context,
