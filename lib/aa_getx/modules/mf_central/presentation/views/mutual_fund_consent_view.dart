@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
+import 'package:lms/aa_getx/modules/mf_central/presentation/views/mutual_fund_otp_view.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/utils/common_widgets.dart';
@@ -91,7 +92,13 @@ class MutualFundConsentView extends GetView<MutualFundConsentView>{
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                             minWidth: MediaQuery.of(context).size.width,
                             onPressed: () {
-
+                              Get.bottomSheet(
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                isDismissible: false,
+                                isScrollControlled: true,
+                                MutualFundOtpView(),
+                              );
                             },
                             child: Text(
                               Strings.yes,
