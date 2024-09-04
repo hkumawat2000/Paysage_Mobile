@@ -20,6 +20,7 @@ class MutualFundOtpView extends GetView<MutualFundOtpController>{
       },
       child: Scaffold(
         // key: otpVerificationController.scaffoldKey,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         bottomNavigationBar: AnimatedPadding(
           duration: Duration(milliseconds: 150),
@@ -69,7 +70,7 @@ class MutualFundOtpView extends GetView<MutualFundOtpController>{
                     Container(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: PinCodeTextField(
-                        controller: controller.otpTextController,
+                        controller: controller.mfOtpTextController,
                         cursorColor: appTheme,
                         appContext: context,
                         textStyle: TextStyle(
@@ -177,7 +178,7 @@ class MutualFundOtpView extends GetView<MutualFundOtpController>{
                                 onTap: () async {
                                   Utility.isNetworkConnection().then((isNetwork) {
                                     if (isNetwork) {
-                                      controller.otpTextController.clear();
+                                      controller.mfOtpTextController.clear();
                                     } else {
                                       Utility.showToastMessage(Strings.no_internet_message);
                                     }
