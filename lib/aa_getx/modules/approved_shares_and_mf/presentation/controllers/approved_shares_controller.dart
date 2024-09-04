@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 
@@ -99,6 +100,14 @@ class ApprovedSharesController extends GetxController {
         //         builder: (BuildContext context) =>
         //             AdditionalAccountDetailScreen(3, "", "", "")));
       }
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
+  }
+
+  Future<void> onMfCentralClick() async {
+    if (await connectionInfo.isConnected) {
+      Get.toNamed(mutualFundConsentView);
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }

@@ -499,6 +499,7 @@ class Strings {
       'Select your preferred type of security to pledge';
   static const String shares = 'Shares';
   static const String mutual_fund = 'Mutual Fund';
+  static const String mf_central_mutual_fund = 'MF Central';
   static const String click_here = 'Click here';
   static const String approved_text =
       '\t to check our list of approved shares and Mutual fund schemes';
