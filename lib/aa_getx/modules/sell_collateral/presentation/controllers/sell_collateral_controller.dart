@@ -23,7 +23,6 @@ class SellCollateralController extends GetxController{
 
 
   Preferences? preferences;
-  MyLoansBloc myLoansBloc = MyLoansBloc();
   SellCollateralBloc sellCollateralBloc = SellCollateralBloc();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<TextEditingController> qtyControllers = [];
