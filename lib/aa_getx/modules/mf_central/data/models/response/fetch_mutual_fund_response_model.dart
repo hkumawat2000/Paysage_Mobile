@@ -1,4 +1,4 @@
-import 'package:lms/aa_getx/modules/mf_central/domain/entities/fetch_mutual_fund_response_entity.dart';
+import 'package:lms/aa_getx/modules/mf_central/domain/entities/response/fetch_mutual_fund_response_entity.dart';
 
 class FetchMutualFundResponseModel {
   String? message;

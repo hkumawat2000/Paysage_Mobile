@@ -1,4 +1,4 @@
-import 'package:lms/aa_getx/modules/mf_central/domain/entities/mf_send_otp_response_entity.dart';
+import 'package:lms/aa_getx/modules/mf_central/domain/entities/response/mf_send_otp_response_entity.dart';
 
 class MutualFundSendOtpResponseModel {
   String? message;
