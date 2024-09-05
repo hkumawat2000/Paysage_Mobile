@@ -7,10 +7,15 @@ import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
+import 'package:lms/aa_getx/modules/mf_central/domain/entities/response/mf_send_otp_response_entity.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/controllers/mutual_fund_otp_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class MutualFundOtpView extends GetView<MutualFundOtpController>{
+
+  MutualFundSendOtpDataEntity mutualFundSendOtpDataEntity;
+
+  MutualFundOtpView(this.mutualFundSendOtpDataEntity);
 
   @override
   Widget build(BuildContext context) {
@@ -100,13 +105,7 @@ class MutualFundOtpView extends GetView<MutualFundOtpController>{
                           controller.otpValue = otp;
                           if (controller.otpValue!.length >= 6) {
                             controller.isSubmitBtnClickable = true.obs;
-                            Utility.isNetworkConnection().then((isNetwork) {
-                              if (isNetwork) {
-
-                              } else {
-                                Utility.showToastMessage(Strings.no_internet_message);
-                              }
-                            });
+                            controller.submitOTP(mutualFundSendOtpDataEntity);
                           } else {
                             controller.isSubmitBtnClickable = false.obs;
                           }
@@ -146,15 +145,7 @@ class MutualFundOtpView extends GetView<MutualFundOtpController>{
                               child: MaterialButton(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                                 minWidth: MediaQuery.of(context).size.width,
-                                onPressed: () async {
-                                  Utility.isNetworkConnection().then((isNetwork) {
-                                    if (isNetwork) {
-
-                                    } else {
-                                      Utility.showToastMessage(Strings.no_internet_message);
-                                    }
-                                  });
-                                },
+                                onPressed: () => controller.submitOTP(mutualFundSendOtpDataEntity),
                                 child: Text(Strings.submit,
                                     style: buttonTextWhite),
                               ),

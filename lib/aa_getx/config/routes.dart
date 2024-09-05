@@ -32,6 +32,7 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/offline_customer_
 import 'package:lms/aa_getx/modules/login/presentation/screens/otp_verify_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/pin_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditions_webview.dart';
+import 'package:lms/aa_getx/modules/mf_central/domain/entities/response/mf_send_otp_response_entity.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/bindings/fetch_mutual_fund_binding.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/bindings/mutual_fund_consent_binding.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/bindings/mutual_fund_otp_binding.dart';
@@ -319,7 +320,7 @@ List<GetPage> routes = [
   ),
   GetPage(
     name: '/$mutualFundOtpView',
-    page: () => MutualFundOtpView(),
+    page: () => MutualFundOtpView(MutualFundSendOtpDataEntity()),
     binding: MutualFundOtpBinding(),
   ),
 ];

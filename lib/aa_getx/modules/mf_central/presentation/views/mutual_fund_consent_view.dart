@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
+import 'package:lms/aa_getx/modules/mf_central/presentation/controllers/mutual_fund_consent_controller.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/views/mutual_fund_otp_view.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/utils/common_widgets.dart';
 import '../../../../core/utils/style.dart';
 
-class MutualFundConsentView extends GetView<MutualFundConsentView>{
+class MutualFundConsentView extends GetView<MutualFundConsentController>{
 
   @override
   Widget build(BuildContext context) {
@@ -91,15 +92,7 @@ class MutualFundConsentView extends GetView<MutualFundConsentView>{
                           child: MaterialButton(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                             minWidth: MediaQuery.of(context).size.width,
-                            onPressed: () {
-                              Get.bottomSheet(
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                isDismissible: false,
-                                isScrollControlled: true,
-                                MutualFundOtpView(),
-                              );
-                            },
+                            onPressed: () => controller.getMfCentralOTP(),
                             child: Text(
                               Strings.yes,
                               style: buttonTextWhite,
