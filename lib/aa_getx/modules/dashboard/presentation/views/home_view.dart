@@ -2308,7 +2308,7 @@ class HomeView extends GetView<HomeController> {
                         SizedBox(height: 10),
                         Container(
                           height: 32,
-                          width: 113,
+                          width: 115,
                           child: Material(
                             color: appTheme,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

@@ -2,24 +2,20 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
-import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_otp_controller.dart';
-import 'package:lms/aa_getx/modules/cibil/presentation/controllers/cibil_result_controller.dart';
+import 'package:lms/aa_getx/modules/mf_central/domain/entities/response/mf_send_otp_response_entity.dart';
+import 'package:lms/aa_getx/modules/mf_central/presentation/controllers/mutual_fund_otp_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class CibilOtpView extends GetView<CibilOtpController>{
+class MutualFundOtpView extends GetView<MutualFundOtpController>{
 
-  String? hitId;
-  String? cibilScore;
-  String? stdOneID;
-  String? stdTwoID;
+  MutualFundSendOtpDataEntity mutualFundSendOtpDataEntity;
 
-  CibilOtpView(this.hitId, this.cibilScore, this.stdOneID, this.stdTwoID);
+  MutualFundOtpView(this.mutualFundSendOtpDataEntity);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +43,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                   height: 40,
                 ),
                 Text(
-                  Strings.cibil_otp_verification,
+                  Strings.mf_otp_verification,
                   style: TextStyle(
                       color: appTheme,
                       fontSize: 22,
@@ -56,7 +52,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                 SizedBox(
                   height: 16,
                 ),
-                Text("${Strings.cibil_enter_otp}",
+                Text(Strings.mf_enter_otp,
                   style: TextStyle(
                     color: colorLightGray,
                     fontSize: 16,
@@ -69,7 +65,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                 Container(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: PinCodeTextField(
-                    controller: controller.otpTextController,
+                    controller: controller.mfOtpTextController,
                     cursorColor: appTheme,
                     appContext: context,
                     textStyle: TextStyle(
@@ -99,16 +95,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                       controller.otpValue = otp;
                       if (controller.otpValue!.length >= 6) {
                         controller.isSubmitBtnClickable = true.obs;
-                        Utility.isNetworkConnection().then((isNetwork) {
-                          if (isNetwork) {
-                            controller.otpVerify(
-                              stdOneID!,
-                              stdTwoID!,
-                            );
-                          } else {
-                            Utility.showToastMessage(Strings.no_internet_message);
-                          }
-                        });
+                        controller.submitOTP(mutualFundSendOtpDataEntity);
                       } else {
                         controller.isSubmitBtnClickable = false.obs;
                       }
@@ -148,18 +135,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                           child: MaterialButton(
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
                             minWidth: MediaQuery.of(context).size.width,
-                            onPressed: () async {
-                              Utility.isNetworkConnection().then((isNetwork) {
-                                if (isNetwork) {
-                                  controller.otpVerify(
-                                    stdOneID!,
-                                    stdTwoID!,
-                                  );
-                                } else {
-                                  Utility.showToastMessage(Strings.no_internet_message);
-                                }
-                              });
-                            },
+                            onPressed: () => controller.submitOTP(mutualFundSendOtpDataEntity),
                             child: Text(Strings.submit,
                                 style: buttonTextWhite),
                           ),
@@ -183,19 +159,7 @@ class CibilOtpView extends GetView<CibilOtpController>{
                           onTap: () async {
                             Utility.isNetworkConnection().then((isNetwork) {
                               if (isNetwork) {
-                                controller.otpTextController.clear();
-                                // listenForCode();
-                                // var user = widget.loginSubmitResquestEntity.mobileNumber;
-                                // if (user != null) {
-                                //   // controller.login(
-                                //   //   widget.loginSubmitResquestEntity.mobileNumber,
-                                //   //   widget.loginSubmitResquestEntity.firebase_token,
-                                //   //   widget.loginSubmitResquestEntity.platform,
-                                //   //   widget.loginSubmitResquestEntity.appVersion,
-                                //   //   Strings.four_digit_enter_otp + " " + user,
-                                //   //   widget.loginSubmitResquestEntity.acceptTerms,
-                                //   // );
-                                // }
+                                controller.mfOtpTextController.clear();
                               } else {
                                 Utility.showToastMessage(Strings.no_internet_message);
                               }

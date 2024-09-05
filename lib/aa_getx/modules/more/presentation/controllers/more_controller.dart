@@ -360,9 +360,7 @@ class MoreController extends GetxController{
         parameter[Strings.email] = userEmail;
         parameter[Strings.date_time] = getCurrentDateAndTime();
         firebaseEvent(Strings.new_loan_click, parameter);
-        ///todo: change following code after ApprovedSharesScreen screen completed
-        // Navigator.push(context, MaterialPageRoute(
-        //     builder: (BuildContext context) => ApprovedSharesScreen()));
+        Get.toNamed(approvedSharesView);
       } else {
         Utility.showToastMessage(
             Strings.no_internet_message);

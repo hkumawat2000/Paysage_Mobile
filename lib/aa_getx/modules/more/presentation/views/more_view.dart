@@ -206,7 +206,7 @@ class MoreView extends GetView<MoreController> {
                       : SizedBox(),
                   controller.isKYCCompleted.value
                       ? controller.isEmailVerified.value
-                      ? controller.canPledge == 1
+                      // ? controller.canPledge == 1
                       ? GestureDetector(
                     onTap: ()=> controller.pledgeClicked(),
                     child: ReusableMoreIconTileCard(
@@ -214,7 +214,7 @@ class MoreView extends GetView<MoreController> {
                       tileText: Strings.pledge,
                     ),
                   )
-                      : SizedBox()
+                      // : SizedBox()
                       : SizedBox()
                       : SizedBox(),
                   // SizedBox(height: 15),
