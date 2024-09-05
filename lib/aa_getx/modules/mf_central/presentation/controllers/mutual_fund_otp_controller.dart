@@ -56,7 +56,8 @@ class MutualFundOtpController extends GetxController {
       if (response is DataSuccess) {
         List<FetchMutualFundResponseDataEntity> fetchMutualFundResponseData
         = response.data!.fetchMutualFundResponseData!;
-      Get.offNamed(fetchMutualFundView, arguments: fetchMutualFundResponseData);
+        Get.back();
+        Get.offNamed(fetchMutualFundView, arguments: fetchMutualFundResponseData);
       } else if (response is DataFailed) {
         Utility.showToastMessage(response.error!.message);
       }
