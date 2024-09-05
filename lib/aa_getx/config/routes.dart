@@ -66,6 +66,8 @@ import 'package:lms/aa_getx/modules/registration/presentation/views/offline_cust
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/bindings/sell_collateral_binding.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 
 
@@ -109,6 +111,7 @@ const String cibilView = "cibil-view";
 const String cibilResultView = "cibil-result-view";
 const String cibilOtpView = "cibil-otp-view";
 const String myPledgedTransactionsView = "my-pledged-transactions-view";
+const String sellCollateralView = "sell-collateral-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -297,5 +300,10 @@ List<GetPage> routes = [
     name: '/$approvedSharesView',
     page: () => ApprovedSharesView(),
     binding: ApprovedSharesAndMfBindings(),
+  ),
+  GetPage(
+    name: '/$sellCollateralView',
+    page: () => SellCollateralView(),
+    binding: SellCollateralBinding(),
   ),
 ];

@@ -11,44 +11,46 @@ import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
+import 'package:lms/aa_getx/modules/my_loan/domain/entities/common_response_entities.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/domain/entities/request/sell_collateral_request_entity.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/domain/usecases/request_sell_collateral_otp_usecase.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
-import 'package:lms/my_loan/MyLoansBloc.dart';
-import 'package:lms/sell_collateral/SellCollateralBloc.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_view.dart';
 
 class SellCollateralController extends GetxController{
   final ConnectionInfo _connectionInfo;
   final GetLoanDetailsUseCase _getLoanDetailsUseCase;
+  final RequestSellCollateralOtpUseCase _requestSellCollateralOtpUseCase;
 
-  SellCollateralController(this._connectionInfo, this._getLoanDetailsUseCase);
+  SellCollateralController(this._connectionInfo, this._getLoanDetailsUseCase, this._requestSellCollateralOtpUseCase);
 
 
-  Preferences? preferences;
-  SellCollateralBloc sellCollateralBloc = SellCollateralBloc();
+  Preferences preferences = Preferences();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<TextEditingController> qtyControllers = [];
   List<FocusNode> focusNode = [];
-  bool checkBoxValue = false;
+  RxBool checkBoxValue = false.obs;
   RxBool isMarginShortFall = false.obs;
   RxBool isAPIRespond = false.obs;
   RxList<ItemsEntity> myPledgedSecurityList = <ItemsEntity>[].obs;
   RxList<ItemsEntity> actualMyCartList = <ItemsEntity>[].obs;
-  List<int> actualQtyList = [];
-  List<bool> isAddBtnShow = [];
+  RxList<int> actualQtyList = <int>[].obs;
+  RxList<bool> isAddBtnShow = <bool>[].obs;
   Rx<LoanEntity> loanData = LoanEntity().obs;
   RxDouble vlMarginShortFall = 0.0.obs, vlDesiredValue = 0.0.obs;
   RxDouble totalValue = 0.0.obs;
   RxDouble totalCollateral = 0.0.obs;
   RxString marginShortfallName = "".obs;
   Widget appBarTitle = new Text("", style: new TextStyle(color: Colors.white));
-  Icon actionIcon = new Icon(Icons.search, color: appTheme, size: 25);
+  Rx<Icon> actionIcon = new Icon(Icons.search, color: appTheme, size: 25).obs;
   TextEditingController _textController = TextEditingController();
   FocusNode focusNodes = FocusNode();
-  double? selectedSecurityEligibility = 0;
+  RxDouble selectedSecurityEligibility = 0.0.obs;
   RxDouble actualDrawingPower = 0.0.obs;
   SellCollateralArguments sellCollateralArguments = Get.arguments;
 
   @override
-  void OnInit() {
+  void onInit() {
     appBarTitle = Text(sellCollateralArguments.loanNo, style: TextStyle(color: appTheme));
     preferences = Preferences();
     getLoanData();
@@ -70,7 +72,7 @@ class SellCollateralController extends GetxController{
 
       if (loanDetailsResponse is DataSuccess) {
         if (loanDetailsResponse.data!.data!.loan != null) {
-          setState(() {
+         // setState(() {
             isAPIRespond.value = true;
             loanData.value = loanDetailsResponse.data!.data!.loan!;
             totalCollateral.value = loanDetailsResponse.data!.data!.loan!.totalCollateralValue!;
@@ -106,7 +108,7 @@ class SellCollateralController extends GetxController{
             }
             sellCalculationHandling();
             isAPIRespond.value = true;
-          });
+         // });
         }  else {
           commonDialog(Strings.something_went_wrong_try, 0);
         }
@@ -123,65 +125,65 @@ class SellCollateralController extends GetxController{
   }
 
   void sellCalculationHandling(){
-    setState(() {
+   // setState(() {
       if(!isAddBtnShow.contains(true)){
-        checkBoxValue = true;
+        checkBoxValue.value = true;
       } else {
-        checkBoxValue = false;
+        checkBoxValue.value = false;
       }
       totalValue.value = 0;
-      selectedSecurityEligibility = 0;
+      selectedSecurityEligibility.value = 0;
       for(int i=0; i<actualMyCartList.length ; i++){
         if(!isAddBtnShow[i] && qtyControllers[i].text.isNotEmpty){
           totalValue.value += actualMyCartList[i].price! * double.parse(qtyControllers[i].text.toString());
-          selectedSecurityEligibility = selectedSecurityEligibility! + (actualMyCartList[i].price! * double.parse(qtyControllers[i].text.toString()) * actualMyCartList[i].eligiblePercentage! / 100);
+          selectedSecurityEligibility.value = selectedSecurityEligibility.value + (actualMyCartList[i].price! * double.parse(qtyControllers[i].text.toString()) * actualMyCartList[i].eligiblePercentage! / 100);
         }
       }
-    });
+   // });
   }
 
   void searchResults(String query) {
-    List<Items> dummySearchList = [];
+    List<ItemsEntity> dummySearchList = [];
     dummySearchList.addAll(actualMyCartList);
     if (query.isNotEmpty) {
-      List<Items> dummyListData = <Items>[];
+      List<ItemsEntity> dummyListData = <ItemsEntity>[];
       dummySearchList.forEach((item) {
         if (item.securityName!.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
         }
       });
-      setState(() {
+     // setState(() {
         myPledgedSecurityList.clear();
         myPledgedSecurityList.addAll(dummyListData);
-      });
+      //});
     } else {
-      setState(() {
+      //setState(() {
         myPledgedSecurityList.clear();
         myPledgedSecurityList.addAll(actualMyCartList);
-      });
+      //});
     }
   }
 
   void _handleSearchEnd() {
-    setState(() {
+    //setState(() {
       focusNodes.unfocus();
-      this.actionIcon = Icon(Icons.search, color: appTheme, size: 25);
+      this.actionIcon.value = Icon(Icons.search, color: appTheme, size: 25);
       this.appBarTitle = Text(sellCollateralArguments.loanNo,
         style: TextStyle(color: appTheme),
       );
       _textController.clear();
       myPledgedSecurityList.clear();
       myPledgedSecurityList.addAll(actualMyCartList);
-    });
+    //});
   }
 
   void alterCheckBox(value) {
-    setState(() {
+    //setState(() {
       totalValue.value = 0.0;
-      checkBoxValue = value;
-    });
+      checkBoxValue.value = value;
+    //});
     for (var index = 0; index < myPledgedSecurityList.length; index++) {
-      setState(() {
+      //setState(() {
         if (value) {
           isAddBtnShow[index] = false;
           myPledgedSecurityList[index].pledgedQuantity = actualQtyList[index].toDouble();
@@ -191,26 +193,59 @@ class SellCollateralController extends GetxController{
           qtyControllers[index].text= "0";
           myPledgedSecurityList[index].pledgedQuantity = double.parse(qtyControllers[index].text);
         }
-      });
+     // });
     }
     sellCalculationHandling();
   }
 
-  void requestSellCollateralOTP() async {
-    String? mobile = await preferences!.getMobile();
-    String email = await preferences!.getEmail();
-    showDialogLoading( Strings.please_wait);
-    List<SellList> sellList = [];
+  Future<void> requestSellCollateralOTP() async {
+    String? mobile = await preferences.getMobile();
+    String email = await preferences.getEmail();
+    List<SellListEntity> sellList = [];
     for (int i = 0; i < myPledgedSecurityList.length; i++) {
       if (myPledgedSecurityList[i].pledgedQuantity != 0.0 && !isAddBtnShow[i]) {
-        sellList.add(new SellList(
+        sellList.add(new SellListEntity(
             isin: myPledgedSecurityList[i].isin,
             quantity: double.parse(myPledgedSecurityList[i].pledgedQuantity.toString()),
             psn : myPledgedSecurityList[i].psn));
       }
     }
-    sellCollateralBloc.requestSellCollateralOTP().then((value) {
-      Navigator.pop(context);
+
+    if (await _connectionInfo.isConnected) {
+    showDialogLoading( Strings.please_wait);
+    DataState<CommonResponseEntity> response = await _requestSellCollateralOtpUseCase.call();
+    Get.back();
+      if (response is DataSuccess) {
+        if(response.data != null){
+          Utility.showToastMessage(Strings.enter_otp);
+          // Firebase Event
+          Map<String, dynamic> parameter = new Map<String, dynamic>();
+          parameter[Strings.mobile_no] = mobile;
+          parameter[Strings.email] = email;
+          parameter[Strings.loan_number] = sellCollateralArguments.loanNo;
+          parameter[Strings.is_for_margin_shortfall] = isMarginShortFall.value ? "True" : "False";
+          parameter[Strings.date_time] = getCurrentDateAndTime();
+          firebaseEvent(Strings.sell_otp_sent, parameter);
+
+          ///ToDo: uncomment following code after SellCollateralOTPScreen is developed
+          // Get.bottomSheet(
+          //   backgroundColor: Colors.transparent,
+          //   isScrollControlled: true,
+          //   SellCollateralOTPScreen(sellCollateralArguments.loanNo, sellList, marginShortfallName, Strings.shares),
+          // );
+        }
+      } else if (response is DataFailed) {
+        if (response.error!.statusCode == 403) {
+          commonDialog(Strings.session_timeout, 4);
+        } else {
+          Utility.showToastMessage(response.error!.message);
+        }
+      }
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
+    /*sellCollateralBloc.requestSellCollateralOTP().then((value) {
+      Get.back();
       if (value.isSuccessFull!) {
         Utility.showToastMessage(Strings.enter_otp);
         // Firebase Event
@@ -218,30 +253,28 @@ class SellCollateralController extends GetxController{
         parameter[Strings.mobile_no] = mobile;
         parameter[Strings.email] = email;
         parameter[Strings.loan_number] = sellCollateralArguments.loanNo;
-        parameter[Strings.is_for_margin_shortfall] = isMarginShortFall ? "True" : "False";
+        parameter[Strings.is_for_margin_shortfall] = isMarginShortFall.value ? "True" : "False";
         parameter[Strings.date_time] = getCurrentDateAndTime();
         firebaseEvent(Strings.sell_otp_sent, parameter);
 
-        showModalBottomSheet(
-          backgroundColor: Colors.transparent,
-          context: context,
-          isScrollControlled: true,
-          builder: (BuildContext bc) {
-            return SellCollateralOTPScreen(sellCollateralArguments.loanNo, sellList, marginShortfallName, Strings.shares);
-          },
-        );
+        ///ToDo: uncomment following code after SellCollateralOTPScreen is developed
+        // Get.bottomSheet(
+        //   backgroundColor: Colors.transparent,
+        //   isScrollControlled: true,
+        //   SellCollateralOTPScreen(sellCollateralArguments.loanNo, sellList, marginShortfallName, Strings.shares),
+        // );
       } else if(value.errorCode == 403) {
         commonDialog(Strings.session_timeout, 4);
       } else {
         Utility.showToastMessage(value.errorMessage!);
       }
-    });
+    });*/
   }
 
   void actionIconClicked() {
-    setState(() {
-      if (this.actionIcon.icon == Icons.search) {
-        this.actionIcon = new Icon(
+   // setState(() {
+      if (this.actionIcon.value.icon == Icons.search) {
+        this.actionIcon.value = new Icon(
           Icons.close,
           color: appTheme,
           size: 25,
@@ -269,19 +302,128 @@ class SellCollateralController extends GetxController{
       } else {
         _handleSearchEnd();
       }
-    });
+   // });
   }
 
   addButtonClicked(int actualIndex, int index) {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        setState(() {
+        //setState(() {
           Get.focusScope?.unfocus();
           isAddBtnShow[actualIndex] = false;
           qtyControllers[actualIndex].text = "1";
           myPledgedSecurityList[index].pledgedQuantity = 1.0;
           sellCalculationHandling();
-        });
+        //});
+      } else {
+        Utility.showToastMessage(Strings.no_internet_message);
+      }
+    });
+  }
+
+  Future<void> continueClicked()  async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        Get.back();
+        requestSellCollateralOTP();
+      } else {
+        showSnackBar(scaffoldKey);
+      }
+    });
+  }
+
+  submitClicked() async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        _handleSearchEnd();
+        SellCollateralController controller = SellCollateralController(_connectionInfo, _getLoanDetailsUseCase, _requestSellCollateralOtpUseCase);
+        sellCollateralDialogBox(controller);
+      } else {
+        showSnackBar(scaffoldKey);
+      }
+    });
+  }
+
+  addClicked(int actualIndex, int index)  async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        Get.focusScope?.unfocus();
+        if(qtyControllers[actualIndex].text.isNotEmpty){
+          if (int.parse(qtyControllers[actualIndex].text) < actualQtyList[actualIndex]) {
+            int txt = int.parse(qtyControllers[actualIndex].text) + 1;
+            //setState(() {
+              qtyControllers[actualIndex].text = txt.toString();
+              myPledgedSecurityList[index].pledgedQuantity = txt.toDouble();
+            //});
+          } else {
+            Utility.showToastMessage(Strings.check_quantity);
+          }
+        }
+        sellCalculationHandling();
+      } else {
+        Utility.showToastMessage(Strings.no_internet_message);
+      }
+    });
+  }
+
+  textFieldOnChanged(int actualIndex, int index) {
+    if (qtyControllers[actualIndex].text.isNotEmpty) {
+      if (qtyControllers[actualIndex].text != "0") {
+        if (int.parse(qtyControllers[actualIndex].text) < 1) {
+          Get.focusScope?.requestFocus(new FocusNode());
+          Utility.showToastMessage(Strings.zero_qty_validation);
+        } else if (double.parse(qtyControllers[actualIndex].text) > actualQtyList[actualIndex].toDouble()) {
+          Get.focusScope?.requestFocus(new FocusNode());
+          Utility.showToastMessage("${Strings.check_quantity}, This scrip has only ${actualQtyList[index]} quantity.");
+         // setState(() {
+            qtyControllers[actualIndex].text = myPledgedSecurityList[index].pledgedQuantity!.toInt().toString();
+            myPledgedSecurityList[index].pledgedQuantity = double.parse(qtyControllers[actualIndex].text);
+          //});
+        } else {
+          //setState(() {
+            myPledgedSecurityList[index].pledgedQuantity = double.parse(qtyControllers[actualIndex].text);
+         // });
+        }
+      } else {
+       // setState(() {
+          Get.focusScope?.requestFocus(new FocusNode());
+          qtyControllers[actualIndex].text = "0";
+          myPledgedSecurityList[index].pledgedQuantity = 0;
+          isAddBtnShow[actualIndex] = true;
+        //});
+      }
+    } else {
+      focusNode[actualIndex].addListener(() {
+        if(!focusNode[actualIndex].hasFocus){
+          if(qtyControllers[actualIndex].text.trim() == "" || qtyControllers[actualIndex].text.trim() == "0"){
+            isAddBtnShow[actualIndex] = true;
+            myPledgedSecurityList[index].pledgedQuantity = 0;
+            qtyControllers[actualIndex].text = "0";
+          }
+        }
+      });
+    }
+    sellCalculationHandling();
+  }
+
+  subtractClicked (int actualIndex, int index) async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        Get.focusScope?.unfocus();
+        //setState(() {
+          if(qtyControllers[actualIndex].text.isNotEmpty){
+            int txt = int.parse(qtyControllers[actualIndex].text) - 1;
+            if (txt != 0) {
+              qtyControllers[actualIndex].text = txt.toString();
+              myPledgedSecurityList[index].pledgedQuantity = txt.toDouble();
+            } else {
+              isAddBtnShow[actualIndex] = true;
+              qtyControllers[actualIndex].text = "0";
+              myPledgedSecurityList[index].pledgedQuantity = 0;
+            }
+          }
+          sellCalculationHandling();
+        //});
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }

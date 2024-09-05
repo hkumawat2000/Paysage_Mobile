@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
@@ -15,14 +14,17 @@ class SellCollateralView extends GetView<SellCollateralController> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: controller.scaffoldKey,
-        backgroundColor: colorBg,
-        resizeToAvoidBottomInset: false,
-        appBar: buildAppBar(context),
-        body: controller.isAPIRespond.value
-            ? sellCollateralBody()
-            : Center(child: Text(Strings.please_wait),
+      child: Obx(
+        () => Scaffold(
+          key: controller.scaffoldKey,
+          backgroundColor: colorBg,
+          resizeToAvoidBottomInset: false,
+          appBar: buildAppBar(context),
+          body: controller.isAPIRespond.value
+              ? sellCollateralBody()
+              : Center(
+                  child: Text(Strings.please_wait),
+                ),
         ),
       ),
     );
@@ -45,7 +47,7 @@ class SellCollateralView extends GetView<SellCollateralController> {
         Theme(
           data: theme.copyWith(primaryColor: Colors.white),
           child: new IconButton(
-            icon: controller.actionIcon,
+            icon: controller.actionIcon.value,
             onPressed: ()=> controller.actionIconClicked(),
           ),
         ),
@@ -90,9 +92,9 @@ class SellCollateralView extends GetView<SellCollateralController> {
                               controller.isMarginShortFall.value ? ReusableSellAmountText(
                                 sellText: 'Margin shortfall',
                                 loanType: controller.sellCollateralArguments.loanType,
-                                sellAmount: controller.vlMarginShortFall! < 0
-                                    ? negativeValue(controller.vlMarginShortFall!.value)
-                                    : '₹${numberToString(controller.vlMarginShortFall!.value.toStringAsFixed(2))}',
+                                sellAmount: controller.vlMarginShortFall < 0
+                                    ? negativeValue(controller.vlMarginShortFall.value)
+                                    : '₹${numberToString(controller.vlMarginShortFall.value.toStringAsFixed(2))}',
                                 sellAmountColor: red,
                                 iIcon: false,
                               ) : SizedBox(height: 0),
@@ -106,26 +108,26 @@ class SellCollateralView extends GetView<SellCollateralController> {
                               ),
                               controller.isMarginShortFall.value ?  ReusableSellAmountText(
                                 sellText: 'Minimum desired value',
-                                sellAmount: controller.vlDesiredValue! < 0
-                                    ? negativeValue(controller.vlDesiredValue!.value)
-                                    : '₹${numberToString(controller.vlDesiredValue!.toStringAsFixed(2))}',
+                                sellAmount: controller.vlDesiredValue < 0
+                                    ? negativeValue(controller.vlDesiredValue.value)
+                                    : '₹${numberToString(controller.vlDesiredValue.toStringAsFixed(2))}',
                                 sellAmountColor: red,
                                 iIcon: false,
                               ): SizedBox(height: 0),
                               ReusableSellAmountText(
                                 sellText: 'Remaining securities value',
-                                sellAmount: (controller.totalCollateral! - double.parse(controller.totalValue.toStringAsFixed(2))) < 0
-                                    ? negativeValue((controller.totalCollateral!.value - double.parse(controller.totalValue.toStringAsFixed(2))))
-                                    : '₹${numberToString((controller.totalCollateral! - double.parse(controller.totalValue.toStringAsFixed(2))).toStringAsFixed(2))}',
+                                sellAmount: (controller.totalCollateral.value - double.parse(controller.totalValue.value.toStringAsFixed(2))) < 0
+                                    ? negativeValue((controller.totalCollateral.value - double.parse(controller.totalValue.value.toStringAsFixed(2))))
+                                    : '₹${numberToString((controller.totalCollateral.value - double.parse(controller.totalValue.value.toStringAsFixed(2))).toStringAsFixed(2))}',
                                 sellAmountColor: colorDarkGray,
                                 iIcon: false,
                               ),
                               ReusableSellAmountText(
                                 sellText: 'Revised drawing power',
-                                sellAmount: (controller.actualDrawingPower - controller.selectedSecurityEligibility!) < 0
-                                    ? negativeValue((controller.actualDrawingPower.value - controller.selectedSecurityEligibility!))
-                                    : '₹${numberToString((controller.actualDrawingPower - controller.selectedSecurityEligibility!).toStringAsFixed(2))}',
-                                sellAmountColor: (controller.actualDrawingPower - controller.selectedSecurityEligibility!) < 0 ? colorGreen : colorDarkGray,
+                                sellAmount: (controller.actualDrawingPower.value - controller.selectedSecurityEligibility.value) < 0
+                                    ? negativeValue((controller.actualDrawingPower.value - controller.selectedSecurityEligibility.value))
+                                    : '₹${numberToString((controller.actualDrawingPower.value - controller.selectedSecurityEligibility.value).toStringAsFixed(2))}',
+                                sellAmountColor: (controller.actualDrawingPower.value - controller.selectedSecurityEligibility.value) < 0 ? colorGreen : colorDarkGray,
                                 iIcon: false,
                               ),
                               ReusableSellAmountText(
@@ -171,7 +173,7 @@ class SellCollateralView extends GetView<SellCollateralController> {
                       Get.focusScope?.unfocus();
                       controller.alterCheckBox(newValue);
                     },
-                    value: controller.checkBoxValue,
+                    value: controller.checkBoxValue.value,
                   ),
                 ],
               ),
@@ -209,8 +211,8 @@ class SellCollateralView extends GetView<SellCollateralController> {
           }
           controller.myPledgedSecurityList[index].pledgedQuantity = double.parse(sellQty);
           if(index == controller.myPledgedSecurityList.length){
-            setState(() {
-            });
+            // setState(() {
+            // });
           }
 
           return Container(
@@ -296,29 +298,7 @@ class SellCollateralView extends GetView<SellCollateralController> {
                                     size: 18,
                                   ),
                                 ),
-                                onPressed: () async {
-                                  Utility.isNetworkConnection().then((isNetwork) {
-                                    if (isNetwork) {
-                                      FocusScope.of(context).unfocus();
-                                      setState(() {
-                                        if(qtyControllers[actualIndex].text.isNotEmpty){
-                                          int txt = int.parse(qtyControllers[actualIndex].text) - 1;
-                                          if (txt != 0) {
-                                            qtyControllers[actualIndex].text = txt.toString();
-                                            myPledgedSecurityList[index].pledgedQuantity = txt.toDouble();
-                                          } else {
-                                            isAddBtnShow[actualIndex] = true;
-                                            qtyControllers[actualIndex].text = "0";
-                                            myPledgedSecurityList[index].pledgedQuantity = 0;
-                                          }
-                                        }
-                                        sellCalculationHandling();
-                                      });
-                                    } else {
-                                      Utility.showToastMessage(Strings.no_internet_message);
-                                    }
-                                  });
-                                },
+                                onPressed: ()=>controller.subtractClicked(actualIndex, index),
                               ),
                               Container(
                                 width: 60,
@@ -333,45 +313,7 @@ class SellCollateralView extends GetView<SellCollateralController> {
                                     FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                                   ],
                                   style: boldTextStyle_18,
-                                  onChanged: (value) {
-                                    if (qtyControllers[actualIndex].text.isNotEmpty) {
-                                      if (qtyControllers[actualIndex].text != "0") {
-                                        if (int.parse(qtyControllers[actualIndex].text) < 1) {
-                                          FocusScope.of(context).requestFocus(new FocusNode());
-                                          Utility.showToastMessage(Strings.zero_qty_validation);
-                                        } else if (double.parse(qtyControllers[actualIndex].text) > actualQtyList[actualIndex].toDouble()) {
-                                          FocusScope.of(context).requestFocus(new FocusNode());
-                                          Utility.showToastMessage("${Strings.check_quantity}, This scrip has only ${actualQtyList[index]} quantity.");
-                                          setState(() {
-                                            qtyControllers[actualIndex].text = myPledgedSecurityList[index].pledgedQuantity!.toInt().toString();
-                                            myPledgedSecurityList[index].pledgedQuantity = double.parse(qtyControllers[actualIndex].text);
-                                          });
-                                        } else {
-                                          setState(() {
-                                            myPledgedSecurityList[index].pledgedQuantity = double.parse(qtyControllers[actualIndex].text);
-                                          });
-                                        }
-                                      } else {
-                                        setState(() {
-                                          FocusScope.of(context).requestFocus(new FocusNode());
-                                          qtyControllers[actualIndex].text = "0";
-                                          myPledgedSecurityList[index].pledgedQuantity = 0;
-                                          isAddBtnShow[actualIndex] = true;
-                                        });
-                                      }
-                                    } else {
-                                      focusNode[actualIndex].addListener(() {
-                                        if(!focusNode[actualIndex].hasFocus){
-                                          if(qtyControllers[actualIndex].text.trim() == "" || qtyControllers[actualIndex].text.trim() == "0"){
-                                            isAddBtnShow[actualIndex] = true;
-                                            myPledgedSecurityList[index].pledgedQuantity = 0;
-                                            qtyControllers[actualIndex].text = "0";
-                                          }
-                                        }
-                                      });
-                                    }
-                                    sellCalculationHandling();
-                                  },
+                                  onChanged: (value)=>controller.textFieldOnChanged(actualIndex,index),
                                 ),
                               ),
                               IconButton(
@@ -387,27 +329,7 @@ class SellCollateralView extends GetView<SellCollateralController> {
                                     size: 18,
                                   ),
                                 ),
-                                onPressed: () async {
-                                  Utility.isNetworkConnection().then((isNetwork) {
-                                    if (isNetwork) {
-                                      FocusScope.of(context).unfocus();
-                                      if(qtyControllers[actualIndex].text.isNotEmpty){
-                                        if (int.parse(qtyControllers[actualIndex].text) < actualQtyList[actualIndex]) {
-                                          int txt = int.parse(qtyControllers[actualIndex].text) + 1;
-                                          setState(() {
-                                            qtyControllers[actualIndex].text = txt.toString();
-                                            myPledgedSecurityList[index].pledgedQuantity = txt.toDouble();
-                                          });
-                                        } else {
-                                          Utility.showToastMessage(Strings.check_quantity);
-                                        }
-                                      }
-                                      sellCalculationHandling();
-                                    } else {
-                                      Utility.showToastMessage(Strings.no_internet_message);
-                                    }
-                                  });
-                                },
+                                onPressed: ()=>controller.addClicked(actualIndex,index),
                               ),
                             ],
                           ),
@@ -498,17 +420,8 @@ class SellCollateralView extends GetView<SellCollateralController> {
                       absorbing: controller.totalValue <= 0 ? true : false,
                       child: MaterialButton(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                        minWidth: MediaQuery.of(context).size.width,
-                        onPressed: () async {
-                          Utility.isNetworkConnection().then((isNetwork) {
-                            if (isNetwork) {
-                              _handleSearchEnd();
-                              sellCollateralDialogBox(context);
-                            } else {
-                              showSnackBar(_scaffoldKey);
-                            }
-                          });
-                        },
+                        minWidth: Get.mediaQuery.size.width,
+                        onPressed: ()=>controller.submitClicked(),
                         child: Text(Strings.submit, style: buttonTextWhite),
                       ),
                     ),
@@ -522,75 +435,63 @@ class SellCollateralView extends GetView<SellCollateralController> {
     );
   }
 
-  sellCollateralDialogBox(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
-          content: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    GestureDetector(
-                      child: Icon(
-                        Icons.cancel,
-                        color: colorLightGray,
-                        size: 20,
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+
+}
+
+sellCollateralDialogBox(SellCollateralController controller) {
+  return Get.dialog(
+   AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        content: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  GestureDetector(
+                    child: Icon(
+                      Icons.cancel,
+                      color: colorLightGray,
+                      size: 20,
                     ),
-                  ],
-                ) ,
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Text(controller.sellCollateralArguments.loanType == Strings.shares ? Strings.sell_collateral_confirmation : Strings.invoke_confirmation, style: regularTextStyle_16_dark),
-                  ), //
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 45,
-                  width: 120,
-                  child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                    elevation: 1.0,
-                    color: appTheme,
-                    child: MaterialButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                      minWidth: MediaQuery.of(context).size.width,
-                      onPressed: () async {
-                        Utility.isNetworkConnection().then((isNetwork) {
-                          if (isNetwork) {
-                            Navigator.pop(context);
-                            requestSellCollateralOTP();
-                          } else {
-                            showSnackBar(_scaffoldKey);
-                          }
-                        });
-                      },
-                      child: Text('CONTINUE', style: buttonTextWhite),
-                    ),
+                    onTap: ()=> Get.back(),
                   ),
-                )
-              ],
-            ),
+                ],
+              ) ,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: new Text(controller.sellCollateralArguments.loanType == Strings.shares ? Strings.sell_collateral_confirmation : Strings.invoke_confirmation, style: regularTextStyle_16_dark),
+                ), //
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 45,
+                width: 120,
+                child: Material(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                  elevation: 1.0,
+                  color: appTheme,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    minWidth: Get.mediaQuery.size.width,
+                    onPressed: ()=> controller.continueClicked(),
+                    child: Text('CONTINUE', style: buttonTextWhite),
+                  ),
+                ),
+              )
+            ],
           ),
-        );
-      },
-    );
-  }
+        ),
+      ),
+  );
 }
 
 class ReusableSellAmountText extends StatelessWidget {

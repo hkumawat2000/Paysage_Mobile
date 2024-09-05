@@ -7,7 +7,7 @@ import 'package:lms/aa_getx/modules/my_loan/domain/entities/common_response_enti
 import 'package:lms/aa_getx/modules/sell_collateral/data/data_sources/sell_collateral_data_source.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/domain/repositories/sell_collateral_repository.dart';
 
-abstract class SellCollateralRepositoryImpl extends SellCollateralRepository{
+class SellCollateralRepositoryImpl extends SellCollateralRepository{
   final SellCollateralDatasource sellCollateralDatasource;
   SellCollateralRepositoryImpl(this.sellCollateralDatasource);
 

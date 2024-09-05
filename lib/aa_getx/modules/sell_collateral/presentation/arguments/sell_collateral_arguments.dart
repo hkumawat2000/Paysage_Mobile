@@ -4,5 +4,5 @@ class SellCollateralArguments {
   String isin;
   String loanType;
 
-  SellCollateralArguments(this.loanNo, this.isComingFor, this.isin, this.loanType);
+  SellCollateralArguments({required this.loanNo, required this.isComingFor, required this.isin, required this.loanType});
 }
