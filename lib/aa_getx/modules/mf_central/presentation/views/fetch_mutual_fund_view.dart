@@ -10,7 +10,63 @@ class FetchMutualFundView extends GetView<FetchMutualFundController>{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorBg,
-      body: Text("Hello"),
+      appBar: AppBar(backgroundColor: colorBg),
+      body: ListView.builder(
+        shrinkWrap: true,
+        itemCount: controller.fetchMutualFundResponseData.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Text("Mutual Funds",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20
+                ),
+              ),
+              Card(
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                color: colorWhite,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${index + 1}) ${controller.fetchMutualFundResponseData[index].schemeName} [${controller.fetchMutualFundResponseData[index].isin}]",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16
+                        ),
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Broker Name : ${controller.fetchMutualFundResponseData[index].brokerName}"),
+                                Text("Asset Type : ${controller.fetchMutualFundResponseData[index].assetType}"),
+                                Text("Nav : ${controller.fetchMutualFundResponseData[index].nav}"),
+                                Text("Units : ${controller.fetchMutualFundResponseData[index].closingBalance}"),
+                                Text("Value : ${controller.fetchMutualFundResponseData[index].marketValue}"),
+                              ],
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: colorRed,
+                            minRadius: 32,
+                            child: Text("G"),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
