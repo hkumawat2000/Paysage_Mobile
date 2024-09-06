@@ -65,7 +65,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 children: <Widget>[
                   controller.transactionsList != null
                       ? scripsNameText(
-                          controller.transactionsList.length !=
+                          controller.transactionsList!.length !=
                                   0
                               ? Strings.recent_transactions
                               : "")
@@ -922,10 +922,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: controller.transactionsList.length,
+      itemCount: controller.transactionsList!.length,
       itemBuilder: (context, index) {
         return recentTransactionItem(
-            controller.transactionsList, index);
+            controller.transactionsList!, index);
       },
     );
   }

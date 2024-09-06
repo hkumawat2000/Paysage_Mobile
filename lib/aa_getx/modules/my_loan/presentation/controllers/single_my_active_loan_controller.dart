@@ -65,7 +65,7 @@ class SingleMyActiveLoanController extends GetxController {
   RxString loanType = "".obs;
   RxString schemeType = "".obs;
   var minimumCashAmount;
-  var transactionsList;
+  List<TransactionsEntity>? transactionsList;
 
   @override
   void onInit() {
