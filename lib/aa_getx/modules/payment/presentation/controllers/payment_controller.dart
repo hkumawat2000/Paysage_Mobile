@@ -35,9 +35,9 @@ class PaymentController extends GetxController {
 
   Razorpay? _razorpay;
   final paymentBloc = PaymentBloc();
-  var orderId,
-      paymentAmount,
-      drawingPower,
+  int? paymentAmount;
+  String? orderId;
+  var drawingPower,
       drawingPowerStr,
       sanctionedLimit,
       minimumPayAmount,
@@ -146,8 +146,8 @@ class PaymentController extends GetxController {
           parameter[Strings.date_time] = getCurrentDateAndTime();
           firebaseEvent(Strings.payment_in_process, parameter);
 
-          orderId = paymentResponse.data!.id;
-          paymentAmount = paymentResponse.data!.amount;
+          orderId = paymentResponse.data!.id!;
+          paymentAmount = paymentResponse.data!.amount!;
           if (orderId != null) {
             createPaymentRequest(IsFailedEntity(), Strings.create_loan_transaction);
           } else {
@@ -199,22 +199,19 @@ class PaymentController extends GetxController {
     });*/
   }
 
-  void openCheckout(amount, orderID) async {
+  void openCheckout(int amount, orderID) async {
     String? baseURL = await preferences.getBaseURL();
     var options = {
-      'key': baseURL == Apis.baseUrlProd
-          ? 'rzp_live_55JW5NYsUIguyM'
-          : 'rzp_test_PWqvSLj4rnBOaG',
+      'key': baseURL == Apis.baseUrlProd ? 'rzp_live_55JW5NYsUIguyM' : 'rzp_test_edJR1nkRmL3cfc',
       // 'key': 'rzp_live_55JW5NYsUIguyM',
       'amount': amount, //in the smallest currency sub-unit.
       'name': 'LMS',
       'order_id': orderID, // Generate order_id using Orders API
       'description': 'Payment',
-      'prefill': {'contact': '+91$mobileNumber', 'email': emailId},
-      //ToDo need to activated wallet from Razorpay dashboard
-//      'external': {
-//        'wallets': ['paytm']
-//      }
+      'prefill': {'contact': '+91${mobileNumber.value}', 'email': emailId.value},
+      'external': {
+        'wallets': ['paytm']
+      }
     };
     try {
       _razorpay!.open(options);
@@ -299,7 +296,6 @@ class PaymentController extends GetxController {
               : transaction_logID.value,
           isFailed: isFailed.description != null ? isFailed : null);
 
-      debugPrint("request${jsonEncode(razorPayRequestEntity)}");
       showDialogLoading(Strings.please_wait);
       DataState<
           CommonResponseEntity> createPaymentReqResponse = await _createPaymentRequestUseCase
@@ -315,7 +311,7 @@ class PaymentController extends GetxController {
             transaction_logID.value =
             createPaymentReqResponse.data!.commonData!.loanTransactionName!;
             debugPrint("Transaction Log ID ==> $transaction_logID");
-            openCheckout(paymentAmount, orderId);
+            openCheckout(paymentAmount!, orderId);
           } else {
             Utility.showToastMessage(Strings.razorpay_canceled);
             // Firebase Event
