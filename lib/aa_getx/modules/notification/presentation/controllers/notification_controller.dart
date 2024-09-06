@@ -178,8 +178,8 @@ class NotificationController extends GetxController {
             notificationList.addAll(response.data!.notificationData!);
             notificationList.removeWhere((element) => element.isCleared == 1);
           }
-          isResponsed.value = true;
         }
+        isResponsed.value = true;
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {
           commonDialog(Strings.session_timeout, 4);
