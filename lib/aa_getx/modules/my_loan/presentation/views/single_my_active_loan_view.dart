@@ -692,7 +692,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 ),
               )
             : Container(),
-        controller.marginShortfall.value != null
+        controller.marginShortfall.value.name != null
             ? Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 12.0),
           child: Card(
