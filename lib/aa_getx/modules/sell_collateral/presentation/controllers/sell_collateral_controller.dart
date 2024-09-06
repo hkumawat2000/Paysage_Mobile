@@ -15,6 +15,8 @@ import 'package:lms/aa_getx/modules/my_loan/domain/entities/common_response_enti
 import 'package:lms/aa_getx/modules/sell_collateral/domain/entities/request/sell_collateral_request_entity.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/domain/usecases/request_sell_collateral_otp_usecase.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_otp_arguments.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_otp_view.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_view.dart';
 
 class SellCollateralController extends GetxController{
@@ -227,12 +229,12 @@ class SellCollateralController extends GetxController{
           parameter[Strings.date_time] = getCurrentDateAndTime();
           firebaseEvent(Strings.sell_otp_sent, parameter);
 
-          ///ToDo: uncomment following code after SellCollateralOTPScreen is developed
-          // Get.bottomSheet(
-          //   backgroundColor: Colors.transparent,
-          //   isScrollControlled: true,
-          //   SellCollateralOTPScreen(sellCollateralArguments.loanNo, sellList, marginShortfallName, Strings.shares),
-          // );
+          Get.bottomSheet(
+            backgroundColor: Colors.transparent,
+            isScrollControlled: true,
+            SellCollateralOtpView(),
+            settings: RouteSettings(arguments: SellCollateralOtpArguments(loanName: sellCollateralArguments.loanNo, sellList: sellList, marginShortfallName: marginShortfallName.value, loanType: Strings.shares))
+          );
         }
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {
@@ -244,31 +246,6 @@ class SellCollateralController extends GetxController{
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
-    /*sellCollateralBloc.requestSellCollateralOTP().then((value) {
-      Get.back();
-      if (value.isSuccessFull!) {
-        Utility.showToastMessage(Strings.enter_otp);
-        // Firebase Event
-        Map<String, dynamic> parameter = new Map<String, dynamic>();
-        parameter[Strings.mobile_no] = mobile;
-        parameter[Strings.email] = email;
-        parameter[Strings.loan_number] = sellCollateralArguments.loanNo;
-        parameter[Strings.is_for_margin_shortfall] = isMarginShortFall.value ? "True" : "False";
-        parameter[Strings.date_time] = getCurrentDateAndTime();
-        firebaseEvent(Strings.sell_otp_sent, parameter);
-
-        ///ToDo: uncomment following code after SellCollateralOTPScreen is developed
-        // Get.bottomSheet(
-        //   backgroundColor: Colors.transparent,
-        //   isScrollControlled: true,
-        //   SellCollateralOTPScreen(sellCollateralArguments.loanNo, sellList, marginShortfallName, Strings.shares),
-        // );
-      } else if(value.errorCode == 403) {
-        commonDialog(Strings.session_timeout, 4);
-      } else {
-        Utility.showToastMessage(value.errorMessage!);
-      }
-    });*/
   }
 
   void actionIconClicked() {
