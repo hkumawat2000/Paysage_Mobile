@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
@@ -126,9 +127,7 @@ class SellCollateralOtpController extends GetxController with GetTickerProviderS
 
             retryAvailable.value = false;
             Get.back();
-            ///ToDo: uncomment following code after SellCollateralSuccessScreen is developed
-            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => SellCollateralSuccessScreen(widget.loanType)));
-
+            Get.toNamed(sellCollateralSuccessView, arguments: sellCollateralOtpArguments.loanType);
           }
         } else if(response is DataFailed){
           if (response.error!.statusCode == 403) {
