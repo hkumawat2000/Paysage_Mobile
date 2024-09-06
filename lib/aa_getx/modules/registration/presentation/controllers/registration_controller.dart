@@ -257,11 +257,13 @@ class RegistrationController extends GetxController {
             //preferences!.setMobile(response.data!.customer!.phone!);
             preferences!
                 .setMobile(response.data!.registerData!.customer!.phone!);
+            preferences!
+                .setToken(response.data!.registerData!.token!);
             preferences!.setFullName(response
                     .data!.registerData!.customer!.firstName
-                    .toString()! +
+                    .toString() +
                 " " +
-                response.data!.registerData!.customer!.lastName.toString()!);
+                response.data!.registerData!.customer!.lastName.toString());
             // preferences!.setCustomer(value.data);
             preferences!.setEmail(response.data!.registerData!.customer!.user!);
             // Firebase Event

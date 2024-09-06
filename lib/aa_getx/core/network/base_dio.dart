@@ -19,6 +19,7 @@ mixin BaseDio {
   Future<Dio> getBaseDio() async {
     Preferences preferences = new Preferences();
     String token = await preferences.getToken();
+    print("TOKEN ==> $token");
     String? dummyUserNumber = await preferences.getDummyUserMobile();
     String baseURL = "";
     if (dummyUserNumber == null) {
