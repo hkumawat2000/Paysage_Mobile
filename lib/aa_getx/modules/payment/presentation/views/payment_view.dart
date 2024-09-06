@@ -17,7 +17,7 @@ class PaymentView extends GetView<PaymentController> {
       onTap: (){
         FocusScope.of(context).unfocus();
       },
-      child: Obx(()=>Scaffold(
+      child: Obx(() => Scaffold(
           backgroundColor: colorBg,
           appBar: AppBar(
             backgroundColor: colorBg,
@@ -167,18 +167,18 @@ class PaymentView extends GetView<PaymentController> {
                 ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                subHeadingText(controller.loanBalance.value == 0.0
-                    ? controller.loanBalance.value < 0
-                    ? negativeValue(controller.loanBalance.value)
-                    : "₹${numberToString(controller.loanBalance.value.toStringAsFixed(2))}"
-                    : "0",
-                    isNeg: controller.loanBalance.value < 0 ? true : false),
-                SizedBox(height: 4),
-                Text(Strings.loan_balance, style: subHeading),
-              ],
+            Obx(
+              () => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  subHeadingText( controller.loanBalance.value < 0
+                      ? negativeValue(controller.loanBalance.value)
+                      : "₹${numberToString(controller.loanBalance.value.toStringAsFixed(2))}",
+                      isNeg: controller.loanBalance.value < 0 ? true : false),
+                  SizedBox(height: 4),
+                  Text(Strings.loan_balance, style: subHeading),
+                ],
+              ),
             )
           ],
         ),

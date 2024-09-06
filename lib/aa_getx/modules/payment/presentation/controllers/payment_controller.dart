@@ -57,7 +57,6 @@ class PaymentController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    debugPrint(paymentArguments.isMarginShortfall!.toString());
     _razorpay = Razorpay();
     _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -70,6 +69,7 @@ class PaymentController extends GetxController {
       isSubmitBtnClickable.value = false;
       amountController.text = "";
     }
+    getLoanDetails(paymentArguments.loanName);
     // Utility.isNetworkConnection().then((isNetwork) {
     //   if (isNetwork) {
     //     paymentBloc.getLoanDetails(paymentArguments.loanName);
@@ -77,7 +77,6 @@ class PaymentController extends GetxController {
     //     Utility.showToastMessage(Strings.no_internet_message);
     //   }
     // });
-    getLoanDetails(paymentArguments.loanName);
   }
 
   getPreferenceData() async {
@@ -478,6 +477,8 @@ class PaymentController extends GetxController {
           drawingPowerStr = loanDetailData.value!.loan!.drawingPowerStr!;
           sanctionedLimit = numberToString(loanDetailData.value!.loan!.sanctionedLimit!.toStringAsFixed(2));
           loanBalance.value = loanDetailData.value!.loan!.balance!;
+          print("loanBalance => ${loanBalance.value}");
+          print("loanBalance => ${loanDetailData.value!.loan!.balance!}");
         }
       } else if (loanDetailsResponse is DataFailed) {
         if (loanDetailsResponse.error!.statusCode == 403) {
