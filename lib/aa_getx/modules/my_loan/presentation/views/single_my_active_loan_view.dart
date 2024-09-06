@@ -44,38 +44,41 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
   }
 
   Widget myActiveLoans() {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: <Widget>[
-          activeLoanCard(),
-          SizedBox(
-            height: 10,
-          ),
-          loanOption(),
-          SizedBox(
-            height: 10,
-          ),
-          activeLoanItem(),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 15),
-            child: Row(
-              children: <Widget>[
-                controller.transactionsList != null
-                    ? scripsNameText(
-                        controller.transactionsList.length !=
-                                0
-                            ? Strings.recent_transactions
-                            : "")
-                    : Container(),
-              ],
+    return RefreshIndicator(
+      onRefresh: controller.pullRefresh,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: <Widget>[
+            activeLoanCard(),
+            SizedBox(
+              height: 10,
             ),
-          ),
-          controller.transactionsList != null ? recentTransactionList() : Container(),
-          SizedBox(
-            height: 80,
-          ),
-        ],
+            loanOption(),
+            SizedBox(
+              height: 10,
+            ),
+            activeLoanItem(),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, top: 15),
+              child: Row(
+                children: <Widget>[
+                  controller.transactionsList != null
+                      ? scripsNameText(
+                          controller.transactionsList.length !=
+                                  0
+                              ? Strings.recent_transactions
+                              : "")
+                      : Container(),
+                ],
+              ),
+            ),
+            controller.transactionsList != null ? recentTransactionList() : Container(),
+            SizedBox(
+              height: 80,
+            ),
+          ],
+        ),
       ),
     );
   }

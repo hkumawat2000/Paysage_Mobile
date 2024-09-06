@@ -75,6 +75,16 @@ class SingleMyActiveLoanController extends GetxController {
     super.onInit();
   }
 
+  Future<void> pullRefresh() async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        getLoanDetails();
+      } else {
+        commonDialog(Strings.no_internet_message, 0);
+      }
+    });
+  }
+
   void runClone() {
     cron.schedule(new Schedule.parse('0 0 * * *'), () async {
       getLoanDetails();
