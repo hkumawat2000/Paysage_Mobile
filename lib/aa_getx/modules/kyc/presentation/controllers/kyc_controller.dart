@@ -159,8 +159,8 @@ class KycController extends GetxController {
               showDialogLoading(Strings.please_wait);
               SearchKycRequestEntity searchKycRequestEntity =
                   SearchKycRequestEntity(
-                panCardNumber: panController.text,
-                acceptTerms: acceptTerms,
+                panCardNumber: panController.text..toString().trim(),
+                acceptTerms: acceptTerms.value,
               );
               DataState<KYCSearchResponseEntity> response =
                   await _searchKycUseCase.call(
@@ -207,7 +207,7 @@ class KycController extends GetxController {
       DownloadKycRequestEntity downloadKycRequestEntity =
           DownloadKycRequestEntity(
         panCardNumber: panController.text,
-        dateOfBirth: dateOfBirthController.text,
+        dateOfBirth: dateOfBirthController.text.toString().replaceAll("/", "-"),
         ckycNumber: ckycNo,
       );
       DataState<KycDownloadResponseEntity> response =
