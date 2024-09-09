@@ -1,15 +1,36 @@
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
+import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/data/data_sources/sell_collateral_data_source.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/data/repositories/sell_collateral_repository_impl.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/domain/usecases/request_sell_collateral_otp_usecase.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/domain/usecases/request_sell_collateral_securities_usecase.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/controllers/sell_collateral_otp_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class SellCollateralOtpView extends GetView<SellCollateralOtpController>{
+  final SellCollateralOtpController controller = Get.put(
+    SellCollateralOtpController(
+      Get.put(
+        ConnectionInfoImpl(Connectivity()),
+      ),
+      Get.put(
+        RequestSellCollateralOtpUseCase(
+            Get.put(SellCollateralRepositoryImpl(Get.put(SellCollateralDatasourceImpl())))),
+      ),
+      Get.put(
+        RequestSellCollateralSecuritiesUseCase(
+            Get.put(SellCollateralRepositoryImpl(Get.put(SellCollateralDatasourceImpl())))),
+      ),
+    ),
+  );
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
