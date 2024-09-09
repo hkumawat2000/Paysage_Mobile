@@ -29,7 +29,7 @@ class KycConsentController extends GetxController {
   String? cKycDocName;
  Rx<UserKycDocResponseEntity> userKycDocResponseEntity =
       UserKycDocResponseEntity().obs;
-  KycConsentArguments kycConsentArguments = KycConsentArguments();
+  KycConsentArguments kycConsentArguments = Get.arguments;
 
   @override
   void onInit() {
@@ -60,19 +60,16 @@ class KycConsentController extends GetxController {
       DataState<ConsentDetailResponseEntity> response =
           await _consentDetailsKycUsecase.call(ConsentDetailsKycParams(
               consentDetailsRequestEntity: consentDetailsRequestEntity));
-
+      isApiCalling.value = false;
       if (response is DataSuccess) {
         userKycDocResponseEntity.value =
             response.data!.consentDetailData!.userKycDoc! ;
         cKycDocName = response.data!.consentDetailData!.userKycDoc!.name;
-        isApiCalling.value = false;
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {
-          isApiCalling.value = true;
           isAPICallingText = Strings.session_timeout;
           commonDialog(Strings.session_timeout, 4);
         } else {
-          isApiCalling.value = true;
           isAPICallingText = response.error!.message;
         }
       }
