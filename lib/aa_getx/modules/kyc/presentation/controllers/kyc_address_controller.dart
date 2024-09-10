@@ -107,7 +107,9 @@ class KycAddressController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    getConsentDetailsApiCall();    
     preferences.setOkClicked(false);
+    scrollListener();
     super.onInit();
   }
 
@@ -280,7 +282,8 @@ class KycAddressController extends GetxController {
           ConsentDetailsRequestEntity(
         userKycName: kycAddressArguments.kycName,
         acceptTerms: consentCheckbox.isTrue ? 1 : 0,
-        addressDetailsRequestEntity: AddressDetailsRequestEntity(
+        addressDetailsRequestEntity: 
+        AddressDetailsRequestEntity(
             permanentAddress: PermanentAddressRequestEntity(
               addressLine1: permAddressLine1Controller.text.toString(),
               addressLine2: permAddressLine2Controller.text.toString(),

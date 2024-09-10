@@ -22,7 +22,7 @@ class ConsentDetailsRequestModel {
     return <String, dynamic>{
       'user_kyc_name': userKycName,
       'accept_terms': acceptTerms,
-      'address_details': addressDetailsRequestModel!.toMap(),
+      'address_details': addressDetailsRequestModel != null ? addressDetailsRequestModel!.toMap() : null,
       'is_loan_renewal': isLoanRenewal,
     };
   }
@@ -53,7 +53,7 @@ class ConsentDetailsRequestModel {
     return ConsentDetailsRequestModel(
       userKycName: consentDetailsRequestEntity.userKycName != null ? consentDetailsRequestEntity.userKycName as String : null,
       acceptTerms: consentDetailsRequestEntity.acceptTerms != null ? consentDetailsRequestEntity.acceptTerms as int : null,
-      addressDetailsRequestModel: AddressDetailsRequestModel.fromEntity(consentDetailsRequestEntity.addressDetailsRequestEntity as AddressDetailsRequestEntity),
+      addressDetailsRequestModel: consentDetailsRequestEntity.addressDetailsRequestEntity != null ? AddressDetailsRequestModel.fromEntity(consentDetailsRequestEntity.addressDetailsRequestEntity as AddressDetailsRequestEntity) : null,
       isLoanRenewal: consentDetailsRequestEntity.isLoanRenewal != null ? consentDetailsRequestEntity.isLoanRenewal as int : null,
     );
   }

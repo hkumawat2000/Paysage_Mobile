@@ -27,9 +27,16 @@ class KycConsentController extends GetxController {
   RxInt loanRenewal = 0.obs;
   String isAPICallingText = Strings.please_wait;
   String? cKycDocName;
- Rx<UserKycDocResponseEntity> userKycDocResponseEntity =
+  Rx<UserKycDocResponseEntity> userKycDocResponseEntity =
       UserKycDocResponseEntity().obs;
-  KycConsentArguments kycConsentArguments = Get.arguments;
+  //KycConsentArguments kycConsentArguments = Get.arguments;
+  KycConsentArguments kycConsentArguments = KycConsentArguments(
+    kycName: "USR-KYC-09-2024-00148",
+    forLoanRenewal: false,
+    isShowEdit: true,
+    loanName: "",
+    loanRenewalName: "",
+  );
 
   @override
   void onInit() {
@@ -55,7 +62,8 @@ class KycConsentController extends GetxController {
         userKycName: kycConsentArguments.kycName,
         acceptTerms: 1,
         isLoanRenewal: loanRenewal.value,
-              addressDetailsRequestEntity: AddressDetailsRequestEntity()
+        addressDetailsRequestEntity: null,
+        //AddressDetailsRequestEntity()
       );
 
       DataState<ConsentDetailResponseEntity> response =
@@ -64,7 +72,7 @@ class KycConsentController extends GetxController {
       isApiCalling.value = false;
       if (response is DataSuccess) {
         userKycDocResponseEntity.value =
-            response.data!.consentDetailData!.userKycDoc! ;
+            response.data!.consentDetailData!.userKycDoc!;
         cKycDocName = response.data!.consentDetailData!.userKycDoc!.name;
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {
@@ -82,7 +90,7 @@ class KycConsentController extends GetxController {
   Future<void> navigateToConsentAddressScreen() async {
     if (await _connectionInfo.isConnected) {
       //TODO Navigate to Address Screen.
-     // Get.toNamed(kycAddressView,arguments: KycAddressArguments(kycName: kycConsentArguments.forLoanRenewal! ? ckycDocName! : kycConsentArguments.ckycName!, loanName: '', loanRenewalName: '', isShowEdit: null, forLoanRenewal: null));
+       Get.toNamed(kycAddressView,arguments: KycAddressArguments(kycName: kycConsentArguments.forLoanRenewal! ? cKycDocName! : kycConsentArguments.kycName!, loanName: kycConsentArguments.loanName, loanRenewalName: kycConsentArguments.loanRenewalName, isShowEdit: kycConsentArguments.isShowEdit, forLoanRenewal: kycConsentArguments.forLoanRenewal,),);
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }

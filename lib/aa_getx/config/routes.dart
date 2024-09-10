@@ -14,6 +14,7 @@ import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bi
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/views/aml_check_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/views/dashboard_view.dart';
+import 'package:lms/aa_getx/modules/kyc/presentation/arguments/kyc_consent_arguments.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_consent_bindings.dart';
@@ -198,6 +199,13 @@ List<GetPage> routes = [
     name: '/$kycConsentView',
     page: () => KycConsentScreen(),
     binding: KycConsentBindings(),
+    arguments: KycConsentArguments(
+      kycName: "USR-KYC-09-2024-00148",
+      forLoanRenewal: false,
+      isShowEdit: true,
+      loanName: "",
+      loanRenewalName: "",
+    ),
   ),
   GetPage(
     name: '/$kycAddressView',
