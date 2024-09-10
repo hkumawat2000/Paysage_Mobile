@@ -55,6 +55,7 @@ class KycConsentController extends GetxController {
         userKycName: kycConsentArguments.kycName,
         acceptTerms: 1,
         isLoanRenewal: loanRenewal.value,
+              addressDetailsRequestEntity: AddressDetailsRequestEntity()
       );
 
       DataState<ConsentDetailResponseEntity> response =

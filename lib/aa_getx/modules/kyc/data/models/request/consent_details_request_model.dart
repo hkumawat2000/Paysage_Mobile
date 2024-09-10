@@ -20,19 +20,19 @@ class ConsentDetailsRequestModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'userKycName': userKycName,
-      'acceptTerms': acceptTerms,
+      'user_kyc_name': userKycName,
+      'accept_terms': acceptTerms,
       'address_details': addressDetailsRequestModel!.toMap(),
-      'isLoanRenewal': isLoanRenewal,
+      'is_loan_renewal': isLoanRenewal,
     };
   }
 
   factory ConsentDetailsRequestModel.fromMap(Map<String, dynamic> map) {
     return ConsentDetailsRequestModel(
-      userKycName: map['userKycName'] != null ? map['userKycName'] as String : null,
-      acceptTerms: map['acceptTerms'] != null ? map['acceptTerms'] as int : null,
+      userKycName: map['user_kyc_name'] != null ? map['user_kyc_name'] as String : null,
+      acceptTerms: map['accept_terms'] != null ? map['accept_terms'] as int : null,
       addressDetailsRequestModel: AddressDetailsRequestModel.fromMap(map['address_details'] as Map<String,dynamic>),
-      isLoanRenewal: map['isLoanRenewal'] != null ? map['isLoanRenewal'] as int : null,
+      isLoanRenewal: map['is_loan_renewal'] != null ? map['is_loan_renewal'] as int : null,
     );
   }
 
