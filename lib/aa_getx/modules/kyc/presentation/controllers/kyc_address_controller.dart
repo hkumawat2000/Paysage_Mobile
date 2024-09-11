@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -279,9 +280,15 @@ class KycAddressController extends GetxController {
     if (await _connectionInfo.isConnected) {
       String geoLocation = "";
       LocationPermission permission = await Geolocator.requestPermission();
-      if(permission.index == 2){
+      if(permission.index == 2) {
         Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-        geoLocation = "${position.latitude},${position.longitude}";
+        try {
+          List<Placemark> placeMarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+          Placemark place = placeMarks[0];
+          geoLocation =  '${place.street}, ${place.locality}, ${place.postalCode}, ${place.country} (${position.latitude}, ${position.longitude})';
+        } catch (e) {
+          print('Error: $e');
+        }
       }
       showDialogLoading(Strings.please_wait);
       ConsentDetailsRequestEntity consentDetailsRequestEntity =
