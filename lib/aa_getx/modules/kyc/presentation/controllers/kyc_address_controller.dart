@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
@@ -277,6 +278,12 @@ class KycAddressController extends GetxController {
 
   Future<void> saveConsentDetailsApicall() async {
     if (await _connectionInfo.isConnected) {
+      String geoLocation = "";
+      LocationPermission permission = await Geolocator.requestPermission();
+      if(permission.index == 2){
+        Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+        geoLocation = "${position.latitude},${position.longitude}";
+      }
       showDialogLoading(Strings.please_wait);
       ConsentDetailsRequestEntity consentDetailsRequestEntity =
           ConsentDetailsRequestEntity(
@@ -297,6 +304,7 @@ class KycAddressController extends GetxController {
               addressProofImage: permByteImageString,
             ),
             permCorresFlag: corrCheckbox.isTrue ? "yes" : "no",
+            geoLocation: geoLocation,
             correspondingAddress: PermanentAddressRequestEntity(
               addressLine1: corrAddressLine1Controller.text.toString(),
               addressLine2: corrAddressLine2Controller.text.toString(),

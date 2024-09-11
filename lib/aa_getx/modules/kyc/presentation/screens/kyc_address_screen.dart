@@ -847,7 +847,7 @@ class KycAddressScreen extends GetView<KycAddressController> {
                       dropDownOverlayBGColor: colorBg,
                       dropStateChanged: (isOpened) {
                         FocusScope.of(Get.context!).unfocus();
-                        controller.permIsDropDownOpened = isOpened;
+                        controller.permIsDropDownOpened.value = isOpened;
                         if (!isOpened) {
                           controller.permIsBackPressedOrTouchedOutSide.value =
                               false;

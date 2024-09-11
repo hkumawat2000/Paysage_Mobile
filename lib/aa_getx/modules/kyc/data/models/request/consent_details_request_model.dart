@@ -62,11 +62,13 @@ class ConsentDetailsRequestModel {
 class AddressDetailsRequestModel {
   PermanentAddressRequestModel? permanentAddress;
   String? permCorresFlag;
+  String? geoLocation;
   PermanentAddressRequestModel? correspondingAddress;
   
   AddressDetailsRequestModel({
     this.permanentAddress,
     this.permCorresFlag,
+    this.geoLocation,
     this.correspondingAddress,
   });
   
@@ -74,6 +76,7 @@ class AddressDetailsRequestModel {
     return <String, dynamic>{
       'permanent_address': permanentAddress?.toMap(),
       'perm_corres_flag': permCorresFlag,
+      'geo_location': geoLocation,
       'corresponding_address': correspondingAddress?.toMap(),
     };
   }
@@ -82,6 +85,7 @@ class AddressDetailsRequestModel {
     return AddressDetailsRequestModel(
       permanentAddress: map['permanent_address'] != null ? PermanentAddressRequestModel.fromMap(map['permanent_address'] as Map<String,dynamic>) : null,
       permCorresFlag: map['perm_corres_flag'] != null ? map['perm_corres_flag'] as String : null,
+      geoLocation: map['geo_location'] != null ? map['geo_location'] as String : null,
       correspondingAddress: map['corresponding_address'] != null ? PermanentAddressRequestModel.fromMap(map['corresponding_address'] as Map<String,dynamic>) : null,
     );
   }
@@ -94,6 +98,7 @@ class AddressDetailsRequestModel {
   AddressDetailsRequestEntity(
       permanentAddress: permanentAddress?.toEntity(),
       permCorresFlag: permCorresFlag,
+      geoLocation : geoLocation,
       correspondingAddress: correspondingAddress?.toEntity(),
   
   );
@@ -102,6 +107,7 @@ class AddressDetailsRequestModel {
     return AddressDetailsRequestModel(
       permanentAddress: addressDetailsRequestEntity.permanentAddress != null ? PermanentAddressRequestModel.fromEntity(addressDetailsRequestEntity.permanentAddress as PermanentAddressRequestEntity) : null,
       permCorresFlag: addressDetailsRequestEntity.permCorresFlag != null ? addressDetailsRequestEntity.permCorresFlag as String : null,
+      geoLocation: addressDetailsRequestEntity.geoLocation != null ? addressDetailsRequestEntity.geoLocation as String : null,
       correspondingAddress: addressDetailsRequestEntity.correspondingAddress != null ? PermanentAddressRequestModel.fromEntity(addressDetailsRequestEntity.correspondingAddress as PermanentAddressRequestEntity) : null,
     );
   }
