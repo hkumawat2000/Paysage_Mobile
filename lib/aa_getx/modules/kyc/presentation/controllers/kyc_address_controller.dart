@@ -106,7 +106,6 @@ class KycAddressController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     getConsentDetailsApiCall();    
     preferences.setOkClicked(false);
     scrollListener();
