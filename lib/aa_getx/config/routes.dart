@@ -199,13 +199,6 @@ List<GetPage> routes = [
     name: '/$kycConsentView',
     page: () => KycConsentScreen(),
     binding: KycConsentBindings(),
-    arguments: KycConsentArguments(
-      kycName: "USR-KYC-09-2024-00148",
-      forLoanRenewal: false,
-      isShowEdit: true,
-      loanName: "",
-      loanRenewalName: "",
-    ),
   ),
   GetPage(
     name: '/$kycAddressView',
