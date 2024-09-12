@@ -116,6 +116,8 @@ dependencies:
 #  flutter_inappwebview: ^5.1.0+4
   uni_links: ^0.5.1
   advance_pdf_viewer: ^2.0.1
+  geolocator: ^12.0.0
+  geocoding: ^3.0.0
   awesome_dropdown:
     git:
       url: https://github.com/aayushkedawat1/Flutter-CustomizableDropDown.git
