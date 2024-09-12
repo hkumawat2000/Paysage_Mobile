@@ -1016,6 +1016,7 @@ class HomeController extends GetxController{
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         ///todo: uncomment below code after BankDetailScreen is developed
+
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(

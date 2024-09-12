@@ -5,10 +5,12 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_consent_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/pincode_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/consent_details_request_entity.dart';
@@ -343,6 +345,10 @@ class KycAddressController extends GetxController {
     String camsEmail = await preferences.getCamsEmail();
     preferences.setOkClicked(false);
     Get.back();
+    Get.toNamed(dashboardView, arguments: DashboardArguments(
+      selectedIndex: 0,
+      isFromPinScreen: false,
+    ));
     if (kycAddressArguments.forLoanRenewal!) {
       //Navigate to Dashboard
       // Navigator.push(

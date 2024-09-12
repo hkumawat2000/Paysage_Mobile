@@ -30,13 +30,7 @@ class KycConsentController extends GetxController {
   Rx<UserKycDocResponseEntity> userKycDocResponseEntity =
       UserKycDocResponseEntity().obs;
   //KycConsentArguments kycConsentArguments = Get.arguments;
-  KycConsentArguments kycConsentArguments = KycConsentArguments(
-    kycName: "USR-KYC-09-2024-00148",
-    forLoanRenewal: false,
-    isShowEdit: true,
-    loanName: "",
-    loanRenewalName: "",
-  );
+  KycConsentArguments kycConsentArguments = Get.arguments;
 
   @override
   void onInit() {
