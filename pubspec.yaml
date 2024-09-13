@@ -62,7 +62,7 @@ dependencies:
   firebase_analytics: ^10.0.8
   firebase_crashlytics: ^3.0.8
   firebase_core: ^2.4.0
-  flutter_local_notifications: ^17.1.2
+  flutter_local_notifications: ^17.2.2
 #  step_progress_indicator: ^1.0.1 9.1.2+1
 #  sliding_up_panel: ^2.0.0+1
   #  flutter_svg: ^0.17.0
