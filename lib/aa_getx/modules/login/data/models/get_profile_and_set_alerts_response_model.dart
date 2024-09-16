@@ -14,23 +14,23 @@ class GetProfileAndSetAlertsResponseModel {
     this.alertData,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'message': message,
-      'data': alertData?.toMap(),
+      'data': alertData?.toJson(),
     };
   }
 
-  factory GetProfileAndSetAlertsResponseModel.fromMap(Map<String, dynamic> map) {
+  factory GetProfileAndSetAlertsResponseModel.fromJson(Map<String, dynamic> map) {
     return GetProfileAndSetAlertsResponseModel(
       message: map['message'] != null ? map['message'] as String : null,
-      alertData: map['data'] != null ? AlertDataResponseModel.fromMap(map['data'] as Map<String,dynamic>) : null,
+      alertData: map['data'] != null ? AlertDataResponseModel.fromJson(map['data'] as Map<String,dynamic>) : null,
     );
   }
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
-  factory GetProfileAndSetAlertsResponseModel.fromJson(String source) => GetProfileAndSetAlertsResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory GetProfileAndSetAlertsResponseModel.fromJson(String source) => GetProfileAndSetAlertsResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   GetProfileAndSetAlertDetailsResponseEntity toEntity() =>
   GetProfileAndSetAlertDetailsResponseEntity(

@@ -27,27 +27,29 @@ class AccountSettingsView extends GetView<AccountSettingsController> {
         backgroundColor: colorBg,
         appBar: buildAppBar(context),
         body: SafeArea(
-          child: controller.isAPIResponse.isTrue
-              ? SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
-                    child: Column(
-                      children: <Widget>[
-                        // settingHeader(),
-                        SizedBox(height: 10),
-                        profileInfoCard(), // profile card
-                        SizedBox(height: 10),
-                        // kycDetailsPendingCard(),
-                        Expanded(
-                            child: accountSettingMenu()), // setting menu popup
-                      ],
+          child: Obx(
+              () => controller.isAPIResponse.isTrue
+                ? SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 2.0),
+                      child: Column(
+                        children: <Widget>[
+                          // settingHeader(),
+                          SizedBox(height: 10),
+                          profileInfoCard(), // profile card
+                          SizedBox(height: 10),
+                          // kycDetailsPendingCard(),
+                          Expanded(
+                              child: accountSettingMenu()), // setting menu popup
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              : Center(child: Text(Strings.please_wait)),
+                  )
+                : Center(child: Text(Strings.please_wait)),
+          ),
         ),
       ),
     );
