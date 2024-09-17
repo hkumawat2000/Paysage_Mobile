@@ -66,7 +66,9 @@ import 'package:lms/aa_getx/modules/registration/presentation/views/offline_cust
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/bindings/mf_invoke_binding.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/bindings/sell_collateral_binding.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/mf_invoke_view.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_success_view.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
@@ -114,6 +116,7 @@ const String cibilOtpView = "cibil-otp-view";
 const String myPledgedTransactionsView = "my-pledged-transactions-view";
 const String sellCollateralView = "sell-collateral-view";
 const String sellCollateralSuccessView = "sell-collateral-success-view";
+const String mfInvokeView = "mf-invoke-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -311,5 +314,10 @@ List<GetPage> routes = [
   GetPage(
     name: '/$sellCollateralSuccessView',
     page: () => SellCollateralSuccessView(),
+  ),
+  GetPage(
+    name: '/$mfInvokeView',
+    page: () => MfInvokeView(),
+    binding: MfInvokeBinding(),
   ),
 ];
