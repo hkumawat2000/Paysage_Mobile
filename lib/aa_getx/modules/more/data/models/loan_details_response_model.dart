@@ -190,8 +190,8 @@ class InvokeChargeDetails {
       InvokeChargeDetailsEntity(
         invokeInitiateChargeType: invokeInitiateChargeType,
         invokeInitiateCharges: invokeInitiateCharges,
-        invokeInitiateChargesMinimumAmount: invokeInitiateChargesMinimumAmount,
-        invokeInitiateChargesMaximumAmount: invokeInitiateChargesMaximumAmount,
+        invokeInitiateChargesMinimumAmount: invokeInitiateChargesMinimumAmount ?? 0.0,
+        invokeInitiateChargesMaximumAmount: invokeInitiateChargesMaximumAmount ?? 0.0,
 
       );
 }

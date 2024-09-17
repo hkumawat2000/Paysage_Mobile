@@ -27,13 +27,13 @@ class MfInvokeController extends GetxController{
 
   MfInvokeController(this._connectionInfo, this._getLoanDetailsUseCase, this._requestSellCollateralOtpUseCase);
 
-  Preferences? preferences;
+  Preferences preferences = Preferences();
   final myLoansBloc = MyLoansBloc();
   final sellCollateralBloc = SellCollateralBloc();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<TextEditingController> controllers2 = [];
   bool checkBoxValue = false;
-  bool? resetValue;
+  bool resetValue  = true;
   RxBool isMarginShortFall = false.obs;
   RxBool isScripsSelect = true.obs;
   RxBool isAPIRespond = false.obs;
@@ -55,7 +55,7 @@ class MfInvokeController extends GetxController{
   RxDouble totalCollateral = 0.0.obs;
   String marginShortfallName = "";
   RxDouble invokeCharge= 0.0.obs;
-  double? invokePercentage;
+  double invokePercentage = 0.0;
   RxDouble actualDrawingPower = 0.0.obs;
   RxDouble selectedSchemeEligibility = 0.0.obs;
   List<bool> isAddBtnShow = [];
@@ -77,9 +77,8 @@ class MfInvokeController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    resetValue = true;
+    //resetValue = true;
     appBarTitle = Text(mfInvokeArguments.loanNo, style: TextStyle(color: appTheme));
-    preferences = Preferences();
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         getLoanData();
@@ -103,7 +102,7 @@ class MfInvokeController extends GetxController{
 
       if (loanDetailsResponse is DataSuccess) {
         if (loanDetailsResponse.data!.data!.loan != null) {
-          setState(() {
+          //setState(() {
             isAPIRespond.value = true;
             loanData.value = loanDetailsResponse.data!.data!.loan!;
             totalCollateral.value = loanDetailsResponse.data!.data!.loan!.totalCollateralValue ?? 0.0;
@@ -154,9 +153,9 @@ class MfInvokeController extends GetxController{
                       unitStringList[i] = myPledgedSecurityList[i].pledgedQuantity.toString();
                     }
                   }
-                  setState(() {
+                 // setState(() {
                     eligibleLoan.value = (myPledgedSecurityList[i].price! * double.parse(unitStringList[i])) * (myPledgedSecurityList[i].eligiblePercentage!/100);
-                  });
+                 // });
                 }
               }
             }
@@ -176,7 +175,7 @@ class MfInvokeController extends GetxController{
               actualQtyList.add(myPledgedSecurityList[i].pledgedQuantity!);
             }
             isAPIRespond.value = true;
-          });
+          //});
         }  else {
           commonDialog(Strings.something_went_wrong_try, 0);
         }
@@ -215,30 +214,30 @@ class MfInvokeController extends GetxController{
   }
 
   void _handleSearchEnd() {
-    setState(() {
+    //setState(() {
       focusNode.unfocus();
       this.actionIcon.value = Icon(Icons.search, color: appTheme, size: 25);
       this.appBarTitle = Text(mfInvokeArguments.loanNo, style: TextStyle(color: appTheme));
       textController.clear();
       myPledgedSecurityList.clear();
       myPledgedSecurityList.addAll(searchMyCartList);
-    });
+   // });
   }
 
   invokeAndEligibility() {
     selectedSchemeEligibility.value = 0;
     for(int i =0; i< searchMyCartList.length; i++) {
-      selectedSchemeEligibility.value = selectedSchemeEligibility.value! + ((searchMyCartList[i].price! * searchMyCartList[i].pledgedQuantity!) * searchMyCartList[i].eligiblePercentage! / 100);
+      selectedSchemeEligibility.value = selectedSchemeEligibility.value + ((searchMyCartList[i].price! * searchMyCartList[i].pledgedQuantity!) * searchMyCartList[i].eligiblePercentage! / 100);
     }
     if(invokeChargeData.value.invokeInitiateChargeType == 'Fix'){
       invokeCharge.value = invokeChargeData.value.invokeInitiateCharges ?? 0.0;
     } else {
       if(totalValue.value > 0){
-        invokePercentage = invokeChargeData.value.invokeInitiateCharges;
-        invokeCharge.value = totalValue.value * (invokePercentage! / 100);
-        if(invokeChargeData.value.invokeInitiateChargesMinimumAmount! > 0 && invokeCharge!.value < invokeChargeData.value.invokeInitiateChargesMinimumAmount!) {
+        invokePercentage = invokeChargeData.value.invokeInitiateCharges ?? 0.0;
+        invokeCharge.value = totalValue.value * (invokePercentage / 100);
+        if(invokeChargeData.value.invokeInitiateChargesMinimumAmount! > 0 && invokeCharge.value < invokeChargeData.value.invokeInitiateChargesMinimumAmount!) {
           invokeCharge.value = invokeChargeData.value.invokeInitiateChargesMinimumAmount!;
-        } else if(invokeChargeData.value.invokeInitiateChargesMaximumAmount! > 0 && invokeCharge!.value > invokeChargeData.value.invokeInitiateChargesMaximumAmount!) {
+        } else if(invokeChargeData.value.invokeInitiateChargesMaximumAmount! > 0 && invokeCharge.value > invokeChargeData.value.invokeInitiateChargesMaximumAmount!) {
           invokeCharge.value = invokeChargeData.value.invokeInitiateChargesMaximumAmount!;
         }
       } else {
@@ -249,14 +248,14 @@ class MfInvokeController extends GetxController{
 
   void alterCheckBox(value) {
     List<bool> temp = checkBoxValues;
-    setState(() {
+    //setState(() {
       totalSelectedScrips = 0;
       totalValue.value = 0.0;
       eligibleLoan.value = 0.0;
-    });
+    //});
     for (var index = 0; index < myPledgedSecurityList.length; index++) {
       temp[index] = value;
-      setState(() {
+      //setState(() {
         int actualIndex = searchMyCartList.indexWhere((element) => element.isin == myPledgedSecurityList[index].isin && element.folio == myPledgedSecurityList[index].folio);
 
         if (value) {
@@ -310,13 +309,13 @@ class MfInvokeController extends GetxController{
         }
         checkBoxValues = temp;
         checkBoxValue = value;
-      });
+      //});
     }
   }
 
   void requestSellCollateralOTP() async {
-    String? mobile = await preferences!.getMobile();
-    String email = await preferences!.getEmail();
+    String? mobile = await preferences.getMobile();
+    String email = await preferences.getEmail();
     //showDialogLoading( Strings.please_wait);
     sellList.clear();
     List<double> myDuplicateList = [];
@@ -464,7 +463,7 @@ class MfInvokeController extends GetxController{
   addBtnClicked(int index, int actualIndex) {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        setState(() {
+        //setState(() {
           //FocusScope.of(context).unfocus();
           Get.focusScope?.unfocus();
           isAddBtnShow[actualIndex] = false;
@@ -486,7 +485,7 @@ class MfInvokeController extends GetxController{
           }
           totalSelectedScrips = totalSelectedScrips + 1;
           myPledgedSecurityList[index].amount = double.parse(controllers2[actualIndex].text) * myPledgedSecurityList[index].price!;
-          setState(() {
+          //setState(() {
             totalValue.value = 0;
             eligibleLoan.value = 0;
             for(int i= 0; i<searchMyCartList.length ; i++){
@@ -498,8 +497,8 @@ class MfInvokeController extends GetxController{
               checkBoxValue = true;
             }
             invokeAndEligibility();
-          });
-        });
+          //});
+        //});
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
@@ -513,7 +512,7 @@ class MfInvokeController extends GetxController{
         Get.focusScope?.unfocus();
         Get.focusScope?.requestFocus(new FocusNode());
         //FocusScope.of(context).requestFocus(new FocusNode());
-        setState(() {
+        //setState(() {
           if(controllers2[actualIndex].text.isNotEmpty){
             if(double.parse(controllers2[actualIndex].text.toString()) >= 0.001){
               var txt;
@@ -554,20 +553,20 @@ class MfInvokeController extends GetxController{
               if (txt >= 0.001) {
                 if (double.parse(controllers2[actualIndex].text) <= actualQtyList[actualIndex]) {
                   myPledgedSecurityList[index].amount = txt * myPledgedSecurityList[index].price!;
-                  setState(() {
+                  //setState(() {
                     totalValue.value = 0;
                     eligibleLoan.value = 0;
                     for(int i= 0; i<searchMyCartList.length ; i++){
                       totalValue.value = totalValue.value + (searchMyCartList[i].price! * double.parse(unitStringList[i]));
                       eligibleLoan.value += (searchMyCartList[i].price! * double.parse(unitStringList[i])) * (searchMyCartList[i].eligiblePercentage!/100);
                     }
-                  });
+                  //});
                   loanData.value.totalCollateralValue = totalValue.value;
                 } else {
                   Utility.showToastMessage(Strings.check_unit);
                 }
               } else {
-                setState(() {
+                //setState(() {
                   checkBoxValues[actualIndex] = false;
                   isAddBtnShow[actualIndex] = true;
                   myPledgedSecurityList[index].amount = 0.0;
@@ -588,10 +587,10 @@ class MfInvokeController extends GetxController{
                   } else {
                     isScripsSelect.value = true;
                   }
-                });
+               // });
               }
             } else {
-              setState(() {
+              //setState(() {
                 checkBoxValues[actualIndex] = false;
                 isAddBtnShow[actualIndex] = true;
                 myPledgedSecurityList[index].amount = 0.0;
@@ -612,11 +611,11 @@ class MfInvokeController extends GetxController{
                 } else {
                   isScripsSelect.value = true;
                 }
-              });
+              //});
               Utility.showToastMessage(Strings.check_unit);
             }
           } else {
-            setState(() {
+            //setState(() {
               controllers2[actualIndex].text = "0.001";
               unitStringList[actualIndex] = "0.001";
               myPledgedSecurityList[index].pledgedQuantity = double.parse(controllers2[actualIndex].text);
@@ -627,12 +626,12 @@ class MfInvokeController extends GetxController{
                 totalValue.value = totalValue.value + (searchMyCartList[i].price! * double.parse(unitStringList[i]));
                 eligibleLoan.value += (searchMyCartList[i].price! * double.parse(unitStringList[i])) * (searchMyCartList[i].eligiblePercentage!/100);
               }
-            });
+            //});
           }
-          setState(() {
+          //setState(() {
             invokeAndEligibility();
-          });
-        });
+          //});
+        //});
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
@@ -649,7 +648,7 @@ class MfInvokeController extends GetxController{
           } else if (double.parse(controllers2[actualIndex].text) > actualQtyList[actualIndex].toDouble()) {
             Utility.showToastMessage("${Strings.check_unit}, This scheme has only ${actualQtyList[actualIndex]} unit.");
             Get.focusScope?.requestFocus(new FocusNode());
-            setState(() {
+            //setState(() {
               if(myPledgedSecurityList[index].pledgedQuantity.toString().split(".")[1].length != 0){
                 var unitsDecimalCount;
                 String str = myPledgedSecurityList[index].pledgedQuantity.toString();
@@ -676,7 +675,7 @@ class MfInvokeController extends GetxController{
               var updateAmount = double.parse(controllers2[actualIndex].text) * myPledgedSecurityList[index].price!;
               loanData.value.totalCollateralValue = totalValue.value;
               myPledgedSecurityList[index].amount = updateAmount;
-            });
+            //});
           } else {
 
             if(controllers2[actualIndex].text.toString().contains(".") && controllers2[actualIndex].text.toString().split(".")[1].length != 0){
@@ -704,7 +703,7 @@ class MfInvokeController extends GetxController{
             myPledgedSecurityList[index].amount = updateAmount;
           }
         } else if( controllers2[actualIndex].text != "0") {
-          setState(() {
+          //setState(() {
             if(actualQtyList[actualIndex] < 1){
               controllers2[actualIndex].text = actualQtyList[actualIndex].toString();
               unitStringList[actualIndex] = actualQtyList[actualIndex].toString();
@@ -730,7 +729,7 @@ class MfInvokeController extends GetxController{
             myPledgedSecurityList[index].amount = updateAmount;
             //FocusScope.of(context).requestFocus(new FocusNode());
             Get.focusScope?.requestFocus(new FocusNode());
-          });
+         // });
         }
       }
     }
@@ -831,7 +830,7 @@ class MfInvokeController extends GetxController{
               }
             }
             if(incrementWith != 0){
-              setState(() {
+             // setState(() {
                 myPledgedSecurityList[index].pledgedQuantity = txt.toDouble();
                 myPledgedSecurityList[index].amount = txt * myPledgedSecurityList[index].price!;
                 totalValue.value = 0;
@@ -844,13 +843,13 @@ class MfInvokeController extends GetxController{
                 if(searchMyCartList.length == totalSelectedScrips){
                   checkBoxValue = true;
                 }
-              });
+             // });
             }
           } else {
             Utility.showToastMessage(Strings.check_unit);
           }}
         else{
-          setState(() {
+         // setState(() {
             controllers2[actualIndex].text = "0.001";
             unitStringList[actualIndex] = "0.001";
             myPledgedSecurityList[index].pledgedQuantity = double.parse(controllers2[actualIndex].text);
@@ -861,7 +860,7 @@ class MfInvokeController extends GetxController{
               totalValue.value = totalValue.value + (searchMyCartList[i].price! * double.parse(unitStringList[i]));
               eligibleLoan.value += (searchMyCartList[i].price! * double.parse(unitStringList[i])) * (searchMyCartList[i].eligiblePercentage!/100);
             }
-          });
+          //});
         }
         invokeAndEligibility();
       } else {

@@ -25,6 +25,7 @@ import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_e
 import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/mf_invoke_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -955,13 +956,7 @@ class HomeController extends GetxController{
             if(loanType == Strings.shares){
               Get.toNamed(sellCollateralView, arguments: SellCollateralArguments(loanNo: loanName.value, isComingFor: Strings.all, isin: "", loanType: loanType.value));
             }else{
-              ///todo: uncomment below code after MFInvokeScreen is developed
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext context) =>
-              //             MFInvokeScreen(loanName,
-              //                 Strings.all, "", "")));
+              Get.toNamed(mfInvokeView, arguments: MfInvokeArguments(loanNo: loanName.value, isComingFor: Strings.all, isin: "", folio: ""));
             }
           } else {
             commonDialog( Strings.sale_triggered_small, 0);

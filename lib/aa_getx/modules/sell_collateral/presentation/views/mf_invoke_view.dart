@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +7,6 @@ import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
-import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/controllers/mf_invoke_controller.dart';
 
 class MfInvokeView extends GetView<MfInvokeController>{
@@ -59,7 +57,7 @@ class MfInvokeView extends GetView<MfInvokeController>{
     if(controller.invokeChargeData.value.invokeInitiateChargeType == 'Fix'  && controller.totalValue.value <= 0){
       postSaleLoanBL = controller.loanData.value.balance! - controller.totalValue.value;
     } else {
-      postSaleLoanBL = controller.loanData.value.balance! - controller.totalValue.value + controller.invokeCharge!.value;
+      postSaleLoanBL = controller.loanData.value.balance! - controller.totalValue.value + controller.invokeCharge.value;
     }
 
     return ScrollConfiguration(
@@ -132,10 +130,10 @@ class MfInvokeView extends GetView<MfInvokeController>{
                               ),
                               ReusableSellAmountText(
                                 sellText: 'Revised drawing power',
-                                sellAmount: (controller.actualDrawingPower.value - controller.selectedSchemeEligibility!.value) < 0
-                                    ? negativeValue((controller.actualDrawingPower.value - controller.selectedSchemeEligibility!.value))
-                                    : '₹${numberToString((controller.actualDrawingPower.value - controller.selectedSchemeEligibility!.value).toStringAsFixed(2))}',
-                                sellAmountColor: (controller.actualDrawingPower.value - controller.selectedSchemeEligibility!.value) < 0 ? colorGreen : colorDarkGray,
+                                sellAmount: (controller.actualDrawingPower.value - controller.selectedSchemeEligibility.value) < 0
+                                    ? negativeValue((controller.actualDrawingPower.value - controller.selectedSchemeEligibility.value))
+                                    : '₹${numberToString((controller.actualDrawingPower.value - controller.selectedSchemeEligibility.value).toStringAsFixed(2))}',
+                                sellAmountColor: (controller.actualDrawingPower.value - controller.selectedSchemeEligibility.value) < 0 ? colorGreen : colorDarkGray,
                                 iIcon: false,
                               ),
                               ReusableSellAmountText(
@@ -148,9 +146,9 @@ class MfInvokeView extends GetView<MfInvokeController>{
                               ),ReusableSellAmountText(
                                 sellText: 'Invocation Charges',
                                 sellAmount: controller.invokeChargeData.value.invokeInitiateChargeType == 'Fix'
-                                    ? controller.invokeCharge!.value < 0 ? negativeValue(controller.invokeCharge!.value) : '₹${numberToString(controller.invokeCharge!.value.toStringAsFixed(2))}'
-                                    : controller.totalValue.value > 0 ? '₹${numberToString(controller.invokeCharge!.value.toStringAsFixed(2))}' : '₹0.00',
-                                sellAmountColor: controller.invokeCharge!.value < 0 ? colorGreen : colorDarkGray,
+                                    ? controller.invokeCharge.value < 0 ? negativeValue(controller.invokeCharge.value) : '₹${numberToString(controller.invokeCharge.value.toStringAsFixed(2))}'
+                                    : controller.totalValue.value > 0 ? '₹${numberToString(controller.invokeCharge.value.toStringAsFixed(2))}' : '₹0.00',
+                                sellAmountColor: controller.invokeCharge.value < 0 ? colorGreen : colorDarkGray,
                                 iIcon: true,
                               ),
                               ReusableSellAmountText(
@@ -189,7 +187,7 @@ class MfInvokeView extends GetView<MfInvokeController>{
                       activeColor: colorGreen,
                       onChanged: (bool? newValue) {
                         controller.alterCheckBox(newValue);
-                        controller.resetValue = newValue;
+                        controller.resetValue = newValue!;
                       },
                       value: controller.checkBoxValue,
                     ),
