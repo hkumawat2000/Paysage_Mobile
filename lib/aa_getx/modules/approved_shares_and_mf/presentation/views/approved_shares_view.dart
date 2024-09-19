@@ -142,6 +142,99 @@ class ApprovedSharesView extends GetView<ApprovedSharesController> {
                     )
                   ],
                 ),
+
+                SizedBox(height: 20),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: GestureDetector(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: appTheme,
+                          ),
+                          width: 157,
+                          height: 200,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 30.95, left: 20),
+                                  child: Image.asset(
+                                    AssetsImagePath.ic_reports,
+                                    color: colorWhite,
+                                    width: 50.57,
+                                    height: 52.51,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0, bottom: 20.0),
+                                  child: Text(
+                                    Strings.mf_central_mutual_fund,
+                                    style: extraBoldTextStyle_18_white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          controller.onMfCentralClick();
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: GestureDetector(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: colorTransparent,
+                          ),
+                          width: 157,
+                          height: 200,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       top: 34.0, left: 21.02),
+                                //   child: Image.asset(
+                                //     AssetsImagePath.mutual_fund,
+                                //     width: 48,
+                                //     height: 48.01,
+                                //   ),
+                                // ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       left: 20.0, bottom: 20.0),
+                                //   child: Text(
+                                //     Strings.mutual_fund,
+                                //     style: extraBoldTextStyle_18_white,
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          controller.onMutualFundClick();
+                        },
+                      ),
+                    )
+                  ],
+                ),
+
                 SizedBox(height: 50),
                 RichText(
                   text: TextSpan(

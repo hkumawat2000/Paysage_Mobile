@@ -19,6 +19,7 @@ mixin BaseDio {
   Future<Dio> getBaseDio() async {
     Preferences preferences = new Preferences();
     String token = await preferences.getToken();
+    print("TOKEN ==> $token");
     String? dummyUserNumber = await preferences.getDummyUserMobile();
     String baseURL = "";
     if (dummyUserNumber == null) {
@@ -139,8 +140,8 @@ mixin BaseDio {
       username = 'rzp_live_55JW5NYsUIguyM';
       password = 'J1px4sH9cxxdbY1SfBgIOly0';
     } else {
-      username = 'rzp_test_PWqvSLj4rnBOaG';
-      password = 'LIegmcvKBxxcxRqiV0H4sWmq';
+      username = 'rzp_test_edJR1nkRmL3cfc';
+      password = 'Pd8AEc4n8XoNCVZcQeGsjKK8';
     }
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
     BaseOptions options = BaseOptions(

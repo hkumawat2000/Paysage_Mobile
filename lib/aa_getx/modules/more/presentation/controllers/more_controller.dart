@@ -330,16 +330,26 @@ class MoreController extends GetxController{
       if (isNetwork) {
         if (isPayment.value == 0) {
           Get.toNamed(paymentView, arguments: PaymentArguments(
-              loanName: loanName.value,
-              isMarginShortfall: marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
-              marginShortfallAmount: marginShortfall != null ? marginShortfall!.shortfallC : "",
-              minimumCollateralValue: marginShortfall != null ? marginShortfall!.minimumCollateralValue : "",
-              totalCollateralValue:  marginShortfall != null ? marginShortfall!.totalCollateralValue : "",
-              marginShortfallLoanName:  marginShortfall != null
-                  && marginShortfall!.status != "Sell Triggered"
-                  && marginShortfall!.status != "Request Pending" ? marginShortfall!.name : "",
-              minimumCashAmount: marginShortfall != null ? marginShortfall!.minimumCashAmount! : 0.0,
-              isForInterest: interest.value.isBlank! ? 1 : 0));
+              // loanName: loanName.value,
+              // isMarginShortfall: marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
+              // marginShortfallAmount: marginShortfall != null ? marginShortfall!.shortfallC : "",
+              // minimumCollateralValue: marginShortfall != null ? marginShortfall!.minimumCollateralValue : "",
+              // totalCollateralValue:  marginShortfall != null ? marginShortfall!.totalCollateralValue : "",
+              // marginShortfallLoanName:  marginShortfall != null
+              //     && marginShortfall!.status != "Sell Triggered"
+              //     && marginShortfall!.status != "Request Pending" ? marginShortfall!.name : "",
+              // minimumCashAmount: marginShortfall != null ? marginShortfall!.minimumCashAmount! : 0.0,
+              // isForInterest: interest.value.isBlank! ? 1 : 0,
+
+            isForInterest: interest.value.isBlank! ? 1 : 0,
+            isMarginShortfall: marginShortfall != null ? marginShortfall!.status == "Pending" ? true : false : false,
+            loanName: loanName.value,
+            marginShortfallAmount: marginShortfall!.name != null ? marginShortfall!.shortfallC : 0.0,
+            marginShortfallLoanName: marginShortfall!.name != null && marginShortfall!.status != "Sell Triggered" && marginShortfall!.status != "Request Pending" ? marginShortfall!.name! : "",
+            minimumCashAmount: marginShortfall!.name != null ? marginShortfall!.minimumCashAmount! : 0.0,
+            minimumCollateralValue: marginShortfall!.name != null ? marginShortfall!.minimumCollateralValue : 0.0,
+            totalCollateralValue: marginShortfall!.name != null ? marginShortfall!.totalCollateralValue : 0.0,
+          ));
         } else {
           commonDialog(
               Strings.pending_payment, 0);
@@ -361,9 +371,7 @@ class MoreController extends GetxController{
         parameter[Strings.email] = userEmail;
         parameter[Strings.date_time] = getCurrentDateAndTime();
         firebaseEvent(Strings.new_loan_click, parameter);
-        ///todo: change following code after ApprovedSharesScreen screen completed
-        // Navigator.push(context, MaterialPageRoute(
-        //     builder: (BuildContext context) => ApprovedSharesScreen()));
+        Get.toNamed(approvedSharesView);
       } else {
         Utility.showToastMessage(
             Strings.no_internet_message);

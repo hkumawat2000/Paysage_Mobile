@@ -18,142 +18,133 @@ class MarginShortfallPledgeOTPView extends GetView<MarginShortfallPledgeOtpContr
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ()=> FocusScope.of(context).unfocus(),
-      child:  new Scaffold(
-          key: controller.scaffoldKey,
-          backgroundColor: Colors.transparent,
-          bottomNavigationBar: AnimatedPadding(
-            duration: Duration(milliseconds: 150),
-            curve: Curves.easeOut,
-            padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Container(
-                height: 369,
-                width: 375,
-                decoration: new BoxDecoration(
-                  color: colorWhite,
-                  borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(25.0),
-                    topRight: const Radius.circular(25.0),
+      child: Container(
+          height: 369,
+          width: 375,
+          decoration: new BoxDecoration(
+            color: colorWhite,
+            borderRadius: new BorderRadius.only(
+              topLeft: const Radius.circular(25.0),
+              topRight: const Radius.circular(25.0),
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: 40,
                   ),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: HeadingSubHeadingWidget(
-                              Strings.otp_verification, Strings.enter_pledge_otp),
-                        ),
-                        SizedBox(
-                          height: 39,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 40, right: 40),
-                          child: PinCodeTextField(
-                            controller: controller.otpController,
-                            cursorColor: appTheme,
-                            appContext: context,
-                            textStyle: TextStyle(
-                                fontSize: mediumText_24, fontWeight: regular, color: colorDarkGray),
-                            backgroundColor: colorWhite,
-                            keyboardType: TextInputType.numberWithOptions(decimal: true),
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                            ],
-                            length: 4,
-                            obscureText: false,
-                            autoFocus: true,
-                            animationType: AnimationType.fade,
-                            validator: (v) {
-                              return null;
-                            },
-                            pinTheme: PinTheme(
-                              shape: PinCodeFieldShape.underline,
-                              inactiveColor: colorGrey,
-                              selectedColor: appTheme,
-                              activeColor: appTheme,
-                              disabledColor: colorGrey,
-                              borderWidth: 2,
-                            ),
-                            onCompleted: (otp)=>controller.otpFieldCompleted(otp),
-                            onChanged: (value)=> value.length >= 4 ? controller.isSubmitBtnClickable = false : controller.isSubmitBtnClickable = true,
-                            beforeTextPaste: (text) {
-                              debugPrint("Allowing to paste $text");
-                              //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                              //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                              return true;
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              height: 45,
-                              width: 140,
-                              child: Material(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(35)),
-                                  elevation: 1.0,
-                                  color: controller.isSubmitBtnClickable == true ? colorLightGray : appTheme,
-                                  child: AbsorbPointer(
-                                    absorbing: controller.isSubmitBtnClickable,
-                                    child: MaterialButton(
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                                      minWidth: MediaQuery.of(context).size.width,
-                                      onPressed: ()=> controller.createLoanApplication(),
-                                      child: Text(
-                                        Strings.submit,
-                                        style: TextStyle(
-                                            color: colorWhite,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 16),
-                                      ),
-                                    ),
-                                  )
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left: 40, right: 40),
-                              child: AbsorbPointer(
-                                absorbing: controller.isResendOTPClickable.value,
-                                child: InkWell(
-                                  onTap: ()=> controller.resendOtpClicked(),
-                                  child: new Text(
-                                    Strings.resend_otp,
-                                    style: TextStyle(
-                                        color: controller.isResendOTPClickable == true ? colorGrey : appTheme,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: HeadingSubHeadingWidget(
+                        Strings.otp_verification, Strings.enter_pledge_otp),
+                  ),
+                  SizedBox(
+                    height: 39,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 40, right: 40),
+                    child: PinCodeTextField(
+                      controller: controller.otpController,
+                      cursorColor: appTheme,
+                      appContext: context,
+                      textStyle: TextStyle(
+                          fontSize: mediumText_24, fontWeight: regular, color: colorDarkGray),
+                      backgroundColor: colorWhite,
+                      keyboardType: TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                      ],
+                      length: 4,
+                      obscureText: false,
+                      autoFocus: true,
+                      animationType: AnimationType.fade,
+                      validator: (v) {
+                        return null;
+                      },
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.underline,
+                        inactiveColor: colorGrey,
+                        selectedColor: appTheme,
+                        activeColor: appTheme,
+                        disabledColor: colorGrey,
+                        borderWidth: 2,
+                      ),
+                      onCompleted: (otp)=>controller.otpFieldCompleted(otp),
+                      onChanged: (value)=> value.length >= 4 ? controller.isSubmitBtnClickable = false : controller.isSubmitBtnClickable = true,
+                      beforeTextPaste: (text) {
+                        debugPrint("Allowing to paste $text");
+                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                        return true;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 45,
+                        width: 140,
+                        child: Material(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35)),
+                            elevation: 1.0,
+                            color: controller.isSubmitBtnClickable == true ? colorLightGray : appTheme,
+                            child: AbsorbPointer(
+                              absorbing: controller.isSubmitBtnClickable,
+                              child: MaterialButton(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                                minWidth: MediaQuery.of(context).size.width,
+                                onPressed: ()=> controller.createLoanApplication(),
+                                child: Text(
+                                  Strings.submit,
+                                  style: TextStyle(
+                                      color: colorWhite,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16),
                                 ),
                               ),
+                            )
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40, right: 40),
+                        child: AbsorbPointer(
+                          absorbing: controller.isResendOTPClickable.value,
+                          child: InkWell(
+                            onTap: ()=> controller.resendOtpClicked(),
+                            child: new Text(
+                              Strings.resend_otp,
+                              style: TextStyle(
+                                  color: controller.isResendOTPClickable == true ? colorGrey : appTheme,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500),
                             ),
-                            _timerAndRetrySection(),
-                          ],
+                          ),
                         ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                      ]),
-                )),
+                      ),
+                      _timerAndRetrySection(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ]),
           )),
     );
   }
