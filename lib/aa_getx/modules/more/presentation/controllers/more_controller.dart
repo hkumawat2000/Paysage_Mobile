@@ -18,6 +18,7 @@ import 'package:lms/aa_getx/modules/more/domain/usecases/get_my_active_loans_use
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_profile_set_alert_usecase.dart';
 import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/mf_invoke_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 
 class MoreController extends GetxController{
@@ -382,10 +383,7 @@ class MoreController extends GetxController{
               //     MaterialPageRoute(builder: (BuildContext context) =>
               //         UnpledgeSharesScreen(loanName!, Strings.all, "", loanType!)));
             } else {
-              ///todo: change following code after MFRevokeScreen screen completed
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (BuildContext context) =>
-              //         MFRevokeScreen(loanName!, Strings.all, "", "")));
+              Get.toNamed(mfRevokeView, arguments: MfInvokeArguments(loanNo: loanName.value, isComingFor: Strings.all, isin: "", folio: ""));
             }
           } else {
             commonDialog(loanType == Strings.shares ? Strings.unpledge_request_pending : Strings.revoke_request_pending, 0);

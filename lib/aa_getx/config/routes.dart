@@ -71,6 +71,11 @@ import 'package:lms/aa_getx/modules/sell_collateral/presentation/bindings/sell_c
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/mf_invoke_view.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_success_view.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_view.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/bindings/mf_revoke_binding.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/bindings/unpledge_otp_verification_binding.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/views/mf_revoke_view.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_otp_verification_view.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_successful_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 
 
@@ -117,6 +122,9 @@ const String myPledgedTransactionsView = "my-pledged-transactions-view";
 const String sellCollateralView = "sell-collateral-view";
 const String sellCollateralSuccessView = "sell-collateral-success-view";
 const String mfInvokeView = "mf-invoke-view";
+const String mfRevokeView = "mf-revoke-view";
+const String unpledgeOtpVerificationView = "unpledge_otp_verification-view";
+const String unpledgeSuccessfulView = "unpledge-successful-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -319,5 +327,19 @@ List<GetPage> routes = [
     name: '/$mfInvokeView',
     page: () => MfInvokeView(),
     binding: MfInvokeBinding(),
+  ),
+  GetPage(
+    name: '/$mfRevokeView',
+    page: () => MfRevokeView(),
+    binding: MfRevokeBinding(),
+  ),
+  GetPage(
+    name: '/$unpledgeOtpVerificationView',
+    page: () => UnpledgeOtpVerificationView(),
+    binding: UnpledgeOtpVerificationBinding(),
+  ),
+  GetPage(
+    name: '/$unpledgeSuccessfulView',
+    page: () => UnpledgeSuccessfulView(),
   ),
 ];
