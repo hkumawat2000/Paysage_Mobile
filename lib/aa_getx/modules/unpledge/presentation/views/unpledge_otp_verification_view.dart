@@ -6,10 +6,13 @@ import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
+import 'package:lms/aa_getx/modules/unpledge/domain/entities/request/unpledge_request_req_entity.dart';
 import 'package:lms/aa_getx/modules/unpledge/presentation/controllers/unpledge_otp_verification_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class UnpledgeOtpVerificationView extends GetView<UnpledgeOtpVerificationController>{
+  UnpledgeOtpVerificationView(List<UnPledgeListEntity> unpledgeListItem, String loanName, String maxAllowable, String loanType);
+
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +159,7 @@ class UnpledgeOtpVerificationView extends GetView<UnpledgeOtpVerificationControl
 
   Widget _timerAndRetrySection() {
     return AnimatedBuilder(
-      animation: controller!,
+      animation: controller,
       builder: (context, child) {
         return Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
