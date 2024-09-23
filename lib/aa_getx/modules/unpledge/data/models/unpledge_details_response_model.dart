@@ -441,9 +441,9 @@ class RevokeChargeDetails {
 
   RevokeChargeDetailsEntity toEntity() => RevokeChargeDetailsEntity(
         revokeInitiateChargeType: revokeInitiateChargeType,
-        revokeInitiateCharges: revokeInitiateCharges,
-        revokeInitiateChargesMinimumAmount: revokeInitiateChargesMinimumAmount,
-        revokeInitiateChargesMaximumAmount: revokeInitiateChargesMaximumAmount,
+        revokeInitiateCharges: revokeInitiateCharges ?? 0.0,
+        revokeInitiateChargesMinimumAmount: revokeInitiateChargesMinimumAmount ?? 0.0,
+        revokeInitiateChargesMaximumAmount: revokeInitiateChargesMaximumAmount ?? 0.0,
       );
 }
 

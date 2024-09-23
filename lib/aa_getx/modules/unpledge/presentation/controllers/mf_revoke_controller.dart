@@ -16,7 +16,6 @@ import 'package:lms/aa_getx/modules/unpledge/domain/entities/request/unpledge_re
 import 'package:lms/aa_getx/modules/unpledge/domain/entities/unpledge_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/unpledge/domain/usecases/get_unpledge_details_usecase.dart';
 import 'package:lms/aa_getx/modules/unpledge/domain/usecases/request_unpledge_otp_usecase.dart';
-import 'package:lms/network/responsebean/UnpledgeDetailsResponse.dart';
 import 'package:lms/unpledge/UnpledgeBloc.dart';
 
 class MfRevokeController extends GetxController{
@@ -30,8 +29,9 @@ class MfRevokeController extends GetxController{
   Preferences preferences = new Preferences();
   final unpledgeBloc = UnpledgeBloc();
   double? revisedDrawingPower, existingDrawingPower;
-  var loanName, loanBalance, existingCollateral, revisedCollateral, selectedSecurityValue,
+  var loanName, loanBalance, revisedCollateral,
       maxAllowableValue, selectedScips, unpledgeScripsValue, totalcollateralValue;
+  RxDouble selectedSecurityValue = 0.0.obs, existingCollateral = 0.0.obs;
   List<UnpledgeItemsEntity> unpledgeItemsList = [];
   List<CollateralLedgerEntity> collateralList = [];
   List<UnpledgeItemsEntity> searchMyCartList = [];
@@ -43,7 +43,8 @@ class MfRevokeController extends GetxController{
   List<double>? actualQtyList;
   bool? resetValue;
   List<TextEditingController> controllers = [];
-  UnpledgeDetailsResponse? unpledgeDetailsResponse;// response of unpledge details
+  Rx<UnpledgeDetailsResponseEntity> unpledgeDetailsResponse = UnpledgeDetailsResponseEntity().obs;// response of unpledge details
+  Rx<UnpledgeEntity> unpledge = UnpledgeEntity().obs;
   List<bool> checkBoxValues = [];
   bool checkBoxValue = false;
   bool isScripsSelect = true;
@@ -98,7 +99,9 @@ class MfRevokeController extends GetxController{
       if (response is DataSuccess) {
         if(response.data!.unpledgeData!.unpledge != null) {
          // setState(() {
+          unpledgeDetailsResponse.value = response.data!;
             unpledgeData = response.data!.unpledgeData!;
+            unpledge.value = unpledgeDetailsResponse.value.unpledgeData!.unpledge!;
             actualDrawingPower = 0;
             if(response.data!.unpledgeData!.collateralLedger != null){
               collateralList.addAll(response.data!.unpledgeData!.collateralLedger!);
@@ -113,7 +116,7 @@ class MfRevokeController extends GetxController{
               if(pageArguments.isComingFor == Strings.single){
                 if(unpledgeData.loan!.items![i].isin == pageArguments.isin && unpledgeData.loan!.items![i].folio == pageArguments.folio) {
                   selectedScips = 1;
-                  selectedSecurityValue = 0.0 + unpledgeData.loan!.items![i].amount!;
+                  selectedSecurityValue.value = 0.0 + unpledgeData.loan!.items![i].amount!;
                   if(unpledgeItemsList[i].pledgedQuantity.toString().split(".")[1].length != 0){
                     var unitsDecimalCount;
                     String str = unpledgeItemsList[i].pledgedQuantity.toString();
@@ -150,12 +153,12 @@ class MfRevokeController extends GetxController{
             unpledgeData.loan!.existingdrawingPower = unpledgeData.loan!.drawingPower;
             unpledgeData.loan!.existingtotalCollateralValue = unpledgeData.loan!.totalCollateralValue;
             existingDrawingPower = unpledgeData.loan!.actualDrawingPower;
-            existingCollateral = unpledgeData.loan!.existingtotalCollateralValue;
+            existingCollateral.value = unpledgeData.loan!.existingtotalCollateralValue ?? 0.0;
             revisedCollateral = unpledgeData.loan!.totalCollateralValue;
             revisedDrawingPower = unpledgeData.loan!.actualDrawingPower;
             unpledgeData.loan!.totalCollateralValue = 0;
             if(pageArguments.isComingFor == Strings.all) {
-              selectedSecurityValue = 0.0;
+              selectedSecurityValue.value = 0.0;
               selectedScips = 0;
             }
             searchMyCartList.addAll(unpledgeItemsList);
@@ -337,7 +340,7 @@ class MfRevokeController extends GetxController{
       focusNode.unfocus();
       this.actionIcon = Icon(Icons.search, color: appTheme, size: 25);
       this.appBarTitle = Text(
-        pageArguments.loanNo != null ? pageArguments.loanNo : "",
+        pageArguments.loanNo.isNotEmpty ? pageArguments.loanNo : "",
         style: TextStyle(color: appTheme),
       );
       textController.clear();
@@ -348,11 +351,11 @@ class MfRevokeController extends GetxController{
 
   updateTotalSchemeValue(){
     //setState(() {
-      selectedSecurityValue = 0;
+      selectedSecurityValue.value = 0;
       for(int i= 0; i<searchMyCartList.length ; i++){
-        selectedSecurityValue = selectedSecurityValue + (searchMyCartList[i].price! * double.parse(unitStringList[i]));
+        selectedSecurityValue.value = selectedSecurityValue.value + (searchMyCartList[i].price! * double.parse(unitStringList[i]));
       }
-      unpledgeData.loan!.totalCollateralValue = selectedSecurityValue;
+      unpledgeData.loan!.totalCollateralValue = selectedSecurityValue.value;
     //});
   }
 
@@ -396,7 +399,7 @@ class MfRevokeController extends GetxController{
     List<bool> temp = checkBoxValues;
     //setState(() {
       selectedScips = 0;
-      selectedSecurityValue = 0.0;
+      selectedSecurityValue.value = 0.0;
     //});
     for (var index = 0; index < unpledgeItemsList.length; index++) {
       temp[index] = value;
@@ -419,17 +422,17 @@ class MfRevokeController extends GetxController{
           }
           unpledgeItemsList[index].amount = double.parse(controllers[index].text) * unpledgeItemsList[index].price!;
           if (selectedScips == 0) {
-            selectedSecurityValue = 0.0 + unpledgeItemsList[index].amount!;
+            selectedSecurityValue.value = 0.0 + unpledgeItemsList[index].amount!;
           } else {
-            selectedSecurityValue = unpledgeData.loan!.totalCollateralValue! + unpledgeItemsList[index].amount!;
+            selectedSecurityValue.value = unpledgeData.loan!.totalCollateralValue! + unpledgeItemsList[index].amount!;
           }
-          unpledgeData.loan!.totalCollateralValue = selectedSecurityValue;
+          unpledgeData.loan!.totalCollateralValue = selectedSecurityValue.value;
           unpledgeItemsList[index].check = true;
           selectedScips = index + 1;
         } else {
           isAddBtnShow[index] = true;
-          selectedSecurityValue = roundDouble(unpledgeData.loan!.totalCollateralValue!, 2) - unpledgeItemsList[index].amount!;
-          unpledgeData.loan!.totalCollateralValue = selectedSecurityValue;
+          selectedSecurityValue.value = roundDouble(unpledgeData.loan!.totalCollateralValue!, 2) - unpledgeItemsList[index].amount!;
+          unpledgeData.loan!.totalCollateralValue = selectedSecurityValue.value;
           unpledgeItemsList[index].amount = 0.0;
           controllers[index].text = "0";
           unitStringList[index] = "0";
@@ -947,7 +950,7 @@ class MfRevokeController extends GetxController{
               unpledgeItemsList[index].pledgedQuantity = double.parse(controllers[actualIndex].text);
               updateTotalSchemeValue();
               var updateAmount = double.parse(controllers[actualIndex].text) * unpledgeItemsList[index].price!;
-              unpledgeData.loan!.totalCollateralValue = selectedSecurityValue;
+              unpledgeData.loan!.totalCollateralValue = selectedSecurityValue.value;
               unpledgeItemsList[index].amount = updateAmount;
             //});
           } else {
@@ -967,7 +970,7 @@ class MfRevokeController extends GetxController{
             unpledgeItemsList[index].pledgedQuantity = double.parse(unitStringList[actualIndex]);
             updateTotalSchemeValue();
             var updateAmount = double.parse(controllers[actualIndex].text) * unpledgeItemsList[index].price!;
-            unpledgeData.loan!.totalCollateralValue = selectedSecurityValue;
+            unpledgeData.loan!.totalCollateralValue = selectedSecurityValue.value;
             unpledgeItemsList[index].amount = updateAmount;
           }
         } else if( controllers[actualIndex].text != "0") {
@@ -984,7 +987,7 @@ class MfRevokeController extends GetxController{
               unpledgeItemsList[index].pledgedQuantity = 1;
             }
             var updateAmount = double.parse(controllers[actualIndex].text) * unpledgeItemsList[index].price!;
-            unpledgeData.loan!.totalCollateralValue = selectedSecurityValue;
+            unpledgeData.loan!.totalCollateralValue = selectedSecurityValue.value;
             unpledgeItemsList[index].amount = updateAmount;
             Get.focusScope?.requestFocus(new FocusNode());
          // });

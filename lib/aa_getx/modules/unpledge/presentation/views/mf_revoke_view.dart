@@ -19,18 +19,18 @@ class MfRevokeView extends GetView<MfRevokeController>{
         FocusScope.of(context).unfocus();
       },
       child: Obx(
-        () => Scaffold(
-            key: controller.scaffoldKey,
-            resizeToAvoidBottomInset: false,
-            backgroundColor: colorBg,
-            appBar: buildBar(context),
-            body: controller.unpledgeDetailsResponse != null
-                ? controller.unpledgeDetailsResponse!.data!.unpledge != null
-                    ? allUnpledgeData()
-                    : Center(child: Text(Strings.no_loan))
-                : Center(child: Text(Strings.please_wait))),
-      ),
-    );
+        () =>
+            Scaffold(
+              key: controller.scaffoldKey,
+              resizeToAvoidBottomInset: false,
+              backgroundColor: colorBg,
+              appBar: buildBar(context),
+              body: controller.unpledgeDetailsResponse.isBlank!
+                  ? Center(child: Text(Strings.please_wait))
+                  : controller.unpledge.isBlank!
+                      ? Center(child: Text(Strings.no_loan))
+                      : allUnpledgeData(),
+            )));
   }
 
   Widget allUnpledgeData(){
@@ -136,7 +136,7 @@ class MfRevokeView extends GetView<MfRevokeController>{
               controller.checkBoxValues.add(true);
               controller.isAddBtnShow.add(false);
               controller.unpledgeItemsList[index].check = true;
-              controller.unpledgeData.loan!.totalCollateralValue = controller.selectedSecurityValue;
+              controller.unpledgeData.loan!.totalCollateralValue = controller.selectedSecurityValue.value;
               controller.isScripsSelect = false;
               controller.isUnpledgeAlert = false;
             } else {
@@ -366,7 +366,7 @@ class MfRevokeView extends GetView<MfRevokeController>{
           ReusableAmountWithTextAndDivider(
             leftAmount: Strings.rupee + numberToString(controller.existingCollateral.toStringAsFixed(2)),
             leftText:Strings.existing_collateral ,
-            rightAmount: Strings.rupee + numberToString(roundDouble((controller.existingCollateral - controller.selectedSecurityValue), 2).toStringAsFixed(2)),
+            rightAmount: Strings.rupee + numberToString(roundDouble((controller.existingCollateral.value - controller.selectedSecurityValue.value), 2).toStringAsFixed(2)),
             rightText: Strings.remaining_collateral,
           ),
         ],
@@ -415,9 +415,9 @@ class MfRevokeView extends GetView<MfRevokeController>{
                       style: TextStyle(fontSize: 18.0, color: colorBlack),
                     ),
                   ),
-                  Text(roundDouble(controller.selectedSecurityValue, 2) < 0
-                      ? negativeValue(roundDouble(controller.selectedSecurityValue, 2))
-                      : '₹' + numberToString(roundDouble(controller.selectedSecurityValue, 2).toStringAsFixed(2)),
+                  Text(roundDouble(controller.selectedSecurityValue.value, 2) < 0
+                      ? negativeValue(roundDouble(controller.selectedSecurityValue.value, 2))
+                      : '₹' + numberToString(roundDouble(controller.selectedSecurityValue.value, 2).toStringAsFixed(2)),
                     style: bottomSheetValueTextStyle,
                   )
                 ],
