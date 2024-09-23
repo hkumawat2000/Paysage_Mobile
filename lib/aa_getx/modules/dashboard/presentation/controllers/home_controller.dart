@@ -1015,13 +1015,7 @@ class HomeController extends GetxController{
   void goToBankDetailScreen()  {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: uncomment below code after BankDetailScreen is developed
-
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             BankDetailScreen()));
+        Get.toNamed(addBank);
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
