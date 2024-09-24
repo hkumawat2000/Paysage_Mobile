@@ -1,7 +1,7 @@
 
 class PaymentArguments{
-  var loanName, marginShortfallAmount, minimumCollateralValue, totalCollateralValue, marginShortfallLoanName;
-  double? minimumCashAmount;
+  String loanName, marginShortfallLoanName;
+  double? minimumCashAmount, marginShortfallAmount, minimumCollateralValue, totalCollateralValue;
   bool? isMarginShortfall;
   int? isForInterest;
 

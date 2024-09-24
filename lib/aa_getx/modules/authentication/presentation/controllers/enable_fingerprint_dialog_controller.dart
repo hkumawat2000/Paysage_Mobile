@@ -84,14 +84,10 @@ class EnableFingerPrintController extends GetxController
   }
 
   Future skipClicked() async {
-
-    Alert.showSnackBar(title: "Please enable the biometric, without enabling biometric we can not proceed");
-
-    // firebaseEvent("Biometric_Set", {'Set': false});
-    // if (setPinArgs.isForOfflineCustomer! && setPinArgs.isLoanOpen == 0) {
-    //   Get.offAllNamed(offlineCustomerView);
-    // } else {
-    //   Get.offNamed(registrationSuccessfulView);
-    // }
+    if (setPinArgs.isForOfflineCustomer! && setPinArgs.isLoanOpen == 0) {
+      Get.offAllNamed(offlineCustomerView);
+    } else {
+      Get.offNamed(registrationSuccessfulView);
+    }
   }
 }

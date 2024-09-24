@@ -82,24 +82,24 @@ class _SettingsMenuViewState extends State<SettingsMenuView> {
                           Spacer(),
                           GestureDetector(
                             onTap: () {
-                              Utility.isNetworkConnection()
-                                  .then((isNetwork) async {
-                                if (isNetwork) {
-                                  if (widget.isSettingOpen == 0) {
-                                    Get.bottomSheet(
-                                      backgroundColor: Colors.transparent,
-                                      ManageSettingsView(
-                                        widget.isKYCCompleted,
-                                        widget.alertDataResponseEntity,
-                                      ),
-                                    );
-                                    settingsMenuController.fetchDataFromPref();
-                                  }
-                                } else {
-                                  Utility.showToastMessage(
-                                      Strings.no_internet_message);
-                                }
-                              });
+                              // Utility.isNetworkConnection()
+                              //     .then((isNetwork) async {
+                              //   if (isNetwork) {
+                              //     if (widget.isSettingOpen == 0) {
+                              //       Get.bottomSheet(
+                              //         backgroundColor: Colors.transparent,
+                              //         ManageSettingsView(
+                              //           widget.isKYCCompleted,
+                              //           widget.alertDataResponseEntity,
+                              //         ),
+                              //       );
+                              //       settingsMenuController.fetchDataFromPref();
+                              //     }
+                              //   } else {
+                              //     Utility.showToastMessage(
+                              //         Strings.no_internet_message);
+                              //   }
+                              // });
                             },
                             child: Image(
                                 image: AssetImage(

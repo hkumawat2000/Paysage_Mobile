@@ -11,6 +11,7 @@ import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecas
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/all_loan_names_response_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:cron/cron.dart';
@@ -64,7 +65,7 @@ class SingleMyActiveLoanController extends GetxController {
   RxString loanType = "".obs;
   RxString schemeType = "".obs;
   var minimumCashAmount;
-  var transactionsList;
+  List<TransactionsEntity>? transactionsList;
 
   @override
   void onInit() {
@@ -72,6 +73,16 @@ class SingleMyActiveLoanController extends GetxController {
     runClone();
     getLoanDetails();
     super.onInit();
+  }
+
+  Future<void> pullRefresh() async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        getLoanDetails();
+      } else {
+        commonDialog(Strings.no_internet_message, 0);
+      }
+    });
   }
 
   void runClone() {
@@ -287,9 +298,18 @@ class SingleMyActiveLoanController extends GetxController {
     // } else {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        debugPrint("interest${jsonEncode(interest)}");
-
         if (loanDetailData.value.paymentAlreadyInProcess == 0) {
+          Get.toNamed(paymentView, arguments: PaymentArguments(
+            isForInterest: interest.value != null ? 1: 0,
+            isMarginShortfall: marginShortfall.value.name != null ? marginShortfall.value.status == "Pending" ? true : false : false,
+            loanName: loanNumber.value,
+            marginShortfallAmount: marginShortfall.value.name != null ? marginShortfall.value.shortfallC : 0.0,
+            marginShortfallLoanName: marginShortfall.value.name != null && marginShortfall.value.status != "Sell Triggered" && marginShortfall.value.status != "Request Pending" ? marginShortfall.value.name! : "",
+            minimumCashAmount: marginShortfall.value.name != null ? marginShortfall.value.minimumCashAmount! : 0.0,
+            minimumCollateralValue: marginShortfall.value.name != null ? marginShortfall.value.minimumCollateralValue : 0.0,
+            totalCollateralValue: marginShortfall.value.name != null ? marginShortfall.value.totalCollateralValue : 0.0,
+          ));
+
           /// todo: uncomment and change following code after PaymentScreen page is completed
           // Navigator.push(
           //     context,

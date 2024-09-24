@@ -56,6 +56,16 @@ class MyPledgeSecurityController extends GetxController{
   }
 
 
+  Future<void> pullRefresh() async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        getAllLoansName();
+      } else {
+        commonDialog(Strings.no_internet_message, 0);
+      }
+    });
+  }
+
   Future<void> getAllLoansName() async{
     if (await _connectionInfo.isConnected) {
       DataState<AllLoanNamesResponseEntity> response =

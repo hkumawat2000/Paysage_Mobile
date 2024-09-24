@@ -20,19 +20,19 @@ class ConsentDetailsRequestModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'userKycName': userKycName,
-      'acceptTerms': acceptTerms,
-      'address_details': addressDetailsRequestModel!.toMap(),
-      'isLoanRenewal': isLoanRenewal,
+      'user_kyc_name': userKycName,
+      'accept_terms': acceptTerms,
+      'address_details': addressDetailsRequestModel != null ? addressDetailsRequestModel!.toMap() : null,
+      'is_loan_renewal': isLoanRenewal,
     };
   }
 
   factory ConsentDetailsRequestModel.fromMap(Map<String, dynamic> map) {
     return ConsentDetailsRequestModel(
-      userKycName: map['userKycName'] != null ? map['userKycName'] as String : null,
-      acceptTerms: map['acceptTerms'] != null ? map['acceptTerms'] as int : null,
+      userKycName: map['user_kyc_name'] != null ? map['user_kyc_name'] as String : null,
+      acceptTerms: map['accept_terms'] != null ? map['accept_terms'] as int : null,
       addressDetailsRequestModel: AddressDetailsRequestModel.fromMap(map['address_details'] as Map<String,dynamic>),
-      isLoanRenewal: map['isLoanRenewal'] != null ? map['isLoanRenewal'] as int : null,
+      isLoanRenewal: map['is_loan_renewal'] != null ? map['is_loan_renewal'] as int : null,
     );
   }
 
@@ -53,7 +53,7 @@ class ConsentDetailsRequestModel {
     return ConsentDetailsRequestModel(
       userKycName: consentDetailsRequestEntity.userKycName != null ? consentDetailsRequestEntity.userKycName as String : null,
       acceptTerms: consentDetailsRequestEntity.acceptTerms != null ? consentDetailsRequestEntity.acceptTerms as int : null,
-      addressDetailsRequestModel: AddressDetailsRequestModel.fromEntity(consentDetailsRequestEntity.addressDetailsRequestEntity as AddressDetailsRequestEntity),
+      addressDetailsRequestModel: consentDetailsRequestEntity.addressDetailsRequestEntity != null ? AddressDetailsRequestModel.fromEntity(consentDetailsRequestEntity.addressDetailsRequestEntity as AddressDetailsRequestEntity) : null,
       isLoanRenewal: consentDetailsRequestEntity.isLoanRenewal != null ? consentDetailsRequestEntity.isLoanRenewal as int : null,
     );
   }
@@ -62,11 +62,13 @@ class ConsentDetailsRequestModel {
 class AddressDetailsRequestModel {
   PermanentAddressRequestModel? permanentAddress;
   String? permCorresFlag;
+  String? geoLocation;
   PermanentAddressRequestModel? correspondingAddress;
   
   AddressDetailsRequestModel({
     this.permanentAddress,
     this.permCorresFlag,
+    this.geoLocation,
     this.correspondingAddress,
   });
   
@@ -74,6 +76,7 @@ class AddressDetailsRequestModel {
     return <String, dynamic>{
       'permanent_address': permanentAddress?.toMap(),
       'perm_corres_flag': permCorresFlag,
+      'geo_location': geoLocation,
       'corresponding_address': correspondingAddress?.toMap(),
     };
   }
@@ -82,6 +85,7 @@ class AddressDetailsRequestModel {
     return AddressDetailsRequestModel(
       permanentAddress: map['permanent_address'] != null ? PermanentAddressRequestModel.fromMap(map['permanent_address'] as Map<String,dynamic>) : null,
       permCorresFlag: map['perm_corres_flag'] != null ? map['perm_corres_flag'] as String : null,
+      geoLocation: map['geo_location'] != null ? map['geo_location'] as String : null,
       correspondingAddress: map['corresponding_address'] != null ? PermanentAddressRequestModel.fromMap(map['corresponding_address'] as Map<String,dynamic>) : null,
     );
   }
@@ -94,6 +98,7 @@ class AddressDetailsRequestModel {
   AddressDetailsRequestEntity(
       permanentAddress: permanentAddress?.toEntity(),
       permCorresFlag: permCorresFlag,
+      geoLocation : geoLocation,
       correspondingAddress: correspondingAddress?.toEntity(),
   
   );
@@ -102,6 +107,7 @@ class AddressDetailsRequestModel {
     return AddressDetailsRequestModel(
       permanentAddress: addressDetailsRequestEntity.permanentAddress != null ? PermanentAddressRequestModel.fromEntity(addressDetailsRequestEntity.permanentAddress as PermanentAddressRequestEntity) : null,
       permCorresFlag: addressDetailsRequestEntity.permCorresFlag != null ? addressDetailsRequestEntity.permCorresFlag as String : null,
+      geoLocation: addressDetailsRequestEntity.geoLocation != null ? addressDetailsRequestEntity.geoLocation as String : null,
       correspondingAddress: addressDetailsRequestEntity.correspondingAddress != null ? PermanentAddressRequestModel.fromEntity(addressDetailsRequestEntity.correspondingAddress as PermanentAddressRequestEntity) : null,
     );
   }

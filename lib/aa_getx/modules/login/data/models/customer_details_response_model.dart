@@ -62,7 +62,7 @@ class CustomerDetailsResponseModel {
     this.doctype,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'name': name,
       'owner': owner,
@@ -94,7 +94,7 @@ class CustomerDetailsResponseModel {
     };
   }
 
-  factory CustomerDetailsResponseModel.fromMap(Map<String, dynamic> map) {
+  factory CustomerDetailsResponseModel.fromJson(Map<String, dynamic> map) {
     return CustomerDetailsResponseModel(
       name: map['name'] != null ? map['name'] as String : null,
       owner: map['owner'] != null ? map['owner'] as String : null,
@@ -126,9 +126,9 @@ class CustomerDetailsResponseModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
-  factory CustomerDetailsResponseModel.fromJson(String source) => CustomerDetailsResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory CustomerDetailsResponseModel.fromJson(String source) => CustomerDetailsResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   CustomerDetailsResponseEntity toEntity() =>
   CustomerDetailsResponseEntity(

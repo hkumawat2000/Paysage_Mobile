@@ -16,38 +16,41 @@ import 'package:lms/aa_getx/core/widgets/common_widgets.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/arguments/kyc_address_arguments.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/controllers/kyc_address_controller.dart';
 
+
 class KycAddressScreen extends GetView<KycAddressController> {
   KycAddressScreen();
 
   final KycAddressArguments kycAddressArguments = Get.arguments;
+  //final TextEditingController colorController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => GestureDetector(
-        onTap: () {
+    return GestureDetector(
+      onTap: () {
+        print('object');
+        controller.toChangeBoolValuesForDropdown();
+        FocusScope.of(context).unfocus();
+      },
+      child: WillPopScope(
+        onWillPop: () async {
           controller.toChangeBoolValuesForDropdown();
-          FocusScope.of(context).unfocus();
+          Navigator.pop(context);
+          return true;
         },
-        child: WillPopScope(
-          onWillPop: () async {
-            controller.toChangeBoolValuesForDropdown();
-            Navigator.pop(context);
-            return true;
-          },
-          child: Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              backgroundColor: colorBg,
-              leading: IconButton(
-                  icon: NavigationBackImage(),
-                  onPressed: () {
-                    controller.toChangeBoolValuesForDropdown();
-                    Get.back();
-                    //Navigator.pop(context);
-                  }),
-            ),
-            body: controller.isAPICalling.isTrue
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: colorBg,
+            leading: IconButton(
+                icon: NavigationBackImage(),
+                onPressed: () {
+                  controller.toChangeBoolValuesForDropdown();
+                  Get.back();
+                  //Navigator.pop(context);
+                }),
+          ),
+          body: Obx(
+            () => controller.isAPICalling.isTrue
                 ? Center(
                     child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +128,8 @@ class KycAddressScreen extends GetView<KycAddressController> {
                 SizedBox(height: 20),
                 Row(
                   children: [
-                    permPOAType(),
+                    newPermPoaTypeDropdown(),
+                    //Obx(()=> permPOAType()),
                     SizedBox(width: 10),
                     permPOABrowse(),
                   ],
@@ -196,7 +200,8 @@ class KycAddressScreen extends GetView<KycAddressController> {
                 SizedBox(height: 20),
                 Row(
                   children: [
-                    corrPOAType(),
+                    newCorrPoaTypeDropdown(),
+                    //corrPOAType(),
                     SizedBox(width: 10),
                     corrPOABrowse(),
                   ],
@@ -814,6 +819,67 @@ class KycAddressScreen extends GetView<KycAddressController> {
     );
   }
 
+  Widget newPermPoaTypeDropdown() {
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //Text("Proof of Address Type*"),
+          SizedBox(height: 2),
+          kycAddressArguments.isShowEdit!
+              ? Container(
+                  //height: 32,
+                  //width: double.infinity,
+
+                  //margin: EdgeInsets.only(left: 10, right: 10),
+                  child: DropdownMenu<String>(
+                  //initialSelection: controller.poaTypeList.first,
+                  //controller: colorController,
+                  enableSearch: false,
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                    overflow: TextOverflow.clip,
+                  ),
+                  width: 180,
+                  // requestFocusOnTap is enabled/disabled by platforms when it is null.
+                  // On mobile platforms, this is false by default. Setting this to true will
+                  // trigger focus request on the text field and virtual keyboard will appear
+                  // afterward. On desktop platforms however, this defaults to true.
+                  requestFocusOnTap: false,
+                  label: const Text(
+                    'Proof of Address Type*',
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  onSelected: (String? selectedValue) {
+                    print(selectedValue);
+                    controller.permValidatorPOAType.value = true;
+                    controller.permPOATypeSelected = selectedValue!;
+                  },
+                  dropdownMenuEntries: controller.poaTypeList
+                      .map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                      value: value,
+                      label: value,
+                      enabled: true,
+                      style: MenuItemButton.styleFrom(
+                        foregroundColor: Colors.black,
+                      ),
+                    );
+                  }).toList(),
+                ))
+              : SizedBox(),
+          SizedBox(height: 5),
+          Visibility(
+            visible: !controller.permValidatorPOAType.value,
+            child: Text("*Please select type", style: TextStyle(color: red)),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget permPOAType() {
     return Expanded(
       child: Column(
@@ -847,7 +913,7 @@ class KycAddressScreen extends GetView<KycAddressController> {
                       dropDownOverlayBGColor: colorBg,
                       dropStateChanged: (isOpened) {
                         FocusScope.of(Get.context!).unfocus();
-                        controller.permIsDropDownOpened = isOpened;
+                        controller.permIsDropDownOpened.value = isOpened;
                         if (!isOpened) {
                           controller.permIsBackPressedOrTouchedOutSide.value =
                               false;
@@ -883,34 +949,44 @@ class KycAddressScreen extends GetView<KycAddressController> {
 
   Widget permPOABrowse() {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Proof of Address*"),
-          SizedBox(height: 8),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              kycAddressArguments.isShowEdit!
-                  ? GestureDetector(
-                      onTap: () {
-                        Utility.isNetworkConnection().then((isNetwork) async {
-                          if (isNetwork) {
-                            bool photoConsent =
-                                await controller.preferences.getPhotoConsent();
-                            if (!photoConsent) {
-                              permPermissionYesNoDialog(Get.context!);
+      child: Obx(
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Proof of Address*"),
+            SizedBox(height: 8),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                kycAddressArguments.isShowEdit!
+                    ? GestureDetector(
+                        onTap: () {
+                          Utility.isNetworkConnection().then((isNetwork) async {
+                            if (isNetwork) {
+                              bool photoConsent = await controller.preferences
+                                  .getPhotoConsent();
+                              if (!photoConsent) {
+                                permPermissionYesNoDialog(Get.context!);
+                              } else {
+                                permUploadPhoto();
+                              }
                             } else {
-                              permUploadPhoto();
+                              Utility.showToastMessage(
+                                  Strings.no_internet_message);
                             }
-                          } else {
-                            Utility.showToastMessage(
-                                Strings.no_internet_message);
-                          }
-                        });
-                      },
-                      child: Container(
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: colorBlack),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          padding: EdgeInsets.all(4),
+                          child: Text("Browse"),
+                        ),
+                      )
+                    : Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: colorBlack),
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -918,43 +994,35 @@ class KycAddressScreen extends GetView<KycAddressController> {
                         padding: EdgeInsets.all(4),
                         child: Text("Browse"),
                       ),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: colorBlack),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      padding: EdgeInsets.all(4),
-                      child: Text("Browse"),
-                    ),
-              SizedBox(width: 6),
-              kycAddressArguments.isShowEdit!
-                  ? controller.permByteImageString != null &&
-                          controller.permByteImageString!.isNotEmpty
-                      ? SizedBox(
-                          width: 60,
-                          height: 25,
-                          child: Image.file(controller.permPOAImage!,
-                              fit: BoxFit.fill))
-                      : SizedBox()
-                  : SizedBox(
-                      width: 60,
-                      height: 25,
-                      child: Image.network(controller.permPOAImageNew!,
-                          fit: BoxFit.fill)),
-            ],
-          ),
-          SizedBox(height: 5),
-          Visibility(
-            visible: !controller.permValidatorPOAImage.value,
-            child: Text("*Please upload proof", style: TextStyle(color: red)),
-          ),
-          Visibility(
-            visible: !controller.permValidatorPOAImageSize.value,
-            child: Text("*Image should be less than 10MB",
-                style: TextStyle(color: red)),
-          ),
-        ],
+                SizedBox(width: 6),
+                kycAddressArguments.isShowEdit!
+                    ? controller.permByteImageString != null &&
+                            controller.permByteImageString!.isNotEmpty
+                        ? SizedBox(
+                            width: 60,
+                            height: 25,
+                            child: Image.file(controller.permPOAImage!,
+                                fit: BoxFit.fill))
+                        : SizedBox()
+                    : SizedBox(
+                        width: 60,
+                        height: 25,
+                        child: Image.network(controller.permPOAImageNew!,
+                            fit: BoxFit.fill)),
+              ],
+            ),
+            SizedBox(height: 5),
+            Visibility(
+              visible: !controller.permValidatorPOAImage.value,
+              child: Text("*Please upload proof", style: TextStyle(color: red)),
+            ),
+            Visibility(
+              visible: !controller.permValidatorPOAImageSize.value,
+              child: Text("*Image should be less than 10MB",
+                  style: TextStyle(color: red)),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1319,41 +1387,45 @@ class KycAddressScreen extends GetView<KycAddressController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        AbsorbPointer(
-          absorbing: !controller.corrCheckboxEnable.value,
-          child: Checkbox(
-            value: controller.corrCheckbox.value,
-            onChanged: (value) {
-              controller.onCorrCheckBoxValueChanged();
-              if (value!) {
-                controller.corrFieldsEnable.value = true;
-                controller.toChangeBoolValuesForDropdown();
-                controller.corrAddressLine1Controller.text =
-                    controller.permAddressLine1Controller.text;
-                controller.corrAddressLine2Controller.text =
-                    controller.permAddressLine2Controller.text;
-                controller.corrAddressLine3Controller.text =
-                    controller.permAddressLine3Controller.text;
-                controller.corrCityController.text =
-                    controller.permCityController.text;
-                controller.corrPinCodeController.text =
-                    controller.permPinCodeController.text;
-                controller.corrDistrictController.text =
-                    controller.permDistrictController.text;
-                controller.corrStateController.text =
-                    controller.permStateController.text;
-                controller.corrCountryController.text =
-                    controller.permCountryController.text;
-                controller.corrPOATypeSelected = controller.permPOATypeSelected;
-                controller.corrByteImageString = controller.permByteImageString;
-                controller.corrPOAImage = controller.permPOAImage;
-                controller.corrValidatorPOAImageSize =
-                    controller.permValidatorPOAImageSize;
-                validateCorrAddressFields();
-              } else {
-                resetCorrField();
-              }
-            },
+        Obx(
+          () => AbsorbPointer(
+            absorbing: !controller.corrCheckboxEnable.value,
+            child: Checkbox(
+              value: controller.corrCheckbox.value,
+              onChanged: (value) {
+                controller.onCorrCheckBoxValueChanged();
+                if (value!) {
+                  controller.corrFieldsEnable.value = true;
+                  controller.toChangeBoolValuesForDropdown();
+                  controller.corrAddressLine1Controller.text =
+                      controller.permAddressLine1Controller.text;
+                  controller.corrAddressLine2Controller.text =
+                      controller.permAddressLine2Controller.text;
+                  controller.corrAddressLine3Controller.text =
+                      controller.permAddressLine3Controller.text;
+                  controller.corrCityController.text =
+                      controller.permCityController.text;
+                  controller.corrPinCodeController.text =
+                      controller.permPinCodeController.text;
+                  controller.corrDistrictController.text =
+                      controller.permDistrictController.text;
+                  controller.corrStateController.text =
+                      controller.permStateController.text;
+                  controller.corrCountryController.text =
+                      controller.permCountryController.text;
+                  controller.corrPOATypeSelected =
+                      controller.permPOATypeSelected;
+                  controller.corrByteImageString =
+                      controller.permByteImageString;
+                  controller.corrPOAImage = controller.permPOAImage;
+                  controller.corrValidatorPOAImageSize =
+                      controller.permValidatorPOAImageSize;
+                  validateCorrAddressFields();
+                } else {
+                  resetCorrField();
+                }
+              },
+            ),
           ),
         ),
         Text("Same as Permanent Address", style: regularTextStyle_18)
@@ -1859,6 +1931,67 @@ class KycAddressScreen extends GetView<KycAddressController> {
     );
   }
 
+  Widget newCorrPoaTypeDropdown() {
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //Text("Proof of Address Type*"),
+          SizedBox(height: 2),
+          kycAddressArguments.isShowEdit!
+              ? Container(
+                  //height: 32,
+                  //width: double.infinity,
+
+                  //margin: EdgeInsets.only(left: 10, right: 10),
+                  child: DropdownMenu<String>(
+                  //initialSelection: controller.poaTypeList.first,
+                  //controller: colorController,
+                  enableSearch: false,
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                    overflow: TextOverflow.clip,
+                  ),
+                  width: 180,
+                  // requestFocusOnTap is enabled/disabled by platforms when it is null.
+                  // On mobile platforms, this is false by default. Setting this to true will
+                  // trigger focus request on the text field and virtual keyboard will appear
+                  // afterward. On desktop platforms however, this defaults to true.
+                  requestFocusOnTap: false,
+                  label: const Text(
+                    'Proof of Address Type*',
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  onSelected: (String? selectedValue) {
+                    print(selectedValue);
+                    controller.corrValidatorPOAType.value = true;
+                    controller.corrPOATypeSelected = selectedValue!;
+                  },
+                  dropdownMenuEntries: controller.poaTypeList
+                      .map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                      value: value,
+                      label: value,
+                      enabled: true,
+                      style: MenuItemButton.styleFrom(
+                        foregroundColor: Colors.black,
+                      ),
+                    );
+                  }).toList(),
+                ))
+              : SizedBox(),
+          SizedBox(height: 5),
+          Visibility(
+            visible: !controller.permValidatorPOAType.value,
+            child: Text("*Please select type", style: TextStyle(color: red)),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget corrPOAType() {
     return Expanded(
       child: Column(
@@ -1871,32 +2004,34 @@ class KycAddressScreen extends GetView<KycAddressController> {
                   height: 32,
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: AwesomeDropDown(
-                      isBackPressedOrTouchedOutSide:
-                          controller.corrIsBackPressedOrTouchedOutSide.isTrue,
-                      dropDownList: controller.poaTypeList,
-                      dropDownIcon: Image.asset(AssetsImagePath.down_arrow,
-                          height: 20, width: 20),
-                      selectedItem: controller.corrPOATypeSelected,
-                      dropDownListTextStyle:
-                          TextStyle(color: colorLightGray, fontSize: 18),
-                      onDropDownItemClick: (selectedItem) {
-                        controller.corrValidatorPOAType.value = true;
-                        controller.corrPOATypeSelected = selectedItem;
-                      },
-                      dropDownBottomBorderRadius: 2,
-                      dropDownTopBorderRadius: 2,
-                      dropDownBGColor: colorBg,
-                      elevation: 0,
-                      padding: 1,
-                      dropDownOverlayBGColor: colorBg,
-                      dropStateChanged: (isOpened) {
-                        controller.corrIsDropDownOpened = isOpened;
-                        if (!isOpened) {
-                          controller.corrIsBackPressedOrTouchedOutSide.value =
-                              false;
-                        }
-                      },
+                    child: Obx(
+                      () => AwesomeDropDown(
+                        isBackPressedOrTouchedOutSide:
+                            controller.corrIsBackPressedOrTouchedOutSide.isTrue,
+                        dropDownList: controller.poaTypeList,
+                        dropDownIcon: Image.asset(AssetsImagePath.down_arrow,
+                            height: 20, width: 20),
+                        selectedItem: controller.corrPOATypeSelected,
+                        dropDownListTextStyle:
+                            TextStyle(color: colorLightGray, fontSize: 18),
+                        onDropDownItemClick: (selectedItem) {
+                          controller.corrValidatorPOAType.value = true;
+                          controller.corrPOATypeSelected = selectedItem;
+                        },
+                        dropDownBottomBorderRadius: 2,
+                        dropDownTopBorderRadius: 2,
+                        dropDownBGColor: colorBg,
+                        elevation: 0,
+                        padding: 1,
+                        dropDownOverlayBGColor: colorBg,
+                        dropStateChanged: (isOpened) {
+                          controller.corrIsDropDownOpened.value = isOpened;
+                          if (!isOpened) {
+                            controller.corrIsBackPressedOrTouchedOutSide.value =
+                                false;
+                          }
+                        },
+                      ),
                     ),
                   ),
                 )
@@ -2336,7 +2471,7 @@ class KycAddressScreen extends GetView<KycAddressController> {
   }
 }
 
-showDialogOnCKYCSuccess(String msg,KycAddressController kycAddressController) {
+showDialogOnCKYCSuccess(String msg, KycAddressController kycAddressController) {
   return showDialog<void>(
     barrierDismissible: false,
     context: Get.context!,

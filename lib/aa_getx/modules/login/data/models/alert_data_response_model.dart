@@ -27,9 +27,9 @@ class AlertDataResponseModel {
     this.profilePhotoUrl,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'customer_details': customerDetails?.toMap(),
+      'customer_details': customerDetails?.toJson(),
       'loan_application_status': loanApplicationStatus,
       'loan_name': loanName,
       'instrument_type': instrumentType,
@@ -40,9 +40,9 @@ class AlertDataResponseModel {
     };
   }
 
-  factory AlertDataResponseModel.fromMap(Map<String, dynamic> map) {
+  factory AlertDataResponseModel.fromJson(Map<String, dynamic> map) {
     return AlertDataResponseModel(
-      customerDetails: map['customer_details'] != null ? CustomerDetailsResponseModel.fromMap(map['customer_details'] as Map<String,dynamic>) : null,
+      customerDetails: map['customer_details'] != null ? CustomerDetailsResponseModel.fromJson(map['customer_details'] as Map<String,dynamic>) : null,
       loanApplicationStatus: map['loan_application_status'] != null ? map['loan_application_status'] as String : null,
       loanName: map['loan_name'] != null ? map['loan_name'] as String : null,
       instrumentType: map['instrument_type'] != null ? map['instrument_type'] as String : null,
@@ -53,9 +53,9 @@ class AlertDataResponseModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  // String toJson() => json.encode(toMap());
 
-  factory AlertDataResponseModel.fromJson(String source) => AlertDataResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory AlertDataResponseModel.fromJson(String source) => AlertDataResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   AlertDataResponseEntity toEntity() =>
   AlertDataResponseEntity(
