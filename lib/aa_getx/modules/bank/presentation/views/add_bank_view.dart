@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
+import 'package:lms/aa_getx/modules/bank/domain/entities/bank_master_response_entity.dart';
 import 'package:lms/aa_getx/modules/bank/presentation/controllers/add_bank_controller.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 
@@ -106,10 +107,10 @@ class AddBankView extends GetView<AddBankController>{
     return Row(
       children: [
         Expanded(
-          child: Autocomplete<BankData>(
+          child: Autocomplete<BankDataEntity>(
             optionsBuilder: (TextEditingValue textEditingValue) {
               if (textEditingValue.text.toString().trim().length >=  9) {
-                controller.isAPICalled = true;
+                controller.isAPICalled.value = true;
                 controller.bankDetailAPI(textEditingValue.text.toString().trim());
               }
               if (textEditingValue.text.toString().trim().length > 9) {
@@ -131,29 +132,29 @@ class AddBankView extends GetView<AddBankController>{
                       .toString()
                       .trim()
                       .contains(textEditingValue.text.toString().trim())) {
-                    controller.validatorIFSC = false;
+                    controller.validatorIFSC.value = false;
                   } else if (iFSCList.length == 0) {
-                    controller.validatorIFSC = false;
+                    controller.validatorIFSC.value = false;
                   } else {
-                    controller.validatorIFSC = true;
+                    controller.validatorIFSC.value = true;
                   }
                 }
               }
               if (textEditingValue.text.toString().trim() == '') {
-                return const Iterable<BankData>.empty();
+                return const Iterable<BankDataEntity>.empty();
               } else if (textEditingValue.text.toString().trim().length < 10) {
-                return const Iterable<BankData>.empty();
+                return const Iterable<BankDataEntity>.empty();
               } else if (controller.bankData.length != 0 &&
                   textEditingValue.text.length == 10 || textEditingValue.text.length == 11) {
-                return controller.bankData.where((BankData option) {
+                return controller.bankData.where((BankDataEntity option) {
                   return option.ifsc.toString()
                       .contains(textEditingValue.text.toString().trim());
                 });
               } else {
-                return const Iterable<BankData>.empty();
+                return const Iterable<BankDataEntity>.empty();
               }
             },
-            displayStringForOption: (BankData option) {
+            displayStringForOption: (BankDataEntity option) {
               return option.ifsc.toString();
             },
             fieldViewBuilder: (BuildContext context,
@@ -192,27 +193,27 @@ class AddBankView extends GetView<AddBankController>{
                   labelStyle: TextStyle(color: appTheme),
                   hintText: Strings.ifsc_code,
                   labelText: Strings.ifsc_code + "*",
-                  errorText: controller.iFSCValidator ? controller.iFSCTextLen ? !controller.isAPICalled
-                      ? !controller.validatorIFSC
-                      ? !controller.isAvailable ? "*" + Strings.invalid_ifsc_msg : null
+                  errorText: controller.iFSCValidator.value ? controller.iFSCTextLen.value ? !controller.isAPICalled.value
+                      ? !controller.validatorIFSC.value
+                      ? !controller.isAvailable.value ? "*" + Strings.invalid_ifsc_msg : null
                       : null : null : "*" + Strings.invalid_ifsc_msg
                       : "*" + Strings.ifsc_code + Strings.is_mandatory,
                 ),
                 onChanged: (value)=> controller.ifscOnChanged(value, fieldFocusNode),
               );
             },
-            onSelected: (BankData selection) {
-              setState(() {
+            onSelected: (BankDataEntity selection) {
+              //setState(() {
                 Get.focusScope?.unfocus();
                 controller.bankController.text = selection.bank.toString();
                 controller.branchController.text = selection.branch.toString();
                 controller.cityController.text = selection.city.toString();
-              });
+              //});
             },
             optionsViewBuilder: (BuildContext context,
-                AutocompleteOnSelected<BankData> onSelected,
-                Iterable<BankData> options) {
-              controller.isAvailable = true;
+                AutocompleteOnSelected<BankDataEntity> onSelected,
+                Iterable<BankDataEntity> options) {
+              controller.isAvailable.value = true;
               return Align(
                   alignment: Alignment.topLeft,
                   child: Material(
@@ -247,7 +248,7 @@ class AddBankView extends GetView<AddBankController>{
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemBuilder: (BuildContext context, int index) {
-                                final BankData option =
+                                final BankDataEntity option =
                                 options.elementAt(index);
                                 return Container(
                                   child: ListTile(
@@ -403,7 +404,7 @@ class AddBankView extends GetView<AddBankController>{
         labelStyle: TextStyle(color: appTheme),
         hintText: Strings.account_holder_name,
         labelText: Strings.account_holder_name+"*",
-        errorText: controller.accHolderNameValidator
+        errorText: controller.accHolderNameValidator.value
             ? null
             : "*" + Strings.account_holder_name + Strings.is_mandatory,
       ),
@@ -432,7 +433,7 @@ class AddBankView extends GetView<AddBankController>{
         labelStyle: TextStyle(color: appTheme),
         hintText: Strings.account_number,
         labelText: Strings.account_number+"*",
-        errorText: controller.accNumberValidator
+        errorText: controller.accNumberValidator.value
             ? null
             : "*" + Strings.account_number + Strings.is_mandatory,
         errorBorder: new OutlineInputBorder(
@@ -466,8 +467,8 @@ class AddBankView extends GetView<AddBankController>{
         labelStyle: TextStyle(color: appTheme),
         hintText: Strings.re_enter_account_number,
         labelText: Strings.re_enter_account_number+"*",
-        errorText: controller.reEnterAccNumberValidator
-            ? !controller.reEnterAccNumberIsCorrect
+        errorText: controller.reEnterAccNumberValidator.value
+            ? !controller.reEnterAccNumberIsCorrect.value
             ? null
             : "*" + Strings.account_number_does_not_match_as_above
             : "*" + Strings.re_enter_account_number,
@@ -566,7 +567,7 @@ class AddBankView extends GetView<AddBankController>{
             controller.accHolderNameController.text.toString().trim().isNotEmpty &&
             controller.accNumberController.text.toString().trim().isNotEmpty &&
             controller.reEnterAccNumberController.text.toString().trim().isNotEmpty &&
-            !controller.reEnterAccNumberIsCorrect && controller.cropMb != null && controller.imageInMb == true
+            !controller.reEnterAccNumberIsCorrect.value && controller.cropMb != null && controller.imageInMb == true
             ? false
             : true,
         child: Container(
@@ -578,7 +579,7 @@ class AddBankView extends GetView<AddBankController>{
                 controller.accHolderNameController.text.toString().trim().isNotEmpty &&
                 controller.accNumberController.text.toString().trim().isNotEmpty &&
                 controller.reEnterAccNumberController.text.toString().trim().isNotEmpty &&
-                !controller.reEnterAccNumberIsCorrect && controller.cropMb != null && controller.imageInMb == true
+                !controller.reEnterAccNumberIsCorrect.value && controller.cropMb != null && controller.imageInMb == true
                 ? appTheme
                 : colorLightGray,
             shape:

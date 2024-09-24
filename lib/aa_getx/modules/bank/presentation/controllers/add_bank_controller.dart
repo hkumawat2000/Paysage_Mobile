@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:nativewrappers/_internal/vm/lib/async_patch.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,14 +13,15 @@ import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/bank/domain/entities/atrina_bank_response_entity.dart';
+import 'package:lms/aa_getx/modules/bank/domain/entities/bank_master_response_entity.dart';
 import 'package:lms/aa_getx/modules/bank/domain/entities/fund_acc_validation_response_entity.dart';
+import 'package:lms/aa_getx/modules/bank/domain/entities/request/bank_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/bank/domain/entities/request/validate_bank_request_entity.dart';
 import 'package:lms/aa_getx/modules/bank/domain/usecases/get_bank_details_usecase.dart';
 import 'package:lms/aa_getx/modules/bank/domain/usecases/get_ifsc_bank_details_usecase.dart';
 import 'package:lms/aa_getx/modules/bank/domain/usecases/validate_bank_usecase.dart';
 import 'package:lms/aa_getx/modules/bank/presentation/views/add_bank_view.dart';
 import 'package:lms/aa_getx/modules/login/presentation/arguments/terms_and_conditions_arguments.dart';
-import 'package:lms/nsdl/BankDetailBloc.dart';
 
 import '../../../../core/utils/preferences.dart';
 
@@ -33,21 +33,21 @@ class AddBankController extends GetxController {
 
   AddBankController(this._connectionInfo, this._getBankDetailsUseCase, this._getIfscBankDetailsUseCase, this._validateBankUseCase);
 
-  bool accHolderNameValidator = true;
-  bool iFSCValidator = true;
-  bool validatorIFSC = true;
-  bool isAvailable = false;
-  bool isAPICalled = false;
-  bool iFSCTextLen = true;
-  bool accNumberValidator = true;
-  bool reEnterAccNumberValidator = true;
-  bool isVisible = false;
-  bool reEnterAccNumberIsCorrect = false;
-  List<BankData> bankData = [];
-  BankMasterResponse? iFSCDetails;
-  BankDetailBloc bankDetailBloc = BankDetailBloc();
-  BankAccount bankAccount = BankAccount();
-  Timer? timer;
+  RxBool accHolderNameValidator = true.obs;
+  RxBool iFSCValidator = true.obs;
+  RxBool validatorIFSC = true.obs;
+  RxBool isAvailable = false.obs;
+  RxBool isAPICalled = false.obs;
+  RxBool iFSCTextLen = true.obs;
+  RxBool accNumberValidator = true.obs;
+  RxBool reEnterAccNumberValidator = true.obs;
+  RxBool isVisible = false.obs;
+  RxBool reEnterAccNumberIsCorrect = false.obs;
+  List<BankDataEntity> bankData = [];
+  //BankMasterResponseEntity? iFSCDetails;
+  //BankDetailBloc bankDetailBloc = BankDetailBloc();
+  BankAccountEntity bankAccount = BankAccountEntity();
+  //Timer? timer;
   int pennyAPICallCount = 0;
   String? iFSCText = "HDFC BANK";
   //final completeKYCBloc = CompleteKYCBloc();
@@ -56,7 +56,7 @@ class AddBankController extends GetxController {
   File? chequeImage;
   double? cropKb ;
   double? cropMb ;
-  bool imageInMb = false;
+  RxBool imageInMb = false.obs;
   FocusNode ifscFocusNode = FocusNode();
   Preferences preferences = Preferences();
 
@@ -85,7 +85,40 @@ class AddBankController extends GetxController {
   }
 
   void bankDetailAPI(String ifsc) async {
-    Utility.isNetworkConnection().then((isNetwork) async {
+    if(await _connectionInfo.isConnected){
+      BankDetailsRequestEntity bankDetailsRequestEntity = BankDetailsRequestEntity(ifsc: ifsc);
+      DataState<BankMasterResponseEntity> response = await _getIfscBankDetailsUseCase.call(BankDetailsRequestParams(bankDetailsRequestEntity: bankDetailsRequestEntity));
+
+      if(response is DataSuccess) {
+          if (response.data!.bankList != null) {
+            response.data!.bankList!.forEach((element) {
+              if(element.ifsc == iFSCController.text.toString().trim()){
+                isAvailable.value = true;
+              } else {
+                isAvailable.value = false;
+              }
+            });
+            bankData.clear();
+            bankData.addAll(response.data!.bankList!);
+            isAPICalled.value = false;
+          } else {
+            isAvailable.value = false;
+            isAPICalled.value = false;
+          }
+      } else if (response is DataFailed) {
+        if (response.error!.statusCode == 403) {
+          commonDialog(Strings.session_timeout, 4);
+        } else {
+            isAvailable.value = false;
+            isAPICalled.value = false;
+        }
+      }
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
+
+
+    /*Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
         await bankDetailBloc.getBankDetails(ifsc).then((value) {
           if (value.isSuccessFull!) {
@@ -116,7 +149,7 @@ class AddBankController extends GetxController {
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
-    });
+    });*/
   }
 
   Future<void> choiceKYC() async {
@@ -194,11 +227,11 @@ class AddBankController extends GetxController {
       showSuccessDialog(response.data!.message!, true);
     } else if (response is DataFailed) {
         if (response.error!.statusCode == 201) {
-          showSuccessDialog(response.error!.message!, false);
+          showSuccessDialog(response.error!.message, false);
         } else if (response.error!.statusCode == 403) {
           commonDialog(Strings.session_timeout, 4);
         } else {
-          showFailedDialog(response.error!.message!);
+          showFailedDialog(response.error!.message);
         }
       }
     } else {
@@ -220,7 +253,7 @@ class AddBankController extends GetxController {
     });*/
   }
 
-  uploadPhoto() async {
+  Future<void> uploadPhoto() async {
     try {
       XFile? imagePicker = await chequePicker.pickImage(source: ImageSource.gallery);
       if (imagePicker != null) {
@@ -248,14 +281,14 @@ class AddBankController extends GetxController {
           debugPrint("cropKb ==> $cropKb");
           debugPrint("cropMb ==> $cropMb");
           chequeByteImageString = base64Encode(bytes);
-          setState(() {
+          //setState(() {
             chequeImage = File(cropped.path);
             if(cropMb! > 10){
-              imageInMb = false;
+              imageInMb.value = false;
             } else {
-              imageInMb = true;
+              imageInMb.value = true;
             }
-          });
+         // });
         }
       }
     } catch (e) {
@@ -264,7 +297,7 @@ class AddBankController extends GetxController {
     }
   }
 
-  privacyPolicyClicked()  {
+  void privacyPolicyClicked()  {
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
         String privacyPolicyUrl = await preferences.getPrivacyPolicyUrl();
@@ -287,10 +320,10 @@ class AddBankController extends GetxController {
     });
   }
 
-  yesClicked() async {
+  Future<void> yesClicked() async {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        setState(() {
+        //setState(() {
           iFSCController.text = bankAccount.ifsc.toString();
           bankController.text = bankAccount.bank.toString();
           branchController.text = bankAccount.branch.toString();
@@ -298,64 +331,64 @@ class AddBankController extends GetxController {
           // accNumberController.text = bankAccount.accountNumber.toString();
           // reEnterAccNumberController.text = bankAccount.accountNumber.toString();
           accTypeController.text = bankAccount.accountType.toString();
-          isAvailable = true;
+          isAvailable.value = true;
           Get.back();
-        });
+        //});
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
     });
   }
 
-  reEnterAccNumberOnChanged() {
-     setState(() {
-      isVisible = true;
+  void reEnterAccNumberOnChanged() {
+     //setState(() {
+      isVisible.value = true;
       reEnterAccNumberController.text.isEmpty
-          ? reEnterAccNumberValidator = false
-          : reEnterAccNumberValidator = true;
+          ? reEnterAccNumberValidator.value = false
+          : reEnterAccNumberValidator.value = true;
       if(accNumberController.text.isNotEmpty && reEnterAccNumberController.text.isNotEmpty) {
         if ((accNumberController.text.trim()
             .compareTo(reEnterAccNumberController.text.trim())) == 0) {
-          reEnterAccNumberIsCorrect = false;
+          reEnterAccNumberIsCorrect.value = false;
         } else {
-          reEnterAccNumberIsCorrect = true;
+          reEnterAccNumberIsCorrect.value = true;
         }
       }
-    });
+    //});
   }
 
-  accNumberOnChanged() {
-    setState(() {
-      isVisible = true;
+  void accNumberOnChanged() {
+    //setState(() {
+      isVisible.value = true;
       accNumberController.text.isEmpty
-          ? accNumberValidator = false
-          : accNumberValidator = true;
+          ? accNumberValidator.value = false
+          : accNumberValidator.value = true;
       if(accNumberController.text.isNotEmpty && reEnterAccNumberController.text.isNotEmpty){
         if ((accNumberController.text.trim()
             .compareTo(reEnterAccNumberController.text.trim())) == 0) {
-          reEnterAccNumberIsCorrect = false;
+          reEnterAccNumberIsCorrect.value = false;
         } else {
-          reEnterAccNumberIsCorrect = true;
+          reEnterAccNumberIsCorrect.value = true;
         }
       }
-    });
+    //});
   }
 
-  accHolderNameOnChanged()  {
-    setState(() {
-      isVisible = true;
+  void accHolderNameOnChanged()  {
+    //setState(() {
+      isVisible.value = true;
       accHolderNameController.text.isEmpty
-          ? accHolderNameValidator = false
-          : accHolderNameValidator = true;
-    });
+          ? accHolderNameValidator.value = false
+          : accHolderNameValidator.value = true;
+    //});
   }
 
-  ifscOnChanged(String value, FocusNode fieldFocusNode)  {
-    setState(() {
+  void ifscOnChanged(String value, FocusNode fieldFocusNode)  {
+    //setState(() {
       if (iFSCController.text != value.toUpperCase())
         iFSCController.value = iFSCController.value
             .copyWith(text: value.toUpperCase());
-      isVisible = true;
+      isVisible.value = true;
       // iFSCControllerr.text.isEmpty
       //     ? iFSCValidator = false
       //     : iFSCValidator = true;
@@ -365,25 +398,25 @@ class AddBankController extends GetxController {
 
       fieldFocusNode.addListener(() {
         if(fieldFocusNode.hasFocus){
-          iFSCValidator = true;
-          iFSCTextLen = true;
+          iFSCValidator.value = true;
+          iFSCTextLen.value = true;
           // if(iFSCController.text.length == 11 && iFSCController.text.isEmpty) {
           //   iFSCTextLen = true;
           // }
         }else{
           if(iFSCController.text.isNotEmpty) {
-            iFSCValidator = true;
+            iFSCValidator.value = true;
             if (iFSCController.text.length < 11) {
-              iFSCTextLen = false;
+              iFSCTextLen.value = false;
             } else {
-              iFSCTextLen = true;
+              iFSCTextLen.value = true;
             }
             debugPrint("focus length ==> ${iFSCTextLen.toString()}");
           }else{
-            iFSCValidator = false;
+            iFSCValidator.value = false;
           }
         }
       });
-    });
+   // });
   }
 }
