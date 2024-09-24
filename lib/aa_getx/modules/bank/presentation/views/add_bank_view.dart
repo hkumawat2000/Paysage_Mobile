@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ import '../../../../core/assets/assets_image_path.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/utils/style.dart';
 import '../../../../core/utils/utility.dart';
-import '../../../../core/widgets/common_widgets.dart';
+import '../../../../core/utils/common_widgets.dart';
 
 class AddBankView extends GetView<AddBankController>{
   @override
@@ -27,7 +28,7 @@ class AddBankView extends GetView<AddBankController>{
           backgroundColor: colorBg,
           leading: IconButton(
             icon: NavigationBackImage(),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Get.back(),
           ),
         ),
         body: Theme(
@@ -101,127 +102,6 @@ class AddBankView extends GetView<AddBankController>{
     );
   }
 
-  showSuccessDialog(String msg, bool isSuccess) {
-    return showDialog<void>(
-      barrierDismissible: false,
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async => false,
-          child: AlertDialog(
-            contentPadding: EdgeInsets.only(left: 8, right: 8, top: 8),
-            titlePadding: EdgeInsets.only(left: 0, right: 0, top: 12),
-            backgroundColor: Colors.white,
-            title: isSuccess ? Column(
-              children: [
-                Center(
-                  child: Text(
-                    Strings.success_caps,
-                    style: TextStyle(color: Colors.green, fontSize: 28),
-                  ),
-                ),
-                Divider(
-                  color: Colors.grey, thickness: 1,
-                )
-              ],
-            ) : SizedBox(),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(3.0))),
-            content: Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 8),
-              child: Text(msg),
-            ),
-            actions: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10,bottom: 10),
-                  child: Container(
-                    height: 45,
-                    width: 100,
-                    child: Material(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                      elevation: 1.0,
-                      color: appTheme,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                        minWidth: MediaQuery.of(context).size.width,
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Get.offAll(dashboardView, arguments: DashboardArguments(
-                            isFromPinScreen: false,
-                            selectedIndex: 0,
-                          ));
-                        },
-                        child: Text(Strings.ok, style: buttonTextWhite),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  showFailedDialog(String msg) {
-    return showDialog<void>(
-      barrierDismissible: false,
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.only(left: 8, right: 8, top: 8),
-          titlePadding: EdgeInsets.only(left: 0, right: 0, top: 12),
-          backgroundColor: Colors.white,
-          title: Column(
-            children: [
-              Center(
-                child: Text(
-                  Strings.failed,
-                  style: TextStyle(color: Colors.red, fontSize: 28),
-                ),
-              ),
-              Divider(
-                color: Colors.grey, thickness: 1,
-              ),
-            ],
-          ),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(3))),
-          content: Padding(
-            padding: const EdgeInsets.only(left: 18.0, right: 8),
-            child: Text(msg),
-          ),
-          actions: <Widget>[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10,bottom: 10),
-                child: Container(
-                  height: 45,
-                  width: 100,
-                  child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                    elevation: 1.0,
-                    color: appTheme,
-                    child: MaterialButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                      minWidth: MediaQuery.of(context).size.width,
-                      onPressed: () {
-                        Navigator.pop(context, Strings.ok);
-                      },
-                      child: Text(Strings.ok, style: buttonTextWhite),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   Widget iFSCField() {
     return Row(
       children: [
@@ -230,7 +110,7 @@ class AddBankView extends GetView<AddBankController>{
             optionsBuilder: (TextEditingValue textEditingValue) {
               if (textEditingValue.text.toString().trim().length >=  9) {
                 controller.isAPICalled = true;
-                bankDetailAPI(textEditingValue.text.toString().trim());
+                controller.bankDetailAPI(textEditingValue.text.toString().trim());
               }
               if (textEditingValue.text.toString().trim().length > 9) {
                 List<String> iFSCList;
@@ -238,7 +118,7 @@ class AddBankView extends GetView<AddBankController>{
                     controller.bankData.length, (index) => controller.bankData[index].ifsc!)
                     .toSet()
                     .toList();
-                printLog("IFSC CODES ===> ${iFSCList.toSet().toList()}");
+                debugPrint("IFSC CODES ===> ${iFSCList.toSet().toList()}");
                 if (textEditingValue.text.length == 10 || textEditingValue.text.length == 11) {
                   if(textEditingValue.text.length == 11){
                     if(textEditingValue.text.toString().toUpperCase() == iFSCList[0].toString().toUpperCase()){
@@ -318,47 +198,12 @@ class AddBankView extends GetView<AddBankController>{
                       : null : null : "*" + Strings.invalid_ifsc_msg
                       : "*" + Strings.ifsc_code + Strings.is_mandatory,
                 ),
-                onChanged: (value) {
-                  setState(() {
-                    if (controller.iFSCController.text != value.toUpperCase())
-                      controller.iFSCController.value = controller.iFSCController.value
-                          .copyWith(text: value.toUpperCase());
-                    controller.isVisible = true;
-                    // iFSCControllerr.text.isEmpty
-                    //     ? iFSCValidator = false
-                    //     : iFSCValidator = true;
-                    controller.branchController.clear();
-                    controller.bankController.clear();
-                    controller.cityController.clear();
-
-                    fieldFocusNode.addListener(() {
-                      if(fieldFocusNode.hasFocus){
-                        controller.iFSCValidator = true;
-                        controller.iFSCTextLen = true;
-                        // if(iFSCController.text.length == 11 && iFSCController.text.isEmpty) {
-                        //   iFSCTextLen = true;
-                        // }
-                      }else{
-                        if(controller.iFSCController.text.isNotEmpty) {
-                          controller.iFSCValidator = true;
-                          if (controller.iFSCController.text.length < 11) {
-                            controller.iFSCTextLen = false;
-                          } else {
-                            controller.iFSCTextLen = true;
-                          }
-                          printLog("focus length ==> ${controller.iFSCTextLen.toString()}");
-                        }else{
-                          controller.iFSCValidator = false;
-                        }
-                      }
-                    });
-                  });
-                },
+                onChanged: (value)=> controller.ifscOnChanged(value, fieldFocusNode),
               );
             },
             onSelected: (BankData selection) {
               setState(() {
-                FocusScope.of(context).unfocus();
+                Get.focusScope?.unfocus();
                 controller.bankController.text = selection.bank.toString();
                 controller.branchController.text = selection.branch.toString();
                 controller.cityController.text = selection.city.toString();
@@ -429,7 +274,7 @@ class AddBankView extends GetView<AddBankController>{
           child: Align(
             alignment: Alignment.topLeft,
             child: GestureDetector(
-              onTap: () => commonDialog(context, Strings.ifsc_info, 0),
+              onTap: () => commonDialog(Strings.ifsc_info, 0),
               child: Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Image.asset(
@@ -452,7 +297,7 @@ class AddBankView extends GetView<AddBankController>{
           child: TextField(
             enabled: true,
             readOnly: true,
-            controller: bankController,
+            controller: controller.bankController,
             decoration: new InputDecoration(
               disabledBorder: new OutlineInputBorder(
                 borderSide: new BorderSide(color: Colors.grey),
@@ -483,7 +328,7 @@ class AddBankView extends GetView<AddBankController>{
       child: TextField(
         enabled: true,
         readOnly: true,
-        controller: branchController,
+        controller: controller.branchController,
         decoration: new InputDecoration(
           disabledBorder: new OutlineInputBorder(
             borderSide: new BorderSide(color: Colors.grey),
@@ -506,7 +351,7 @@ class AddBankView extends GetView<AddBankController>{
   Widget cityNameFiled() {
     return Expanded(
       child: TextField(
-        controller: cityController,
+        controller: controller.cityController,
         enabled: true,
         readOnly: true,
         decoration: new InputDecoration(
@@ -530,7 +375,7 @@ class AddBankView extends GetView<AddBankController>{
 
   Widget accountHolderFiled() {
     return TextField(
-      controller: accHolderNameController,
+      controller: controller.accHolderNameController,
       textCapitalization: TextCapitalization.words,
       keyboardType: TextInputType.name,
       maxLength: 50,
@@ -562,21 +407,14 @@ class AddBankView extends GetView<AddBankController>{
             ? null
             : "*" + Strings.account_holder_name + Strings.is_mandatory,
       ),
-      onChanged: (value) {
-        setState(() {
-          controller.isVisible = true;
-          accHolderNameController.text.isEmpty
-              ? controller.accHolderNameValidator = false
-              : controller.accHolderNameValidator = true;
-        });
-      },
+      onChanged: (value)=> controller.accHolderNameOnChanged(),
     );
   }
 
   Widget accountNumberFiled() {
     return TextFormField(
       obscureText: true,
-      controller: accNumberController,
+      controller: controller.accNumberController,
       keyboardType: TextInputType.number,
       obscuringCharacter: '*',
       maxLength: 16,
@@ -608,28 +446,13 @@ class AddBankView extends GetView<AddBankController>{
           ),
         ),
       ),
-      onChanged: (value) {
-        setState(() {
-          controller.isVisible = true;
-          accNumberController.text.isEmpty
-              ? controller.accNumberValidator = false
-              : controller.accNumberValidator = true;
-          if(controller.accNumberController.text.isNotEmpty && reEnterAccNumberController.text.isNotEmpty){
-            if ((accNumberController.text.trim()
-                .compareTo(reEnterAccNumberController.text.trim())) == 0) {
-              controller.reEnterAccNumberIsCorrect = false;
-            } else {
-              controller.reEnterAccNumberIsCorrect = true;
-            }
-          }
-        });
-      },
+      onChanged: (value)=> controller.accNumberOnChanged(),
     );
   }
 
   Widget accountReNumberFiled() {
     return TextFormField(
-      controller: reEnterAccNumberController,
+      controller: controller.reEnterAccNumberController,
       keyboardType: TextInputType.number,
       maxLength: 16,
       decoration: new InputDecoration(
@@ -659,28 +482,13 @@ class AddBankView extends GetView<AddBankController>{
           ),
         ),
       ),
-      onChanged: (value) {
-        return setState(() {
-          controller.isVisible = true;
-          reEnterAccNumberController.text.isEmpty
-              ? controller.reEnterAccNumberValidator = false
-              : controller.reEnterAccNumberValidator = true;
-          if(accNumberController.text.isNotEmpty && reEnterAccNumberController.text.isNotEmpty) {
-            if ((accNumberController.text.trim()
-                .compareTo(reEnterAccNumberController.text.trim())) == 0) {
-              controller.reEnterAccNumberIsCorrect = false;
-            } else {
-              controller.reEnterAccNumberIsCorrect = true;
-            }
-          }
-        });
-      },
+      onChanged: (value)=> controller.reEnterAccNumberOnChanged(),
     );
   }
 
   Widget accountTypeFiled() {
     return TextField(
-      controller: accTypeController,
+      controller: controller.accTypeController,
       textCapitalization: TextCapitalization.words,
       keyboardType: TextInputType.name,
       decoration: new InputDecoration(
@@ -716,9 +524,9 @@ class AddBankView extends GetView<AddBankController>{
                   if (isNetwork) {
                     bool photoConsent = await controller.preferences.getPhotoConsent();
                     if(!photoConsent) {
-                      permissionYesNoDialog(context);
+                      permissionYesNoDialog();
                     }else{
-                      uploadPhoto();
+                      controller.uploadPhoto();
                     }
                   } else {
                     Utility.showToastMessage(Strings.no_internet_message);
@@ -778,17 +586,17 @@ class AddBankView extends GetView<AddBankController>{
             elevation: 1.0,
             child: MaterialButton(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-              minWidth: MediaQuery.of(context).size.width,
+              minWidth: Get.mediaQuery.size.width,
               onPressed: () {
                 Utility.isNetworkConnection().then((isNetwork) async {
                   if (isNetwork) {
-                    FocusScope.of(context).unfocus();
+                    Get.focusScope?.unfocus();
                     if (controller.bankController.text.toString().trim().isNotEmpty) {
                       if (controller.accHolderNameValidator == true &&
                           controller.accNumberValidator == true &&
                           controller.reEnterAccNumberValidator == true &&
                           controller.iFSCValidator == true && controller.imageInMb == true) {
-                        validateBank();
+                        controller.validateBank();
                         // createFundAccountAPI();
                       }
                     }
@@ -808,4 +616,318 @@ class AddBankView extends GetView<AddBankController>{
     );
   }
 
+  Future<bool> permissionYesNoDialog() async {
+    return await Get.dialog(
+      barrierDismissible: false,
+      AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+          title: Text("Storage Access", style: boldTextStyle_16),
+          content: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                RichText(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(text: 'Why is LMS asking for my Storage access?\n\n',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'LMS asked for ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'Storage Access', style: boldTextStyle_12_gray_dark),
+                      TextSpan(text: ' to let you upload the required ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'Documents & Image', style: boldTextStyle_12_gray_dark),
+                      TextSpan(text: ' to avail the services.\nWe do ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(text: 'collect /share', style: boldTextStyle_12_gray_dark),
+                      TextSpan(text: ' the Uploaded Document/Images with us and any other third party based on the services availed.\n\nPermission can be changed at anytime from the device settings.\n\nIn case of any doubts, please visit our ',style: regularTextStyle_12_gray_dark),
+                      TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = ()=> controller.privacyPolicyClicked(),
+                          text: "Privacy Policy.",
+                          style: boldTextStyle_12_gray_dark.copyWith(color: Colors.lightBlue)
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 40,
+                        // width: 100,
+                        child: Material(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35),
+                              side: BorderSide(color: red)),
+                          elevation: 1.0,
+                          color: colorWhite,
+                          child: MaterialButton(
+                            minWidth: Get.mediaQuery.size.width,
+                            onPressed: () async {
+                              Utility.isNetworkConnection().then((isNetwork) {
+                                if (isNetwork) {
+                                  Get.back();
+                                } else{
+                                  Utility.showToastMessage(Strings.no_internet_message);
+                                }
+                              });
+                            },
+                            child: Text(
+                              "Deny",
+                              style: buttonTextRed,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 40,
+                        // width: 100,
+                        child: Material(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
+                          elevation: 1.0,
+                          color: appTheme,
+                          child: MaterialButton(
+                            minWidth: Get.mediaQuery.size.width,
+                            onPressed: () async {
+                              Utility.isNetworkConnection().then((isNetwork) async {
+                                if (isNetwork) {
+                                  Get.back();
+                                  controller.preferences.setPhotoConsent(true);
+                                  controller.uploadPhoto();
+                                }else{
+                                  Utility.showToastMessage(Strings.no_internet_message);
+                                }
+                              });
+                            },
+                            child: Text(
+                              "Allow",
+                              style: buttonTextWhite,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        )
+    ) ?? false;
+  }
+
+}
+
+showSuccessDialog(String msg, bool isSuccess) {
+  return showDialog<void>(
+    barrierDismissible: false,
+    context: Get.context!,
+    builder: (BuildContext context) {
+      return WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          contentPadding: EdgeInsets.only(left: 8, right: 8, top: 8),
+          titlePadding: EdgeInsets.only(left: 0, right: 0, top: 12),
+          backgroundColor: Colors.white,
+          title: isSuccess ? Column(
+            children: [
+              Center(
+                child: Text(
+                  Strings.success_caps,
+                  style: TextStyle(color: Colors.green, fontSize: 28),
+                ),
+              ),
+              Divider(
+                color: Colors.grey, thickness: 1,
+              )
+            ],
+          ) : SizedBox(),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(3.0))),
+          content: Padding(
+            padding: const EdgeInsets.only(left: 18.0, right: 8),
+            child: Text(msg),
+          ),
+          actions: <Widget>[
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10,bottom: 10),
+                child: Container(
+                  height: 45,
+                  width: 100,
+                  child: Material(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    elevation: 1.0,
+                    color: appTheme,
+                    child: MaterialButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      minWidth: MediaQuery.of(context).size.width,
+                      onPressed: () {
+                        Get.back();
+                        Get.offAll(dashboardView, arguments: DashboardArguments(
+                          isFromPinScreen: false,
+                          selectedIndex: 0,
+                        ));
+                      },
+                      child: Text(Strings.ok, style: buttonTextWhite),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+showFailedDialog(String msg) {
+  return showDialog<void>(
+    barrierDismissible: false,
+    context: Get.context!,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        contentPadding: EdgeInsets.only(left: 8, right: 8, top: 8),
+        titlePadding: EdgeInsets.only(left: 0, right: 0, top: 12),
+        backgroundColor: Colors.white,
+        title: Column(
+          children: [
+            Center(
+              child: Text(
+                Strings.failed,
+                style: TextStyle(color: Colors.red, fontSize: 28),
+              ),
+            ),
+            Divider(
+              color: Colors.grey, thickness: 1,
+            ),
+          ],
+        ),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(3))),
+        content: Padding(
+          padding: const EdgeInsets.only(left: 18.0, right: 8),
+          child: Text(msg),
+        ),
+        actions: <Widget>[
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10,bottom: 10),
+              child: Container(
+                height: 45,
+                width: 100,
+                child: Material(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                  elevation: 1.0,
+                  color: appTheme,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    minWidth: MediaQuery.of(context).size.width,
+                    onPressed: () {
+                      Navigator.pop(context, Strings.ok);
+                    },
+                    child: Text(Strings.ok, style: buttonTextWhite),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<bool> choiceUserConfirmationDialog(AddBankController controller) async {
+  return await Get.dialog(
+    barrierDismissible: false,
+    AlertDialog(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      content: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Center(
+              child: new Text(Strings.choice_user_yes_no,
+                  style: regularTextStyle_16_dark), //
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    width: 100,
+                    child: Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35),
+                          side: BorderSide(color: red)),
+                      elevation: 1.0,
+                      color: colorWhite,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        minWidth: Get.mediaQuery.size.width,
+                        onPressed: () async {
+                          Utility.isNetworkConnection().then((isNetwork) {
+                            if (isNetwork) {
+                              Get.back();
+                            } else {
+                              Utility.showToastMessage(Strings.no_internet_message);
+                            }
+                          });
+                        },
+                        child: Text(Strings.no, style: buttonTextRed),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Expanded(
+                  child: Container(
+                    height: 40,
+                    width: 100,
+                    child: Material(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(35)),
+                      elevation: 1.0,
+                      color: appTheme,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        minWidth: Get.mediaQuery.size.width,
+                        onPressed: ()=> controller.yesClicked(),
+                        child: Text(Strings.yes, style: buttonTextWhite),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  ) ?? false;
 }
