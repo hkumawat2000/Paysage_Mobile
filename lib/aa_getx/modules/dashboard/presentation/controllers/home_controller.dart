@@ -1242,4 +1242,8 @@ class HomeController extends GetxController{
     }
   }
 
+  checkRiskProfile() {
+
+  }
+
 }
