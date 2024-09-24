@@ -168,7 +168,6 @@ class KycController extends GetxController {
               );
 
               if (response is DataSuccess) {
-                Get.back();
                 if (response.data!.searchData != null) {
                   ckycDownloadApi(response.data!.searchData!.ckycNo!);
                 } else {
@@ -176,11 +175,10 @@ class KycController extends GetxController {
                   Utility.showToastMessage(Strings.something_went_wrong);
                 }
               } else if (response is DataFailed) {
+                Get.back();
                 if (response.error!.statusCode == 403) {
-                  Get.back;
                   commonDialog(Strings.session_timeout, 4);
                 } else {
-                  Get.back();
                   commonDialog(response.error!.message, 4);
                 }
               }
@@ -216,9 +214,8 @@ class KycController extends GetxController {
           downloadKycRequestEntity: downloadKycRequestEntity,
         ),
       );
-
+      Get.back();
       if (response is DataSuccess) {
-        //TODO To Navigate to CkycConsent Screen
         Get.toNamed(
           kycConsentView,
           arguments: KycConsentArguments(

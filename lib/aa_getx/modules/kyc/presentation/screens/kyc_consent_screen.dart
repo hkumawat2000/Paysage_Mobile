@@ -25,79 +25,81 @@ class KycConsentScreen extends GetView<KycConsentController> {
             onPressed: () => backPressYesNoDialog(context),
           ),
         ),
-        body: controller.isApiCalling.isTrue
-            ? Center(
-                child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(controller.isAPICallingText),
-                ],
-              ))
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+        body: Obx(
+          () => controller.isApiCalling.isTrue
+              ? Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Center(child: headingText("Confirm Your Details (1/2)")),
-                      SizedBox(height: 40),
-                      subHeadingText(Strings.personal_info),
-                      SizedBox(height: 20),
-                      Text(Strings.name, style: mediumTextStyle_14_gray),
-                      SizedBox(height: 5),
-                      Text(controller.userKycDocResponseEntity.value.fullname!,
-                          style: regularTextStyle_18_gray_dark),
-                      SizedBox(height: 20),
-                      Text("Pan Number", style: mediumTextStyle_14_gray),
-                      SizedBox(height: 5),
-                      Text(controller.userKycDocResponseEntity.value.panNo!,
-                          style: regularTextStyle_18_gray_dark),
-                      SizedBox(height: 20),
-                      Text("CKYC Number", style: mediumTextStyle_14_gray),
-                      SizedBox(height: 5),
-                      Text(controller.userKycDocResponseEntity.value.ckycNo!,
-                          style: regularTextStyle_18_gray_dark),
-                      SizedBox(height: 20),
-                      Text(Strings.email, style: mediumTextStyle_14_gray),
-                      SizedBox(height: 5),
-                      Text(
-                        controller.userKycDocResponseEntity.value.email != null && controller.userKycDocResponseEntity.value.email!.isNotEmpty
-                            ? controller.userKycDocResponseEntity.value.email!.replaceRange(
-                                controller.userEmail.indexOf('@') > 4 ? 4 : 2,
-                                controller.userKycDocResponseEntity.value.email!.indexOf('@'),
-                                "XXXXX")
-                            : "-",
-                        style: regularTextStyle_18_gray_dark,
-                      ),
-                      SizedBox(height: 20),
-                      Text("Mobile Number", style: mediumTextStyle_14_gray),
-                      SizedBox(height: 5),
-                      Text(
-                        controller.userKycDocResponseEntity.value.mobNum != null && controller.userKycDocResponseEntity.value.mobNum!.isNotEmpty
-                            ? encryptAcNo(controller.userKycDocResponseEntity.value.mobNum!)
-                            : "-",
-                        style: regularTextStyle_18_gray_dark,
-                      ),
-                      SizedBox(height: 20),
-                      Text("Gender", style: mediumTextStyle_14_gray),
-                      SizedBox(height: 5),
-                      Text(
-                        controller.userKycDocResponseEntity.value.genderFull!,
-                        style: regularTextStyle_18_gray_dark,
-                      ),
-                      SizedBox(height: 10),
-                      SizedBox(
-                        height: 70,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [forwardNavigation()],
-                      ),
-                    ],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(controller.isAPICallingText),
+                  ],
+                ))
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Center(child: headingText("Confirm Your Details (1/2)")),
+                        SizedBox(height: 40),
+                        subHeadingText(Strings.personal_info),
+                        SizedBox(height: 20),
+                        Text(Strings.name, style: mediumTextStyle_14_gray),
+                        SizedBox(height: 5),
+                        Text(controller.userKycDocResponseEntity.value.fullname!,
+                            style: regularTextStyle_18_gray_dark),
+                        SizedBox(height: 20),
+                        Text("Pan Number", style: mediumTextStyle_14_gray),
+                        SizedBox(height: 5),
+                        Text(controller.userKycDocResponseEntity.value.panNo!,
+                            style: regularTextStyle_18_gray_dark),
+                        SizedBox(height: 20),
+                        Text("CKYC Number", style: mediumTextStyle_14_gray),
+                        SizedBox(height: 5),
+                        Text(controller.userKycDocResponseEntity.value.ckycNo!,
+                            style: regularTextStyle_18_gray_dark),
+                        SizedBox(height: 20),
+                        Text(Strings.email, style: mediumTextStyle_14_gray),
+                        SizedBox(height: 5),
+                        Text(
+                          controller.userKycDocResponseEntity.value.email != null && controller.userKycDocResponseEntity.value.email!.isNotEmpty
+                              ? controller.userKycDocResponseEntity.value.email!.replaceRange(
+                                  controller.userEmail.indexOf('@') > 4 ? 4 : 2,
+                                  controller.userKycDocResponseEntity.value.email!.indexOf('@'),
+                                  "XXXXX")
+                              : "-",
+                          style: regularTextStyle_18_gray_dark,
+                        ),
+                        SizedBox(height: 20),
+                        Text("Mobile Number", style: mediumTextStyle_14_gray),
+                        SizedBox(height: 5),
+                        Text(
+                          controller.userKycDocResponseEntity.value.mobNum != null && controller.userKycDocResponseEntity.value.mobNum!.isNotEmpty
+                              ? encryptAcNo(controller.userKycDocResponseEntity.value.mobNum!)
+                              : "-",
+                          style: regularTextStyle_18_gray_dark,
+                        ),
+                        SizedBox(height: 20),
+                        Text("Gender", style: mediumTextStyle_14_gray),
+                        SizedBox(height: 5),
+                        Text(
+                          controller.userKycDocResponseEntity.value.genderFull!,
+                          style: regularTextStyle_18_gray_dark,
+                        ),
+                        SizedBox(height: 10),
+                        SizedBox(
+                          height: 70,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [forwardNavigation()],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+        ),
       ),
     );
   }
