@@ -74,6 +74,8 @@ import 'package:lms/aa_getx/modules/registration/presentation/views/offline_cust
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
+import 'package:lms/aa_getx/modules/risk_profile/presentation/bindings/risk_profile_binding.dart';
+import 'package:lms/aa_getx/modules/risk_profile/presentation/views/risk_profile_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 
 
@@ -120,6 +122,7 @@ const String myPledgedTransactionsView = "my-pledged-transactions-view";
 const String mutualFundConsentView = "mutual-fund-consent-view";
 const String fetchMutualFundView = "fetch-mutual-fund-view";
 const String mutualFundOtpView = "mutual-fund-otp-view";
+const String riskProfileView = "risk-profile-view";
 LoginSubmitResquestEntity? loginSubmitRequestEntity;
 
 List<GetPage> routes = [
@@ -323,5 +326,10 @@ List<GetPage> routes = [
     name: '/$mutualFundOtpView',
     page: () => MutualFundOtpView(MutualFundSendOtpDataEntity()),
     binding: MutualFundOtpBinding(),
+  ),
+  GetPage(
+    name: '/$riskProfileView',
+    page: () => RiskProfileView(),
+    binding: RiskProfileBinding(),
   ),
 ];

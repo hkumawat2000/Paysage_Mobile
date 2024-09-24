@@ -1243,7 +1243,7 @@ class HomeController extends GetxController{
   }
 
   checkRiskProfile() {
-
+    Get.toNamed(riskProfileView);
   }
 
 }
