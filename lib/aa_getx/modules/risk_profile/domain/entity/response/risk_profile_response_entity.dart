@@ -1,9 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class RishProfileResponseEntity {
+class RiskProfileResponseEntity {
   String? message;
   RiskPercentageDataResponseEnitty? data;
   
-  RishProfileResponseEntity({
+  RiskProfileResponseEntity({
     this.message,
     this.data,
   });

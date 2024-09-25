@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class RishProfileRequestEntity {
+class RiskProfileRequestEntity {
   List<RiskProfileRequestDataEntity>? data;
   
-  RishProfileRequestEntity({
+  RiskProfileRequestEntity({
     this.data,
   });
 }

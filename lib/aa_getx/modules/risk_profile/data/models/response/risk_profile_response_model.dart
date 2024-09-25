@@ -21,8 +21,8 @@ class RiskProfileResponseModel {
     return data;
   }
 
-  RishProfileResponseEntity toEntity() =>
-  RishProfileResponseEntity(
+  RiskProfileResponseEntity toEntity() =>
+  RiskProfileResponseEntity(
       message: message,
       data: data?.toEntity(),
   

@@ -87,4 +87,5 @@ class Apis {
   static final String mutualFundSendOtp = "api/method/lms.user.mf_get_otp";
   static final String fetchMutualFund = "api/method/lms.user.mf_get_data";
   static final String getRiskProfileCategory = "api/method/lms.user.risk_profile_categories";
+  static final String saveRiskProfileCategory = "api/method/lms.user.risk_profile_for_las";
 }

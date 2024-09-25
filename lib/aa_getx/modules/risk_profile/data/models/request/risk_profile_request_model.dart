@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:lms/aa_getx/modules/risk_profile/domain/entity/request/risk_profile_request_entity.dart';
 
-class RishProfileRequestModel {
+class RiskProfileRequestModel {
   List<RiskProfileRequestDataModel>? data;
 
-  RishProfileRequestModel({this.data});
+  RiskProfileRequestModel({this.data});
 
-  RishProfileRequestModel.fromJson(Map<String, dynamic> json) {
+  RiskProfileRequestModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <RiskProfileRequestDataModel>[];
       json['data'].forEach((v) {
@@ -23,14 +23,14 @@ class RishProfileRequestModel {
     return data;
   }
 
-  RishProfileRequestEntity toEntity() =>
-  RishProfileRequestEntity(
+  RiskProfileRequestEntity toEntity() =>
+  RiskProfileRequestEntity(
       data: data?.map((x) => x.toEntity()).toList(),
   );
 
-  factory RishProfileRequestModel.fromEntity(RishProfileRequestEntity rishProfileRequestEntity) {
-    return RishProfileRequestModel(
-      data: rishProfileRequestEntity.data != null ? List<RiskProfileRequestDataModel>.from((rishProfileRequestEntity.data as List<dynamic>).map<RiskProfileRequestDataModel?>((x) => RiskProfileRequestDataModel.fromEntity(x as RiskProfileRequestDataEntity),),) : null,
+  factory RiskProfileRequestModel.fromEntity(RiskProfileRequestEntity riskProfileRequestEntity) {
+    return RiskProfileRequestModel(
+      data: riskProfileRequestEntity.data != null ? List<RiskProfileRequestDataModel>.from((riskProfileRequestEntity.data as List<dynamic>).map<RiskProfileRequestDataModel?>((x) => RiskProfileRequestDataModel.fromEntity(x as RiskProfileRequestDataEntity),),) : null,
     );
   }
 }

@@ -56,6 +56,7 @@ class RiskProfileController extends GetxController {
 
 
 
+
     }
   }
 }
