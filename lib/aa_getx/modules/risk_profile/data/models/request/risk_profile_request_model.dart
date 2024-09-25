@@ -26,8 +26,13 @@ class RishProfileRequestModel {
   RishProfileRequestEntity toEntity() =>
   RishProfileRequestEntity(
       data: data?.map((x) => x.toEntity()).toList(),
-  
   );
+
+  factory RishProfileRequestModel.fromEntity(RishProfileRequestEntity rishProfileRequestEntity) {
+    return RishProfileRequestModel(
+      data: rishProfileRequestEntity.data != null ? List<RiskProfileRequestDataModel>.from((rishProfileRequestEntity.data as List<dynamic>).map<RiskProfileRequestDataModel?>((x) => RiskProfileRequestDataModel.fromEntity(x as RiskProfileRequestDataEntity),),) : null,
+    );
+  }
 }
 
 class RiskProfileRequestDataModel {
@@ -52,6 +57,12 @@ class RiskProfileRequestDataModel {
   RiskProfileRequestDataEntity(
       category: category,
       subCategory: subCategory,
-  
   );
+
+  factory RiskProfileRequestDataModel.fromEntity(RiskProfileRequestDataEntity riskProfileRequestDataEntity) {
+    return RiskProfileRequestDataModel(
+      category: riskProfileRequestDataEntity.category != null ? riskProfileRequestDataEntity.category as String : null,
+      subCategory: riskProfileRequestDataEntity.subCategory != null ? riskProfileRequestDataEntity.subCategory as String : null,
+    );
+  }
 }
