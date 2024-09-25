@@ -86,4 +86,5 @@ class Apis {
   static final String submitOrGetLoanStatement = "api/method/lms.loan.loan_statement";
   static final String mutualFundSendOtp = "api/method/lms.user.mf_get_otp";
   static final String fetchMutualFund = "api/method/lms.user.mf_get_data";
+  static final String getRiskProfileCategory = "api/method/lms.user.risk_profile_categories";
 }
