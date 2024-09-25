@@ -9,6 +9,7 @@ class RiskProfileController extends GetxController {
 
   final age = Rxn<String>();
   RxList<RiskCategoryDataEntity> riskCategoryDataList = <RiskCategoryDataEntity>[].obs;
+  RxList<RiskCategoryResultResponse> riskCategoryResultDataList = <RiskCategoryResultResponse>[].obs;
   RxList<String?> riskSubCategoryResultList = <String?>[].obs;
   RxBool isApiCalling = true.obs;
 
@@ -38,6 +39,24 @@ class RiskProfileController extends GetxController {
 
   dropDownOnChange(int index, String subCategory){
     riskSubCategoryResultList[index] = subCategory;
+  }
+
+  submitData() {
+    if(riskSubCategoryResultList.contains(null)){
+      Utility.showToastMessage("Select all Category");
+    } else {
+      for(int i=0; i<riskCategoryDataList.length; i++){
+        riskCategoryResultDataList.add(
+          RiskCategoryResultResponse(
+            riskCategoryDataList[i].category,
+            riskSubCategoryResultList[i],
+          ),
+        );
+      }
+
+
+
+    }
   }
 }
 

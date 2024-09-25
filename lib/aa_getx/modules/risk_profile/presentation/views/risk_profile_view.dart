@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/modules/risk_profile/presentation/controllers/risk_profile_controller.dart';
 
 class RiskProfileView extends GetView<RiskProfileController>{
@@ -9,7 +10,7 @@ class RiskProfileView extends GetView<RiskProfileController>{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorBg,
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: colorBg),
       body: Obx(
           () => controller.isApiCalling.value
               ? Center(child: Text(Strings.please_wait))
@@ -32,11 +33,11 @@ class RiskProfileView extends GetView<RiskProfileController>{
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(controller.riskCategoryDataList[index].category!, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                              SizedBox(height: 10),
+                              Text(controller.riskCategoryDataList[index].category!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              SizedBox(height: 2),
                               Container(
-                                padding: EdgeInsets.all(15),
-                                height: 60,
+                                padding: EdgeInsets.all(10),
+                                height: 45,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -47,9 +48,9 @@ class RiskProfileView extends GetView<RiskProfileController>{
                                 child: Obx(
                                   () => DropdownButtonHideUnderline(
                                     child: DropdownButton<String>(
-                                      // isExpanded: true,
+                                      isExpanded: true,
                                       hint: Text(controller.riskCategoryDataList[index].category!),
-                                      // style: mediumTextStyle_18,
+                                      style: mediumTextStyle_18,
                                       focusColor: appTheme,
                                       items: controller.riskCategoryDataList[index].subCategoryList!.map((menu) =>
                                           DropdownMenuItem<String>(
@@ -69,6 +70,21 @@ class RiskProfileView extends GetView<RiskProfileController>{
                       }
                   ),
                 ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(40.0),
+                    ),
+                    foregroundColor: colorWhite,
+                    backgroundColor: appTheme,
+                  ),
+                  child: Text("Submit",
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  onPressed: () => controller.submitData(),
+                ),
+                SizedBox(height: 20),
               ],
             ),
           ),
