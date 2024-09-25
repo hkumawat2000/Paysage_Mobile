@@ -1,21 +1,27 @@
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/core/constants/strings.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/risk_profile/domain/entity/request/risk_profile_request_entity.dart';
 import 'package:lms/aa_getx/modules/risk_profile/domain/entity/response/get_risk_category_response_entity.dart';
+import 'package:lms/aa_getx/modules/risk_profile/domain/entity/response/risk_profile_response_entity.dart';
 import 'package:lms/aa_getx/modules/risk_profile/domain/usecases/get_risk_category_usecase.dart';
+import 'package:lms/aa_getx/modules/risk_profile/domain/usecases/save_risk_category_usecase.dart';
 
 class RiskProfileController extends GetxController {
   List<String> ageList = ["", "20-30", "30-40", "40-50", "50-60"];
 
   final age = Rxn<String>();
   RxList<RiskCategoryDataEntity> riskCategoryDataList = <RiskCategoryDataEntity>[].obs;
-  RxList<RiskCategoryResultResponse> riskCategoryResultDataList = <RiskCategoryResultResponse>[].obs;
+  RxList<RiskProfileRequestDataEntity> riskCategoryResultDataList = <RiskProfileRequestDataEntity>[].obs;
   RxList<String?> riskSubCategoryResultList = <String?>[].obs;
   RxBool isApiCalling = true.obs;
 
   final GetRiskCategoryUsecase getRiskCategoryUsecase;
+  final SaveRiskCategoryUsecase saveRiskCategoryUsecase;
 
-  RiskProfileController(this.getRiskCategoryUsecase);
+  RiskProfileController(this.getRiskCategoryUsecase, this.saveRiskCategoryUsecase);
 
   @override
   void onInit() {
@@ -41,31 +47,35 @@ class RiskProfileController extends GetxController {
     riskSubCategoryResultList[index] = subCategory;
   }
 
-  submitData() {
+  submitData() async {
     if(riskSubCategoryResultList.contains(null)){
       Utility.showToastMessage("Select all Category");
     } else {
+      showDialogLoading(Strings.please_wait);
+      riskCategoryResultDataList.clear();
       for(int i=0; i<riskCategoryDataList.length; i++){
         riskCategoryResultDataList.add(
-          RiskCategoryResultResponse(
-            riskCategoryDataList[i].category,
-            riskSubCategoryResultList[i],
+          RiskProfileRequestDataEntity(
+            category: riskCategoryDataList[i].category,
+            subCategory: riskSubCategoryResultList[i],
           ),
         );
       }
 
+      DataState<RiskProfileResponseEntity> response = await saveRiskCategoryUsecase.call(
+        SaveRiskProfileCategoryParams(
+          riskProfileRequestEntity: RiskProfileRequestEntity(
+            data: riskCategoryResultDataList
+          ),
+        ),
+      );
+      Get.back();
+      if (response is DataSuccess) {
 
-
+      } else if (response is DataFailed) {
+        Utility.showToastMessage(response.error!.message);
+      }
 
     }
   }
-}
-
-
-class RiskCategoryResultResponse {
-  String? category;
-  String? subCategory;
-
-  RiskCategoryResultResponse(this.category, this.subCategory);
-
 }

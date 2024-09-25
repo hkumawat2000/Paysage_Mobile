@@ -30,7 +30,7 @@ class RiskProfileResponseModel {
 }
 
 class RiskPercentageDataResponseModel {
-  String? riskProfilePercentage;
+  int? riskProfilePercentage;
 
   RiskPercentageDataResponseModel({this.riskProfilePercentage});
 

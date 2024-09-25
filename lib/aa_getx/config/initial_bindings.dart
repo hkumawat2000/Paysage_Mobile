@@ -6,8 +6,6 @@ import 'package:lms/aa_getx/modules/registration/data/data_source/registration_a
 import 'package:lms/aa_getx/modules/registration/data/repositories/registration_repository_impl.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 
-import '../core/utils/connection_info.dart';
-
 class InitialBinding implements Bindings {
 
   @override

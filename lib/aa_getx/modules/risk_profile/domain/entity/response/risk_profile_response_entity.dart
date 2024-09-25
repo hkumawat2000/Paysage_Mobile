@@ -10,7 +10,7 @@ class RiskProfileResponseEntity {
 }
 
 class RiskPercentageDataResponseEnitty {
-  String? riskProfilePercentage;
+  int? riskProfilePercentage;
   
   RiskPercentageDataResponseEnitty({
     this.riskProfilePercentage,
