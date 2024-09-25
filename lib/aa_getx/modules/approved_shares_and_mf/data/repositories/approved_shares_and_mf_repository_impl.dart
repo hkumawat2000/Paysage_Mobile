@@ -30,4 +30,23 @@ class ApprovedSharesAndMfRepositoryImpl
       return DataFailed(ServerFailure(e.toString(), 0));
     }
   }
+
+  ResultFuture<ConsentTextResponseEntity> getConsentText(
+      GetConsentDetailsRequestEntity getConsentDetailsRequestEntity) async {
+    try {
+      GetConsentDetailsRequestModel getConsentDetailsRequestModel =
+          GetConsentDetailsRequestModel.fromEntity(getConsentDetailsRequestEntity);
+      final getConsentTextResponse =
+          await kycDataSource.getConsentText(getConsentDetailsRequestModel);
+      return DataSuccess(getConsentTextResponse.toEntity());
+    } on ServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
+    } on ApiServerException catch (e) {
+      return DataFailed(
+          ServerFailure(e.message ?? Strings.defaultErrorMsg, e.statusCode!));
+    } catch (e) {
+      return DataFailed(ServerFailure(e.toString(), 0));
+    }
+  }
+
 }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
@@ -8,9 +10,26 @@ import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/controllers/approved_securities_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
   ApprovedSecuritiesView();
+
+  List<DropdownMenuItem<String>> getDropDownFormatMenuItems() {
+    List<DropdownMenuItem<String>> items = [];
+    for (String status in controller.instrumentTypeList) {
+      items.add(
+        DropdownMenuItem(
+          value: status,
+          child: Text(
+            status,
+            style: regularTextStyle_14_gray,
+          ),
+        ),
+      );
+    }
+    return items;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +49,9 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
             icon: actionIcon,
             onPressed: () {
               if (controller.currentInstrument.isNotEmpty) {
-                commonDialog(context, Strings.instrument_selection, 0);
+                commonDialog( Strings.instrument_selection, 0);
               } else {
-                setState(() {
+                //setState(() {
                   if (this.actionIcon.icon == Icons.search) {
                     this.actionIcon = Icon(Icons.close, color: colorGrey);
                     this.appBarTitle = TextFormField(
@@ -68,7 +87,7 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
                     );
                     this.appBarTitle = Text("");
                   }
-                });
+                // });
               }
             },
           ),
@@ -122,20 +141,20 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
                     Utility.isNetworkConnection().then((isNetwork) {
                       if (isNetwork) {
                         // printLog('PDF url ==> $pdfURL');
-                        if (!isAPICalling) {
-                          if (controller.pdfUrl != null) {
+                        if (!controller.isAPICalling.value) {
+                          if (controller.pdfUrl.isNotEmpty) {
                             if (controller.pdfUrl.isNotEmpty) {
                               // Firebase Event
                               Map<String, dynamic> parameter =
                                   new Map<String, dynamic>();
                               parameter[Strings.mobile_no] = mobile;
                               parameter[Strings.email] = email;
-                              parameter[Strings.pdf_url] = pdfURL;
+                              parameter[Strings.pdf_url] = controller.pdfUrl;
                               parameter[Strings.date_time] =
                                   getCurrentDateAndTime();
                               firebaseEvent(
                                   Strings.approved_securities_pdf, parameter);
-                              _launchURL(pdfURL);
+                              _launchURL(controller.pdfUrl);
                             } else {
                               Utility.showToastMessage(
                                   Strings.no_data_available);
@@ -183,7 +202,7 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
           icon: Image.asset(AssetsImagePath.down_arrow, height: 15, width: 15),
           elevation: 16,
           onChanged: onChangeOfInstrumentType,
-          items: _dropDownInstrument,
+          items: controller.dropDownInstrument,
         ),
       ),
     );
@@ -194,7 +213,7 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         if (_currentInstrument != selected!) {
-          setState(() {
+          // setState(() {
             _currentInstrument = selected;
             filterName = '';
             start = 0;
@@ -206,7 +225,7 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
               color: colorGrey,
             );
             this.appBarTitle = Text("");
-          });
+         // });
           if (approvedSecurityList.length != 0) {
             _scrollController.animateTo(
                 _scrollController.position.minScrollExtent,
@@ -281,8 +300,8 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
   }
 
   _launchURL(url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     } else {
       throw 'Could not launch $url';
     }
