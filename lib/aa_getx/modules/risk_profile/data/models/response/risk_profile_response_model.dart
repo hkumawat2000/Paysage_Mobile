@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:lms/aa_getx/modules/risk_profile/domain/entity/response/risk_profile_response_entity.dart';
 
-class RishProfileResponseModel {
+class RiskProfileResponseModel {
   String? message;
   RiskPercentageDataResponseModel? data;
 
-  RishProfileResponseModel({this.message, this.data});
+  RiskProfileResponseModel({this.message, this.data});
 
-  RishProfileResponseModel.fromJson(Map<String, dynamic> json) {
+  RiskProfileResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = json['data'] != null ? new RiskPercentageDataResponseModel.fromJson(json['data']) : null;
   }

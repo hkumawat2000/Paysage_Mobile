@@ -52,8 +52,8 @@ class RishCategoryDataModel {
     return data;
   }
 
-  RishCategoryDataEntity toEntity() =>
-  RishCategoryDataEntity(
+  RiskCategoryDataEntity toEntity() =>
+  RiskCategoryDataEntity(
       category: category,
       subCategoryList: subCategoryList,
   
