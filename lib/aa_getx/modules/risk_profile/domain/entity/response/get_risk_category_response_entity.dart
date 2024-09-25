@@ -1,14 +1,14 @@
 class GetRiskCategoryResponseEntity {
   String? message;
-  List<CategoryData>? categoryDataList;
+  List<RishCategoryDataEntity>? categoryDataList;
 
   GetRiskCategoryResponseEntity({this.message, this.categoryDataList});
 }
 
-class CategoryData {
+class RishCategoryDataEntity {
   String? category;
   List<String>? subCategoryList;
 
-  CategoryData({this.category, this.subCategoryList});
+  RishCategoryDataEntity({this.category, this.subCategoryList});
 
 }
