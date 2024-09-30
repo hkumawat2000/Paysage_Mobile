@@ -71,7 +71,8 @@ class RiskProfileController extends GetxController {
       );
       Get.back();
       if (response is DataSuccess) {
-
+        Get.back();
+        Utility.showToastMessage("${response.data!.data!.riskProfilePercentage!}");
       } else if (response is DataFailed) {
         Utility.showToastMessage(response.error!.message);
       }
