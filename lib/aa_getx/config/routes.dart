@@ -126,12 +126,16 @@ const String cibilView = "cibil-view";
 const String cibilResultView = "cibil-result-view";
 const String cibilOtpView = "cibil-otp-view";
 const String myPledgedTransactionsView = "my-pledged-transactions-view";
-const String mutualFundConsentView = "mutual-fund-consent-view";
-const String fetchMutualFundView = "fetch-mutual-fund-view";
-const String mutualFundOtpView = "mutual-fund-otp-view";
 const String sellCollateralView = "sell-collateral-view";
 const String sellCollateralSuccessView = "sell-collateral-success-view";
 const String mfInvokeView = "mf-invoke-view";
+const String mutualFundConsentView = "mutual-fund-consent-view";
+const String fetchMutualFundView = "fetch-mutual-fund-view";
+const String mutualFundOtpView = "mutual-fund-otp-view";
+LoginSubmitResquestEntity? loginSubmitRequestEntity;
+// const String sellCollateralView = "sell-collateral-view";
+// const String sellCollateralSuccessView = "sell-collateral-success-view";
+// const String mfInvokeView = "mf-invoke-view";
 const String mfRevokeView = "mf-revoke-view";
 const String unpledgeSuccessfulView = "unpledge-successful-view";
 const String unpledgeSharesView = "unpledge-shares-view";
@@ -325,6 +329,20 @@ List<GetPage> routes = [
     binding: ApprovedSharesAndMfBindings(),
   ),
   GetPage(
+    name: '/$sellCollateralView',
+    page: () => SellCollateralView(),
+    binding: SellCollateralBinding(),
+  ),
+  GetPage(
+    name: '/$sellCollateralSuccessView',
+    page: () => SellCollateralSuccessView(),
+  ),
+  GetPage(
+    name: '/$mfInvokeView',
+    page: () => MfInvokeView(),
+    binding: MfInvokeBinding(),
+  ),
+  GetPage(
     name: '/$mutualFundConsentView',
     page: () => MutualFundConsentView(),
     binding: MutualFundConsentBinding(),
@@ -353,18 +371,18 @@ List<GetPage> routes = [
     page: () => MfInvokeView(),
     binding: MfInvokeBinding(),
   ),
-  GetPage(
-    name: '/$mfRevokeView',
-    page: () => MfRevokeView(),
-    binding: MfRevokeBinding(),
-  ),
-  GetPage(
-    name: '/$unpledgeSuccessfulView',
-    page: () => UnpledgeSuccessfulView(),
-  ),
-  GetPage(
-    name: '/$unpledgeSharesView',
-    page: () => UnpledgeSharesView(),
-    binding: UnpledgeSharesBinding(),
-  ),
+  // GetPage(
+  //   name: '/$mfRevokeView',
+  //   page: () => MfRevokeView(),
+  //   binding: MfRevokeBinding(),
+  // ),
+  // GetPage(
+  //   name: '/$unpledgeSuccessfulView',
+  //   page: () => UnpledgeSuccessfulView(),
+  // ),
+  // GetPage(
+  //   name: '/$unpledgeSharesView',
+  //   page: () => UnpledgeSharesView(),
+  //   binding: UnpledgeSharesBinding(),
+  // ),
 ];
