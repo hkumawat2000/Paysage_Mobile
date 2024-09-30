@@ -96,7 +96,7 @@ mixin BaseDio {
       var dummyAccountList = await preferences.getDummyAccountList();
       for (int i = 0; i < dummyAccountList.length; i++) {
         if (dummyAccountList[i] == dummyUserNumber) {
-          baseURL = Constants.oldUrlUat;
+          baseURL = Constants.demoKavim;
           break;
         }
         baseURL = await getBaseUrl();
@@ -177,7 +177,7 @@ mixin BaseDio {
         baseURL = Constants.demoKavim;
         break;
       default:
-        baseURL = Constants.oldUrlUat;
+        baseURL = Constants.demoKavim;
         break;
     }
     return baseURL;

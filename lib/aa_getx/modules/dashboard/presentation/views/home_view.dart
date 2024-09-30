@@ -2087,6 +2087,24 @@ class HomeView extends GetView<HomeController> {
                     child: GestureDetector(
                       child: Column(
                         children: [
+                          Image.asset(AssetsImagePath.check_demat_account,
+                              width: 30, height: 30, color: red),
+                          SizedBox(height: 5),
+                          Text(Strings.check_risk_profile,
+                              style: TextStyle(
+                                  color: appTheme,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center),
+                        ],
+                      ),
+                      onTap: ()  => controller.checkRiskProfile(),
+                    ),
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      child: Column(
+                        children: [
                           Image.asset(AssetsImagePath.sell_collateral,
                               width: 30, height: 30, color: red),
                           SizedBox(height: 5),
