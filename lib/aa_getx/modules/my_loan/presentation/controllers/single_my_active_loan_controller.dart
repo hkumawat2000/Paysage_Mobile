@@ -418,12 +418,6 @@ class SingleMyActiveLoanController extends GetxController {
   }
 
   void viewLoanStatement() {
-    /// todo: uncomment and change following code after LoanStatementScreen page is completed
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (BuildContext context) => LoanStatementScreen(loanNumber,
-    //             loanDetailData!.value!.loan!.balance, loanDetailData!.value!.loan!.drawingPower, loanType)));
     Get.toNamed(loanStatementView, arguments: LoanStatementArguments(loanName: loanNumber.value, loanBalance: loanDetailData.value.loan!.balance, drawingPower: loanDetailData.value.loan!.drawingPower, loanType: loanType.value));
   }
 }

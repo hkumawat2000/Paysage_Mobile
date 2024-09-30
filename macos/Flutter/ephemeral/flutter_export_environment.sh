@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/himanshu/Desktop/sdk/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/himanshu/Downloads/LAS-LAMF_mobile"
+export "FLUTTER_ROOT=D:\flutter_windows_3.24.2\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\atrin\StudioProjects\LAS-LAMF"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
