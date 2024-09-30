@@ -85,6 +85,8 @@ import 'package:lms/aa_getx/modules/unpledge/presentation/bindings/unpledge_shar
 import 'package:lms/aa_getx/modules/unpledge/presentation/views/mf_revoke_view.dart';
 import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_shares_view.dart';
 import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_successful_view.dart';
+import 'package:lms/aa_getx/modules/risk_profile/presentation/bindings/risk_profile_binding.dart';
+import 'package:lms/aa_getx/modules/risk_profile/presentation/views/risk_profile_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 
 
@@ -135,6 +137,7 @@ const String mfInvokeView = "mf-invoke-view";
 const String mutualFundConsentView = "mutual-fund-consent-view";
 const String fetchMutualFundView = "fetch-mutual-fund-view";
 const String mutualFundOtpView = "mutual-fund-otp-view";
+const String riskProfileView = "risk-profile-view";
 LoginSubmitResquestEntity? loginSubmitRequestEntity;
 // const String sellCollateralView = "sell-collateral-view";
 // const String sellCollateralSuccessView = "sell-collateral-success-view";
@@ -364,6 +367,11 @@ List<GetPage> routes = [
     name: '/$mutualFundOtpView',
     page: () => MutualFundOtpView(MutualFundSendOtpDataEntity()),
     binding: MutualFundOtpBinding(),
+  ),
+  GetPage(
+    name: '/$riskProfileView',
+    page: () => RiskProfileView(),
+    binding: RiskProfileBinding(),
   ),
   GetPage(
     name: '/$sellCollateralView',

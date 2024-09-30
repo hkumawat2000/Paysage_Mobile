@@ -330,6 +330,7 @@ class Strings {
   static const String pledged_text = 'Your Pledged Securities Performance';
   static const String add_more_securities = 'Add more Securities';
   static const String check_your_credit_score = 'Check Your Credit Score';
+  static const String check_risk_profile = 'Risk Profile';
   static const String download_loan_statement = 'Download Loan Statement';
   static const String add_payment_reminder = 'Payment Reminder';
   static const String lms_title = 'LMS Up & Stay Ahead';
