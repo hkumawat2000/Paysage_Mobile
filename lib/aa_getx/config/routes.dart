@@ -4,6 +4,8 @@ import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/bindings/approved_shares_and_mf_bindings.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/views/approved_shares_view.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/views/loan_statement_view.dart';
+import 'package:lms/aa_getx/modules/bank/presentation/bindings/add_bank_binding.dart';
+import 'package:lms/aa_getx/modules/bank/presentation/views/add_bank_view.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_binding.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_otp_binding.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/bindings/cibil_result_binding.dart';
@@ -121,6 +123,7 @@ const String accountSettingsView = "account-settings-view";
 const String approvedSharesView = "approved-shares-view";
 const String paymentView = "payment-view";
 const String loanStatementView = "loan-statement-view";
+const String addBank = "add-bank";
 const String downloadStatementView = "download-statement-view";
 const String cibilView = "cibil-view";
 const String cibilResultView = "cibil-result-view";
@@ -298,6 +301,11 @@ List<GetPage> routes = [
   GetPage(
     name: '/$loanStatementView',
     page: () => LoanStatementView(),
+  ),
+  GetPage(
+    name: '/$addBank',
+    page: () => AddBankView(),
+    binding: AddBankBinding(),
   ),
   // GetPage(
   //   name: '/$downloadStatementView',
