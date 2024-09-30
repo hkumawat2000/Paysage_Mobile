@@ -14,7 +14,6 @@ import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bi
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/views/aml_check_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/views/dashboard_view.dart';
-import 'package:lms/aa_getx/modules/kyc/presentation/arguments/kyc_consent_arguments.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_consent_bindings.dart';
@@ -74,6 +73,16 @@ import 'package:lms/aa_getx/modules/registration/presentation/views/offline_cust
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_successful_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/registration_view.dart';
 import 'package:lms/aa_getx/modules/registration/presentation/views/set_pin_view.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/bindings/mf_invoke_binding.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/bindings/sell_collateral_binding.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/mf_invoke_view.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_success_view.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/views/sell_collateral_view.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/bindings/mf_revoke_binding.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/bindings/unpledge_shares_binding.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/views/mf_revoke_view.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_shares_view.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_successful_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 
 
@@ -117,10 +126,20 @@ const String cibilView = "cibil-view";
 const String cibilResultView = "cibil-result-view";
 const String cibilOtpView = "cibil-otp-view";
 const String myPledgedTransactionsView = "my-pledged-transactions-view";
+const String sellCollateralView = "sell-collateral-view";
+const String sellCollateralSuccessView = "sell-collateral-success-view";
+const String mfInvokeView = "mf-invoke-view";
 const String mutualFundConsentView = "mutual-fund-consent-view";
 const String fetchMutualFundView = "fetch-mutual-fund-view";
 const String mutualFundOtpView = "mutual-fund-otp-view";
 LoginSubmitResquestEntity? loginSubmitRequestEntity;
+// const String sellCollateralView = "sell-collateral-view";
+// const String sellCollateralSuccessView = "sell-collateral-success-view";
+// const String mfInvokeView = "mf-invoke-view";
+const String mfRevokeView = "mf-revoke-view";
+const String unpledgeSuccessfulView = "unpledge-successful-view";
+const String unpledgeSharesView = "unpledge-shares-view";
+LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
   GetPage(
@@ -157,7 +176,7 @@ List<GetPage> routes = [
   GetPage(
     name: '/$otpVerificationView',
     page: () => OTPVerificationView(
-      loginSubmitResquestEntity: loginSubmitRequestEntity!,
+      loginSubmitResquestEntity: loginSubmitResquestEntity!,
     ),
     binding: VerifyOtpBindings(),
   ),
@@ -310,6 +329,20 @@ List<GetPage> routes = [
     binding: ApprovedSharesAndMfBindings(),
   ),
   GetPage(
+    name: '/$sellCollateralView',
+    page: () => SellCollateralView(),
+    binding: SellCollateralBinding(),
+  ),
+  GetPage(
+    name: '/$sellCollateralSuccessView',
+    page: () => SellCollateralSuccessView(),
+  ),
+  GetPage(
+    name: '/$mfInvokeView',
+    page: () => MfInvokeView(),
+    binding: MfInvokeBinding(),
+  ),
+  GetPage(
     name: '/$mutualFundConsentView',
     page: () => MutualFundConsentView(),
     binding: MutualFundConsentBinding(),
@@ -324,4 +357,32 @@ List<GetPage> routes = [
     page: () => MutualFundOtpView(MutualFundSendOtpDataEntity()),
     binding: MutualFundOtpBinding(),
   ),
+  GetPage(
+    name: '/$sellCollateralView',
+    page: () => SellCollateralView(),
+    binding: SellCollateralBinding(),
+  ),
+  GetPage(
+    name: '/$sellCollateralSuccessView',
+    page: () => SellCollateralSuccessView(),
+  ),
+  GetPage(
+    name: '/$mfInvokeView',
+    page: () => MfInvokeView(),
+    binding: MfInvokeBinding(),
+  ),
+  // GetPage(
+  //   name: '/$mfRevokeView',
+  //   page: () => MfRevokeView(),
+  //   binding: MfRevokeBinding(),
+  // ),
+  // GetPage(
+  //   name: '/$unpledgeSuccessfulView',
+  //   page: () => UnpledgeSuccessfulView(),
+  // ),
+  // GetPage(
+  //   name: '/$unpledgeSharesView',
+  //   page: () => UnpledgeSharesView(),
+  //   binding: UnpledgeSharesBinding(),
+  // ),
 ];
