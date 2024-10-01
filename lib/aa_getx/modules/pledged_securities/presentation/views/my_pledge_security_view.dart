@@ -21,7 +21,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
         centerTitle: true,
         title: Text(controller.loanName.value, style: mediumTextStyle_18_gray_dark),
       ),
-      body: controller.pledgedResponse.value != null ? myPledgedSecuritiesBody() : Center(child: Text(controller.responseText.value)),
+      body: myPledgedSecuritiesBody()
     ));
   }
 
@@ -30,7 +30,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
       onRefresh: controller.pullRefresh,
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
+        child: controller.pledgedResponse.value != null ? Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 16, left: 15),
@@ -53,6 +53,18 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
             myPledgedSecuritiesList(),
             SizedBox(height: 70)
           ],
+        ) :
+        Container(
+          height: Get.height,
+          width: Get.width,
+          child: Column(
+            children: [
+              Expanded(child: Center(child: Text(controller.responseText.value))),
+              SizedBox(
+                height: 80,
+              ),
+            ],
+          ),
         ),
       ),
     );
