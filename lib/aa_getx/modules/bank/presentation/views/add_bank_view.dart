@@ -544,9 +544,11 @@ class AddBankView extends GetView<AddBankController>{
               ),
             ),
             SizedBox(width: 6),
-            controller.chequeByteImageString != null && controller.chequeByteImageString!.isNotEmpty
-                ? SizedBox(width: 60, height: 25, child: Image.file(controller.chequeImage!, fit: BoxFit.fill))
-                : SizedBox(),
+            Obx(
+              () => controller.chequeByteImageString.isNotEmpty
+                  ? SizedBox(width: 60, height: 25, child: Image.file(controller.chequeImage!, fit: BoxFit.fill))
+                  : SizedBox(),
+            ),
           ],
         ),
         SizedBox(height: 5),
@@ -562,24 +564,14 @@ class AddBankView extends GetView<AddBankController>{
   Widget submitButton() {
     return Center(
       child: AbsorbPointer(
-        absorbing: controller.bankController.text.toString().trim().isNotEmpty &&
-            controller.iFSCController.text.toString().trim().isNotEmpty &&
-            controller.accHolderNameController.text.toString().trim().isNotEmpty &&
-            controller.accNumberController.text.toString().trim().isNotEmpty &&
-            controller.reEnterAccNumberController.text.toString().trim().isNotEmpty &&
-            !controller.reEnterAccNumberIsCorrect.value && controller.cropMb != null && controller.imageInMb == true
+        absorbing: controller.getSubmitValidation()
             ? false
             : true,
         child: Container(
           height: 45,
           width: 120,
           child: Material(
-            color: controller.bankController.text.toString().trim().isNotEmpty &&
-                controller.iFSCController.text.toString().trim().isNotEmpty &&
-                controller.accHolderNameController.text.toString().trim().isNotEmpty &&
-                controller.accNumberController.text.toString().trim().isNotEmpty &&
-                controller.reEnterAccNumberController.text.toString().trim().isNotEmpty &&
-                !controller.reEnterAccNumberIsCorrect.value && controller.cropMb != null && controller.imageInMb == true
+            color: controller.getSubmitValidation()
                 ? appTheme
                 : colorLightGray,
             shape:
@@ -596,9 +588,8 @@ class AddBankView extends GetView<AddBankController>{
                       if (controller.accHolderNameValidator == true &&
                           controller.accNumberValidator == true &&
                           controller.reEnterAccNumberValidator == true &&
-                          controller.iFSCValidator == true && controller.imageInMb == true) {
+                          controller.iFSCValidator == true && controller.imageInMb.isTrue) {
                         controller.validateBank();
-                        // createFundAccountAPI();
                       }
                     }
                   } else {
@@ -777,7 +768,7 @@ showSuccessDialog(String msg, bool isSuccess) {
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () {
                         Get.back();
-                        Get.offAll(dashboardView, arguments: DashboardArguments(
+                        Get.offAllNamed(dashboardView, arguments: DashboardArguments(
                           isFromPinScreen: false,
                           selectedIndex: 0,
                         ));

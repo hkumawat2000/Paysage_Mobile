@@ -115,7 +115,7 @@ class RegistrationSuccessfulView extends StatelessWidget {
                                   side: BorderSide(color: red)),
                               minWidth: MediaQuery.of(context).size.width,
                               onPressed: () async {
-                                Get.offAll(dashboardView, arguments: DashboardArguments(
+                                Get.offAllNamed(dashboardView, arguments: DashboardArguments(
                                   isFromPinScreen: false,
                                   selectedIndex: 0,
                                 ));

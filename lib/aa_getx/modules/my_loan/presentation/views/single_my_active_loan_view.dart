@@ -27,9 +27,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
             title: Text(controller.loanNumber.value,
                 style: mediumTextStyle_18_gray_dark),
           ),
-          body: controller.loanDetailData.isBlank == true
-              ? Center(child: Text(controller.responseText.value))
-              : myActiveLoans(),
+          body: Obx(
+              () => controller.loanDetailData.value.loan == null
+                ? Center(child: Text(controller.responseText.value)) : myActiveLoans(),
+          ),
 
           ///DC: already commented
           /* loanOpen == 1
