@@ -27,10 +27,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
             title: Text(controller.loanNumber.value,
                 style: mediumTextStyle_18_gray_dark),
           ),
-          body: Obx(
-              () => controller.loanDetailData.value.loan == null
-                ? Center(child: Text(controller.responseText.value)) : myActiveLoans(),
-          ),
+          body: myActiveLoans(),
 
           ///DC: already commented
           /* loanOpen == 1
@@ -49,37 +46,52 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
       onRefresh: controller.pullRefresh,
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: <Widget>[
-            activeLoanCard(),
-            SizedBox(
-              height: 10,
-            ),
-            loanOption(),
-            SizedBox(
-              height: 10,
-            ),
-            activeLoanItem(),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0, top: 15),
-              child: Row(
+        child: Obx(
+              () => controller.loanDetailData.value.loan == null
+              ? Container(
+                height: Get.height,
+                width: Get.width,
+                child: Column(
+                  children: [
+                    Expanded(child: Center(child: Text(controller.responseText.value))),
+                    SizedBox(
+                      height: 80,
+                    ),
+                  ],
+                ),
+              )
+          : Column(
                 children: <Widget>[
-                  controller.transactionsList != null
-                      ? scripsNameText(
-                          controller.transactionsList!.length !=
-                                  0
-                              ? Strings.recent_transactions
-                              : "")
-                      : Container(),
+                  activeLoanCard(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  loanOption(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  activeLoanItem(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, top: 15),
+                    child: Row(
+                      children: <Widget>[
+                        controller.transactionsList != null
+                            ? scripsNameText(
+                            controller.transactionsList!.length !=
+                                0
+                                ? Strings.recent_transactions
+                                : "")
+                            : Container(),
+                      ],
+                    ),
+                  ),
+                  controller.transactionsList != null ? recentTransactionList() : Container(),
+                  SizedBox(
+                    height: 80,
+                  ),
                 ],
               ),
-            ),
-            controller.transactionsList != null ? recentTransactionList() : Container(),
-            SizedBox(
-              height: 80,
-            ),
-          ],
-        ),
+        )
       ),
     );
   }
