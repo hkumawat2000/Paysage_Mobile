@@ -36,7 +36,7 @@ class ApprovedSharedAndMfDataSourceImpl
     Dio dio = await getBaseDio();
     try {
       final response = await dio.get(
-        Apis.consentText,
+        Apis.approvedSecuritiesList,
         data: approvedSecuritiesRequestModel.toJson(),
       );
       if (response.statusCode == 200) {

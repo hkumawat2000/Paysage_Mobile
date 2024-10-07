@@ -9,6 +9,7 @@ import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/entities/approved_securities_response_entity.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/controllers/approved_securities_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,44 +50,44 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
             icon: actionIcon,
             onPressed: () {
               if (controller.currentInstrument.isNotEmpty) {
-                commonDialog( Strings.instrument_selection, 0);
+                commonDialog(Strings.instrument_selection, 0);
               } else {
                 //setState(() {
-                  if (this.actionIcon.icon == Icons.search) {
-                    this.actionIcon = Icon(Icons.close, color: colorGrey);
-                    this.appBarTitle = TextFormField(
-                      onChanged: (value) {
-                        controller.isComingFromSearch.value = true;
-                        controller.isMoreData.value = true;
-                        controller.searchName.value =
-                            controller.searchController.text.trim().toString();
-                        filterSearchResults();
-                      },
-                      controller: controller.searchController,
-                      focusNode: controller.focusNode,
-                      style: TextStyle(
-                        color: appTheme,
-                      ),
-                      decoration: InputDecoration(
-                          isDense: true,
-                          contentPadding: EdgeInsets.symmetric(vertical: 5),
-                          hintText: Strings.search,
-                          hintStyle: TextStyle(color: colorGrey)),
-                    );
-                   controller.focusNode.requestFocus();
-                  } else {
-                   controller.focusNode.unfocus();
-                   controller.start.value = 0;
-                   controller.searchStart.value = 0;
-                   controller.searchController.clear();
-                   controller.searchName.value = '';
-                    filterSearchResults();
-                    this.actionIcon = Icon(
-                      Icons.search,
-                      color: colorGrey,
-                    );
-                    this.appBarTitle = Text("");
-                  }
+                if (this.actionIcon.icon == Icons.search) {
+                  this.actionIcon = Icon(Icons.close, color: colorGrey);
+                  this.appBarTitle = TextFormField(
+                    onChanged: (value) {
+                      controller.isComingFromSearch.value = true;
+                      controller.isMoreData.value = true;
+                      controller.searchName.value =
+                          controller.searchController.text.trim().toString();
+                      filterSearchResults();
+                    },
+                    controller: controller.searchController,
+                    focusNode: controller.focusNode,
+                    style: TextStyle(
+                      color: appTheme,
+                    ),
+                    decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                        hintText: Strings.search,
+                        hintStyle: TextStyle(color: colorGrey)),
+                  );
+                  controller.focusNode.requestFocus();
+                } else {
+                  controller.focusNode.unfocus();
+                  controller.start.value = 0;
+                  controller.searchStart.value = 0;
+                  controller.searchController.clear();
+                  controller.searchName.value = '';
+                  filterSearchResults();
+                  this.actionIcon = Icon(
+                    Icons.search,
+                    color: colorGrey,
+                  );
+                  this.appBarTitle = Text("");
+                }
                 // });
               }
             },
@@ -120,10 +121,10 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              headingText(
-                  controller.currentInstrument.isNotEmpty || controller.currentInstrument.value == "Equity"
-                      ? Strings.approved_security
-                      : Strings.approved_scheme),
+              headingText(controller.currentInstrument.isNotEmpty ||
+                      controller.currentInstrument.value == "Equity"
+                  ? Strings.approved_security
+                  : Strings.approved_scheme),
             ],
           ),
           Row(
@@ -212,86 +213,31 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
     // from drop down instrument type changed
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        if (_currentInstrument != selected!) {
+        if (controller.currentInstrument != selected!) {
           // setState(() {
-            _currentInstrument = selected;
-            filterName = '';
-            start = 0;
-            searchStart = 0;
-            searchName = '';
-            searchController.clear();
-            this.actionIcon = Icon(
-              Icons.search,
-              color: colorGrey,
-            );
-            this.appBarTitle = Text("");
-         // });
-          if (approvedSecurityList.length != 0) {
-            _scrollController.animateTo(
-                _scrollController.position.minScrollExtent,
+          controller.currentInstrument.value = selected;
+          controller.filterName.value = '';
+          controller.start.value = 0;
+          controller.searchStart.value = 0;
+          controller.searchName.value = '';
+          controller.searchController.clear();
+          this.actionIcon = Icon(
+            Icons.search,
+            color: colorGrey,
+          );
+          this.appBarTitle = Text("");
+          // });
+          if (controller.approvedSecurityList.length != 0) {
+            controller.scrollController.animateTo(
+                controller.scrollController.position.minScrollExtent,
                 duration: Duration(seconds: 1),
                 curve: Curves.fastOutSlowIn);
           }
-          setState(() {
-            isAPICalling = true;
-            isMoreData = false;
-          });
-          approvedSecuritiesBloc
-              .getDirectApprovedSecurityValue(ApprovedSecuritiesRequestBean(
-                  lender: "Choice Finserv",
-                  start: 0,
-                  perPage: 20,
-                  search: "",
-                  isDownload: 1,
-                  loanType: _currentInstrument,
-                  category: filterName))
-              .then((value) {
-            if (value.isSuccessFull!) {
-              setState(() {
-                pdfURL = value.data!.pdfFileUrl;
-                filterList.clear();
-                filterList.add(Strings.clear_filter);
-                filterList.addAll(value.data!.securityCategoryList!);
-                isAPICalling = false;
-              });
-            } else if (value.errorCode == 403) {
-              setState(() {
-                isAPICalling = false;
-              });
-              commonDialog(context, Strings.session_timeout, 4);
-            } else {
-              setState(() {
-                pdfURL = "";
-                isAPICalling = false;
-              });
-              // Utility.showToastMessage(value.errorMessage!);
-            }
-          });
 
-          approvedSecuritiesBloc
-              .getApprovedSecurities(ApprovedSecuritiesRequestBean(
-                  lender: "Choice Finserv",
-                  start: start,
-                  perPage: 20,
-                  search: "",
-                  isDownload: 0,
-                  loanType: _currentInstrument,
-                  category: filterName))
-              .then((value) {
-            if (value.isSuccessFull!) {
-              setState(() {
-                // searchedShareList.clear();
-                approvedSecurityList.clear();
-                approvedSecurityList
-                    .addAll(value.data!.approvedSecuritiesList!);
-                if (value.data!.approvedSecuritiesList!.length < 20) {
-                  isMoreData = false;
-                } else {
-                  isMoreData = true;
-                }
-              });
-            }
-          });
+          controller.isAPICalling.value = true;
+          controller.isMoreData.value = false;
+          controller.getDirectApprovedSecuritesList(false);
+          controller.getApprovedSecuritesList();
         }
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
@@ -309,13 +255,13 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
 
   Widget getApprovalSecuritiesList() {
     return StreamBuilder(
-      stream: approvedSecuritiesBloc.listSecurityCategory,
-      builder: (context, AsyncSnapshot<ApprovedSecuritiesData> snapshot) {
+      stream: controller.listSecurityCategory,
+      builder: (context, AsyncSnapshot<ApprovedSecuritiesDataResponseEntity> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data == null) {
             return _buildNoDataWidget();
           } else {
-            return getAllApprovedList(approvedSecurityList);
+            return getAllApprovedList(controller.approvedSecurityList);
           }
         } else if (snapshot.hasError) {
           return _buildErrorWidget(snapshot.error.toString());
@@ -326,17 +272,17 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
     );
   }
 
-  Widget getAllApprovedList(List<ApprovedSecuritiesList> snapshot) {
+  Widget getAllApprovedList(List<ApprovedSecuritiesListResponseEntity> snapshot) {
     return snapshot.length == 0
         ? Center(child: Text(Strings.no_result_found))
         : ListView.builder(
-            controller: _scrollController,
+            controller: controller.scrollController,
             itemCount: snapshot.length + 1,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return index == snapshot.length
-                  ? isMoreData
+                  ? controller.isMoreData.isTrue
                       ? _buildLoadingWidget()
                       : Text('')
                   : Padding(
@@ -397,14 +343,14 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
 
   Widget securityCategoryType() {
     return Visibility(
-      visible: _currentInstrument != null ? true : false,
+      visible: controller.currentInstrument.value != null ? true : false,
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           hint: Container(
             width: 100,
             padding: EdgeInsets.only(right: 10),
             child: Text(
-              filterName,
+              controller.filterName.value,
               textAlign: TextAlign.end,
               style: TextStyle(color: colorLightAppTheme),
             ),
@@ -415,27 +361,28 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
             width: 30,
             color: colorLightAppTheme,
           ),
-          items: filterList
-                  .map(
-                    (leave) => DropdownMenuItem<String>(
-                      child: Text(leave),
-                      value: leave,
-                    ),
-                  )
-                  .toList(),
+          items: controller.filterList
+              .map(
+                (leave) => DropdownMenuItem<String>(
+                  child: Text(leave.value),
+                  value: leave.value,
+                ),
+              )
+              .toList(),
           onChanged: (newValue) async {
-            String? mobile = await preferences.getMobile();
-            String email = await preferences.getEmail();
+            String? mobile = await controller.preferences.getMobile();
+            String email = await controller.preferences.getEmail();
             Utility.isNetworkConnection().then((isNetwork) {
               if (isNetwork) {
-                if(newValue == Strings.clear_filter){
-                  filterName = '';
+                if (newValue == Strings.clear_filter) {
+                  controller.filterName.value = '';
                 } else {
-                  filterName = newValue!;
+                  controller.filterName.value = newValue!;
                 }
-                isComingFromFilter = true;
+                controller.isComingFromFilter.value = true;
                 // searchedShareList.clear();
-                searchName = searchController.text.trim().toString();
+                controller.searchName.value =
+                    controller.searchController.text.trim().toString();
                 filterCategoryResults();
                 // Firebase Event
                 Map<String, dynamic> parameter = new Map<String, dynamic>();
@@ -454,111 +401,39 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
     );
   }
 
-
-   void filterCategoryResults() {
+  void filterCategoryResults() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        setState(() {
-          start = 0;
-          searchStart = 0;
-          searchName = '';
-          searchController.clear();
-          this.actionIcon = Icon(
-            Icons.search,
-            color: colorGrey,
-          );
-          this.appBarTitle = Text("");
-        });
-        if(approvedSecurityList.length != 0) {
-          _scrollController.animateTo(_scrollController.position.minScrollExtent,
-              duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-        }
-        setState(() {
-          isAPICalling = true;
-          isMoreData = false;
-        });
-        approvedSecuritiesBloc
-            .getDirectApprovedSecurityValue(ApprovedSecuritiesRequestBean(
-            lender: "Choice Finserv", start: 0, perPage: 20, search: "", isDownload: 1, loanType: _currentInstrument, category: filterName))
-            .then((value) {
-          if (value.isSuccessFull!) {
-            setState(() {
-              pdfURL = value.data!.pdfFileUrl;
-              filterList.clear();
-              filterList.add(Strings.clear_filter);
-              filterList.addAll(value.data!.securityCategoryList!);
-              isAPICalling = false;
-            });
-          } else if(value.errorCode == 403){
-            setState(() {
-              isAPICalling = false;
-            });
-            commonDialog(context, Strings.session_timeout, 4);
-          } else {
-            setState(() {
-              pdfURL = "";
-              isAPICalling = false;            });
-          }
-        });
+        controller.start.value = 0;
+        controller.searchStart.value = 0;
+        controller.searchName.value = '';
+        controller.searchController.clear();
+        this.actionIcon = Icon(
+          Icons.search,
+          color: colorGrey,
+        );
+        this.appBarTitle = Text("");
 
-        approvedSecuritiesBloc
-            .getDirectApprovedSecurityValue(ApprovedSecuritiesRequestBean(
-                lender: "Choice Finserv",
-                start: 0,
-                perPage: 20,
-                search: searchName,
-                category: filterName,
-                isDownload: 0,
-            loanType: _currentInstrument))
-            .then((value) {
-          if (value.isSuccessFull!) {
-            setState(() {
-              approvedSecurityList.clear();
-              approvedSecurityList.addAll(value.data!.approvedSecuritiesList!);
-              if (value.data!.approvedSecuritiesList!.length < 20) {
-                isMoreData = false;
-              } else {
-                isMoreData = true;
-              }
-            });
-          }
-        });
+        if (controller.approvedSecurityList.length != 0) {
+          controller.scrollController.animateTo(
+              controller.scrollController.position.minScrollExtent,
+              duration: Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn);
+        }
+
+        controller.isAPICalling.value = true;
+        controller.isMoreData.value = false;
+
+        controller.getDirectApprovedSecuritesList(false);
+        controller.getApprovedSecuritesList();
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
     });
   }
 
-
   void filterSearchResults() {
-    Utility.isNetworkConnection().then((isNetwork) {
-      if (isNetwork) {
-        approvedSecuritiesBloc
-            .getDirectApprovedSecurityValue(ApprovedSecuritiesRequestBean(
-                lender: "Choice Finserv",
-                start: 0,
-                perPage: 20,
-                search: searchName,
-                category: filterName,
-                isDownload: 0,
-            loanType: _currentInstrument))
-            .then((value) {
-          if (value.isSuccessFull!) {
-            setState(() {
-              approvedSecurityList.clear();
-              approvedSecurityList.addAll(value.data!.approvedSecuritiesList!);
-              if (value.data!.approvedSecuritiesList!.length < 20) {
-                controller.isMoreData.value = false;
-              } else {
-               controller.isMoreData.value = true;
-              }
-            });
-          }
-        });
-      } else {
-        Utility.showToastMessage(Strings.no_internet_message);
-      }
-    });
+    controller.getDirectApprovedSecuritesList(true);
   }
 
   Widget _buildLoadingWidget() {
