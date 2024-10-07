@@ -1,0 +1,27 @@
+default_platform(:android)
+
+# upload to internal test to Google Play
+lane :closed_test do
+ # build the app bundle if you haven't already
+#  gradle(task: 'bundleRelease')
+
+ # Build the new AppBundle every time you run the lane
+ sh("flutter clean")
+ sh("flutter pub get")
+ sh("flutter build appbundle --release --flavor prod")
+
+ #upload to closed with specific tester
+ upload_to_play_store(
+   track: 'test',  # Specify track name that are available under closed testing section in play console
+   aab: '../build/app/outputs/bundle/prodRelease/app-prod-release.aab',  # Update if your AAB path differs
+   skip_upload_apk: true,
+   skip_upload_images: true,  # You can uncomment this if you don't want to upload images
+   skip_upload_screenshots: true,  # You can uncomment this if you don't want to upload screenshots
+   skip_upload_metadata: true,  # You can uncomment this if you don't want to upload metadata
+   skip_upload_changelogs: true,  # You can uncomment this if you don't want to upload changelogs
+   skip_upload_aab: false,
+
+   # Uncomment the following line if using a service account (CI/CD)
+   # service_account_json: service_account_json
+ )
+end
