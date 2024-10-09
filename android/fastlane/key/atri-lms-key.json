@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "atri-lms",
+  "private_key_id": "92b031990dbdbb2f9148c8a5a1e7b1bb286f1401",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDZ2CPVgX9CRpYS\nfVdAd+QTbSdW+TNGKmih8FIn+hE/Ic7VkCdHTUiOfredQffYnIVhPxhj9Zv3Rs16\nGmpAy2t9FeeZR+vw91K0InmadEyHQ+ERcvqqT+obeu9T1/ci/9Gwd31wY3DckObt\ngVLPvmidHSura0yre+qh4wfKoAChQiMLPDzef6sA4KC272NhR1uuRDE3EJ5m93oj\nICskDrVFh2oipYWyYJ251XQeu8KE0O3VxA6v3Rb4gyyYSVGsSVN3+gbeqpr8g0a+\n1wOfX6IJ/1gBWJAMGphemNMkkepaN4Tw+8pgEN88xqx7OlGn+TsE7Yarc3Mm9laX\nyxjhQ5wpAgMBAAECggEAAdluy7fCzv30mDIiY31bQCNVFc0GVJdATZnRx0aOvXhI\nXlHy98dD0VTGbS6dGGSTC9hMjW+ZEqKDmpfxuSgvet+kASV740lB2zWhK2Cv63Mk\nb3OrKLzMNog8pEGTSEDIFMDjTBeAYt74C0TaJx8na3mr68flaaOi8NWdTAvLUqpl\nbFwVaIFdJlxTvCZSpA4lp/J75V0Z7347Oi2MhgpiSstQp5duIYsIydmSVJlaJdrQ\nbTB68hac+6blIV8/U05IFPszYP1U28fuOePtD+yALj4Sg1doLh1msAvj4FRjBAj3\nlIzQQqhVJA4hG4m8B7BuBLJISiqyHPLWEunjdJ28AQKBgQDuJNE9ti2dAEOu/hcm\ngH/VRXl1aYxYdSSiRdgqzY8vdyjkV/trOrehsg/Gx8o/LIbQK0DC6dG+DPBLY/H3\nCJFGiZFUFLuqWL+Xa6rGi/WwrY8XQDzi1Zk2MjxWMU08V2GgUdRSduyLQXpWWxij\njXmzSyfZQEgij9tfGpuyQKzFuQKBgQDqLawbf46zG1++oyZuUIV7kuRn4M02ceoF\nL+o66+p0XVuY3gjZxMKu0tEjo+OzOpDYun422RIiADXTBtLZoc7ro5y8krm36IEr\n+iwNH77kuJlmlmUEBWwZZGYPlslUzXfeZuuyYayemGnAcXrkqgPDnC941zkS2Gzm\nydXMYHXB8QKBgQCe06VN0Dv5sxxxEHvmLNuVJQHNofh9YpttMsHqQjCWCpYWPOus\n53tjdzt4avVjTtIW8lH97S363+w/i8fr5yXk8okfl7hV81zMo31BcEULcaW2bxxs\neOL3N2fwYG9PqEOvRgQif7hhY+kwwQ7cvdWGE8De7zVs/57iff+LUgEo2QKBgQDg\n08iQ/f465uUdWfXjo1sEMRsowCNFSkirgj0XJLiLz7XJJiLJMKbYwX4ZAZfy0x+N\ndD8I2Y8XJayHVd3JJBhNE1+/i/7SGl8poZ35W6kiXjiozWteWPZXypRSEypoSHv1\nAkr3j97yxNGC+XBLaQ8EFkdddQROm4qyaMTi2xkzgQKBgQDrM/AWTi9YdxTIZBxU\nf8rgpepVIDNdz6uGtVNNHKAHf9pZgmoXfZLVRDxlfd+MhJAAIni3drNLFx3t0QQ/\nBCEMdHfpsPAnTD5pl8G0rspT5AuvXTnxSuHttBNP1TykAghQGhcCmxNhGhv4v54y\ndhIrzolP2X2Ek208+UCWnAxU7w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "paysage-fastlane@atri-lms.iam.gserviceaccount.com",
+  "client_id": "113186813019917101660",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/paysage-fastlane%40atri-lms.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

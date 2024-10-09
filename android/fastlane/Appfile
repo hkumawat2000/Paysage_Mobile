@@ -1,2 +1,2 @@
-json_key_file("fastlane/key/atri-lms-secret-key.json")
+json_key_file("fastlane/key/atri-lms-key.json")
 package_name("com.atriina.lms")
