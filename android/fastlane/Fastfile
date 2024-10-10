@@ -13,7 +13,7 @@ lane :closed_test do
  #upload to closed with specific tester
  upload_to_play_store(
    track: 'test',  # Specify track name that are available under closed testing section in play console
-   aab: '/Users/himanshu/Downloads/LAS-LAMF_mobile/build/app/outputs/bundle/prodRelease/app-prod-release.aab',  # Update if your AAB path differs
+   aab: '../build/app/outputs/bundle/prodRelease/app-prod-release.aab',  # Update if your AAB path differs
    skip_upload_apk: true,
    skip_upload_images: true,  # You can uncomment this if you don't want to upload images
    skip_upload_screenshots: true,  # You can uncomment this if you don't want to upload screenshots
