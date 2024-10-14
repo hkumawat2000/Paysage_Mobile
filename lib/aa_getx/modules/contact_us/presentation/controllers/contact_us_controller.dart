@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
@@ -29,7 +30,7 @@ class ContactUsController extends GetxController {
     ));
     Get.back();
     if (response is DataSuccess) {
-
+      Get.offNamed(contactUsThankYouView);
     } else if (response is DataFailed) {
       Utility.showToastMessage(response.error!.message);
     }

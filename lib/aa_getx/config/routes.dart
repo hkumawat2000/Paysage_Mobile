@@ -13,6 +13,8 @@ import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_otp_view.dart
 import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_result_view.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_view.dart';
 import 'package:lms/aa_getx/modules/contact_us/presentation/bindings/contact_us_binding.dart';
+import 'package:lms/aa_getx/modules/contact_us/presentation/bindings/contact_us_thank_you_binding.dart';
+import 'package:lms/aa_getx/modules/contact_us/presentation/views/contact_us_thank_you_view.dart';
 import 'package:lms/aa_getx/modules/contact_us/presentation/views/contact_us_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bindings.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
@@ -148,6 +150,7 @@ const String mfRevokeView = "mf-revoke-view";
 const String unpledgeSuccessfulView = "unpledge-successful-view";
 const String unpledgeSharesView = "unpledge-shares-view";
 const String contactUsView = "contact-us-view";
+const String contactUsThankYouView = "contact-us-thank-you-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -394,6 +397,11 @@ List<GetPage> routes = [
     name: '/$contactUsView',
     page: () => ContactUsView(),
     binding: ContactUsBinding(),
+  ),
+  GetPage(
+    name: '/$contactUsThankYouView',
+    page: () => ContactUsThankYouView(),
+    binding: ContactUsThankYouBinding(),
   ),
   // GetPage(
   //   name: '/$mfRevokeView',
