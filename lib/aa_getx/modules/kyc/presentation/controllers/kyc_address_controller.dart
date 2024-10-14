@@ -345,7 +345,7 @@ class KycAddressController extends GetxController {
     String camsEmail = await preferences.getCamsEmail();
     preferences.setOkClicked(false);
     Get.back();
-    Get.toNamed(dashboardView, arguments: DashboardArguments(
+    Get.offAllNamed(dashboardView, arguments: DashboardArguments(
       selectedIndex: 0,
       isFromPinScreen: false,
     ));

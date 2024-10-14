@@ -52,7 +52,7 @@ class AddBankController extends GetxController {
   String? iFSCText = "HDFC BANK";
   //final completeKYCBloc = CompleteKYCBloc();
   final ImagePicker chequePicker = ImagePicker();
-  String? chequeByteImageString;
+  RxString chequeByteImageString = "".obs;
   File? chequeImage;
   double? cropKb ;
   double? cropMb ;
@@ -217,7 +217,7 @@ class AddBankController extends GetxController {
       branch: branchController.text.toString().trim(),
       city: cityController.text.toString().trim(),
       bank: bankController.text.toString().trim(),
-      personalizedCheque: chequeByteImageString,
+      personalizedCheque: chequeByteImageString.value,
     );
 
     DataState<FundAccValidationResponseEntity> response = await _validateBankUseCase.call(ValidateBankRequestParams(validateBankRequestEntity: validateBankRequestEntity));
@@ -280,7 +280,7 @@ class AddBankController extends GetxController {
           debugPrint("Bytes ==> $bytesint");
           debugPrint("cropKb ==> $cropKb");
           debugPrint("cropMb ==> $cropMb");
-          chequeByteImageString = base64Encode(bytes);
+          chequeByteImageString.value = base64Encode(bytes);
           //setState(() {
             chequeImage = File(cropped.path);
             if(cropMb! > 10){
@@ -293,7 +293,7 @@ class AddBankController extends GetxController {
       }
     } catch (e) {
       Utility().showPhotoPermissionDialog(Get.context);
-      debugPrint(e.toString());
+      debugPrint("Exception : ${e.toString()}");
     }
   }
 
@@ -418,5 +418,18 @@ class AddBankController extends GetxController {
         }
       });
    // });
+  }
+
+  bool getSubmitValidation() {
+    if(bankController.text.toString().trim().isNotEmpty &&
+        iFSCController.text.toString().trim().isNotEmpty &&
+        accHolderNameController.text.toString().trim().isNotEmpty &&
+        accNumberController.text.toString().trim().isNotEmpty &&
+        reEnterAccNumberController.text.toString().trim().isNotEmpty &&
+        !reEnterAccNumberIsCorrect.value && cropMb != null && imageInMb.isTrue){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
