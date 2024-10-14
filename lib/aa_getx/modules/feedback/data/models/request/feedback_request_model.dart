@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:lms/aa_getx/modules/feedback/domain/entities/request/feedback_request_entity.dart';
+
 class FeedbackRequestModel {
   int? doNotShowAgain;
   int? bullsEye;
@@ -10,13 +13,13 @@ class FeedbackRequestModel {
 
   FeedbackRequestModel(
       {this.doNotShowAgain,
-        this.bullsEye,
-        this.canDoBetter,
-        this.relatedToUserExperience,
-        this.relatedToFunctionality,
-        this.others,
-        this.comment,
-        this.fromMoreMenu});
+      this.bullsEye,
+      this.canDoBetter,
+      this.relatedToUserExperience,
+      this.relatedToFunctionality,
+      this.others,
+      this.comment,
+      this.fromMoreMenu});
 
   FeedbackRequestModel.fromJson(Map<String, dynamic> json) {
     doNotShowAgain = json['do_not_show_again'];
@@ -40,5 +43,37 @@ class FeedbackRequestModel {
     data['comment'] = this.comment;
     data['from_more_menu'] = this.fromMoreMenu;
     return data;
+  }
+
+  factory FeedbackRequestModel.fromEntity(
+      FeedbackRequestEntity feedbackRequestEntity) {
+    return FeedbackRequestModel(
+      doNotShowAgain: feedbackRequestEntity.doNotShowAgain != null
+          ? feedbackRequestEntity.doNotShowAgain as int
+          : null,
+      bullsEye: feedbackRequestEntity.bullsEye != null
+          ? feedbackRequestEntity.bullsEye as int
+          : null,
+      canDoBetter: feedbackRequestEntity.canDoBetter != null
+          ? feedbackRequestEntity.canDoBetter as int
+          : null,
+      relatedToUserExperience:
+          feedbackRequestEntity.relatedToUserExperience != null
+              ? feedbackRequestEntity.relatedToUserExperience as int
+              : null,
+      relatedToFunctionality:
+          feedbackRequestEntity.relatedToFunctionality != null
+              ? feedbackRequestEntity.relatedToFunctionality as int
+              : null,
+      others: feedbackRequestEntity.others != null
+          ? feedbackRequestEntity.others as int
+          : null,
+      comment: feedbackRequestEntity.comment != null
+          ? feedbackRequestEntity.comment as String
+          : null,
+      fromMoreMenu: feedbackRequestEntity.fromMoreMenu != null
+          ? feedbackRequestEntity.fromMoreMenu as int
+          : null,
+    );
   }
 }
