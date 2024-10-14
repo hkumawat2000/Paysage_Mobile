@@ -159,7 +159,7 @@ class KycController extends GetxController {
               showDialogLoading(Strings.please_wait);
               SearchKycRequestEntity searchKycRequestEntity =
                   SearchKycRequestEntity(
-                panCardNumber: panController.text..toString().trim(),
+                panCardNumber: panController.text.toString().trim(),
                 acceptTerms: acceptTerms.value,
               );
               DataState<KYCSearchResponseEntity> response =
@@ -253,10 +253,10 @@ class KycController extends GetxController {
         consentKycText.value = response.data!.consentDetails!.consent!;
         isApiCallInProgress.value = false;
       } else if (response is DataFailed) {
-        if(response.error!.statusCode == 403){
+        if (response.error!.statusCode == 403) {
           isAPICallingText = Strings.session_timeout;
           commonDialog(Strings.session_timeout, 4);
-        }else{
+        } else {
           isAPICallingText = response.error!.message;
         }
         isApiCallInProgress(false);
