@@ -487,6 +487,18 @@ class NavigationBackImage extends StatelessWidget {
   }
 }
 
+//Common height sized box
+class SizedBoxHeightWidget extends StatelessWidget {
+  final height;
+
+  SizedBoxHeightWidget(this.height);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(height: height);
+  }
+}
+
 Widget marginShortfallInfo(loanBalance,
     marginShortFallCashAmt, drawingPower, marginShortfall, loanType) {
   return new Scaffold(
