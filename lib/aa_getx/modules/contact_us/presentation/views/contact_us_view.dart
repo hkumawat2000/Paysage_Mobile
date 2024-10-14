@@ -53,34 +53,36 @@ class ContactUsView extends GetView<ContactUsController>{
                       messageField(),
                       SizedBox(height: 30),
                       Center(
-                        child: Container(
-                          height: 50,
-                          width: 140,
-                          alignment: Alignment.center,
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                            elevation: 4.0,
-                            color: controller.messageController!.text.length < 10? colorGrey : appTheme,
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                              minWidth: MediaQuery.of(context).size.width,
-                              onPressed: controller.messageController!.text.length < 10 ? null :() {
-                                Utility.isNetworkConnection().then((isNetwork) {
-                                  if (isNetwork) {
-                                    // contactUsAPI();
-                                  } else {
-                                    Utility.showToastMessage(Strings.no_internet_message);
-                                  }
-                                });
-                              },
-                              child: Text(
-                                Strings.submit,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
+                        child: Obx(
+                          () => Container(
+                            height: 50,
+                            width: 140,
+                            alignment: Alignment.center,
+                            child: Material(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(35),
+                              ),
+                              elevation: 4.0,
+                              color: controller.contactUsMessageTxt.value.length < 10 ? colorGrey : appTheme,
+                              child: MaterialButton(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                                minWidth: MediaQuery.of(context).size.width,
+                                onPressed: controller.contactUsMessageTxt.value.length < 10 ? null :() {
+                                  Utility.isNetworkConnection().then((isNetwork) {
+                                    if (isNetwork) {
+                                      controller.contactUsAPI();
+                                    } else {
+                                      Utility.showToastMessage(Strings.no_internet_message);
+                                    }
+                                  });
+                                },
+                                child: Text(
+                                  Strings.submit,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
@@ -117,9 +119,7 @@ class ContactUsView extends GetView<ContactUsController>{
       maxLines: 10,
       minLines: 3,
       keyboardType: TextInputType.multiline,
-      onChanged: (value){
-
-      },
+      onChanged: (value) => controller.contactUsMessageTxt.value = value,
     );
   }
 
@@ -143,8 +143,6 @@ class ContactUsView extends GetView<ContactUsController>{
           child: Column(
             children: <Widget>[
               Container(
-                // height: 80,
-                // width: 80,
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: new BoxDecoration(
                   color: colorBg,

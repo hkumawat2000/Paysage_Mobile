@@ -427,15 +427,9 @@ class MoreController extends GetxController{
   void contactUsClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: change following code after ContactUsScreen screen completed
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             ContactUsScreen()));
+        Get.toNamed(contactUsView);
       } else {
-        Utility.showToastMessage(
-            Strings.no_internet_message);
+        Utility.showToastMessage(Strings.no_internet_message);
       }
     });
   }
