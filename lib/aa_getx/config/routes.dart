@@ -91,6 +91,7 @@ import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_shares_
 import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_successful_view.dart';
 import 'package:lms/aa_getx/modules/risk_profile/presentation/bindings/risk_profile_binding.dart';
 import 'package:lms/aa_getx/modules/risk_profile/presentation/views/risk_profile_view.dart';
+import 'package:lms/aa_getx/modules/webview/presentation/binding/common_webview_binding.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 
 
@@ -271,6 +272,7 @@ List<GetPage> routes = [
   GetPage(
     name: '/$commonWebview',
     page: () => CommonWebviewView(),
+    binding: CommonWebviewBinding(),
   ),
   GetPage(
     name: '/$marginShortfallView',

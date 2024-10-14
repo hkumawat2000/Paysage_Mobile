@@ -21,6 +21,7 @@ import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/mf_invoke_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
+import 'package:lms/aa_getx/modules/webview/presentation/arguments/common_webview_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 
 class MoreController extends GetxController{
@@ -437,7 +438,10 @@ class MoreController extends GetxController{
   void fAQClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: change following code after CommonWebViewScreen screen completed
+        Get.toNamed(commonWebview, arguments: CommonWebviewArguments(
+          redirectionNumber: 1,
+          title: "Help / FAQs"
+        ));
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(
