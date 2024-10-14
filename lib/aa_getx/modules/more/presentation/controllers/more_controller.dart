@@ -167,13 +167,12 @@ class MoreController extends GetxController{
   void manageSettingsClicked()  {
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
-        ///todo: change following code after AccountSettingScreen screen completed
-        // final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettingScreen()));
-        // if(result != null) {
-        //   if (profilePhotoUrl.isEmpty) {
-        //     getLastLogInDetails();
-        //   }
-        // }
+        final result = await Get.toNamed(accountSettingsView);
+        if(result != null) {
+          if (profilePhotoUrl.isEmpty) {
+            getLastLogInDetails();
+          }
+        }
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
