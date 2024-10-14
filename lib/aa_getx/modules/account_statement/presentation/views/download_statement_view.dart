@@ -154,11 +154,11 @@ class DownloadStatementViewState extends State<DownloadStatementView> {
     return Container(
       height: 30,
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<TransactionDuration>(
+        child: Obx(()=>DropdownButton<TransactionDuration>(
           isDense: true,
           isExpanded: true,
           hint: Text('Duration'),
-          value: controller.durationSelected,
+          value: controller.durationSelected.value,
           icon: Image.asset(AssetsImagePath.down_arrow, height: 20, width: 20),
           iconSize: 20,
           elevation: 16,
@@ -174,7 +174,8 @@ class DownloadStatementViewState extends State<DownloadStatementView> {
           }).toList(),
         ),
       ),
-    );
+    ),
+   );
   }
 
   Widget formatDropDown() {

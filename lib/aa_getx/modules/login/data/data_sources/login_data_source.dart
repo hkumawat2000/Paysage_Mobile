@@ -149,7 +149,7 @@ class LoginDataSourceImpl with BaseDio implements LoginDataSource {
       GetProfileAndSetAlertRequestModel getProfileAndSetAlertRequestModel) async {
     Dio dio = await getBaseDio();
     try {
-      final response = await dio.post(
+      final response = await dio.get(
         Apis.getProfileSetAlert,
         data: getProfileAndSetAlertRequestModel.toJson(),
       );

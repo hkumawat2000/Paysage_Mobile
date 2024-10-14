@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/account_statement/presentation/arguments/loan_statement_arguments.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/request/loan_details_request_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecase.dart';
@@ -53,6 +55,16 @@ class MyPledgeSecurityController extends GetxController{
     getAllLoansName();
   }
 
+
+  Future<void> pullRefresh() async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        getAllLoansName();
+      } else {
+        commonDialog(Strings.no_internet_message, 0);
+      }
+    });
+  }
 
   Future<void> getAllLoansName() async{
     if (await _connectionInfo.isConnected) {
@@ -151,12 +163,7 @@ class MyPledgeSecurityController extends GetxController{
   void pledgedSecuritiesOrSchemesTransactionsClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: uncomment following code after MyPledgeTransactionScreen in developed
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) => MyPledgeTransactionScreen(
-        //             loanName, loanBalance, drawingPower, loanType)));
+        Get.toNamed(myPledgedTransactionsView, arguments: LoanStatementArguments(loanName: loanName.value, loanBalance: loanBalance.value, drawingPower: drawingPower.value, loanType: loanType.value));
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }

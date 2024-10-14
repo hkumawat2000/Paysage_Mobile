@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/controllers/single_my_active_loan_controller.dart';
@@ -6,7 +7,6 @@ import 'package:lms/common_widgets/constants.dart';
 import 'package:lms/util/AssetsImagePath.dart';
 import 'package:lms/util/Colors.dart';
 import 'package:lms/util/Style.dart';
-import 'package:lms/util/strings.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -27,9 +27,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
             title: Text(controller.loanNumber.value,
                 style: mediumTextStyle_18_gray_dark),
           ),
-          body: controller.loanDetailData.isBlank == true
-              ? Center(child: Text(controller.responseText.value))
-              : myActiveLoans(),
+          body: myActiveLoans(),
 
           ///DC: already commented
           /* loanOpen == 1
@@ -44,35 +42,56 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
   }
 
   Widget myActiveLoans() {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: <Widget>[
-          activeLoanCard(),
-          SizedBox(
-            height: 10,
-          ),
-          loanOption(),
-          SizedBox(
-            height: 10,
-          ),
-          activeLoanItem(),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 15),
-            child: Row(
-              children: <Widget>[
-                scripsNameText(
-                    controller.loanDetailData.value.transactions!.length != 0
-                        ? Strings.recent_transactions
-                        : "")
-              ],
-            ),
-          ),
-          recentTransactionList(),
-          SizedBox(
-            height: 80,
-          ),
-        ],
+    return RefreshIndicator(
+      onRefresh: controller.pullRefresh,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Obx(
+              () => controller.loanDetailData.value.loan == null
+              ? Container(
+                height: Get.height,
+                width: Get.width,
+                child: Column(
+                  children: [
+                    Expanded(child: Center(child: Text(controller.responseText.value))),
+                    SizedBox(
+                      height: 80,
+                    ),
+                  ],
+                ),
+              )
+          : Column(
+                children: <Widget>[
+                  activeLoanCard(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  loanOption(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  activeLoanItem(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, top: 15),
+                    child: Row(
+                      children: <Widget>[
+                        controller.transactionsList != null
+                            ? scripsNameText(
+                            controller.transactionsList!.length !=
+                                0
+                                ? Strings.recent_transactions
+                                : "")
+                            : Container(),
+                      ],
+                    ),
+                  ),
+                  controller.transactionsList != null ? recentTransactionList() : Container(),
+                  SizedBox(
+                    height: 80,
+                  ),
+                ],
+              ),
+        )
       ),
     );
   }
@@ -686,7 +705,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 ),
               )
             : Container(),
-        controller.marginShortfall.value != null
+        controller.marginShortfall.value.name != null
             ? Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 12.0),
           child: Card(
@@ -745,12 +764,11 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                           ],
                         ),
                         SizedBox(height: 5),
-                        subHeadingText(controller.marginShortfall.value!
-                            .minimumCashAmount! <
+                        controller.minimumCashAmount != null ?subHeadingText(controller.minimumCashAmount <
                             0
-                            ? negativeValue(controller.marginShortfall
-                            .value!.minimumCashAmount!)
-                            : '₹${numberToString(controller.marginShortfall.value!.minimumCashAmount!.toStringAsFixed(2))}'),
+                            ? negativeValue(controller.minimumCashAmount)
+                            : '₹${numberToString(controller.minimumCashAmount.toStringAsFixed(2))}')
+                        : Container(),
                       ],
                     ),
                   ),
@@ -783,7 +801,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                                       .symmetric(
                                       vertical: 5),
                                   child: Text(
-                                      '${controller.marginShortfall.value!.deadlineInHrs}',
+                                      '${controller.marginShortfall.value.deadlineInHrs}',
                                       textAlign: TextAlign
                                           .center,
                                       style: TextStyle(
@@ -892,7 +910,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                       onPressed: () =>
                           controller.actionTakenOrRequestPendingClicked(),
                       child: Text(
-                        controller.marginShortfall.value!.status ==
+                        controller.marginShortfall.value.status ==
                             "Request Pending"
                             ? "Action Taken"
                             : Strings.take_action,
@@ -917,10 +935,10 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: controller.loanDetailData.value.transactions!.length,
+      itemCount: controller.transactionsList!.length,
       itemBuilder: (context, index) {
         return recentTransactionItem(
-            controller.loanDetailData.value.transactions!, index);
+            controller.transactionsList!, index);
       },
     );
   }

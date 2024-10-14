@@ -11,6 +11,7 @@ import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecas
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/all_loan_names_response_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
+import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:cron/cron.dart';
@@ -25,7 +26,7 @@ class SingleMyActiveLoanController extends GetxController {
 
   SingleMyActiveLoanController(this._connectionInfo,
       this._getAllLoansNamesUseCase, this._getLoanDetailsUseCase);
-  
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var fileId;
   TargetPlatform? platform;
@@ -63,7 +64,8 @@ class SingleMyActiveLoanController extends GetxController {
   var cron = new Cron();
   RxString loanType = "".obs;
   RxString schemeType = "".obs;
-
+  var minimumCashAmount;
+  List<TransactionsEntity>? transactionsList;
 
   @override
   void onInit() {
@@ -71,6 +73,16 @@ class SingleMyActiveLoanController extends GetxController {
     runClone();
     getLoanDetails();
     super.onInit();
+  }
+
+  Future<void> pullRefresh() async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        getLoanDetails();
+      } else {
+        commonDialog(Strings.no_internet_message, 0);
+      }
+    });
   }
 
   void runClone() {
@@ -141,6 +153,8 @@ class SingleMyActiveLoanController extends GetxController {
             isMarginShortFall.value = true;
             marginShortfall.value =
                 loanDetailsResponse.data!.data!.marginShortfall!;
+            minimumCashAmount = marginShortfall.value.minimumCashAmount;
+            transactionsList = loanDetailData.value.transactions;
             if (loanDetailsResponse
                     .data!.data!.marginShortfall!.deadlineInHrs !=
                 null) {
@@ -284,9 +298,18 @@ class SingleMyActiveLoanController extends GetxController {
     // } else {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        debugPrint("interest${jsonEncode(interest)}");
-
         if (loanDetailData.value.paymentAlreadyInProcess == 0) {
+          Get.toNamed(paymentView, arguments: PaymentArguments(
+            isForInterest: interest.value != null ? 1: 0,
+            isMarginShortfall: marginShortfall.value.name != null ? marginShortfall.value.status == "Pending" ? true : false : false,
+            loanName: loanNumber.value,
+            marginShortfallAmount: marginShortfall.value.name != null ? marginShortfall.value.shortfallC : 0.0,
+            marginShortfallLoanName: marginShortfall.value.name != null && marginShortfall.value.status != "Sell Triggered" && marginShortfall.value.status != "Request Pending" ? marginShortfall.value.name! : "",
+            minimumCashAmount: marginShortfall.value.name != null ? marginShortfall.value.minimumCashAmount! : 0.0,
+            minimumCollateralValue: marginShortfall.value.name != null ? marginShortfall.value.minimumCollateralValue : 0.0,
+            totalCollateralValue: marginShortfall.value.name != null ? marginShortfall.value.totalCollateralValue : 0.0,
+          ));
+
           /// todo: uncomment and change following code after PaymentScreen page is completed
           // Navigator.push(
           //     context,
@@ -356,10 +379,10 @@ class SingleMyActiveLoanController extends GetxController {
 
     Get.bottomSheet(
       marginShortfallInfo(
-          marginShortfall.value!.loanBalance,
-          marginShortfall.value!.minimumCashAmount,
+          marginShortfall.value.loanBalance,
+          marginShortfall.value.minimumCashAmount,
           drawingPower.value,
-          marginShortfall.value!.shortfallC,
+          marginShortfall.value.shortfallC,
           loanType),
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
@@ -374,9 +397,9 @@ class SingleMyActiveLoanController extends GetxController {
     Map<String, dynamic> parameter = new Map<String, dynamic>();
     parameter[Strings.mobile_no] = mobile;
     parameter[Strings.email] = email;
-    parameter[Strings.margin_shortfall_name] = marginShortfall.value!.name;
+    parameter[Strings.margin_shortfall_name] = marginShortfall.value.name;
     parameter[Strings.loan_number] = loanDetailData.value.loan!.name;
-    parameter[Strings.margin_shortfall_status] = marginShortfall.value!.status;
+    parameter[Strings.margin_shortfall_status] = marginShortfall.value.status;
     parameter[Strings.date_time] = getCurrentDateAndTime();
     firebaseEvent(Strings.margin_shortFall_click, parameter);
 
@@ -385,22 +408,16 @@ class SingleMyActiveLoanController extends GetxController {
         pledgorBoid:  loanDetailData.value.pledgorBoid!,
         isSellCollateral: isSellCollateral.value,
         isSaleTriggered: isTimerDone.value,
-        isRequestPending:  marginShortfall.value!.status ==
+        isRequestPending:  marginShortfall.value.status ==
             "Request Pending"
             ? true
             : false,
-        msg: marginShortfall.value!.actionTakenMsg ?? "",
+        msg: marginShortfall.value.actionTakenMsg ?? "",
         loanType: loanType.value,
         schemeType: schemeType.value));
   }
 
   void viewLoanStatement() {
-    /// todo: uncomment and change following code after LoanStatementScreen page is completed
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (BuildContext context) => LoanStatementScreen(loanNumber,
-    //             loanDetailData!.value!.loan!.balance, loanDetailData!.value!.loan!.drawingPower, loanType)));
-    Get.toNamed(loanStatementView, arguments: LoanStatementArguments(loanName: loanNumber.value, loanBalance: loanDetailData!.value!.loan!.balance, drawingPower: loanDetailData!.value!.loan!.drawingPower, loanType: loanType.value));
+    Get.toNamed(loanStatementView, arguments: LoanStatementArguments(loanName: loanNumber.value, loanBalance: loanDetailData.value.loan!.balance, drawingPower: loanDetailData.value.loan!.drawingPower, loanType: loanType.value));
   }
 }

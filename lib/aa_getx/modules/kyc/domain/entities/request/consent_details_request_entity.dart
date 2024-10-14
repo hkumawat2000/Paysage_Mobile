@@ -16,11 +16,13 @@ class ConsentDetailsRequestEntity {
 class AddressDetailsRequestEntity {
   PermanentAddressRequestEntity? permanentAddress;
   String? permCorresFlag;
+  String? geoLocation;
   PermanentAddressRequestEntity? correspondingAddress;
   
   AddressDetailsRequestEntity({
     this.permanentAddress,
     this.permCorresFlag,
+    this.geoLocation,
     this.correspondingAddress,
   });
 }

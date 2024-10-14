@@ -40,6 +40,7 @@ class Strings {
   static const String success_otp_sent = 'OTP Sent Successfully';
   static const String enter_otp = 'OTP has been sent on your mobile number';
   static const String cibil_enter_otp = 'OTP has been sent on the linked mobile number';
+  static const String mf_enter_otp = 'OTP has been sent on the linked mobile number';
   static const String four_digit_enter_otp =
       '4 digit OTP has been sent on your mobile number';
   static const String resend_otp = 'Resend OTP';
@@ -329,6 +330,7 @@ class Strings {
   static const String pledged_text = 'Your Pledged Securities Performance';
   static const String add_more_securities = 'Add more Securities';
   static const String check_your_credit_score = 'Check Your Credit Score';
+  static const String check_risk_profile = 'Risk Profile';
   static const String download_loan_statement = 'Download Loan Statement';
   static const String add_payment_reminder = 'Payment Reminder';
   static const String lms_title = 'LMS Up & Stay Ahead';
@@ -499,6 +501,7 @@ class Strings {
       'Select your preferred type of security to pledge';
   static const String shares = 'Shares';
   static const String mutual_fund = 'Mutual Fund';
+  static const String mf_central_mutual_fund = 'MF Central';
   static const String click_here = 'Click here';
   static const String approved_text =
       '\t to check our list of approved shares and Mutual fund schemes';
@@ -845,6 +848,7 @@ class Strings {
   static const String information_declaration =
       "I declare that the details furnished above are true and correct to the best of my knowledge. I undertake to inform you for any changes take therein, immediately.";
   static const String cibil_otp_verification = 'Cibil OTP Verification';
+  static const String mf_otp_verification = 'Mutual Fund OTP Verification';
   static const String otp_verification = 'OTP Verification';
   static const String otp_sent_text = 'OTP has been sent on your mobile number';
   static const String edit_pan_details = 'Edit PAN details';

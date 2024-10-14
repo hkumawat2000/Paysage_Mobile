@@ -127,7 +127,7 @@ class RegistrationView extends GetView<RegistrationController>{
                               controller.firstNameController.text,
                               controller.lastNameController.text,
                               controller.emailController.text,
-                              controller.versionName.value!,
+                              controller.versionName.value,
                               controller.deviceInfo,
                               Strings.register_with_email),
                           child: ArrowForwardNavigation(),

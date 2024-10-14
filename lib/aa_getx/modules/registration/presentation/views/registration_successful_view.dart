@@ -6,6 +6,7 @@ import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/style.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 
 class RegistrationSuccessfulView extends StatelessWidget {
   @override
@@ -114,7 +115,10 @@ class RegistrationSuccessfulView extends StatelessWidget {
                                   side: BorderSide(color: red)),
                               minWidth: MediaQuery.of(context).size.width,
                               onPressed: () async {
-                                ///todo: DashBoard with toNamed after page is created and convert following code in getx
+                                Get.offAllNamed(dashboardView, arguments: DashboardArguments(
+                                  isFromPinScreen: false,
+                                  selectedIndex: 0,
+                                ));
                                 // Navigator.push(context, MaterialPageRoute(
                                 //     builder: (BuildContext context) => DashBoard()));
                               },

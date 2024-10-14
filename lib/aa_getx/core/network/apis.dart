@@ -83,5 +83,9 @@ class Apis {
   static final String cibilOtpVerify = "/api/method/lms.user.validate_otp";
   static final String cibilOnDemand = "/api/method/lms.user.ondemand_refresh";
   static final String requestPledgeOtp = "api/method/lms.cart.request_pledge_otp";
-  static final String submitLoanStatement = "api/method/lms.loan.loan_statement";
+  static final String submitOrGetLoanStatement = "api/method/lms.loan.loan_statement";
+  static final String mutualFundSendOtp = "api/method/lms.user.mf_get_otp";
+  static final String fetchMutualFund = "api/method/lms.user.mf_get_data";
+  static final String getRiskProfileCategory = "api/method/lms.user.risk_profile_categories";
+  static final String saveRiskProfileCategory = "api/method/lms.user.risk_profile_for_las";
 }

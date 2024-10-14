@@ -21,36 +21,51 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
         centerTitle: true,
         title: Text(controller.loanName.value, style: mediumTextStyle_18_gray_dark),
       ),
-      body: controller.pledgedResponse.value != null ? myPledgedSecuritiesBody() : Center(child: Text(controller.responseText.value)),
+      body: myPledgedSecuritiesBody()
     ));
   }
 
   Widget myPledgedSecuritiesBody() {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16, left: 15),
-            child: Row(
-              children: [
-                Expanded(child: headingText(controller.loanType == Strings.shares ? "My Pledged Securities" : "My Pledged Schemes")),
-              ],
+    return RefreshIndicator(
+      onRefresh: controller.pullRefresh,
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: controller.pledgedResponse.value != null ? Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16, left: 15),
+              child: Row(
+                children: [
+                  Expanded(child: headingText(controller.loanType == Strings.shares ? "My Pledged Securities" : "My Pledged Schemes")),
+                ],
+              ),
             ),
-          ),
-          myPledgedSecuritiesCard(),
-          myPledgedSecuritiesOption(),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(14, 20, 15, 8),
-            child: Row(
-              children: [
-                Text(controller.loanType == Strings.shares ? 'Security' : 'Schemes', style:boldTextStyle_18),
-              ],
+            myPledgedSecuritiesCard(),
+            myPledgedSecuritiesOption(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(14, 20, 15, 8),
+              child: Row(
+                children: [
+                  Text(controller.loanType == Strings.shares ? 'Security' : 'Schemes', style:boldTextStyle_18),
+                ],
+              ),
             ),
+            myPledgedSecuritiesList(),
+            SizedBox(height: 70)
+          ],
+        ) :
+        Container(
+          height: Get.height,
+          width: Get.width,
+          child: Column(
+            children: [
+              Expanded(child: Center(child: Text(controller.responseText.value))),
+              SizedBox(
+                height: 80,
+              ),
+            ],
           ),
-          myPledgedSecuritiesList(),
-          SizedBox(height: 70)
-        ],
+        ),
       ),
     );
   }

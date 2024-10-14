@@ -20,6 +20,7 @@ class AssetsImagePath {
   static const bell = 'assets/images/bell.png';
   static const shares = 'assets/images/shares.png';
   static const mutual_fund = 'assets/images/mutual_fund.png';
+  static const ic_reports = 'assets/images/ic_reports.png';
   static const aadhar_card = 'assets/images/aadhar_card.png';
   static const bitcoin_green = 'assets/images/bitcoin_green.png';
   static const bitcoin_red = 'assets/images/bitcoin_red.png';

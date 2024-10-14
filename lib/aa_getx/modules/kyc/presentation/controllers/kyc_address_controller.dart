@@ -1,12 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/kyc_consent_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/pincode_response_entity.dart';
 import 'package:lms/aa_getx/modules/kyc/domain/entities/request/consent_details_request_entity.dart';
@@ -106,8 +110,9 @@ class KycAddressController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    getConsentDetailsApiCall();    
     preferences.setOkClicked(false);
+    scrollListener();
     super.onInit();
   }
 
@@ -275,12 +280,25 @@ class KycAddressController extends GetxController {
 
   Future<void> saveConsentDetailsApicall() async {
     if (await _connectionInfo.isConnected) {
+      String geoLocation = "";
+      LocationPermission permission = await Geolocator.requestPermission();
+      if(permission.index == 2) {
+        Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+        try {
+          List<Placemark> placeMarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+          Placemark place = placeMarks[0];
+          geoLocation =  '${place.street}, ${place.locality}, ${place.postalCode}, ${place.country} (${position.latitude}, ${position.longitude})';
+        } catch (e) {
+          print('Error: $e');
+        }
+      }
       showDialogLoading(Strings.please_wait);
       ConsentDetailsRequestEntity consentDetailsRequestEntity =
           ConsentDetailsRequestEntity(
         userKycName: kycAddressArguments.kycName,
         acceptTerms: consentCheckbox.isTrue ? 1 : 0,
-        addressDetailsRequestEntity: AddressDetailsRequestEntity(
+        addressDetailsRequestEntity: 
+        AddressDetailsRequestEntity(
             permanentAddress: PermanentAddressRequestEntity(
               addressLine1: permAddressLine1Controller.text.toString(),
               addressLine2: permAddressLine2Controller.text.toString(),
@@ -294,6 +312,7 @@ class KycAddressController extends GetxController {
               addressProofImage: permByteImageString,
             ),
             permCorresFlag: corrCheckbox.isTrue ? "yes" : "no",
+            geoLocation: geoLocation,
             correspondingAddress: PermanentAddressRequestEntity(
               addressLine1: corrAddressLine1Controller.text.toString(),
               addressLine2: corrAddressLine2Controller.text.toString(),
@@ -326,6 +345,10 @@ class KycAddressController extends GetxController {
     String camsEmail = await preferences.getCamsEmail();
     preferences.setOkClicked(false);
     Get.back();
+    Get.offAllNamed(dashboardView, arguments: DashboardArguments(
+      selectedIndex: 0,
+      isFromPinScreen: false,
+    ));
     if (kycAddressArguments.forLoanRenewal!) {
       //Navigate to Dashboard
       // Navigator.push(

@@ -19,6 +19,7 @@ mixin BaseDio {
   Future<Dio> getBaseDio() async {
     Preferences preferences = new Preferences();
     String token = await preferences.getToken();
+    print("TOKEN ==> $token");
     String? dummyUserNumber = await preferences.getDummyUserMobile();
     String baseURL = "";
     if (dummyUserNumber == null) {
@@ -95,7 +96,7 @@ mixin BaseDio {
       var dummyAccountList = await preferences.getDummyAccountList();
       for (int i = 0; i < dummyAccountList.length; i++) {
         if (dummyAccountList[i] == dummyUserNumber) {
-          baseURL = Constants.oldUrlUat;
+          baseURL = Constants.demoKavim;
           break;
         }
         baseURL = await getBaseUrl();
@@ -139,8 +140,8 @@ mixin BaseDio {
       username = 'rzp_live_55JW5NYsUIguyM';
       password = 'J1px4sH9cxxdbY1SfBgIOly0';
     } else {
-      username = 'rzp_test_PWqvSLj4rnBOaG';
-      password = 'LIegmcvKBxxcxRqiV0H4sWmq';
+      username = 'rzp_test_edJR1nkRmL3cfc';
+      password = 'Pd8AEc4n8XoNCVZcQeGsjKK8';
     }
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
     BaseOptions options = BaseOptions(
@@ -176,7 +177,7 @@ mixin BaseDio {
         baseURL = Constants.demoKavim;
         break;
       default:
-        baseURL = Constants.oldUrlUat;
+        baseURL = Constants.demoKavim;
         break;
     }
     return baseURL;
