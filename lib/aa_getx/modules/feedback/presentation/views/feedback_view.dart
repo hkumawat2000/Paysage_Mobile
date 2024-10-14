@@ -46,10 +46,10 @@ class FeedbackView extends GetView<FeedbackController>{
               ),
               SizedBoxHeightWidget(20.0),
               firstCheckBox(),
-              Visibility(visible: controller.firstCheckVisibility.value, child: firstFeedBackData()),
+              Obx(() => Visibility(visible: controller.firstCheckVisibility.value, child: firstFeedBackData())),
               SizedBoxHeightWidget(10.0),
               secondCheckBox(),
-              Visibility(visible: controller.secondCheckVisibility.value, child: secondFeedBackData()),
+              Obx(() => Visibility(visible: controller.secondCheckVisibility.value, child: secondFeedBackData())),
               SizedBoxHeightWidget(50.0),
               submitFeedback(),
               SizedBoxHeightWidget(50.0),
@@ -69,21 +69,8 @@ class FeedbackView extends GetView<FeedbackController>{
             Checkbox(
                 value: controller.firstCheck.value,
                 activeColor: appTheme,
-                onChanged: (bool? newValue) {
-                  if (newValue!) {
-                    controller.firstCheck.value = newValue;
-                    controller.secondCheck.value = false;
-                    controller.firstCheckVisibility.value = true;
-                    controller.secondCheckVisibility.value = false;
-                    controller.suggestionsVisibility.value = true;
-                    controller.commentController!.text= "";
-                  } else {
-                    controller.firstCheck.value = newValue;
-                    controller.firstCheckVisibility.value = false;
-                    controller.suggestionsVisibility.value = false;
-                    controller.commentController!.text = "";
-                  }
-                }),
+                onChanged: controller.firstCheckBoxOnChange,
+            ),
             Expanded(
               child: Text("LMS have hit the bull's eye with the product",
                   style: TextStyle(fontWeight: FontWeight.bold)),
@@ -103,27 +90,8 @@ class FeedbackView extends GetView<FeedbackController>{
             Checkbox(
                 value: controller.secondCheck.value,
                 activeColor: appTheme,
-                onChanged: (bool? newValue) {
-                  if (newValue!) {
-                    controller.secondCheck.value = newValue;
-                    controller.firstCheck.value = false;
-                    controller.secondCheckVisibility.value = true;
-                    controller.firstCheckVisibility.value = false;
-                    controller.suggestionsVisibility.value = false;
-                    controller.userExperienceCheck.value = false;
-                    controller.functionalityCheck.value = false;
-                    controller.otherCheck.value = false;
-                    controller.commentController!.text = "";
-                  } else {
-                    controller.secondCheck.value = newValue;
-                    controller.suggestionsVisibility.value = false;
-                    controller.secondCheckVisibility.value = false;
-                    controller.userExperienceCheck.value = false;
-                    controller.functionalityCheck.value = false;
-                    controller.otherCheck.value = false;
-                    controller.commentController!.text = "";
-                  }
-                }),
+                onChanged: controller.secondCheckBoxOnChange,
+            ),
             Expanded(
               child: Text('LMS can do better', style: TextStyle(fontWeight: FontWeight.bold)),
             ),
@@ -174,20 +142,8 @@ class FeedbackView extends GetView<FeedbackController>{
           Checkbox(
               value: controller.userExperienceCheck.value,
               activeColor: appTheme,
-              onChanged: (bool? newValue) {
-                if (newValue!) {
-                  controller.userExperienceCheck.value = newValue;
-                  controller.functionalityCheck.value = false;
-                  controller.otherCheck.value = false;
-                  controller.suggestionsVisibility.value = true;
-                  controller.secondCheck.value = true;
-                  controller.commentController!.text = "";
-                } else {
-                  controller.userExperienceCheck.value = newValue;
-                  controller.suggestionsVisibility.value = false;
-                  controller.commentController!.text = "";
-                }
-              }),
+              onChanged: controller.userExperienceCheckBoxOnChange,
+          ),
           Expanded(
             child: Text('Related to User Experience'),
           ),
@@ -203,20 +159,8 @@ class FeedbackView extends GetView<FeedbackController>{
           Checkbox(
               value: controller.functionalityCheck.value,
               activeColor: appTheme,
-              onChanged: (bool? newValue) {
-                if (newValue!) {
-                  controller.functionalityCheck.value = newValue;
-                  controller.userExperienceCheck.value = false;
-                  controller.otherCheck.value = false;
-                  controller.suggestionsVisibility.value = true;
-                  controller.secondCheck.value = true;
-                  controller.commentController!.text = "";
-                } else {
-                  controller.functionalityCheck.value = newValue;
-                  controller.suggestionsVisibility.value = false;
-                  controller.commentController!.text = "";
-                }
-              }),
+              onChanged: controller.functionalityCheckBoxOnChange,
+          ),
           Expanded(
             child: Text('Related to Functionality'),
           ),
@@ -232,20 +176,8 @@ class FeedbackView extends GetView<FeedbackController>{
           Checkbox(
               value: controller.otherCheck.value,
               activeColor: appTheme,
-              onChanged: (newValue) {
-                if (newValue!) {
-                  controller.otherCheck.value = newValue;
-                  controller.functionalityCheck.value = false;
-                  controller.userExperienceCheck.value = false;
-                  controller.suggestionsVisibility.value = true;
-                  controller.secondCheck.value = true;
-                  controller.commentController!.text = "";
-                } else {
-                  controller.otherCheck.value = newValue;
-                  controller.suggestionsVisibility.value = false;
-                  controller.commentController!.text = "";
-                }
-              }),
+              onChanged: controller.otherCheckBoxOnChange,
+          ),
           Expanded(
             child: Text('Others'),
           ),
