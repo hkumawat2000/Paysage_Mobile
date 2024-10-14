@@ -8,6 +8,7 @@ import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/arguments/loan_statement_arguments.dart';
+import 'package:lms/aa_getx/modules/feedback/presentation/arguments/feedback_argument.dart';
 import 'package:lms/aa_getx/modules/login/presentation/arguments/pin_screen_arguments.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/get_profile_set_alert_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
@@ -410,7 +411,10 @@ class MoreController extends GetxController{
   void feedbackClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        Get.toNamed(feedbackView);
+        Get.toNamed(feedbackView, arguments: FeedbackArgument(
+          comeFrom: Strings.more_menu,
+          doNotShowAgain: 0,
+        ));
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }

@@ -243,35 +243,25 @@ class FeedbackView extends GetView<FeedbackController>{
   }
 
   Widget submitFeedback() {
-    return Container(
-      height: 45,
-      width: 145,
-      child: Material(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-        elevation: 1.0,
-        color: controller.commentController!.text.length == 0 ? colorGrey : appTheme,
-        child: MaterialButton(
+    return Obx(
+      () => Container(
+        height: 45,
+        width: 145,
+        child: Material(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-          minWidth: MediaQuery.of(Get.context!).size.width,
-          onPressed: controller.commentController!.text.length == 0 ? null :() async {
-            Utility.isNetworkConnection().then((isNetwork) {
-              if (isNetwork) {
-                if(controller.commentController!.text.length <= 500){
-                  // submitFeedbackData();
-                } else {
-                  Utility.showToastMessage(Strings.more_500_char);
-                }
-              } else {
-                Utility.showToastMessage(Strings.no_internet_message);
-              }
-            });
-          },
-          child: Text(
-            Strings.submit,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+          elevation: 1.0,
+          color: controller.commentTxt.value.length == 0 ? colorGrey : appTheme,
+          child: MaterialButton(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+            minWidth: MediaQuery.of(Get.context!).size.width,
+            onPressed: controller.submitFeedbackData,
+            child: Text(
+              Strings.submit,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
           ),
         ),
