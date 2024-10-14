@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:lms/aa_getx/modules/contact_us/contactus_request_entity.dart';
+import 'package:lms/aa_getx/modules/contact_us/domain/entity/request/contactus_request_entity.dart';
 
 class ContactUsRequestModel {
   String? message;
