@@ -20,6 +20,8 @@ import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bi
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/views/aml_check_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/views/dashboard_view.dart';
+import 'package:lms/aa_getx/modules/feedback/presentation/bindings/feedback_binding.dart';
+import 'package:lms/aa_getx/modules/feedback/presentation/views/feedback_view.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_consent_bindings.dart';
@@ -152,6 +154,7 @@ const String unpledgeSuccessfulView = "unpledge-successful-view";
 const String unpledgeSharesView = "unpledge-shares-view";
 const String contactUsView = "contact-us-view";
 const String contactUsThankYouView = "contact-us-thank-you-view";
+const String feedbackView = "feedback-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -404,6 +407,11 @@ List<GetPage> routes = [
     name: '/$contactUsThankYouView',
     page: () => ContactUsThankYouView(),
     binding: ContactUsThankYouBinding(),
+  ),
+  GetPage(
+    name: '/$feedbackView',
+    page: () => FeedbackView(),
+    binding: FeedbackBinding(),
   ),
   // GetPage(
   //   name: '/$mfRevokeView',

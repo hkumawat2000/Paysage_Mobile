@@ -410,16 +410,9 @@ class MoreController extends GetxController{
   void feedbackClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: change following code after NewFeedbackScreen screen completed
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             NewFeedbackScreen(
-        //                 Strings.more_menu, 0)));
+        Get.toNamed(feedbackView);
       } else {
-        Utility.showToastMessage(
-            Strings.no_internet_message);
+        Utility.showToastMessage(Strings.no_internet_message);
       }
     });
   }
