@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/arguments/common_webview_arguments.dart';
@@ -13,9 +10,8 @@ class CommonWebviewController extends GetxController {
 
   RxString url = "".obs;
   RxString title = "".obs;
-  RxString baseUrlString = "".obs;
 
-  WebViewController? mycontroller;
+  WebViewController? myController;
   late final WebViewController controller;
 
   Preferences preferences = Preferences();
@@ -25,8 +21,6 @@ class CommonWebviewController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    getData();
     getURL();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -42,19 +36,19 @@ class CommonWebviewController extends GetxController {
           onPageFinished: (String url) async {
             var title = await controller.getTitle();
             if (title!.isEmpty) {
-              mycontroller!.reload();
+              myController!.reload();
             }
 
             debugPrint('Page finished loading: $url');
           },
           onWebResourceError: (WebResourceError error) {
             debugPrint('''
-Page resource error:
-  code: ${error.errorCode}
-  description: ${error.description}
-  errorType: ${error.errorType}
-  isForMainFrame: ${error.isForMainFrame}
-          ''');
+            Page resource error:
+            code: ${error.errorCode}
+            description: ${error.description}
+            errorType: ${error.errorType}
+            isForMainFrame: ${error.isForMainFrame}
+            ''');
           },
           onNavigationRequest: (NavigationRequest action) {
             if (action.url.endsWith('.pdf') ||
@@ -71,21 +65,16 @@ Page resource error:
     super.onInit();
   }
 
-  Future<void> getData() async {
-    String? baseUrl = await preferences.getBaseURL();
-    baseUrlString.value = baseUrl!;
-  }
-
   Future<void> getURL() async {
     if (commonWebviewArguments.redirectionNumber == 1) {
-      url.value = baseUrlString! + 'help?webview';
+      url.value = "https://paysage.ai/#FAQ";
     } else if (commonWebviewArguments.redirectionNumber == 2) {
-      url.value = baseUrlString! + 'privacy-policy?webview';
+      url.value = "https://paysage.ai/privacy-policy/";
     } else if (commonWebviewArguments.redirectionNumber == 3) {
-      url.value = baseUrlString! + 'terms-of-use?webview';
+      url.value = "https://paysage.ai/terms-and-conditions/";
     } else {
       url.value =
-          "https://play.google.com/store/apps/details?id=com.choiceequitybroking.jiffy";
+      "https://play.google.com/store/apps/details?id=com.choiceequitybroking.jiffy";
     }
   }
 
@@ -95,10 +84,10 @@ Page resource error:
   }
 
   _launchURL(Uri pathURL) async {
-  if (await canLaunchUrl(pathURL)) {
-    await launchUrl(pathURL);
-  } else {
-    throw 'Could not launch $pathURL';
+    if (await canLaunchUrl(pathURL)) {
+      await launchUrl(pathURL);
+    } else {
+      throw 'Could not launch $pathURL';
+    }
   }
-}
 }

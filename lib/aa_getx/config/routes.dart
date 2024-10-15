@@ -13,11 +13,15 @@ import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_otp_view.dart
 import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_result_view.dart';
 import 'package:lms/aa_getx/modules/cibil/presentation/views/cibil_view.dart';
 import 'package:lms/aa_getx/modules/contact_us/presentation/bindings/contact_us_binding.dart';
+import 'package:lms/aa_getx/modules/contact_us/presentation/bindings/contact_us_thank_you_binding.dart';
+import 'package:lms/aa_getx/modules/contact_us/presentation/views/contact_us_thank_you_view.dart';
 import 'package:lms/aa_getx/modules/contact_us/presentation/views/contact_us_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/bindings/dashboard_bindings.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/bindings/aml_check_binding.dart';
 import 'package:lms/aa_getx/modules/aml_check/presentation/views/aml_check_view.dart';
 import 'package:lms/aa_getx/modules/dashboard/presentation/views/dashboard_view.dart';
+import 'package:lms/aa_getx/modules/feedback/presentation/bindings/feedback_binding.dart';
+import 'package:lms/aa_getx/modules/feedback/presentation/views/feedback_view.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_address_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_bindings.dart';
 import 'package:lms/aa_getx/modules/kyc/presentation/bindings/kyc_consent_bindings.dart';
@@ -89,6 +93,7 @@ import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_shares_
 import 'package:lms/aa_getx/modules/unpledge/presentation/views/unpledge_successful_view.dart';
 import 'package:lms/aa_getx/modules/risk_profile/presentation/bindings/risk_profile_binding.dart';
 import 'package:lms/aa_getx/modules/risk_profile/presentation/views/risk_profile_view.dart';
+import 'package:lms/aa_getx/modules/webview/presentation/binding/common_webview_binding.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
 
 
@@ -148,6 +153,8 @@ const String mfRevokeView = "mf-revoke-view";
 const String unpledgeSuccessfulView = "unpledge-successful-view";
 const String unpledgeSharesView = "unpledge-shares-view";
 const String contactUsView = "contact-us-view";
+const String contactUsThankYouView = "contact-us-thank-you-view";
+const String feedbackView = "feedback-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -268,6 +275,7 @@ List<GetPage> routes = [
   GetPage(
     name: '/$commonWebview',
     page: () => CommonWebviewView(),
+    binding: CommonWebviewBinding(),
   ),
   GetPage(
     name: '/$marginShortfallView',
@@ -394,6 +402,16 @@ List<GetPage> routes = [
     name: '/$contactUsView',
     page: () => ContactUsView(),
     binding: ContactUsBinding(),
+  ),
+  GetPage(
+    name: '/$contactUsThankYouView',
+    page: () => ContactUsThankYouView(),
+    binding: ContactUsThankYouBinding(),
+  ),
+  GetPage(
+    name: '/$feedbackView',
+    page: () => FeedbackView(),
+    binding: FeedbackBinding(),
   ),
   // GetPage(
   //   name: '/$mfRevokeView',

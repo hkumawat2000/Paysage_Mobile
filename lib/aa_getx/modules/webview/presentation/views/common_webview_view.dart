@@ -34,9 +34,7 @@ class CommonWebviewView extends GetView<CommonWebviewController> {
                   : "",
               style: TextStyle(color: appTheme)),
         ),
-        body: controller.baseUrlString.isEmpty
-            ? Center(child: Text(Strings.please_wait))
-            : getPrivacyPolicyUrl(),
+        body: getPrivacyPolicyUrl(),
       ),
     );
   }
