@@ -14,133 +14,136 @@ class RegistrationView extends GetView<RegistrationController>{
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: false,
-        onPopInvoked: (_) =>  OnBackPress.onBackPressDialog(1,Strings.exit_app),
-        child: Scaffold(
-          key: controller.scaffoldKey,
-          backgroundColor: colorBg,
-          body: Container(
-            child:  SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 40,
-                  ),
-                  AppIcon(),
-                  SizedBox(
-                    height: 34,
-                  ),
-                  headingText(Strings.registration),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  emailField(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  nameField(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  lastNameFeild(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  mobileFeild(),
-        //                  SizedBox(
-        //                    height: 20,
-        //                  ),
-        //                  referCodeFeild(),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          Strings.register_with,
-                          style: textFiledInputStyle,
-                        ),
-                        SizedBox(
-                          height: 18,
-                        ),
-                        Platform.isIOS
-                            ? Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () =>
-                                        controller.googleSignClicked(),
-                                    child: Image.asset(
-                                      AssetsImagePath.login_google,
-                                      width: 40,
-                                      height: 40,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 60,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => controller.appleSignIn(),
-                                    child: Image(
-                                        image: AssetImage(
-                                            AssetsImagePath.apple_icon),
-                                        width: 42,
-                                        height: 42),
-                                  ),
-                                ],
-                              )
-                            : GestureDetector(
-                                onTap: () => controller.googleSignClicked(),
-                                child: Image.asset(
-                                  AssetsImagePath.login_google,
-                                  width: 40,
-                                  height: 40,
-                                ),
-                              ),
-                      ],
+    return GestureDetector(
+      onTap: () => Get.focusScope?.unfocus(),
+      child: PopScope(
+          canPop: false,
+          onPopInvoked: (_) =>  OnBackPress.onBackPressDialog(1,Strings.exit_app),
+          child: Scaffold(
+            key: controller.scaffoldKey,
+            backgroundColor: colorBg,
+            body: Container(
+              child:  SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 40,
                     ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                    height: 45,
-                    width: 100,
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(35)),
-                      elevation: 1.0,
-                      color: appTheme,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35)),
-                        minWidth: MediaQuery.of(context).size.width,
-                        onPressed: () => controller.registartion(
-                            controller.firstNameController.text,
-                            controller.lastNameController.text,
-                            controller.emailController.text,
-                            controller.versionName.value,
-                            controller.deviceInfo,
-                            Strings.register_with_email),
-                        child: ArrowForwardNavigation(),
+                    AppIcon(),
+                    SizedBox(
+                      height: 34,
+                    ),
+                    headingText(Strings.registration),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    emailField(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    nameField(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    lastNameFeild(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    mobileFeild(),
+          //                  SizedBox(
+          //                    height: 20,
+          //                  ),
+          //                  referCodeFeild(),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            Strings.register_with,
+                            style: textFiledInputStyle,
+                          ),
+                          SizedBox(
+                            height: 18,
+                          ),
+                          Platform.isIOS
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () =>
+                                          controller.googleSignClicked(),
+                                      child: Image.asset(
+                                        AssetsImagePath.login_google,
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 60,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => controller.appleSignIn(),
+                                      child: Image(
+                                          image: AssetImage(
+                                              AssetsImagePath.apple_icon),
+                                          width: 42,
+                                          height: 42),
+                                    ),
+                                  ],
+                                )
+                              : GestureDetector(
+                                  onTap: () => controller.googleSignClicked(),
+                                  child: Image.asset(
+                                    AssetsImagePath.login_google,
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                ),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: 30),
-                  Obx(()=> version()),
-                  SizedBox(height: 15),
-                ],
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      height: 45,
+                      width: 100,
+                      child: Material(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(35)),
+                        elevation: 1.0,
+                        color: appTheme,
+                        child: MaterialButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
+                          minWidth: MediaQuery.of(context).size.width,
+                          onPressed: () => controller.registartion(
+                              controller.firstNameController.text,
+                              controller.lastNameController.text,
+                              controller.emailController.text,
+                              controller.versionName.value,
+                              controller.deviceInfo,
+                              Strings.register_with_email),
+                          child: ArrowForwardNavigation(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Obx(()=> version()),
+                    SizedBox(height: 15),
+                  ],
+                ),
               ),
-            ),
 
-        ),
-        ),
+          ),
+          ),
+      ),
     );
   }
 
