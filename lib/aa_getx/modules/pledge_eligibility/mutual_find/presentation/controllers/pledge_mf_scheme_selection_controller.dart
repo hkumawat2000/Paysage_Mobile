@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:http/http.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
@@ -13,11 +11,14 @@ import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/modules/lender/domain/entities/lender_response_entity.dart';
 import 'package:lms/aa_getx/modules/lender/domain/usecases/lender_usecase.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/entities/request/isin_details_request_entity.dart';
+import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/entities/request/my_cart_request_entity.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/entities/response/isin_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/entities/response/mf_scheme_response_entity.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/entities/request/mf_scheme_request_entity.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/usecases/isin_details_usecase.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/usecases/mf_scheme_usecase.dart';
+import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/presentation/arguments/mf_details_dialog_arguments.dart';
+import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/presentation/views/mf_details_view_dialog_view.dart';
 import 'package:lms/util/Utility.dart';
 
 class PledgeMfSchemeSelectionController extends GetxController {
@@ -84,7 +85,6 @@ class PledgeMfSchemeSelectionController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     appBarTitle = Text(
       Strings.eligibility,
       style: mediumTextStyle_18_gray_dark,
@@ -288,14 +288,19 @@ class PledgeMfSchemeSelectionController extends GetxController {
           backgroundColor: Colors.transparent,
           context: Get.context!,
           builder: (BuildContext bc) {
-            return MF_DetailViewDialog(
-                selectedSchemeList,
-                schemesList[index],
-                response.data!.data!.isinDetails,
-                currentMutualFundOption,
-                lenderList[0],
-                schemesListAfterFilter,
-                unitControllersList[actualIndex].text.toString());
+            MfDetailsDialogArguments mfDetailsDialogArguments =
+                MfDetailsDialogArguments(
+              selectedSchemeList: selectedSchemeList,
+              scheme: schemesList[index],
+              isinDetails: response.data!.data!.isinDetails,
+              schemeType: currentMutualFundOption,
+              lender: lenderList[0],
+              selectedUnit: unitControllersList[actualIndex].text.toString(),
+              schemeListItems: schemesListAfterFilter,
+            );
+            return MfDetailsViewDialogView(
+              mfDetailsDialogArguments: mfDetailsDialogArguments,
+            );
           },
         );
         // printLog("dialogResult ==> $dialogResult");
@@ -352,6 +357,126 @@ class PledgeMfSchemeSelectionController extends GetxController {
       schemeController.sink.add(MfSchemeResponseEntity(
           mfSchemeDataResponseModel: MFSchemeDataResponseEntity(
               schemesListEntity: schemesListFilter)));
+    }
+  }
+
+  void updateQuantity(List<SchemesListEntity> securityList) {
+    for (int i = 0; i < schemesListAfterFilter.length; i++) {
+      String index = "null";
+      double qty = 0;
+      securityList.forEach((element) {
+        if (element.isin == schemesListAfterFilter[i].isin) {
+          index = i.toString();
+          qty = element.units!;
+        }
+      });
+
+      if (index != "null") {
+        var unitsDecimalCount;
+        String str = qty.toString();
+        var qtyArray = str.split('.');
+        unitsDecimalCount = qtyArray[1];
+        if (unitsDecimalCount == "0") {
+          schemesListAfterFilter[i].units = qty;
+          unitControllersList[i].text = qty.toInt().toString();
+        } else {
+          schemesListAfterFilter[i].units = qty;
+          unitControllersList[i].text = qty.toString();
+        }
+        if (schemesListAfterFilter[i].units! <= 0) {
+          isAddBtnSelected[i] = true;
+          isAddQtyEnable[i] = false;
+        } else {
+          isAddBtnSelected[i] = false;
+          isAddQtyEnable[i] = true;
+        }
+      } else {
+        schemesListAfterFilter[i].units = 0;
+        unitControllersList[i].text = "0";
+        isAddBtnSelected[i] = true;
+        isAddQtyEnable[i] = false;
+      }
+    }
+    updateSchemeValueAndEL();
+  }
+
+  void updateSchemeValueAndEL() {
+    schemeValue.value = 0;
+    eligibleLoanAmount.value = 0;
+    for (int i = 0; i < schemesListAfterFilter.length; i++) {
+      if (unitControllersList[i].text.isEmpty ||
+          double.parse(unitControllersList[i].text) == 0) {
+        isAddBtnSelected[i] = true;
+        isAddQtyEnable[i] = false;
+      }
+      if (!isAddBtnSelected[i]) {
+        schemeValue.value += schemesListAfterFilter[i].price! *
+            double.parse(unitControllersList[i].text.toString());
+        eligibleLoanAmount.value += schemesListAfterFilter[i].price! *
+            double.parse(unitControllersList[i].text.toString()) *
+            (schemesListAfterFilter[i].ltv! / 100);
+      }
+    }
+  }
+
+  Future<void> onViewVaultClicked() async {
+    if (await _connectionInfo.isConnected) {
+      FocusScope.of(Get.context!).unfocus();
+      SecuritiesRequestEntity securities = SecuritiesRequestEntity();
+      List<SecuritiesListRequestEntity> schemeQtyList = [];
+      RxList<SchemesListEntity> schemesList = <SchemesListEntity>[].obs;
+      schemeQtyList.clear();
+      for (int i = 0; i < schemesListAfterFilter.length; i++) {
+        if (!isAddBtnSelected[i]) {
+          schemeQtyList.add(
+            new SecuritiesListRequestEntity(
+                isin: schemesListAfterFilter[i].isin,
+                quantity: double.parse(unitControllersList[i].text)),
+          );
+          schemesList.add(schemesListAfterFilter[i]);
+        }
+      }
+      securities.list = schemeQtyList;
+      if (schemeValue.value <= 999999999999) {
+        handleOnSearchEnd();
+        MyCartRequestEntity requestBean = MyCartRequestEntity(
+          securities: securities,
+          instrumentType: Strings.mutual_fund,
+          schemeType: currentMutualFundOption,
+          loan_margin_shortfall_name: "",
+          pledgor_boid: "",
+          cartName: "",
+          loamName: "",
+          lender: lenderList[0],
+        );
+        //TODO Navigate to MFViewVaultScreen
+        // List<SchemesListEntity> securityList = await Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (BuildContext context) =>
+        //             MF_ViewVaultDetailsViewScreen(requestBean, schemesList)));
+        // //TODO
+        // updateQuantity(securityList);
+      } else {
+        commonDialog(Strings.scheme_validation, 0);
+      }
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
+  }
+
+  Future<void> onAddSchemeButtonClick(int index,int actualIndex) async {
+    if (await _connectionInfo.isConnected) {
+      isAddQtyEnable[actualIndex] = true;
+      isAddBtnSelected[actualIndex] = false;
+      unitControllersList[actualIndex].text = "1";
+      schemesList[index].units =
+          double.parse(unitControllersList[actualIndex].text);
+      schemesListAfterFilter[actualIndex].units =
+          double.parse(unitControllersList[actualIndex].text);
+      updateSchemeValueAndEL();
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
     }
   }
 }

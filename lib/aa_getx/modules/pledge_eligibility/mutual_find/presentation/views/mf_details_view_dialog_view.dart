@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/assets/assets_image_path.dart';
 import 'package:lms/aa_getx/core/constants/colors.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
@@ -12,10 +13,12 @@ import 'package:lms/aa_getx/core/utils/style.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/entities/request/my_cart_request_entity.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/domain/entities/response/mf_scheme_response_entity.dart';
+import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/presentation/arguments/mf_details_dialog_arguments.dart';
 import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/presentation/controllers/mf_details_view_dialog_controller.dart';
 
 class MfDetailsViewDialogView extends GetView<MfDetailsViewDialogController> {
-  MfDetailsViewDialogView();
+  MfDetailsDialogArguments mfDetailsDialogArguments;
+  MfDetailsViewDialogView({required this.mfDetailsDialogArguments});
 
   @override
   Widget build(BuildContext context) {
@@ -403,15 +406,16 @@ class MfDetailsViewDialogView extends GetView<MfDetailsViewDialogController> {
                                   if (controller.controllers.text.isNotEmpty &&
                                       controller.controllers.text != " ") {
                                     List<SchemesListEntity> securityList =
-                                        await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (BuildContext
-                                                        context) =>
-                                                    MF_ViewVaultDetailsViewScreen(
-                                                      requestBean,
-                                                      widget.selectedSchemeList,
-                                                    )));
+                                        await Get.toNamed(mfViewVaultDetailsScreen);
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (BuildContext
+                                        //                 context) =>
+                                        //             MF_ViewVaultDetailsViewScreen(
+                                        //               requestBean,
+                                        //               widget.selectedSchemeList,
+                                        //             )));
 
                                     bool isExist = false;
                                     securityList.forEach((element) {
@@ -457,14 +461,15 @@ class MfDetailsViewDialogView extends GetView<MfDetailsViewDialogController> {
                                   }
                                 } else {
                                   List<SchemesListEntity> securityList =
-                                      await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  MF_ViewVaultDetailsViewScreen(
-                                                      requestBean,
-                                                      widget
-                                                          .selectedSchemeList)));
+                                      await Get.toNamed(mfViewVaultDetailsScreen);
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (BuildContext context) =>
+                                      //             MF_ViewVaultDetailsViewScreen(
+                                      //                 requestBean,
+                                      //                 widget
+                                      //                     .selectedSchemeList)));
 
                                   bool isExist = false;
                                   securityList.forEach((element) {
@@ -694,16 +699,17 @@ class MfDetailsViewDialogView extends GetView<MfDetailsViewDialogController> {
                                             controller.controllers.text !=
                                                 " ") {
                                           List<SchemesListEntity> securityList =
-                                              await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (BuildContext
-                                                              context) =>
-                                                          MF_ViewVaultDetailsViewScreen(
-                                                            requestBean,
-                                                            widget
-                                                                .selectedSchemeList,
-                                                          )));
+                                              await Get.toNamed(mfViewVaultDetailsScreen);
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (BuildContext
+                                              //                 context) =>
+                                              //             MF_ViewVaultDetailsViewScreen(
+                                              //               requestBean,
+                                              //               widget
+                                              //                   .selectedSchemeList,
+                                              //             )));
 
                                           bool isExist = false;
                                           securityList.forEach((element) {
@@ -759,15 +765,16 @@ class MfDetailsViewDialogView extends GetView<MfDetailsViewDialogController> {
                                         }
                                       } else {
                                         List<SchemesListEntity> securityList =
-                                            await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        MF_ViewVaultDetailsViewScreen(
-                                                            requestBean,
-                                                            widget
-                                                                .selectedSchemeList)));
+                                            await Get.toNamed(mfViewVaultDetailsScreen);
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (BuildContext
+                                            //                 context) =>
+                                            //             MF_ViewVaultDetailsViewScreen(
+                                            //                 requestBean,
+                                            //                 widget
+                                            //                     .selectedSchemeList)));
 
                                         bool isExist = false;
                                         securityList.forEach((element) {
@@ -939,7 +946,7 @@ class MfDetailsViewDialogView extends GetView<MfDetailsViewDialogController> {
                             controller.isAddBtnSelected.value = true;
                             controller.isAddQtyEnable.value = false;
                             controller.controllers.text = "0";
-                            updateSchemeAndELValue();
+                          controller.updateSchemeAndELValue();
                           }
                         } else {
                           Utility.showToastMessage(Strings.no_internet_message);
@@ -988,7 +995,7 @@ class MfDetailsViewDialogView extends GetView<MfDetailsViewDialogController> {
                                 controller.isAddBtnSelected.value = true;
                                 controller.isAddQtyEnable.value = false;
                                 controller.controllers.text = "0";
-                                updateSchemeAndELValue();
+                               controller.updateSchemeAndELValue();
                               }
                             } else {
                               if (controller.controllers.text.isEmpty ||

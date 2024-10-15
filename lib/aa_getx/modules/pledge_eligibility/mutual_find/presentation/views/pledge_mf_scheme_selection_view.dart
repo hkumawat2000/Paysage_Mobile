@@ -689,7 +689,7 @@ class PledgeMfSchemeSelectionView
                         controller.schemesListAfterFilter[actualIndex].units =
                             0;
                       }
-                      updateSchemeValueAndEL();
+                     controller.updateSchemeValueAndEL();
                     } else {
                       Utility.showToastMessage(Strings.no_internet_message);
                     }
@@ -750,11 +750,11 @@ class PledgeMfSchemeSelectionView
                           controller.schemesListAfterFilter[actualIndex].units =
                               double.parse(controller
                                   .unitControllersList[actualIndex].text);
-                          updateSchemeValueAndEL();
+                         controller.updateSchemeValueAndEL();
                         } else {
                           controller.isAddBtnSelected[actualIndex] = true;
                           controller.isAddQtyEnable[actualIndex] = false;
-                          updateSchemeValueAndEL();
+                         controller.updateSchemeValueAndEL();
                         }
                       } else {
                         if (controller.unitControllersList[actualIndex].text
@@ -801,7 +801,7 @@ class PledgeMfSchemeSelectionView
                                 controller.focusNode[actualIndex].unfocus();
                                 controller.isAddBtnSelected[actualIndex] = true;
                                 controller.isAddQtyEnable[actualIndex] = false;
-                                updateSchemeValueAndEL();
+                              controller.updateSchemeValueAndEL();
                               }
                             }
                           });
@@ -809,7 +809,7 @@ class PledgeMfSchemeSelectionView
                           FocusScope.of(Get.context!).unfocus();
                           controller.isAddBtnSelected[actualIndex] = true;
                           controller.isAddQtyEnable[actualIndex] = false;
-                          updateSchemeValueAndEL();
+                        controller.updateSchemeValueAndEL();
                         }
                       }
                     } else {
@@ -827,7 +827,7 @@ class PledgeMfSchemeSelectionView
                               controller.isAddQtyEnable[actualIndex] = false;
                               controller.unitControllersList[actualIndex].text =
                                   "0.0";
-                              updateSchemeValueAndEL();
+                            controller.updateSchemeValueAndEL();
                             } else if (controller
                                 .unitControllersList[actualIndex].text
                                 .toString()
@@ -920,7 +920,7 @@ class PledgeMfSchemeSelectionView
                       controller.schemesListAfterFilter[actualIndex].units =
                           double.parse(
                               controller.unitControllersList[actualIndex].text);
-                      updateSchemeValueAndEL();
+                    controller.updateSchemeValueAndEL();
                     } else {
                       Utility.showToastMessage(Strings.no_internet_message);
                     }
@@ -950,21 +950,7 @@ class PledgeMfSchemeSelectionView
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
             minWidth: Get.mediaQuery.size.width,
             onPressed: () {
-              Utility.isNetworkConnection().then((isNetwork) {
-                if (isNetwork) {
-                  controller.isAddQtyEnable[actualIndex] = true;
-                  controller.isAddBtnSelected[actualIndex] = false;
-                  controller.unitControllersList[actualIndex].text = "1";
-                  controller.schemesList[index].units = double.parse(
-                      controller.unitControllersList[actualIndex].text);
-                  controller.schemesListAfterFilter[actualIndex].units =
-                      double.parse(
-                          controller.unitControllersList[actualIndex].text);
-                  updateSchemeValueAndEL();
-                } else {
-                  Utility.showToastMessage(Strings.no_internet_message);
-                }
-              });
+            controller.onAddSchemeButtonClick(index,actualIndex);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -980,26 +966,7 @@ class PledgeMfSchemeSelectionView
     );
   }
 
-  void updateSchemeValueAndEL() {
-    controller.schemeValue.value = 0;
-    controller.eligibleLoanAmount.value = 0;
-    for (int i = 0; i < controller.schemesListAfterFilter.length; i++) {
-      if (controller.unitControllersList[i].text.isEmpty ||
-          double.parse(controller.unitControllersList[i].text) == 0) {
-        controller.isAddBtnSelected[i] = true;
-        controller.isAddQtyEnable[i] = false;
-      }
-      if (!controller.isAddBtnSelected[i]) {
-        controller.schemeValue.value +=
-            controller.schemesListAfterFilter[i].price! *
-                double.parse(controller.unitControllersList[i].text.toString());
-        controller.eligibleLoanAmount.value += controller
-                .schemesListAfterFilter[i].price! *
-            double.parse(controller.unitControllersList[i].text.toString()) *
-            (controller.schemesListAfterFilter[i].ltv! / 100);
-      }
-    }
-  }
+
 
   Widget lenderListUI(String lenders) {
     List<String> lenderIconList = lenders.split(",");
@@ -1127,65 +1094,7 @@ class PledgeMfSchemeSelectionView
                             borderRadius: BorderRadius.circular(35)),
                         minWidth: Get.mediaQuery.size.width,
                         onPressed: () async {
-                          Utility.isNetworkConnection().then((isNetwork) async {
-                            if (isNetwork) {
-                              FocusScope.of(Get.context!).unfocus();
-                              SecuritiesRequestEntity securities =
-                                  SecuritiesRequestEntity();
-                              List<SecuritiesListRequestEntity> schemeQtyList =
-                                  [];
-                              RxList<SchemesListEntity> schemesList =
-                                  <SchemesListEntity>[].obs;
-                              schemeQtyList.clear();
-                              for (int i = 0;
-                                  i < controller.schemesListAfterFilter.length;
-                                  i++) {
-                                if (!controller.isAddBtnSelected[i]) {
-                                  schemeQtyList.add(
-                                    new SecuritiesListRequestEntity(
-                                        isin: controller
-                                            .schemesListAfterFilter[i].isin,
-                                        quantity: double.parse(controller
-                                            .unitControllersList[i].text)),
-                                  );
-                                  schemesList.add(
-                                      controller.schemesListAfterFilter[i]);
-                                }
-                              }
-                              securities.list = schemeQtyList;
-                              if (controller.schemeValue.value <=
-                                  999999999999) {
-                                controller.handleOnSearchEnd();
-                                MyCartRequestEntity requestBean =
-                                    MyCartRequestEntity(
-                                  securities: securities,
-                                  instrumentType: Strings.mutual_fund,
-                                  schemeType:
-                                      controller.currentMutualFundOption,
-                                  loan_margin_shortfall_name: "",
-                                  pledgor_boid: "",
-                                  cartName: "",
-                                  loamName: "",
-                                  lender: controller.lenderList[0],
-                                );
-                                //TODO Navigate to MFViewVaultScreen
-                                // List<SchemesListEntity> securityList =
-                                //     await Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //             builder: (BuildContext context) =>
-                                //                 MF_ViewVaultDetailsViewScreen(
-                                //                     requestBean, schemesList)));
-                                //TODO
-                               // updateQuantity(securityList);
-                              } else {
-                                commonDialog(Strings.scheme_validation, 0);
-                              }
-                            } else {
-                              Utility.showToastMessage(
-                                  Strings.no_internet_message);
-                            }
-                          });
+                          controller.onViewVaultClicked();
                         },
                         child: Text(Strings.view_vault, style: buttonTextWhite),
                       ),
@@ -1198,46 +1107,6 @@ class PledgeMfSchemeSelectionView
         ),
       ),
     );
-  }
-
-  void updateQuantity(List<SchemesListEntity> securityList) {
-    for (int i = 0; i < controller.schemesListAfterFilter.length; i++) {
-      String index = "null";
-      double qty = 0;
-      securityList.forEach((element) {
-        if (element.isin == controller.schemesListAfterFilter[i].isin) {
-          index = i.toString();
-          qty = element.units!;
-        }
-      });
-
-      if (index != "null") {
-        var unitsDecimalCount;
-        String str = qty.toString();
-        var qtyArray = str.split('.');
-        unitsDecimalCount = qtyArray[1];
-        if (unitsDecimalCount == "0") {
-          controller.schemesListAfterFilter[i].units = qty;
-          controller.unitControllersList[i].text = qty.toInt().toString();
-        } else {
-          controller.schemesListAfterFilter[i].units = qty;
-          controller.unitControllersList[i].text = qty.toString();
-        }
-        if (controller.schemesListAfterFilter[i].units! <= 0) {
-          controller.isAddBtnSelected[i] = true;
-          controller.isAddQtyEnable[i] = false;
-        } else {
-          controller.isAddBtnSelected[i] = false;
-          controller.isAddQtyEnable[i] = true;
-        }
-      } else {
-        controller.schemesListAfterFilter[i].units = 0;
-        controller.unitControllersList[i].text = "0";
-        controller.isAddBtnSelected[i] = true;
-        controller.isAddQtyEnable[i] = false;
-      }
-    }
-    updateSchemeValueAndEL();
   }
 
   Widget eligibleLimitViewVaultDialog() {
@@ -1383,8 +1252,8 @@ class PledgeMfSchemeSelectionView
                                       //                 MF_ViewVaultDetailsViewScreen(
                                       //                     requestBean,
                                       //                     schemesList)));
-                                      //T
-                                      //updateQuantity(securityList);
+                                      // //T
+                                      // controller.updateQuantity(securityList);
                                     } else {
                                       commonDialog(
                                           Strings.scheme_validation, 0);
