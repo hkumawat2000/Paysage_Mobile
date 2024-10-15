@@ -71,6 +71,9 @@ import 'package:lms/aa_getx/modules/authentication/presentation/views/fingerprin
 import 'package:lms/aa_getx/modules/onboarding/presentation/views/walkthrough_view.dart';
 import 'package:lms/aa_getx/modules/payment/presentation/bindings/payment_binding.dart';
 import 'package:lms/aa_getx/modules/payment/presentation/views/payment_view.dart';
+import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/presentation/bindings/pledge_mf_bindings.dart';
+import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/presentation/views/mf_view_vault_details_view.dart';
+import 'package:lms/aa_getx/modules/pledge_eligibility/mutual_find/presentation/views/pledge_mf_scheme_selection_view.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/bindings/my_pledge_security_binding.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledge_security_view.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/views/my_pledged_transactions_view.dart';
@@ -95,7 +98,6 @@ import 'package:lms/aa_getx/modules/risk_profile/presentation/bindings/risk_prof
 import 'package:lms/aa_getx/modules/risk_profile/presentation/views/risk_profile_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/binding/common_webview_binding.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
-
 
 const String splashView = "splash-view";
 const String jailBreakView = "jail-break-view";
@@ -126,7 +128,8 @@ const String dashboardView = "dashboard-view";
 const String commonWebview = "common-webview";
 const String amlCheckView = "aml-check--view";
 const String marginShortfallPledgeOTPView = "margin-shortfall-pledge-otp-view";
-const String marginShortfallEligibleDialogView = "margin-shortfall-eligible-dialog-view";
+const String marginShortfallEligibleDialogView =
+    "margin-shortfall-eligible-dialog-view";
 const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
 const String approvedSharesView = "approved-shares-view";
@@ -155,6 +158,8 @@ const String unpledgeSharesView = "unpledge-shares-view";
 const String contactUsView = "contact-us-view";
 const String contactUsThankYouView = "contact-us-thank-you-view";
 const String feedbackView = "feedback-view";
+const String pledgeMfSchemeSelection = "pledge-mf-scheme-selection";
+const String mfViewVaultDetailsScreen = "mf-view-vault-details-screen";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -427,4 +432,15 @@ List<GetPage> routes = [
   //   page: () => UnpledgeSharesView(),
   //   binding: UnpledgeSharesBinding(),
   // ),
+//PLedge MF Scheme Selection
+  GetPage(
+    name: '/$pledgeMfSchemeSelection',
+    page: () => PledgeMfSchemeSelectionView(),
+    binding: PledgeMfBindings(),
+  ),
+   GetPage(
+    name: '/$mfViewVaultDetailsScreen',
+    page: () => MfViewVaultDetailsView(),
+  ),
+  
 ];

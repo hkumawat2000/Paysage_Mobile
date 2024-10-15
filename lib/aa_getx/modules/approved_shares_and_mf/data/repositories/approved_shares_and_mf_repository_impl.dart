@@ -5,7 +5,10 @@ import 'package:lms/aa_getx/core/error/failure.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/type_def.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/data/datasource/approved_shares_and_mf_datasource.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/data/models/request/approved_securities_request_model.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/entities/approved_securities_response_entity.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/entities/demat_account_response_entity.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/entities/request/approved_securities_request_entity.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/repositories/approved_shares_and_mf_repository.dart';
 
 class ApprovedSharesAndMfRepositoryImpl
@@ -21,6 +24,25 @@ class ApprovedSharesAndMfRepositoryImpl
       final getDematAccountDetailsResponse =
           await approvedSharesAndMfDatasource.getDematAccountDetails();
       return DataSuccess(getDematAccountDetailsResponse.toEntity());
+    } on ServerException catch (e) {
+      return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
+    } on ApiServerException catch (e) {
+      return DataFailed(
+          ServerFailure(e.message ?? Strings.defaultErrorMsg, e.statusCode!));
+    } catch (e) {
+      return DataFailed(ServerFailure(e.toString(), 0));
+    }
+  }
+
+  ResultFuture<ApprovedSecuritiesResponseEntity> getApprovedSecurities(
+      ApprovedSecuritiesRequestEntity approvedSecuritiesRequestEntity) async {
+    try {
+      ApprovedSecuritiesRequestModel approvedSecuritiesRequestModel =
+          ApprovedSecuritiesRequestModel.fromEntity(
+              approvedSecuritiesRequestEntity);
+      final getConsentTextResponse = await approvedSharesAndMfDatasource
+          .getApprovedSecurities(approvedSecuritiesRequestModel);
+      return DataSuccess(getConsentTextResponse.toEntity());
     } on ServerException catch (e) {
       return DataFailed(ServerFailure(e.message ?? Strings.defaultErrorMsg, 0));
     } on ApiServerException catch (e) {

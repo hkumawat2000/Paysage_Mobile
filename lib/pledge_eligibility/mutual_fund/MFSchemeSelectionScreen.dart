@@ -74,8 +74,9 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
     return items;
   }
 
-  scrollUp(){
-    if(_scrollController.position.pixels != _scrollController.position.minScrollExtent) {
+  scrollUp() {
+    if (_scrollController.position.pixels !=
+        _scrollController.position.minScrollExtent) {
       _scrollController.animateTo(_scrollController.position.minScrollExtent,
           duration: Duration(milliseconds: 700), curve: Curves.fastOutSlowIn);
     }
@@ -84,7 +85,7 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
   void changedDropDownMutualFund(String? selectedStatus) {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        if(_currentMutualFundOption != selectedStatus){
+        if (_currentMutualFundOption != selectedStatus) {
           setState(() {
             _currentMutualFundOption = selectedStatus!;
             LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
@@ -98,8 +99,10 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
               selectedBoolLevelList.add(true);
             });
             _handleSearchEnd();
-            mFSchemeBloc.getSchemesList(MFSchemeRequest(_currentMutualFundOption,
-                selectedLenderList.join(","), selectedLevelList.join(","))).then((value) {
+            mFSchemeBloc
+                .getSchemesList(MFSchemeRequest(_currentMutualFundOption,
+                    selectedLenderList.join(","), selectedLevelList.join(",")))
+                .then((value) {
               if (value.isSuccessFull!) {
                 schemesListAfterFilter.clear();
                 isAddBtnSelected.clear();
@@ -138,9 +141,7 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
       style: mediumTextStyle_18_gray_dark,
     );
     _dropDownMutualFund = getDropDownFormatMenuItems();
-    _scrollController.addListener(() {
-
-    });
+    _scrollController.addListener(() {});
     lenderBloc.getLenders().then((value) {
       if (value.isSuccessFull!) {
         for (int i = 0; i < value.lenderData!.length; i++) {
@@ -157,9 +158,10 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
           });
         }
 
-        mFSchemeBloc.getSchemesList(
-            MFSchemeRequest(_currentMutualFundOption, selectedLenderList.join(","),
-                selectedLevelList.join(","))).then((value) {
+        mFSchemeBloc
+            .getSchemesList(MFSchemeRequest(_currentMutualFundOption,
+                selectedLenderList.join(","), selectedLevelList.join(",")))
+            .then((value) {
           if (value.isSuccessFull!) {
             schemesListAfterFilter.clear();
             isAddBtnSelected.clear();
@@ -184,7 +186,7 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
     super.initState();
   }
 
-  void dispose(){
+  void dispose() {
     focusNode.forEach((focusNode) {
       focusNode.dispose();
     });
@@ -245,9 +247,7 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
         return <Widget>[
           SliverList(
             delegate: SliverChildListDelegate([
-              SizedBox(
-                height : 0.5
-              ),
+              SizedBox(height: 0.5),
             ]),
           )
         ];
@@ -255,8 +255,7 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding:
-            const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: Row(
               children: [
                 mutualFundDropdown(),
@@ -268,7 +267,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                       children: [
                         Text(Strings.filter, style: regularTextStyle_14),
                         SizedBox(width: 4),
-                        Icon(Icons.filter_alt_rounded, size: 24, color: appTheme)
+                        Icon(Icons.filter_alt_rounded,
+                            size: 24, color: appTheme)
                       ],
                     ),
                     onTap: () {
@@ -313,7 +313,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.white, width: 3.0),
-        borderRadius: BorderRadius.only(topRight: Radius.circular(16.0), topLeft: Radius.circular(16.0)),
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16.0), topLeft: Radius.circular(16.0)),
         boxShadow: [
           BoxShadow(blurRadius: 10, color: colorLightGray, offset: Offset(1, 5))
         ],
@@ -339,7 +340,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 10),
-                      Text(Strings.lender, style: boldTextStyle_18.copyWith(fontSize: 20)),
+                      Text(Strings.lender,
+                          style: boldTextStyle_18.copyWith(fontSize: 20)),
                       StatefulBuilder(
                         builder: (BuildContext context, StateSetter s) {
                           return ListView.builder(
@@ -352,8 +354,9 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                                 onChanged: (val) {
                                   s(() {
                                     lenderCheckBox[index] = val!;
-                                    if(!lenderCheckBox.contains(true)){
-                                      Utility.showToastMessage("Atleast one lender is mandatory");
+                                    if (!lenderCheckBox.contains(true)) {
+                                      Utility.showToastMessage(
+                                          "Atleast one lender is mandatory");
                                       lenderCheckBox[index] = !val;
                                     }
                                   });
@@ -366,7 +369,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                         },
                       ),
                       SizedBox(height: 20),
-                      Text(Strings.level, style: boldTextStyle_18.copyWith(fontSize: 20)),
+                      Text(Strings.level,
+                          style: boldTextStyle_18.copyWith(fontSize: 20)),
                       StatefulBuilder(
                         builder: (BuildContext context, StateSetter s) {
                           return ListView.builder(
@@ -379,8 +383,9 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                                 onChanged: (val) {
                                   s(() {
                                     levelCheckBox[index] = val!;
-                                    if(!levelCheckBox.contains(true)){
-                                      Utility.showToastMessage("Atleast one level is mandatory");
+                                    if (!levelCheckBox.contains(true)) {
+                                      Utility.showToastMessage(
+                                          "Atleast one level is mandatory");
                                       levelCheckBox[index] = !val;
                                     }
                                   });
@@ -410,7 +415,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                         elevation: 1.0,
                         color: colorWhite,
                         child: MaterialButton(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
                           minWidth: MediaQuery.of(context).size.width,
                           onPressed: () async {
                             Navigator.pop(context);
@@ -434,16 +440,17 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                         elevation: 1.0,
                         color: appTheme,
                         child: MaterialButton(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
                           minWidth: MediaQuery.of(context).size.width,
                           onPressed: () async {
-                            Utility.isNetworkConnection()
-                                .then((isNetwork){
-                              if (isNetwork){
+                            Utility.isNetworkConnection().then((isNetwork) {
+                              if (isNetwork) {
                                 List<String> previousLevelList = [];
                                 previousLevelList.addAll(selectedLevelList);
-                                if(!levelCheckBox.contains(true)){
-                                  Utility.showToastMessage("Atleast one level is mandatory");
+                                if (!levelCheckBox.contains(true)) {
+                                  Utility.showToastMessage(
+                                      "Atleast one level is mandatory");
                                 } else {
                                   selectedLenderList.clear();
                                   selectedLevelList.clear();
@@ -458,32 +465,45 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
 
                                   for (int i = 0; i < levelList.length; i++) {
                                     if (levelCheckBox[i]) {
-                                      selectedLevelList.add(levelList[i].toString().split(" ")[1]);
+                                      selectedLevelList.add(levelList[i]
+                                          .toString()
+                                          .split(" ")[1]);
                                       selectedBoolLevelList[i] = true;
                                     } else {
                                       selectedBoolLevelList[i] = false;
                                     }
                                   }
-                                  bool condition1 = previousLevelList.toSet().difference(selectedLevelList.toSet()).isEmpty;
-                                  bool condition2 = previousLevelList.length == selectedLevelList.length;
+                                  bool condition1 = previousLevelList
+                                      .toSet()
+                                      .difference(selectedLevelList.toSet())
+                                      .isEmpty;
+                                  bool condition2 = previousLevelList.length ==
+                                      selectedLevelList.length;
                                   bool isEqual = condition1 && condition2;
                                   Navigator.pop(context);
-                                  if(!isEqual){
-                                    LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
+                                  if (!isEqual) {
+                                    LoadingDialogWidget.showDialogLoading(
+                                        context, Strings.please_wait);
                                     scrollUp();
                                     _handleSearchEnd();
-                                    mFSchemeBloc.getSchemesList(MFSchemeRequest(_currentMutualFundOption,
-                                        selectedLenderList.join(","),
-                                        selectedLevelList.join(","))).then((value) {
+                                    mFSchemeBloc
+                                        .getSchemesList(MFSchemeRequest(
+                                            _currentMutualFundOption,
+                                            selectedLenderList.join(","),
+                                            selectedLevelList.join(",")))
+                                        .then((value) {
                                       if (value.isSuccessFull!) {
                                         schemesListAfterFilter.clear();
                                         isAddBtnSelected.clear();
                                         unitControllersList.clear();
                                         isAddQtyEnable.clear();
-                                        schemesListAfterFilter.addAll(value.mFSchemeData!.schemesList!);
-                                        schemesListAfterFilter.forEach((element) {
+                                        schemesListAfterFilter.addAll(
+                                            value.mFSchemeData!.schemesList!);
+                                        schemesListAfterFilter
+                                            .forEach((element) {
                                           isAddBtnSelected.add(true);
-                                          unitControllersList.add(TextEditingController());
+                                          unitControllersList
+                                              .add(TextEditingController());
                                           isAddQtyEnable.add(false);
                                         });
                                         setState(() {
@@ -493,13 +513,15 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                                         Navigator.pop(context);
                                       } else {
                                         Navigator.pop(context);
-                                        Utility.showToastMessage(value.errorMessage!);
+                                        Utility.showToastMessage(
+                                            value.errorMessage!);
                                       }
                                     });
                                   }
                                 }
                               } else {
-                                Utility.showToastMessage(Strings.no_internet_message);
+                                Utility.showToastMessage(
+                                    Strings.no_internet_message);
                               }
                             });
                           },
@@ -537,7 +559,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
 
   Widget schemesListWidget() {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0, top: 0, right: 10, bottom: 120),
+      padding:
+          const EdgeInsets.only(left: 10.0, top: 0, right: 10, bottom: 120),
       child: ListView.builder(
         key: Key(schemesList.length.toString()),
         // controller: _scrollController,
@@ -545,11 +568,11 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
         shrinkWrap: true,
         itemCount: schemesList.length,
         itemBuilder: (context, index) {
-
           // if (index == schemesList.length) {
           //   return Container(height: MediaQuery.of(context).size.height / 2);
           // }
-          int actualIndex = schemesListAfterFilter.indexWhere((element) => element.schemeName == schemesList[index].schemeName);
+          int actualIndex = schemesListAfterFilter.indexWhere(
+              (element) => element.schemeName == schemesList[index].schemeName);
 
           return Container(
               margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5),
@@ -575,12 +598,14 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: (MediaQuery.of(context).size.width - 150) / 3,
+                              width:
+                                  (MediaQuery.of(context).size.width - 150) / 3,
                               child: Row(
                                 children: [
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         scripsValueText(
                                             "₹${schemesList[index].price!.toString()}"),
@@ -615,16 +640,30 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                                       width: 72,
                                       height: 73,
                                       child: Container(
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color: colorRed,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(100.0)),
-                                          ),
-                                          child: schemesList[index].amcImage != null && schemesList[index].amcImage!.isNotEmpty
-                                              ? CircleAvatar(backgroundImage: NetworkImage(schemesList[index].amcImage!),backgroundColor: colorRed, radius: 50.0)
-                                              : Text(getInitials(schemesList[index].schemeName, 1), style: extraBoldTextStyle_30),
-                                           // : Text(schemesList[index].amcCode!, style: extraBoldTextStyle_30),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: colorRed,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(100.0)),
+                                        ),
+                                        child: schemesList[index].amcImage !=
+                                                    null &&
+                                                schemesList[index]
+                                                    .amcImage!
+                                                    .isNotEmpty
+                                            ? CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    schemesList[index]
+                                                        .amcImage!),
+                                                backgroundColor: colorRed,
+                                                radius: 50.0)
+                                            : Text(
+                                                getInitials(
+                                                    schemesList[index]
+                                                        .schemeName,
+                                                    1),
+                                                style: extraBoldTextStyle_30),
+                                        // : Text(schemesList[index].amcCode!, style: extraBoldTextStyle_30),
                                       ), //Container ,
                                     ), //Container
                                     Positioned(
@@ -642,61 +681,142 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                                               side: BorderSide(color: red)),
                                           elevation: 1.0,
                                           child: MaterialButton(
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                                            minWidth: MediaQuery.of(context).size.width,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(35)),
+                                            minWidth: MediaQuery.of(context)
+                                                .size
+                                                .width,
                                             onPressed: () {
                                               setState(() {
-                                                Utility.isNetworkConnection().then((isNetwork) async {
+                                                Utility.isNetworkConnection()
+                                                    .then((isNetwork) async {
                                                   if (isNetwork) {
-                                                    LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-                                                    isinDetailDao.isinDetails(schemesList[index].isin.toString()).then((value) async {
+                                                    LoadingDialogWidget
+                                                        .showDialogLoading(
+                                                            context,
+                                                            Strings
+                                                                .please_wait);
+                                                    isinDetailDao
+                                                        .isinDetails(
+                                                            schemesList[index]
+                                                                .isin
+                                                                .toString())
+                                                        .then((value) async {
                                                       Navigator.pop(context);
-                                                      if (value.isSuccessFull!) {
-                                                        schemesList[index].units = unitControllersList[actualIndex].text.isNotEmpty ? double.parse(unitControllersList[actualIndex].text) : 0;
-                                                        schemesListAfterFilter[actualIndex].units = unitControllersList[actualIndex].text.isNotEmpty ? double.parse(unitControllersList[actualIndex].text) : 0;
-                                                        List<SchemesList> selectedSchemeList = [];
-                                                        for(int i=0; i<schemesListAfterFilter.length;i++){
-                                                          if(!isAddBtnSelected[i]){
-                                                            schemesListAfterFilter[i].units = double.parse(unitControllersList[i].text.toString());
-                                                            selectedSchemeList.add(schemesListAfterFilter[i]);
+                                                      if (value
+                                                          .isSuccessFull!) {
+                                                        schemesList[index]
+                                                            .units = unitControllersList[
+                                                                    actualIndex]
+                                                                .text
+                                                                .isNotEmpty
+                                                            ? double.parse(
+                                                                unitControllersList[
+                                                                        actualIndex]
+                                                                    .text)
+                                                            : 0;
+                                                        schemesListAfterFilter[
+                                                                actualIndex]
+                                                            .units = unitControllersList[
+                                                                    actualIndex]
+                                                                .text
+                                                                .isNotEmpty
+                                                            ? double.parse(
+                                                                unitControllersList[
+                                                                        actualIndex]
+                                                                    .text)
+                                                            : 0;
+                                                        List<SchemesList>
+                                                            selectedSchemeList =
+                                                            [];
+                                                        for (int i = 0;
+                                                            i <
+                                                                schemesListAfterFilter
+                                                                    .length;
+                                                            i++) {
+                                                          if (!isAddBtnSelected[
+                                                              i]) {
+                                                            schemesListAfterFilter[
+                                                                        i]
+                                                                    .units =
+                                                                double.parse(
+                                                                    unitControllersList[
+                                                                            i]
+                                                                        .text
+                                                                        .toString());
+                                                            selectedSchemeList.add(
+                                                                schemesListAfterFilter[
+                                                                    i]);
                                                           }
                                                         }
-                                                        print("length of list --> ${selectedSchemeList.length}");
+                                                        print(
+                                                            "length of list --> ${selectedSchemeList.length}");
 
-                                                        List<SchemesList> securityList = await showModalBottomSheet(
-                                                          isScrollControlled: true,
+                                                        List<SchemesList>
+                                                            securityList =
+                                                            await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
                                                           enableDrag: false,
-                                                          backgroundColor: Colors.transparent,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
                                                           context: context,
-                                                          builder: (BuildContext bc) {
-                                                            return MF_DetailViewDialog(selectedSchemeList, schemesList[index], value.data!.isinDetails, _currentMutualFundOption, lenderList[0], schemesListAfterFilter, unitControllersList[actualIndex].text.toString());
+                                                          builder: (BuildContext
+                                                              bc) {
+                                                            return MF_DetailViewDialog(
+                                                              selectedSchemeList,
+                                                              schemesList[
+                                                                  index],
+                                                              value.data!
+                                                                  .isinDetails,
+                                                              _currentMutualFundOption,
+                                                              lenderList[0],
+                                                              schemesListAfterFilter,
+                                                              unitControllersList[
+                                                                      actualIndex]
+                                                                  .text
+                                                                  .toString(),
+                                                            );
                                                           },
                                                         );
                                                         // printLog("dialogResult ==> $dialogResult");
                                                         setState(() {
-                                                        // if(dialogResult != null) {
-                                                        //   if (double.parse(dialogResult.toString()) > 0) {
-                                                        //     isAddBtnSelected[actualIndex] = false;
-                                                        //     isAddQtyEnable[actualIndex] = true;
-                                                        //   } else {
-                                                        //     isAddBtnSelected[actualIndex] = true;
-                                                        //     isAddQtyEnable[actualIndex] = false;
-                                                        //   }
-                                                        //   unitControllersList[actualIndex].text = dialogResult.toString();
-                                                        //   schemesList[index].units = double.parse(unitControllersList[actualIndex].text);
-                                                        //   schemesListAfterFilter[actualIndex].units = double.parse(unitControllersList[actualIndex].text);
-                                                        //   updateSchemeValueAndEL();
-                                                        // }
-                                                          updateQuantity(securityList);
+                                                          // if(dialogResult != null) {
+                                                          //   if (double.parse(dialogResult.toString()) > 0) {
+                                                          //     isAddBtnSelected[actualIndex] = false;
+                                                          //     isAddQtyEnable[actualIndex] = true;
+                                                          //   } else {
+                                                          //     isAddBtnSelected[actualIndex] = true;
+                                                          //     isAddQtyEnable[actualIndex] = false;
+                                                          //   }
+                                                          //   unitControllersList[actualIndex].text = dialogResult.toString();
+                                                          //   schemesList[index].units = double.parse(unitControllersList[actualIndex].text);
+                                                          //   schemesListAfterFilter[actualIndex].units = double.parse(unitControllersList[actualIndex].text);
+                                                          //   updateSchemeValueAndEL();
+                                                          // }
+                                                          updateQuantity(
+                                                              securityList);
                                                         });
-                                                      } else if (value.errorCode == 403) {
-                                                        commonDialog(context, Strings.session_timeout, 4);
+                                                      } else if (value
+                                                              .errorCode ==
+                                                          403) {
+                                                        commonDialog(
+                                                            context,
+                                                            Strings
+                                                                .session_timeout,
+                                                            4);
                                                       } else {
-                                                        Utility.showToastMessage(value.errorMessage!);
+                                                        Utility.showToastMessage(
+                                                            value
+                                                                .errorMessage!);
                                                       }
                                                     });
                                                   } else {
-                                                    Utility.showToastMessage(Strings.no_internet_message);
+                                                    Utility.showToastMessage(
+                                                        Strings
+                                                            .no_internet_message);
                                                   }
                                                 });
                                               });
@@ -759,34 +879,65 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                     if (isNetwork) {
                       FocusScope.of(context).unfocus();
                       var txt;
-                      if(unitControllersList[actualIndex].text.toString().contains('.') && unitControllersList[actualIndex].text.toString().split(".")[1].length != 0) {
+                      if (unitControllersList[actualIndex]
+                              .text
+                              .toString()
+                              .contains('.') &&
+                          unitControllersList[actualIndex]
+                                  .text
+                                  .toString()
+                                  .split(".")[1]
+                                  .length !=
+                              0) {
                         var unitsDecimalCount;
-                        String str = unitControllersList[actualIndex].text.toString();
+                        String str =
+                            unitControllersList[actualIndex].text.toString();
                         var qtyArray = str.split('.');
                         unitsDecimalCount = qtyArray[1];
-                        if(int.parse(unitsDecimalCount) == 0) {
-                          txt = double.parse(unitControllersList[actualIndex].text) - 1;
-                          unitControllersList[actualIndex].text = txt.toString();
+                        if (int.parse(unitsDecimalCount) == 0) {
+                          txt = double.parse(
+                                  unitControllersList[actualIndex].text) -
+                              1;
+                          unitControllersList[actualIndex].text =
+                              txt.toString();
                         } else {
                           if (unitsDecimalCount.toString().length == 1) {
-                            txt = double.parse(unitControllersList[actualIndex].text) - .1;
-                            unitControllersList[actualIndex].text = txt.toStringAsFixed(1);
+                            txt = double.parse(
+                                    unitControllersList[actualIndex].text) -
+                                .1;
+                            unitControllersList[actualIndex].text =
+                                txt.toStringAsFixed(1);
                           } else if (unitsDecimalCount.toString().length == 2) {
-                            txt = double.parse(unitControllersList[actualIndex].text) - .01;
-                            unitControllersList[actualIndex].text = txt.toStringAsFixed(2);
+                            txt = double.parse(
+                                    unitControllersList[actualIndex].text) -
+                                .01;
+                            unitControllersList[actualIndex].text =
+                                txt.toStringAsFixed(2);
                           } else {
-                            txt = double.parse(unitControllersList[actualIndex].text) - .001;
-                            unitControllersList[actualIndex].text = txt.toStringAsFixed(3);
+                            txt = double.parse(
+                                    unitControllersList[actualIndex].text) -
+                                .001;
+                            unitControllersList[actualIndex].text =
+                                txt.toStringAsFixed(3);
                           }
                         }
                       } else {
-                        txt = unitControllersList[actualIndex].text.isNotEmpty ? int.parse(unitControllersList[actualIndex].text.toString().split(".")[0]) - 1 : 0;
+                        txt = unitControllersList[actualIndex].text.isNotEmpty
+                            ? int.parse(unitControllersList[actualIndex]
+                                    .text
+                                    .toString()
+                                    .split(".")[0]) -
+                                1
+                            : 0;
                         unitControllersList[actualIndex].text = txt.toString();
                       }
                       setState(() {
                         if (txt >= 0.001) {
-                          schemesList[index].units = double.parse(unitControllersList[actualIndex].text);
-                          schemesListAfterFilter[actualIndex].units = double.parse(unitControllersList[actualIndex].text);
+                          schemesList[index].units = double.parse(
+                              unitControllersList[actualIndex].text);
+                          schemesListAfterFilter[actualIndex].units =
+                              double.parse(
+                                  unitControllersList[actualIndex].text);
                         } else {
                           isAddBtnSelected[actualIndex] = true;
                           isAddQtyEnable[actualIndex] = false;
@@ -811,33 +962,55 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                   decoration: InputDecoration(counterText: ""),
                   focusNode: focusNode[actualIndex],
                   showCursor: true,
-                  keyboardType:
-                  TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
                     DecimalTextInputFormatter(decimalRange: 3),
-                    FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,3}')),
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^(\d+)?\.?\d{0,3}')),
                   ],
                   style: boldTextStyle_18,
                   onChanged: (value) {
                     var txt;
-                    if(!unitControllersList[actualIndex].text.toString().endsWith(".")){
-                      if(value.isNotEmpty && double.parse(value.toString()) >= 0.001){
-                        if(double.parse(unitControllersList[actualIndex].text) != 0){
+                    if (!unitControllersList[actualIndex]
+                        .text
+                        .toString()
+                        .endsWith(".")) {
+                      if (value.isNotEmpty &&
+                          double.parse(value.toString()) >= 0.001) {
+                        if (double.parse(
+                                unitControllersList[actualIndex].text) !=
+                            0) {
                           setState(() {
-                            if(unitControllersList[actualIndex].text.toString().contains('.') && unitControllersList[actualIndex].text.toString().split(".")[1].length != 0) {
+                            if (unitControllersList[actualIndex]
+                                    .text
+                                    .toString()
+                                    .contains('.') &&
+                                unitControllersList[actualIndex]
+                                        .text
+                                        .toString()
+                                        .split(".")[1]
+                                        .length !=
+                                    0) {
                               var unitsDecimalCount;
-                              String str = unitControllersList[actualIndex].text.toString();
+                              String str = unitControllersList[actualIndex]
+                                  .text
+                                  .toString();
                               var qtyArray = str.split('.');
                               unitsDecimalCount = qtyArray[1];
-                              if(unitsDecimalCount.toString().length > 3) {
-                                txt = double.parse(unitControllersList[actualIndex].text);
-                                unitControllersList[actualIndex].text = txt.toStringAsFixed(3);
+                              if (unitsDecimalCount.toString().length > 3) {
+                                txt = double.parse(
+                                    unitControllersList[actualIndex].text);
+                                unitControllersList[actualIndex].text =
+                                    txt.toStringAsFixed(3);
                               }
                             }
                             isAddBtnSelected[actualIndex] = false;
                             isAddQtyEnable[actualIndex] = true;
-                            schemesList[index].units = double.parse(unitControllersList[actualIndex].text);
-                            schemesListAfterFilter[actualIndex].units = double.parse(unitControllersList[actualIndex].text);
+                            schemesList[index].units = double.parse(
+                                unitControllersList[actualIndex].text);
+                            schemesListAfterFilter[actualIndex].units =
+                                double.parse(
+                                    unitControllersList[actualIndex].text);
                             updateSchemeValueAndEL();
                           });
                         } else {
@@ -848,10 +1021,25 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                           });
                         }
                       } else {
-                        if(unitControllersList[actualIndex].text.isEmpty || unitControllersList[actualIndex].text == ".0" || unitControllersList[actualIndex].text == ".00"|| unitControllersList[actualIndex].text == "0" || unitControllersList[actualIndex].text == "0." || unitControllersList[actualIndex].text == "0.0" || unitControllersList[actualIndex].text == "0.00"){
+                        if (unitControllersList[actualIndex].text.isEmpty ||
+                            unitControllersList[actualIndex].text == ".0" ||
+                            unitControllersList[actualIndex].text == ".00" ||
+                            unitControllersList[actualIndex].text == "0" ||
+                            unitControllersList[actualIndex].text == "0." ||
+                            unitControllersList[actualIndex].text == "0.0" ||
+                            unitControllersList[actualIndex].text == "0.00") {
                           focusNode[actualIndex].addListener(() {
-                            if(unitControllersList[actualIndex].text.isEmpty || unitControllersList[actualIndex].text == ".0" || unitControllersList[actualIndex].text == ".00" || unitControllersList[actualIndex].text == "0" || unitControllersList[actualIndex].text == "0." || unitControllersList[actualIndex].text == "0.0" || unitControllersList[actualIndex].text == "0.00"){
-                              if(focusNode[actualIndex].hasFocus) {
+                            if (unitControllersList[actualIndex].text.isEmpty ||
+                                unitControllersList[actualIndex].text == ".0" ||
+                                unitControllersList[actualIndex].text ==
+                                    ".00" ||
+                                unitControllersList[actualIndex].text == "0" ||
+                                unitControllersList[actualIndex].text == "0." ||
+                                unitControllersList[actualIndex].text ==
+                                    "0.0" ||
+                                unitControllersList[actualIndex].text ==
+                                    "0.00") {
+                              if (focusNode[actualIndex].hasFocus) {
                                 focusNode[actualIndex].requestFocus();
                               } else {
                                 FocusScope.of(context).unfocus();
@@ -875,18 +1063,28 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                       var value;
                       value = unitControllersList[actualIndex].text;
                       focusNode[actualIndex].addListener(() {
-                        if(unitControllersList[actualIndex].text.toString().endsWith('.')){
-                          if(focusNode[actualIndex].hasFocus){
+                        if (unitControllersList[actualIndex]
+                            .text
+                            .toString()
+                            .endsWith('.')) {
+                          if (focusNode[actualIndex].hasFocus) {
                             focusNode[actualIndex].requestFocus();
                           } else {
-                            if(value.toString().split(".")[0].isEmpty){
+                            if (value.toString().split(".")[0].isEmpty) {
                               isAddBtnSelected[actualIndex] = true;
                               isAddQtyEnable[actualIndex] = false;
                               unitControllersList[actualIndex].text = "0.0";
                               updateSchemeValueAndEL();
-                            } else if(unitControllersList[actualIndex].text.toString().endsWith('.')){
-                              value = int.parse(unitControllersList[actualIndex].text.toString().split(".")[0]);
-                              unitControllersList[actualIndex].text = value.toString();
+                            } else if (unitControllersList[actualIndex]
+                                .text
+                                .toString()
+                                .endsWith('.')) {
+                              value = int.parse(unitControllersList[actualIndex]
+                                  .text
+                                  .toString()
+                                  .split(".")[0]);
+                              unitControllersList[actualIndex].text =
+                                  value.toString();
                             }
                           }
                         }
@@ -910,33 +1108,63 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                     if (isNetwork) {
                       FocusScope.of(context).unfocus();
                       var txt;
-                      if(unitControllersList[actualIndex].text.toString().contains('.') && unitControllersList[actualIndex].text.toString().split(".")[1].length != 0) {
+                      if (unitControllersList[actualIndex]
+                              .text
+                              .toString()
+                              .contains('.') &&
+                          unitControllersList[actualIndex]
+                                  .text
+                                  .toString()
+                                  .split(".")[1]
+                                  .length !=
+                              0) {
                         var unitsDecimalCount;
-                        String str = unitControllersList[actualIndex].text.toString();
+                        String str =
+                            unitControllersList[actualIndex].text.toString();
                         var qtyArray = str.split('.');
                         unitsDecimalCount = qtyArray[1];
-                        if(int.parse(unitsDecimalCount) == 0){
-                          txt = double.parse(unitControllersList[actualIndex].text) + 1;
-                          unitControllersList[actualIndex].text = txt.toString();
+                        if (int.parse(unitsDecimalCount) == 0) {
+                          txt = double.parse(
+                                  unitControllersList[actualIndex].text) +
+                              1;
+                          unitControllersList[actualIndex].text =
+                              txt.toString();
                         } else {
                           if (unitsDecimalCount.toString().length == 1) {
-                            txt = double.parse(unitControllersList[actualIndex].text) + .1;
-                            unitControllersList[actualIndex].text = txt.toStringAsFixed(1);
+                            txt = double.parse(
+                                    unitControllersList[actualIndex].text) +
+                                .1;
+                            unitControllersList[actualIndex].text =
+                                txt.toStringAsFixed(1);
                           } else if (unitsDecimalCount.toString().length == 2) {
-                            txt = double.parse(unitControllersList[actualIndex].text) + .01;
-                            unitControllersList[actualIndex].text = txt.toStringAsFixed(2);
+                            txt = double.parse(
+                                    unitControllersList[actualIndex].text) +
+                                .01;
+                            unitControllersList[actualIndex].text =
+                                txt.toStringAsFixed(2);
                           } else {
-                            txt = double.parse(unitControllersList[actualIndex].text) + .001;
-                            unitControllersList[actualIndex].text = txt.toStringAsFixed(3);
+                            txt = double.parse(
+                                    unitControllersList[actualIndex].text) +
+                                .001;
+                            unitControllersList[actualIndex].text =
+                                txt.toStringAsFixed(3);
                           }
                         }
                       } else {
-                        txt = unitControllersList[actualIndex].text.isNotEmpty ? int.parse(unitControllersList[actualIndex].text.toString().split(".")[0]) + 1 : 0;
+                        txt = unitControllersList[actualIndex].text.isNotEmpty
+                            ? int.parse(unitControllersList[actualIndex]
+                                    .text
+                                    .toString()
+                                    .split(".")[0]) +
+                                1
+                            : 0;
                         unitControllersList[actualIndex].text = txt.toString();
                       }
                       setState(() {
-                        schemesList[index].units = double.parse(unitControllersList[actualIndex].text);
-                        schemesListAfterFilter[actualIndex].units = double.parse(unitControllersList[actualIndex].text);
+                        schemesList[index].units =
+                            double.parse(unitControllersList[actualIndex].text);
+                        schemesListAfterFilter[actualIndex].units =
+                            double.parse(unitControllersList[actualIndex].text);
                         updateSchemeValueAndEL();
                       });
                     } else {
@@ -960,10 +1188,12 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
         width: 70,
         child: Material(
           color: appTheme,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
           elevation: 1.0,
           child: MaterialButton(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
             minWidth: MediaQuery.of(context).size.width,
             onPressed: () {
               Utility.isNetworkConnection().then((isNetwork) {
@@ -972,8 +1202,10 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                     isAddQtyEnable[actualIndex] = true;
                     isAddBtnSelected[actualIndex] = false;
                     unitControllersList[actualIndex].text = "1";
-                    schemesList[index].units = double.parse(unitControllersList[actualIndex].text);
-                    schemesListAfterFilter[actualIndex].units = double.parse(unitControllersList[actualIndex].text);
+                    schemesList[index].units =
+                        double.parse(unitControllersList[actualIndex].text);
+                    schemesListAfterFilter[actualIndex].units =
+                        double.parse(unitControllersList[actualIndex].text);
                     updateSchemeValueAndEL();
                   });
                 } else {
@@ -984,7 +1216,9 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Add +", style: TextStyle(color: colorWhite, fontSize: 10, fontWeight: bold))
+                Text("Add +",
+                    style: TextStyle(
+                        color: colorWhite, fontSize: 10, fontWeight: bold))
               ],
             ),
           ),
@@ -996,14 +1230,18 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
   updateSchemeValueAndEL() {
     schemeValue = 0;
     eligibleLoanAmount = 0;
-    for(int i=0; i < schemesListAfterFilter.length; i++) {
-      if(unitControllersList[i].text.isEmpty || double.parse(unitControllersList[i].text) == 0) {
+    for (int i = 0; i < schemesListAfterFilter.length; i++) {
+      if (unitControllersList[i].text.isEmpty ||
+          double.parse(unitControllersList[i].text) == 0) {
         isAddBtnSelected[i] = true;
         isAddQtyEnable[i] = false;
       }
-      if(!isAddBtnSelected[i]) {
-        schemeValue += schemesListAfterFilter[i].price! * double.parse(unitControllersList[i].text.toString());
-        eligibleLoanAmount += schemesListAfterFilter[i].price! * double.parse(unitControllersList[i].text.toString()) * (schemesListAfterFilter[i].ltv! / 100);
+      if (!isAddBtnSelected[i]) {
+        schemeValue += schemesListAfterFilter[i].price! *
+            double.parse(unitControllersList[i].text.toString());
+        eligibleLoanAmount += schemesListAfterFilter[i].price! *
+            double.parse(unitControllersList[i].text.toString()) *
+            (schemesListAfterFilter[i].ltv! / 100);
       }
     }
   }
@@ -1025,7 +1263,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                     ? AssetsImagePath.lender_finserv
                     : getInitials(lenderIconList[index], 1).toLowerCase() == "b"
                         ? AssetsImagePath.lender_bajaj_finance
-                        : getInitials(lenderIconList[index], 1).toLowerCase() == "t"
+                        : getInitials(lenderIconList[index], 1).toLowerCase() ==
+                                "t"
                             ? AssetsImagePath.lender_tata_capital
                             : AssetsImagePath.lender_finserv,
                 height: 24,
@@ -1053,9 +1292,11 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.white, width: 3.0),
-          borderRadius: BorderRadius.only(topRight: Radius.circular(40.0), topLeft: Radius.circular(40.0)),
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(40.0), topLeft: Radius.circular(40.0)),
           boxShadow: [
-            BoxShadow(blurRadius: 10, color: colorLightGray, offset: Offset(1, 5))
+            BoxShadow(
+                blurRadius: 10, color: colorLightGray, offset: Offset(1, 5))
           ],
         ),
         child: Container(
@@ -1067,7 +1308,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: Image.asset(AssetsImagePath.down_arrow_image, height: 15, width: 15),
+                    icon: Image.asset(AssetsImagePath.down_arrow_image,
+                        height: 15, width: 15),
                     onPressed: () {
                       setState(() {
                         isDefaultBottomDialog = false;
@@ -1085,10 +1327,12 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Expanded(
-                          child: Text(Strings.scheme_value, style: mediumTextStyle_18_gray),
+                          child: Text(Strings.scheme_value,
+                              style: mediumTextStyle_18_gray),
                         ),
                         Text(
-                          "₹${numberToString(schemeValue.toStringAsFixed(2))}", style: boldTextStyle_18_gray_dark,
+                          "₹${numberToString(schemeValue.toStringAsFixed(2))}",
+                          style: boldTextStyle_18_gray_dark,
                         ),
                       ],
                     ),
@@ -1099,9 +1343,12 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Expanded(
-                          child: Text(Strings.eligible_loan_amount_small, style: mediumTextStyle_18_gray),
+                          child: Text(Strings.eligible_loan_amount_small,
+                              style: mediumTextStyle_18_gray),
                         ),
-                        Text("₹${numberToString(eligibleLoanAmount.toStringAsFixed(2))}", style: textStyleGreenStyle_18)
+                        Text(
+                            "₹${numberToString(eligibleLoanAmount.toStringAsFixed(2))}",
+                            style: textStyleGreenStyle_18)
                       ],
                     ),
                   ],
@@ -1113,13 +1360,19 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                   height: 50,
                   width: 140,
                   child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(35)),
                     elevation: 1.0,
-                    color: isSchemeSelect == false ? schemeValue <= 999999999999 ? appTheme : colorLightGray : colorLightGray,
+                    color: isSchemeSelect == false
+                        ? schemeValue <= 999999999999
+                            ? appTheme
+                            : colorLightGray
+                        : colorLightGray,
                     child: AbsorbPointer(
                       absorbing: isSchemeSelect,
                       child: MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(35)),
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
                           Utility.isNetworkConnection().then((isNetwork) async {
@@ -1129,20 +1382,24 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                               List<SecuritiesList> schemeQtyList = [];
                               List<SchemesList> schemesList = [];
                               schemeQtyList.clear();
-                              for(int i = 0; i<schemesListAfterFilter.length; i++) {
-                                if(!isAddBtnSelected[i]){
-                                  schemeQtyList.add(new SecuritiesList(
-                                      isin: schemesListAfterFilter[i].isin,
-                                      quantity: double.parse(unitControllersList[i].text)),
+                              for (int i = 0;
+                                  i < schemesListAfterFilter.length;
+                                  i++) {
+                                if (!isAddBtnSelected[i]) {
+                                  schemeQtyList.add(
+                                    new SecuritiesList(
+                                        isin: schemesListAfterFilter[i].isin,
+                                        quantity: double.parse(
+                                            unitControllersList[i].text)),
                                   );
                                   schemesList.add(schemesListAfterFilter[i]);
                                 }
                               }
                               securities.list = schemeQtyList;
-                              if(schemeValue <= 999999999999){
+                              if (schemeValue <= 999999999999) {
                                 _handleSearchEnd();
                                 MyCartRequestBean requestBean =
-                                MyCartRequestBean(
+                                    MyCartRequestBean(
                                   securities: securities,
                                   instrumentType: Strings.mutual_fund,
                                   schemeType: _currentMutualFundOption,
@@ -1152,14 +1409,21 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                                   loamName: "",
                                   lender: lenderList[0],
                                 );
-                                List<SchemesList> securityList = await Navigator.push(context,
-                                    MaterialPageRoute(builder: (BuildContext context) => MF_ViewVaultDetailsViewScreen(requestBean, schemesList)));
+                                List<SchemesList> securityList =
+                                    await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                MF_ViewVaultDetailsViewScreen(
+                                                    requestBean, schemesList)));
                                 updateQuantity(securityList);
                               } else {
-                                commonDialog(context, Strings.scheme_validation, 0);
+                                commonDialog(
+                                    context, Strings.scheme_validation, 0);
                               }
                             } else {
-                              Utility.showToastMessage(Strings.no_internet_message);
+                              Utility.showToastMessage(
+                                  Strings.no_internet_message);
                             }
                           });
                         },
@@ -1176,31 +1440,31 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
     );
   }
 
-  updateQuantity(List<SchemesList> securityList){
-    for(int i=0; i<schemesListAfterFilter.length; i++){
+  updateQuantity(List<SchemesList> securityList) {
+    for (int i = 0; i < schemesListAfterFilter.length; i++) {
       printLog("i => $i");
       String index = "null";
       double qty = 0;
       securityList.forEach((element) {
-        if(element.isin == schemesListAfterFilter[i].isin){
+        if (element.isin == schemesListAfterFilter[i].isin) {
           index = i.toString();
           qty = element.units!;
         }
       });
       setState(() {
-        if(index != "null"){
+        if (index != "null") {
           var unitsDecimalCount;
           String str = qty.toString();
           var qtyArray = str.split('.');
           unitsDecimalCount = qtyArray[1];
-          if(unitsDecimalCount == "0"){
+          if (unitsDecimalCount == "0") {
             schemesListAfterFilter[i].units = qty;
             unitControllersList[i].text = qty.toInt().toString();
-          }else{
+          } else {
             schemesListAfterFilter[i].units = qty;
             unitControllersList[i].text = qty.toString();
           }
-          if(schemesListAfterFilter[i].units! <= 0){
+          if (schemesListAfterFilter[i].units! <= 0) {
             isAddBtnSelected[i] = true;
             isAddQtyEnable[i] = false;
           } else {
@@ -1218,7 +1482,6 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
     updateSchemeValueAndEL();
   }
 
-
   Widget eligibleLimitViewVaultDialog() {
     setState(() {
       if (eligibleLoanAmount == 0.0) {
@@ -1234,9 +1497,11 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.white, width: 3.0),
-          borderRadius: BorderRadius.only(topRight: Radius.circular(40.0), topLeft: Radius.circular(40.0)),
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(40.0), topLeft: Radius.circular(40.0)),
           boxShadow: [
-            BoxShadow(blurRadius: 10, color: colorLightGray, offset: Offset(1, 5))
+            BoxShadow(
+                blurRadius: 10, color: colorLightGray, offset: Offset(1, 5))
           ],
         ),
         child: Container(
@@ -1248,7 +1513,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    icon: Image.asset(AssetsImagePath.up_arrow, height: 15, width: 15),
+                    icon: Image.asset(AssetsImagePath.up_arrow,
+                        height: 15, width: 15),
                     onPressed: () {
                       setState(() {
                         isDefaultBottomDialog = true;
@@ -1259,15 +1525,15 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                 ],
               ),
               Padding(
-                padding:
-                const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                 child: Row(
                   children: <Widget>[
                     Expanded(
                       child: Row(
                         children: <Widget>[
                           Expanded(
-                            child: Text("₹${numberToString(eligibleLoanAmount.toStringAsFixed(2))}",
+                            child: Text(
+                                "₹${numberToString(eligibleLoanAmount.toStringAsFixed(2))}",
                                 style: textStyleGreenStyle_18),
                           ),
                           SizedBox(
@@ -1276,7 +1542,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                           Expanded(
                             child: Column(
                               children: [
-                                Text(Strings.eligible_loan_amount_small, style: mediumTextStyle_12_gray)
+                                Text(Strings.eligible_loan_amount_small,
+                                    style: mediumTextStyle_12_gray)
                               ],
                             ),
                           ),
@@ -1289,35 +1556,46 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                         height: 50,
                         width: 140,
                         child: Material(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(35)),
                           elevation: 1.0,
-                          color: isSchemeSelect == false ? schemeValue <= 999999999999 ? appTheme : colorLightGray : colorLightGray,
+                          color: isSchemeSelect == false
+                              ? schemeValue <= 999999999999
+                                  ? appTheme
+                                  : colorLightGray
+                              : colorLightGray,
                           child: AbsorbPointer(
                             absorbing: isSchemeSelect,
                             child: MaterialButton(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(35)),
                               minWidth: MediaQuery.of(context).size.width,
                               onPressed: () async {
-                                Utility.isNetworkConnection().then((isNetwork) async {
+                                Utility.isNetworkConnection()
+                                    .then((isNetwork) async {
                                   if (isNetwork) {
                                     Securities securities = Securities();
                                     List<SecuritiesList> schemeQtyList = [];
                                     List<SchemesList> schemesList = [];
                                     schemeQtyList.clear();
-                                    for(int i = 0; i<schemesListAfterFilter.length; i++){
-                                      if(!isAddBtnSelected[i]){
+                                    for (int i = 0;
+                                        i < schemesListAfterFilter.length;
+                                        i++) {
+                                      if (!isAddBtnSelected[i]) {
                                         schemeQtyList.add(new SecuritiesList(
-                                            isin: schemesListAfterFilter[i].isin,
-                                            quantity: double.parse(unitControllersList[i].text))
-                                        );
-                                        schemesList.add(schemesListAfterFilter[i]);
+                                            isin:
+                                                schemesListAfterFilter[i].isin,
+                                            quantity: double.parse(
+                                                unitControllersList[i].text)));
+                                        schemesList
+                                            .add(schemesListAfterFilter[i]);
                                       }
                                     }
                                     securities.list = schemeQtyList;
-                                    if(schemeValue <= 999999999999){
+                                    if (schemeValue <= 999999999999) {
                                       _handleSearchEnd();
                                       MyCartRequestBean requestBean =
-                                      MyCartRequestBean(
+                                          MyCartRequestBean(
                                         securities: securities,
                                         instrumentType: Strings.mutual_fund,
                                         schemeType: _currentMutualFundOption,
@@ -1327,18 +1605,28 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                                         loamName: "",
                                         lender: lenderList[0],
                                       );
-                                      List<SchemesList> securityList = await Navigator.push(context,
-                                          MaterialPageRoute(builder: (BuildContext context) => MF_ViewVaultDetailsViewScreen(requestBean, schemesList)));
+                                      List<SchemesList> securityList =
+                                          await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (BuildContext
+                                                          context) =>
+                                                      MF_ViewVaultDetailsViewScreen(
+                                                          requestBean,
+                                                          schemesList)));
                                       updateQuantity(securityList);
                                     } else {
-                                      commonDialog(context, Strings.scheme_validation, 0);
+                                      commonDialog(context,
+                                          Strings.scheme_validation, 0);
                                     }
                                   } else {
-                                    Utility.showToastMessage(Strings.no_internet_message);
+                                    Utility.showToastMessage(
+                                        Strings.no_internet_message);
                                   }
                                 });
                               },
-                              child: Text(Strings.view_vault, style: buttonTextWhite),
+                              child: Text(Strings.view_vault,
+                                  style: buttonTextWhite),
                             ),
                           ),
                         ),
@@ -1395,7 +1683,8 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
                         focusColor: appTheme,
                         border: InputBorder.none,
                         hintStyle: TextStyle(color: appTheme)),
-                    onChanged: (value) => mFSchemeBloc.schemeSearch(schemesListAfterFilter, value),
+                    onChanged: (value) => mFSchemeBloc.schemeSearch(
+                        schemesListAfterFilter, value),
                   );
                   searchFocusNode.requestFocus();
                 });
@@ -1423,7 +1712,6 @@ class MFSchemeSelectionScreenState extends State<MFSchemeSelectionScreen> {
   }
 }
 
-
 class DecimalTextInputFormatter extends TextInputFormatter {
   DecimalTextInputFormatter({required this.decimalRange})
       : assert(decimalRange == null || decimalRange > 0);
@@ -1432,9 +1720,9 @@ class DecimalTextInputFormatter extends TextInputFormatter {
 
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, // unused.
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue, // unused.
+    TextEditingValue newValue,
+  ) {
     TextSelection newSelection = newValue.selection;
     String truncated = newValue.text;
 
