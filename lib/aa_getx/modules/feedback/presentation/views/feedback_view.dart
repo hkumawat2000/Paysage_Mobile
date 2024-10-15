@@ -11,49 +11,52 @@ class FeedbackView extends GetView<FeedbackController>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorBg,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: ArrowToolbarBackwardNavigation(),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+    return GestureDetector(
+      onTap: () => Get.focusScope?.unfocus(),
+      child: Scaffold(
         backgroundColor: colorBg,
-        elevation: 0.0,
-        // centerTitle: true,
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: headingText("Feedback"),
-                  ),
-                ],
-              ),
-              SizedBoxHeightWidget(10.0),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text("Please give your valuable feedback"),
-                  ),
-                ],
-              ),
-              SizedBoxHeightWidget(20.0),
-              firstCheckBox(),
-              Obx(() => Visibility(visible: controller.firstCheckVisibility.value, child: firstFeedBackData())),
-              SizedBoxHeightWidget(10.0),
-              secondCheckBox(),
-              Obx(() => Visibility(visible: controller.secondCheckVisibility.value, child: secondFeedBackData())),
-              SizedBoxHeightWidget(50.0),
-              submitFeedback(),
-              SizedBoxHeightWidget(50.0),
-            ],
+        appBar: AppBar(
+          leading: IconButton(
+            icon: ArrowToolbarBackwardNavigation(),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: colorBg,
+          elevation: 0.0,
+          // centerTitle: true,
+        ),
+        body: Container(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: headingText("Feedback"),
+                    ),
+                  ],
+                ),
+                SizedBoxHeightWidget(10.0),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Text("Please give your valuable feedback"),
+                    ),
+                  ],
+                ),
+                SizedBoxHeightWidget(20.0),
+                firstCheckBox(),
+                Obx(() => Visibility(visible: controller.firstCheckVisibility.value, child: firstFeedBackData())),
+                SizedBoxHeightWidget(10.0),
+                secondCheckBox(),
+                Obx(() => Visibility(visible: controller.secondCheckVisibility.value, child: secondFeedBackData())),
+                SizedBoxHeightWidget(50.0),
+                submitFeedback(),
+                SizedBoxHeightWidget(50.0),
+              ],
+            ),
           ),
         ),
       ),
@@ -225,6 +228,7 @@ class FeedbackView extends GetView<FeedbackController>{
                       }
                     },
                     onChanged: (val){
+                      controller.commentTxt.value = controller.commentController!.text;
                       if(controller.commentController!.text.length <= 500){
                         controller.submitText = controller.commentController!.text;
                       } else {
@@ -250,7 +254,7 @@ class FeedbackView extends GetView<FeedbackController>{
         child: Material(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
           elevation: 1.0,
-          color: controller.commentTxt.value.length == 0 ? colorGrey : appTheme,
+          color: controller.commentTxt.value.isEmpty ? colorGrey : appTheme,
           child: MaterialButton(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
             minWidth: MediaQuery.of(Get.context!).size.width,

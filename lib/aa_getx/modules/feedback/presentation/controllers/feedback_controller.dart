@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
+import 'package:lms/aa_getx/core/utils/common_widgets.dart';
+import 'package:lms/aa_getx/core/utils/data_state.dart';
+import 'package:lms/aa_getx/core/utils/preferences.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
+import 'package:lms/aa_getx/modules/feedback/data/models/request/feedback_request_model.dart';
+import 'package:lms/aa_getx/modules/feedback/domain/entities/request/feedback_request_entity.dart';
+import 'package:lms/aa_getx/modules/feedback/domain/entities/response/feedback_response_entity.dart';
+import 'package:lms/aa_getx/modules/feedback/domain/usecases/feedback_usecase.dart';
 import 'package:lms/aa_getx/modules/feedback/presentation/arguments/feedback_argument.dart';
 
 import '../../../../core/constants/strings.dart';
@@ -21,6 +30,10 @@ class FeedbackController extends GetxController {
   var submitText = '';
   String main = '', doBetter = '';
 
+  final FeedbackUsecase feedbackUsecase;
+
+  FeedbackController(this.feedbackUsecase);
+
   firstCheckBoxOnChange(bool? newValue){
     if (newValue!) {
       firstCheck.value = newValue;
@@ -29,11 +42,13 @@ class FeedbackController extends GetxController {
       secondCheckVisibility.value = false;
       suggestionsVisibility.value = true;
       commentController!.text= "";
+      commentTxt.value = "";
     } else {
       firstCheck.value = newValue;
       firstCheckVisibility.value = false;
       suggestionsVisibility.value = false;
       commentController!.text = "";
+      commentTxt.value = "";
     }
   }
 
@@ -48,6 +63,7 @@ class FeedbackController extends GetxController {
       functionalityCheck.value = false;
       otherCheck.value = false;
       commentController!.text = "";
+      commentTxt.value = "";
     } else {
       secondCheck.value = newValue;
       suggestionsVisibility.value = false;
@@ -56,6 +72,7 @@ class FeedbackController extends GetxController {
       functionalityCheck.value = false;
       otherCheck.value = false;
       commentController!.text = "";
+      commentTxt.value = "";
     }
   }
 
@@ -67,10 +84,12 @@ class FeedbackController extends GetxController {
       suggestionsVisibility.value = true;
       secondCheck.value = true;
       commentController!.text = "";
+      commentTxt.value = "";
     } else {
       userExperienceCheck.value = newValue;
       suggestionsVisibility.value = false;
       commentController!.text = "";
+      commentTxt.value = "";
     }
   }
 
@@ -82,10 +101,12 @@ class FeedbackController extends GetxController {
       suggestionsVisibility.value = true;
       secondCheck.value = true;
       commentController!.text = "";
+      commentTxt.value = "";
     } else {
       functionalityCheck.value = newValue;
       suggestionsVisibility.value = false;
       commentController!.text = "";
+      commentTxt.value = "";
     }
   }
 
@@ -97,15 +118,17 @@ class FeedbackController extends GetxController {
       suggestionsVisibility.value = true;
       secondCheck.value = true;
       commentController!.text = "";
+      commentTxt.value = "";
     } else {
       otherCheck.value = newValue;
       suggestionsVisibility.value = false;
       commentController!.text = "";
+      commentTxt.value = "";
     }
   }
 
   submitFeedbackData(){
-    if(commentTxt.value.length != 0){
+    if(commentTxt.value.isNotEmpty){
       Utility.isNetworkConnection().then((isNetwork) {
         if (isNetwork) {
           if (commentTxt.value.length <= 500) {
@@ -116,10 +139,10 @@ class FeedbackController extends GetxController {
                 if (!userExperienceCheck.value && !functionalityCheck.value && !otherCheck.value) {
                   Utility.showToastMessage(Strings.atleast_one_favor);
                 } else {
-                  // sendFeedbackData();
+                  sendFeedbackData();
                 }
               } else {
-                // sendFeedbackData();
+                sendFeedbackData();
               }
             }
           } else {
@@ -132,60 +155,62 @@ class FeedbackController extends GetxController {
     }
   }
 
-  // void sendFeedbackData() async {
-  //   Preferences preferences = new Preferences();
-  //   String email = await preferences.getEmail();
-  //   String? mobile = await preferences.getMobile();
-  //   LoadingDialogWidget.showDialogLoading(context, Strings.please_wait);
-  //   FeedbackRequestBean? feedbackRequestBean;
-  //   if (feedbackArgument.comeFrom == Strings.more_menu) {
-  //     feedbackRequestBean = new FeedbackRequestBean(
-  //         doNotShowAgain: widget.doNotShowAgain,
-  //         bullsEye: firstCheck ? 1 : 0,
-  //         canDoBetter: secondCheck ? 1 : 0,
-  //         relatedToUserExperience: userExperienceCheck ? 1 : 0,
-  //         relatedToFunctionality: functionalityCheck ? 1 : 0,
-  //         others: otherCheck ? 1 : 0,
-  //         comment: commentController!.text.toString().trim(),
-  //         fromMoreMenu: 1
-  //     );
-  //   } else if(feedbackArgument.comeFrom == Strings.pop_up){
-  //     feedbackRequestBean = new FeedbackRequestBean(
-  //         doNotShowAgain: widget.doNotShowAgain,
-  //         bullsEye: firstCheck ? 1 : 0,
-  //         canDoBetter: secondCheck ? 1 : 0,
-  //         relatedToUserExperience: userExperienceCheck ? 1 : 0,
-  //         relatedToFunctionality: functionalityCheck ? 1 : 0,
-  //         others: otherCheck ? 1 : 0,
-  //         comment: commentController!.text.toString().trim(),
-  //         fromMoreMenu: 0
-  //     );
-  //   }
-  //   feedbackBloc.submitFeedback(feedbackRequestBean!).then((value) {
-  //     Navigator.pop(context);
-  //     if (value.isSuccessFull!) {
-  //       // Firebase Event
-  //       Map<String, dynamic> parameter = new Map<String, dynamic>();
-  //       parameter[Strings.do_not_show_again_prm] = feedbackRequestBean!.doNotShowAgain;
-  //       parameter[Strings.bulls_eye] = feedbackRequestBean.bullsEye;
-  //       parameter[Strings.can_do_better] = feedbackRequestBean.canDoBetter;
-  //       parameter[Strings.related_to_user_experience] = feedbackRequestBean.relatedToUserExperience;
-  //       parameter[Strings.related_to_functionality] = feedbackRequestBean.relatedToFunctionality;
-  //       parameter[Strings.others] = feedbackRequestBean.others;
-  //       parameter[Strings.message] = feedbackRequestBean.comment;
-  //       parameter[Strings.from_more_menu] = feedbackRequestBean.fromMoreMenu;
-  //       parameter[Strings.mobile_no] = mobile;
-  //       parameter[Strings.email] = email;
-  //       parameter[Strings.date_time] = getCurrentDateAndTime();
-  //       firebaseEvent(Strings.feedback_submit, parameter);
-  //
-  //       Utility.showToastMessage(value.message!);
-  //       Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
-  //     } else if (value.errorCode == 403) {
-  //       commonDialog(context, Strings.session_timeout, 4);
-  //     } else {
-  //       Utility.showToastMessage(value.errorMessage!);
-  //     }
-  //   });
-  // }
+  void sendFeedbackData() async {
+    Preferences preferences = new Preferences();
+    String email = await preferences.getEmail();
+    String? mobile = await preferences.getMobile();
+    showDialogLoading(Strings.please_wait);
+    FeedbackRequestEntity? feedbackRequestEntity;
+    if (feedbackArgument.comeFrom == Strings.more_menu) {
+      feedbackRequestEntity = FeedbackRequestEntity(
+          doNotShowAgain: feedbackArgument.doNotShowAgain,
+          bullsEye: firstCheck.value ? 1 : 0,
+          canDoBetter: secondCheck.value ? 1 : 0,
+          relatedToUserExperience: userExperienceCheck.value ? 1 : 0,
+          relatedToFunctionality: functionalityCheck.value ? 1 : 0,
+          others: otherCheck.value ? 1 : 0,
+          comment: commentController!.text.toString().trim(),
+          fromMoreMenu: 1
+      );
+    } else if(feedbackArgument.comeFrom == Strings.pop_up){
+      feedbackRequestEntity = FeedbackRequestEntity(
+          doNotShowAgain: feedbackArgument.doNotShowAgain,
+          bullsEye: firstCheck.value ? 1 : 0,
+          canDoBetter: secondCheck.value ? 1 : 0,
+          relatedToUserExperience: userExperienceCheck.value ? 1 : 0,
+          relatedToFunctionality: functionalityCheck.value ? 1 : 0,
+          others: otherCheck.value ? 1 : 0,
+          comment: commentController!.text.toString().trim(),
+          fromMoreMenu: 0
+      );
+    }
+
+    DataState<FeedbackResponseEntity> response =
+    await feedbackUsecase.call(FeedbackParams(feedbackRequestEntity: feedbackRequestEntity!));
+    Get.back();
+    if (response is DataSuccess) {
+      // Firebase Event
+      Map<String, dynamic> parameter = new Map<String, dynamic>();
+      parameter[Strings.do_not_show_again_prm] = feedbackRequestEntity.doNotShowAgain;
+      parameter[Strings.bulls_eye] = feedbackRequestEntity.bullsEye;
+      parameter[Strings.can_do_better] = feedbackRequestEntity.canDoBetter;
+      parameter[Strings.related_to_user_experience] = feedbackRequestEntity.relatedToUserExperience;
+      parameter[Strings.related_to_functionality] = feedbackRequestEntity.relatedToFunctionality;
+      parameter[Strings.others] = feedbackRequestEntity.others;
+      parameter[Strings.message] = feedbackRequestEntity.comment;
+      parameter[Strings.from_more_menu] = feedbackRequestEntity.fromMoreMenu;
+      parameter[Strings.mobile_no] = mobile;
+      parameter[Strings.email] = email;
+      parameter[Strings.date_time] = getCurrentDateAndTime();
+      firebaseEvent(Strings.feedback_submit, parameter);
+
+      Utility.showToastMessage(response.data!.message!);
+      Get.offAllNamed(dashboardView, arguments: DashboardArguments(
+        isFromPinScreen: false,
+        selectedIndex: 0,
+      ));
+    } else if (response is DataFailed) {
+      Utility.showToastMessage(response.error!.message);
+    }
+  }
 }
