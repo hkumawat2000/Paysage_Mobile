@@ -11,6 +11,7 @@ import 'package:lms/aa_getx/core/utils/preferences.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/entities/demat_account_response_entity.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/usecases/get_demat_account_details_usecase.dart';
+import 'package:lms/approved_securities/ApprovedSecuritiesScreen.dart';
 
 class ApprovedSharesController extends GetxController {
   final ConnectionInfo connectionInfo;

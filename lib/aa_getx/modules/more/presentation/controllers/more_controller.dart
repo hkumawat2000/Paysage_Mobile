@@ -8,6 +8,7 @@ import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/arguments/loan_statement_arguments.dart';
+import 'package:lms/aa_getx/modules/feedback/presentation/arguments/feedback_argument.dart';
 import 'package:lms/aa_getx/modules/login/presentation/arguments/pin_screen_arguments.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/get_profile_set_alert_response_entity.dart';
 import 'package:lms/aa_getx/modules/more/domain/entities/loan_details_response_entity.dart';
@@ -21,6 +22,7 @@ import 'package:lms/aa_getx/modules/more/presentation/views/more_view.dart';
 import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/mf_invoke_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
+import 'package:lms/aa_getx/modules/webview/presentation/arguments/common_webview_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 
 class MoreController extends GetxController{
@@ -166,13 +168,12 @@ class MoreController extends GetxController{
   void manageSettingsClicked()  {
     Utility.isNetworkConnection().then((isNetwork) async {
       if (isNetwork) {
-        ///todo: change following code after AccountSettingScreen screen completed
-        // final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => AccountSettingScreen()));
-        // if(result != null) {
-        //   if (profilePhotoUrl.isEmpty) {
-        //     getLastLogInDetails();
-        //   }
-        // }
+        final result = await Get.toNamed(accountSettingsView);
+        if(result != null) {
+          if (profilePhotoUrl.isEmpty) {
+            getLastLogInDetails();
+          }
+        }
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
@@ -410,16 +411,12 @@ class MoreController extends GetxController{
   void feedbackClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: change following code after NewFeedbackScreen screen completed
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             NewFeedbackScreen(
-        //                 Strings.more_menu, 0)));
+        Get.toNamed(feedbackView, arguments: FeedbackArgument(
+          comeFrom: Strings.more_menu,
+          doNotShowAgain: 0,
+        ));
       } else {
-        Utility.showToastMessage(
-            Strings.no_internet_message);
+        Utility.showToastMessage(Strings.no_internet_message);
       }
     });
   }
@@ -427,15 +424,9 @@ class MoreController extends GetxController{
   void contactUsClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: change following code after ContactUsScreen screen completed
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             ContactUsScreen()));
+        Get.toNamed(contactUsView);
       } else {
-        Utility.showToastMessage(
-            Strings.no_internet_message);
+        Utility.showToastMessage(Strings.no_internet_message);
       }
     });
   }
@@ -443,7 +434,10 @@ class MoreController extends GetxController{
   void fAQClicked() {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        ///todo: change following code after CommonWebViewScreen screen completed
+        Get.toNamed(commonWebview, arguments: CommonWebviewArguments(
+          redirectionNumber: 1,
+          title: "Help / FAQs"
+        ));
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(

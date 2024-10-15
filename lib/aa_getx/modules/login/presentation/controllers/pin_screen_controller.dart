@@ -66,6 +66,7 @@ class PinScreenController extends GetxController {
     versionName(await Utility.getVersionInfo());
     doesEmailExist(await _preferences.getEmail());
     doesTokenExist(await _preferences.getToken());
+    enterPin = await _preferences.getPin();
     doesFirebaseTokenExist(await _preferences.getFirebaseToken());
     savePin(await _preferences.getPin());
     mobileNumber(await _preferences.getMobile());
@@ -98,7 +99,7 @@ class PinScreenController extends GetxController {
         currentSavedPin(await _preferences.getPin());
         SchedulerBinding.instance.addPostFrameCallback((_) {
           //TODO Add Loading Indicator
-          refreshFirebaseToken(enterPin!, Strings.pin);
+          refreshFirebaseToken(savePin.value, Strings.pin);
         });
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
