@@ -12,12 +12,12 @@ class TermsAndConditionsWebviewController extends GetxController{
   String? url;
   String? isComingFor;
   PDFDocument? pdfDocument;
+  RxBool isLoading = true.obs;
   final TermsAndConditionsWebViewArguments termsAndConditionsWebViewArguments = Get.arguments;
 
 
   @override
   void onInit() {
-    // TODO: implement onInit
     checkNetwork();
     url = termsAndConditionsWebViewArguments.url;
     isComingFor = termsAndConditionsWebViewArguments.isComingFor;
@@ -29,11 +29,8 @@ class TermsAndConditionsWebviewController extends GetxController{
   void checkNetwork()async {
     if(await _connectionInfo.isConnected){
       privacyUrl = await _preferences.getPrivacyPolicyUrl();
-      print("---> $isComingFor");
-      //TODO to get T&C arguments
       pdfDocument = await PDFDocument.fromURL(termsAndConditionsWebViewArguments.isForPrivacyPolicy! ? privacyUrl! :termsAndConditionsWebViewArguments.url!);
-      print("---> $pdfDocument");
-
+      isLoading.value = false;
     }
   }
 
