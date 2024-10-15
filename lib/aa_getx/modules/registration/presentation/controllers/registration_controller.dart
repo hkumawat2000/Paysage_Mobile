@@ -90,18 +90,18 @@ class RegistrationController extends GetxController {
     referCodeController = TextEditingController();
     emailFacebookController = TextEditingController();
 
-    focusNode.addListener(() {
-      if (Platform.isAndroid) {
-        if (focusNode.hasFocus) {
-          this.overlayEntry!.value = this.createOverlayEntry();
-          Overlay.of(Get.context!).insert(this.overlayEntry!.value);
-        } else {
-          if (overlayEntry == null && this.overlayEntry!.value.mounted) {
-            this.overlayEntry!.value.remove();
-          }
-        }
-      }
-    });
+    // focusNode.addListener(() {
+    //   if (Platform.isAndroid) {
+    //     if (focusNode.hasFocus) {
+    //       this.overlayEntry!.value = this.createOverlayEntry();
+    //       Overlay.of(Get.context!).insert(this.overlayEntry!.value);
+    //     } else {
+    //       if (overlayEntry == null && this.overlayEntry!.value.mounted) {
+    //         this.overlayEntry!.value.remove();
+    //       }
+    //     }
+    //   }
+    // });
     super.onInit();
   }
 
@@ -650,16 +650,16 @@ class RegistrationController extends GetxController {
   }
 
   void emailOnChanged(String val) {
-    if (Platform.isAndroid) {
-      if (val.length == 0) {
-        if (focusNode.hasFocus) {
-          overlayEntry!.value = createOverlayEntry();
-          Overlay.of(Get.context!).insert(overlayEntry!.value);
-        }
-      } else {
-        if (overlayEntry!.value.mounted) overlayEntry!.value.remove();
-      }
-    }
+    // if (Platform.isAndroid) {
+    //   if (val.length == 0) {
+    //     if (focusNode.hasFocus) {
+    //       overlayEntry!.value = createOverlayEntry();
+    //       Overlay.of(Get.context!).insert(overlayEntry!.value);
+    //     }
+    //   } else {
+    //     if (overlayEntry!.value.mounted) overlayEntry!.value.remove();
+    //   }
+    // }
   }
 
   Future<void> privacyPolicyClicked() async {

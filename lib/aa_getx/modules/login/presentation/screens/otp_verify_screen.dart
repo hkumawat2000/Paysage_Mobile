@@ -267,12 +267,10 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
                 SizedBox(
                   height: 30,
                 ),
-                Obx(
-                      ()=> Row(
+                Obx(()=> Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("${otpVerificationController.isResendOTPClickable.value}"),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: AbsorbPointer(
@@ -322,7 +320,6 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
                           ),
                         ),
                       ),
-
                       Obx(()=> _timerAndRetrySection()),
                     ],
                   ),
@@ -351,7 +348,7 @@ class _OTPVerificationViewState extends State<OTPVerificationView>
               // retryAvailable
               //     ?
               Text(
-                '${otpVerificationController.start.value}',
+                '${otpVerificationController.timerString}',
                 style: TextStyle(
                   color: red,
                   fontSize: 16.0,
