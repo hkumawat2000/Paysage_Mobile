@@ -166,7 +166,7 @@ class Strings {
   static const String set_biometric = 'Set Biometric Lock';
   static const String biometric = 'Biometric Lock';
   static const String set_face_id = 'Please Set Face ID';
-  static const String get_lms = 'You Got LMS! ';
+  static const String get_lms = 'You Got Paysage!';
   static const String get_instant_loan = 'Get Loan against Securities!';
   static const String steps_to_complete_process =
       '4 easy steps to complete your loan process';
