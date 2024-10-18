@@ -79,7 +79,7 @@ class RegistrationController extends GetxController {
   void onInit() {
     preferences = new Preferences();
     getVersionInfo();
-    _getEmails();
+    // _getEmails();
     getPrefereceData();
     firstNameController = TextEditingController();
     lastNameController = TextEditingController();
@@ -90,18 +90,18 @@ class RegistrationController extends GetxController {
     referCodeController = TextEditingController();
     emailFacebookController = TextEditingController();
 
-    focusNode.addListener(() {
-      if (Platform.isAndroid) {
-        if (focusNode.hasFocus) {
-          this.overlayEntry!.value = this.createOverlayEntry();
-          Overlay.of(Get.context!).insert(this.overlayEntry!.value);
-        } else {
-          if (overlayEntry == null && this.overlayEntry!.value.mounted) {
-            this.overlayEntry!.value.remove();
-          }
-        }
-      }
-    });
+    // focusNode.addListener(() {
+    //   if (Platform.isAndroid) {
+    //     if (focusNode.hasFocus) {
+    //       this.overlayEntry!.value = this.createOverlayEntry();
+    //       Overlay.of(Get.context!).insert(this.overlayEntry!.value);
+    //     } else {
+    //       if (overlayEntry == null && this.overlayEntry!.value.mounted) {
+    //         this.overlayEntry!.value.remove();
+    //       }
+    //     }
+    //   }
+    // });
     super.onInit();
   }
 
@@ -114,28 +114,28 @@ class RegistrationController extends GetxController {
     platformName?.value = Platform.operatingSystem;
   }
 
-  Future<void> _getEmails() async {
-    emailDialogConsent = await preferences!.getEmailDialogConsent();
-    if (Platform.isAndroid) {
-      if (emailDialogConsent == false) {
-        permissionDialog();
-      } else {
-        var status = await Permission.contacts.request();
-        if (status.isRestricted) {
-          await Permission.contacts.request();
-        }
-        try {
-          var list = await platform.invokeMethod('getEmailList');
-          if (list != null) {
-            debugPrint("getEmailList::$list");
-            emailList = list;
-          }
-        } on PlatformException catch (e) {
-          debugPrint(e.message);
-        }
-      }
-    }
-  }
+  // Future<void> _getEmails() async {
+  //   emailDialogConsent = await preferences!.getEmailDialogConsent();
+  //   if (Platform.isAndroid) {
+  //     if (emailDialogConsent == false) {
+  //       permissionDialog();
+  //     } else {
+  //       var status = await Permission.contacts.request();
+  //       if (status.isRestricted) {
+  //         await Permission.contacts.request();
+  //       }
+  //       try {
+  //         var list = await platform.invokeMethod('getEmailList');
+  //         if (list != null) {
+  //           debugPrint("getEmailList::$list");
+  //           emailList = list;
+  //         }
+  //       } on PlatformException catch (e) {
+  //         debugPrint(e.message);
+  //       }
+  //     }
+  //   }
+  // }
 
   OverlayEntry createOverlayEntry() {
     RenderBox? renderBox = Get.context!.findRenderObject() as RenderBox;
@@ -426,23 +426,23 @@ class RegistrationController extends GetxController {
   }
 
   Future getEmailList() async {
-    if (Platform.isAndroid) {
-      // if(emailConsent != null){
-      var status = await Permission.contacts.request();
-      if (status.isRestricted) {
-        await Permission.contacts.request();
-      }
-      try {
-        var list = await platform.invokeMethod('getEmailList');
-        if (list != null) {
-          debugPrint("getEmailList::$list");
-          emailList = list;
-        }
-      } on PlatformException catch (e) {
-        debugPrint(e.message);
-      }
-      // }
-    }
+    // if (Platform.isAndroid) {
+    //   // if(emailConsent != null){
+    //   var status = await Permission.contacts.request();
+    //   if (status.isRestricted) {
+    //     await Permission.contacts.request();
+    //   }
+    //   try {
+    //     var list = await platform.invokeMethod('getEmailList');
+    //     if (list != null) {
+    //       debugPrint("getEmailList::$list");
+    //       emailList = list;
+    //     }
+    //   } on PlatformException catch (e) {
+    //     debugPrint(e.message);
+    //   }
+    //   // }
+    // }
   }
 
   Future<String> loginOrSigninWithGoogle() async {
@@ -631,35 +631,35 @@ class RegistrationController extends GetxController {
     return true;
   }
 
-  void removeOverlay() {
+  // void removeOverlay() {
     //FocusScope.of(context).unfocus();
-    Get.focusScope!.unfocus();
-    if (focusNode.hasFocus && overlayEntry!.value.mounted) {
-      overlayEntry!.value.remove();
-    }
-  }
+    // Get.focusScope!.unfocus();
+    // if (focusNode.hasFocus && overlayEntry!.value.mounted) {
+    //   overlayEntry!.value.remove();
+    // }
+  // }
 
   Future googleSignClicked() async {
     Get.focusScope!.unfocus();
     loginWithGoogle();
-    if (Platform.isAndroid) {
-      if (focusNode.hasFocus && overlayEntry!.value.mounted) {
-        overlayEntry!.value.remove();
-      }
-    }
+    // if (Platform.isAndroid) {
+    //   if (focusNode.hasFocus && overlayEntry!.value.mounted) {
+    //     overlayEntry!.value.remove();
+    //   }
+    // }
   }
 
   void emailOnChanged(String val) {
-    if (Platform.isAndroid) {
-      if (val.length == 0) {
-        if (focusNode.hasFocus) {
-          overlayEntry!.value = createOverlayEntry();
-          Overlay.of(Get.context!).insert(overlayEntry!.value);
-        }
-      } else {
-        if (overlayEntry!.value.mounted) overlayEntry!.value.remove();
-      }
-    }
+    // if (Platform.isAndroid) {
+    //   if (val.length == 0) {
+    //     if (focusNode.hasFocus) {
+    //       overlayEntry!.value = createOverlayEntry();
+    //       Overlay.of(Get.context!).insert(overlayEntry!.value);
+    //     }
+    //   } else {
+    //     if (overlayEntry!.value.mounted) overlayEntry!.value.remove();
+    //   }
+    // }
   }
 
   Future<void> privacyPolicyClicked() async {
@@ -667,10 +667,6 @@ class RegistrationController extends GetxController {
       if (isNetwork) {
         String privacyPolicyUrl = await preferences!.getPrivacyPolicyUrl();
         debugPrint("privacyPolicyUrl ==> $privacyPolicyUrl");
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => TermsConditionWebView("", true, Strings.terms_privacy)));
         Get.toNamed(
           termsAndConditionsWebView,
           arguments: TermsAndConditionsWebViewArguments(
@@ -685,130 +681,130 @@ class RegistrationController extends GetxController {
     });
   }
 
-  Future denyClicked() async {
-    Utility.isNetworkConnection().then((isNetwork) {
-      if (isNetwork) {
-        Get.back();
-      } else {
-        Utility.showToastMessage(Strings.no_internet_message);
-      }
-    });
-  }
+  // Future denyClicked() async {
+  //   Utility.isNetworkConnection().then((isNetwork) {
+  //     if (isNetwork) {
+  //       Get.back();
+  //     } else {
+  //       Utility.showToastMessage(Strings.no_internet_message);
+  //     }
+  //   });
+  // }
 
-  Future allowClicked() async {
-    Utility.isNetworkConnection().then((isNetwork) async {
-      if (isNetwork) {
-        Get.back();
-        preferences!.setEmailDialogConsent(true);
+  // Future allowClicked() async {
+  //   Utility.isNetworkConnection().then((isNetwork) async {
+  //     if (isNetwork) {
+  //       Get.back();
+  //       preferences!.setEmailDialogConsent(true);
+  //
+  //       var status = await Permission.contacts.request();
+  //       if (status.isRestricted) {
+  //         await Permission.contacts.request();
+  //       }
+  //       try {
+  //         var list = await platform.invokeMethod('getEmailList');
+  //         if (list != null) {
+  //           debugPrint("getEmailList::$list");
+  //           emailList = list;
+  //         }
+  //       } on PlatformException catch (e) {
+  //         debugPrint(e.message);
+  //       }
+  //     } else {
+  //       Utility.showToastMessage(Strings.no_internet_message);
+  //     }
+  //   });
+  // }
 
-        var status = await Permission.contacts.request();
-        if (status.isRestricted) {
-          await Permission.contacts.request();
-        }
-        try {
-          var list = await platform.invokeMethod('getEmailList');
-          if (list != null) {
-            debugPrint("getEmailList::$list");
-            emailList = list;
-          }
-        } on PlatformException catch (e) {
-          debugPrint(e.message);
-        }
-      } else {
-        Utility.showToastMessage(Strings.no_internet_message);
-      }
-    });
-  }
-
-  Future<bool> permissionDialog() async {
-    return await Get.dialog(
-            barrierDismissible: false,
-            AlertDialog(
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
-              title: Text("Account Access", style: boldTextStyle_16),
-              content: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                              text:
-                                  'Why is LMS asking for Get Account Access?\n\nThis will help us to locate YOU in the contact for easy registration and gather some generic information about the device.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',
-                              style: regularTextStyle_12_gray_dark),
-                          TextSpan(
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => privacyPolicyClicked(),
-                              text: "Privacy Policy.",
-                              style: boldTextStyle_12_gray_dark.copyWith(
-                                  color: Colors.lightBlue)),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 40,
-                            // width: 100,
-                            child: Material(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(35),
-                                  side: BorderSide(color: red)),
-                              elevation: 1.0,
-                              color: colorWhite,
-                              child: MaterialButton(
-                                minWidth: Get.width,
-                                onPressed: () => denyClicked(),
-                                child: Text(
-                                  "Deny",
-                                  style: buttonTextRed,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 40,
-                            // width: 100,
-                            child: Material(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(35)),
-                              elevation: 1.0,
-                              color: appTheme,
-                              child: MaterialButton(
-                                minWidth: Get.width,
-                                onPressed: () => allowClicked(),
-                                child: Text(
-                                  "Allow",
-                                  style: buttonTextWhite,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            )) ??
-        false;
-  }
+  // Future<bool> permissionDialog() async {
+  //   return await Get.dialog(
+  //           barrierDismissible: false,
+  //           AlertDialog(
+  //             backgroundColor: Colors.white,
+  //             shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.all(Radius.circular(15.0))),
+  //             title: Text("Account Access", style: boldTextStyle_16),
+  //             content: Container(
+  //               child: Column(
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 mainAxisSize: MainAxisSize.min,
+  //                 children: <Widget>[
+  //                   RichText(
+  //                     text: TextSpan(
+  //                       children: <TextSpan>[
+  //                         TextSpan(
+  //                             text:
+  //                                 'Why is LMS asking for Get Account Access?\n\nThis will help us to locate YOU in the contact for easy registration and gather some generic information about the device.\n\nPermission can be changed at anytime from the device setting.\n\nIn case of any doubts, please visit our ',
+  //                             style: regularTextStyle_12_gray_dark),
+  //                         TextSpan(
+  //                             recognizer: TapGestureRecognizer()
+  //                               ..onTap = () => privacyPolicyClicked(),
+  //                             text: "Privacy Policy.",
+  //                             style: boldTextStyle_12_gray_dark.copyWith(
+  //                                 color: Colors.lightBlue)),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: 20,
+  //                   ),
+  //                   Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.center,
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       Expanded(
+  //                         child: Container(
+  //                           height: 40,
+  //                           // width: 100,
+  //                           child: Material(
+  //                             shape: RoundedRectangleBorder(
+  //                                 borderRadius: BorderRadius.circular(35),
+  //                                 side: BorderSide(color: red)),
+  //                             elevation: 1.0,
+  //                             color: colorWhite,
+  //                             child: MaterialButton(
+  //                               minWidth: Get.width,
+  //                               onPressed: () => denyClicked(),
+  //                               child: Text(
+  //                                 "Deny",
+  //                                 style: buttonTextRed,
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       SizedBox(
+  //                         width: 5,
+  //                       ),
+  //                       Expanded(
+  //                         child: Container(
+  //                           height: 40,
+  //                           // width: 100,
+  //                           child: Material(
+  //                             shape: RoundedRectangleBorder(
+  //                                 borderRadius: BorderRadius.circular(35)),
+  //                             elevation: 1.0,
+  //                             color: appTheme,
+  //                             child: MaterialButton(
+  //                               minWidth: Get.width,
+  //                               onPressed: () => allowClicked(),
+  //                               child: Text(
+  //                                 "Allow",
+  //                                 style: buttonTextWhite,
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   )
+  //                 ],
+  //               ),
+  //             ),
+  //           )) ??
+  //       false;
+  // }
 }
 
 // class RegistrationArguments {
