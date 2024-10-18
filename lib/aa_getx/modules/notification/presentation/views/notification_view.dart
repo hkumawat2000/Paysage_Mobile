@@ -27,139 +27,139 @@ class NotificationView extends GetView<NotificationController> {
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  headingText("Notifications"),
-                  controller.isResponsed.isTrue
-                      ? controller.notificationList.length == 0
-                          ? SizedBox()
-                          : GestureDetector(
-                              child: Text(Strings.clear_all,
-                                  style: kSecurityLiteStyle.copyWith(
-                                      fontSize: 15.0)),
-                              onTap: () => controller.clearAllClicked(),
-                            )
-                      : SizedBox(),
-                ],
-              ),
-              SizedBox(height: 14),
-              Obx(
-                () => controller.isResponsed.isFalse
+          child: Obx(
+            () => Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    headingText("Notifications"),
+                    controller.isResponsed.isTrue
+                        ? controller.notificationList.length == 0
+                            ? SizedBox()
+                            : GestureDetector(
+                                child: Text(Strings.clear_all,
+                                    style: kSecurityLiteStyle.copyWith(
+                                        fontSize: 15.0)),
+                                onTap: () => controller.clearAllClicked(),
+                              )
+                        : SizedBox(),
+                  ],
+                ),
+                SizedBox(height: 14),
+                controller.isResponsed.isFalse
                     ? Expanded(child: Center(child: Text(Strings.please_wait)))
                     : controller.notificationList.length == 0
-                        ? Expanded(
-                            child: Center(
-                                child: Text(Strings.noNotificationFoundString)))
-                        : Expanded(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: controller.notificationList.length,
-                              physics: BouncingScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Dismissible(
-                                  key: UniqueKey(),
-                                  onDismissed: (direction) {
-                                    controller.onDismissClicked(
-                                        controller.notificationList[index]);
-                                  },
-                                  confirmDismiss:
-                                      (DismissDirection direction) async {
-                                    final confirmed =
-                                    await Get.dialog<bool>(AlertDialog(
-                                      title: const Text('Are you sure you want to delete?'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Get.back(result: false),
-                                          child: const Text('No'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Get.back(result: true);
-                                            controller.onDismissClicked(
-                                                controller
-                                                    .notificationList[index]);
-                                          },
-                                          child: const Text('Yes'),
-                                        )
-                                      ],
-                                    ));
-                                    return confirmed;
-                                  },
-                                  // endActionPane: ActionPane(
-                                  //   motion: const ScrollMotion(),
-                                  //   extentRatio: 0.001,
-                                  //   openThreshold: 0.5,
-                                  //   dismissible: DismissiblePane(onDismissed: ()=> controller.onDismissClicked(controller.notificationList[index])),
-                                  //   children: [
-                                  //     SlidableAction(
-                                  //       autoClose: true,
-                                  //       backgroundColor: Colors.transparent,
-                                  //       foregroundColor: red,
-                                  //       icon: Icons.delete,
-                                  //       onPressed: (BuildContext context) => null,
-                                  //     ),
-                                  //   ],
-                                  // ),
-                                  background: Container(
-                                    color: Colors.transparent,
-                                    alignment: Alignment.center,
-                                    padding: const EdgeInsets.only(right: 16.0),
-                                    child: const Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                  child: notificationTile(
-                                      index,
-                                      controller.notificationList[index].title,
-                                      controller.notificationList[index].message,
-                                      controller.notificationList[index].time,
-                                      controller.notificationList[index]
-                                                  .notificationType ==
-                                              "Success"
-                                          ? Image.asset(
-                                              AssetsImagePath
-                                                  .success_notification,
-                                              height: 36,
-                                              width: 36)
-                                          : Image.asset(
-                                              AssetsImagePath
-                                                  .warning_notification,
-                                              height: 36,
-                                              width: 36),
-                                      controller.notificationList[index].name,
-                                      controller.notificationList[index].isRead,
+                    ? Expanded(
+                    child: Center(
+                        child: Text(Strings.noNotificationFoundString)))
+                    : Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.notificationList.length,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Dismissible(
+                        key: UniqueKey(),
+                        onDismissed: (direction) {
+                          controller.onDismissClicked(
+                              controller.notificationList[index]);
+                        },
+                        confirmDismiss:
+                            (DismissDirection direction) async {
+                          final confirmed =
+                          await Get.dialog<bool>(AlertDialog(
+                            title: const Text('Are you sure you want to delete?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Get.back(result: false),
+                                child: const Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Get.back(result: true);
+                                  controller.onDismissClicked(
                                       controller
-                                          .notificationList[index].isCleared,
-                                      controller
-                                          .notificationList[index].screenToOpen,
-                                      controller.notificationList[index].loan),
-                                  // secondaryActions: [
-                                  //   IconSlideAction(
-                                  //     color: Colors.transparent,
-                                  //     closeOnTap: true,
-                                  //     iconWidget: Image.asset(AssetsImagePath.delete_notification, height: 40, width: 40),
-                                  //     onTap: () {
-                                  //       Utility.isNetworkConnection().then((isNetwork) async {
-                                  //         if (isNetwork) {
-                                  //           deleteDialog(context, notificationList[index].name!, Strings.delete);
-                                  //         } else {
-                                  //           Utility.showToastMessage(Strings.no_internet_message);
-                                  //         }
-                                  //       });
-                                  //     },
-                                  //   )
-                                  // ],
-                                );
-                              },
-                            ),
+                                          .notificationList[index]);
+                                },
+                                child: const Text('Yes'),
+                              )
+                            ],
+                          ));
+                          return confirmed;
+                        },
+                        // endActionPane: ActionPane(
+                        //   motion: const ScrollMotion(),
+                        //   extentRatio: 0.001,
+                        //   openThreshold: 0.5,
+                        //   dismissible: DismissiblePane(onDismissed: ()=> controller.onDismissClicked(controller.notificationList[index])),
+                        //   children: [
+                        //     SlidableAction(
+                        //       autoClose: true,
+                        //       backgroundColor: Colors.transparent,
+                        //       foregroundColor: red,
+                        //       icon: Icons.delete,
+                        //       onPressed: (BuildContext context) => null,
+                        //     ),
+                        //   ],
+                        // ),
+                        background: Container(
+                          color: Colors.transparent,
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
                           ),
-              ),
-            ],
+                        ),
+                        child: notificationTile(
+                            index,
+                            controller.notificationList[index].title,
+                            controller.notificationList[index].message,
+                            controller.notificationList[index].time,
+                            controller.notificationList[index]
+                                .notificationType ==
+                                "Success"
+                                ? Image.asset(
+                                AssetsImagePath
+                                    .success_notification,
+                                height: 36,
+                                width: 36)
+                                : Image.asset(
+                                AssetsImagePath
+                                    .warning_notification,
+                                height: 36,
+                                width: 36),
+                            controller.notificationList[index].name,
+                            controller.notificationList[index].isRead,
+                            controller
+                                .notificationList[index].isCleared,
+                            controller
+                                .notificationList[index].screenToOpen,
+                            controller.notificationList[index].loan),
+                        // secondaryActions: [
+                        //   IconSlideAction(
+                        //     color: Colors.transparent,
+                        //     closeOnTap: true,
+                        //     iconWidget: Image.asset(AssetsImagePath.delete_notification, height: 40, width: 40),
+                        //     onTap: () {
+                        //       Utility.isNetworkConnection().then((isNetwork) async {
+                        //         if (isNetwork) {
+                        //           deleteDialog(context, notificationList[index].name!, Strings.delete);
+                        //         } else {
+                        //           Utility.showToastMessage(Strings.no_internet_message);
+                        //         }
+                        //       });
+                        //     },
+                        //   )
+                        // ],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
