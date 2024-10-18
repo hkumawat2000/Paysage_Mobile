@@ -389,11 +389,11 @@ List<GetPage> routes = [
     page: () => RiskProfileView(),
     binding: RiskProfileBinding(),
   ),
-  GetPage(
-    name: '/$sellCollateralView',
-    page: () => SellCollateralView(),
-    binding: SellCollateralBinding(),
-  ),
+  // GetPage(
+  //   name: '/$sellCollateralView',
+  //   page: () => SellCollateralView(),
+  //   binding: SellCollateralBinding(),
+  // ),
   GetPage(
     name: '/$sellCollateralSuccessView',
     page: () => SellCollateralSuccessView(),
@@ -427,11 +427,11 @@ List<GetPage> routes = [
   //   name: '/$unpledgeSuccessfulView',
   //   page: () => UnpledgeSuccessfulView(),
   // ),
-  // GetPage(
-  //   name: '/$unpledgeSharesView',
-  //   page: () => UnpledgeSharesView(),
-  //   binding: UnpledgeSharesBinding(),
-  // ),
+  GetPage(
+    name: '/$unpledgeSharesView',
+    page: () => UnpledgeSharesView(),
+    binding: UnpledgeSharesBinding(),
+  ),
 //PLedge MF Scheme Selection
   GetPage(
     name: '/$pledgeMfSchemeSelection',
