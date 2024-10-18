@@ -18,6 +18,8 @@ import 'package:lms/aa_getx/modules/notification/domain/usecases/get_notificatio
 import 'package:lms/aa_getx/modules/notification/presentation/views/notification_view.dart';
 import 'package:lms/notification/NotificationBloc.dart';
 
+import '../../data/models/notification_response_model.dart';
+
 class NotificationController extends GetxController {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final notificationBloc = NotificationBloc();
@@ -171,6 +173,7 @@ class NotificationController extends GetxController {
     if (await _connectionInfo.isConnected) {
       DataState<NotificationResponseEntity> response =
           await _getNotificationsUseCase.call();
+      isResponsed.value = true;
       if (response is DataSuccess) {
         if (response.data != null) {
           if (response.data!.notificationData != null &&
@@ -179,7 +182,6 @@ class NotificationController extends GetxController {
             notificationList.removeWhere((element) => element.isCleared == 1);
           }
         }
-        isResponsed.value = true;
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {
           commonDialog(Strings.session_timeout, 4);
@@ -191,12 +193,11 @@ class NotificationController extends GetxController {
       Utility.showToastMessage(Strings.no_internet_message);
     }
 
-    /* notificationList.value.add(NotificationData(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
-    notificationList.value.add(NotificationData(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
-    notificationList.value.add(NotificationData(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
-    notificationList.value.add(NotificationData(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
-    notificationList.value.add(NotificationData(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
-*/
+    /*notificationList.add(NotificationDataEntity(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
+    notificationList.add(NotificationDataEntity(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
+    notificationList.add(NotificationDataEntity(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
+    notificationList.add(NotificationDataEntity(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));
+    notificationList.add(NotificationDataEntity(message: "New Message 1",name: "new message", title: "new message", clickAction: "sgjf", isCleared: 0,isRead: 0, loan: "gvj",loanCustomer: "jgj",notificationId: "111",notificationType: "hhhh", screenToOpen: "hj", time: "gfh"));*/
   }
 
   //On click of notification redirect user to particular screen
