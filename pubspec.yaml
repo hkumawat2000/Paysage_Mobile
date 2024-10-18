@@ -115,7 +115,10 @@ dependencies:
 #  simple_tooltip: ^1.0.0
 #  flutter_inappwebview: ^5.1.0+4
   uni_links: ^0.5.1
-  advance_pdf_viewer: ^2.0.1
+  advance_pdf_viewer:
+    git:
+      url: https://github.com/lohanidamodar/pdf_viewer.git
+      ref: 4e5d96be29de515f1081c0b6897741b8dca84722
   geolocator: ^12.0.0
   geocoding: ^3.0.0
   awesome_dropdown:
