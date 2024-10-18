@@ -465,11 +465,225 @@ class PledgeMfSchemeSelectionController extends GetxController {
     }
   }
 
-  Future<void> onAddSchemeButtonClick(int index,int actualIndex) async {
+  Future<void> onAddSchemeButtonClick(int index, int actualIndex) async {
     if (await _connectionInfo.isConnected) {
       isAddQtyEnable[actualIndex] = true;
       isAddBtnSelected[actualIndex] = false;
       unitControllersList[actualIndex].text = "1";
+      schemesList[index].units =
+          double.parse(unitControllersList[actualIndex].text);
+      schemesListAfterFilter[actualIndex].units =
+          double.parse(unitControllersList[actualIndex].text);
+      updateSchemeValueAndEL();
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
+  }
+
+  Future<void> DecreaseOrRemoveScheme(int index, int actualIndex) async {
+    if (await _connectionInfo.isConnected) {
+      FocusScope.of(Get.context!).unfocus();
+      var txt;
+      if (unitControllersList[actualIndex].text.toString().contains('.') &&
+          unitControllersList[actualIndex]
+                  .text
+                  .toString()
+                  .split(".")[1]
+                  .length !=
+              0) {
+        var unitsDecimalCount;
+        String str = unitControllersList[actualIndex].text.toString();
+        var qtyArray = str.split('.');
+        unitsDecimalCount = qtyArray[1];
+        if (int.parse(unitsDecimalCount) == 0) {
+          txt = double.parse(unitControllersList[actualIndex].text) - 1;
+          unitControllersList[actualIndex].text = txt.toString();
+        } else {
+          if (unitsDecimalCount.toString().length == 1) {
+            txt = double.parse(unitControllersList[actualIndex].text) - .1;
+            unitControllersList[actualIndex].text = txt.toStringAsFixed(1);
+          } else if (unitsDecimalCount.toString().length == 2) {
+            txt = double.parse(unitControllersList[actualIndex].text) - .01;
+            unitControllersList[actualIndex].text = txt.toStringAsFixed(2);
+          } else {
+            txt = double.parse(unitControllersList[actualIndex].text) - .001;
+            unitControllersList[actualIndex].text = txt.toStringAsFixed(3);
+          }
+        }
+      } else {
+        txt = unitControllersList[actualIndex].text.isNotEmpty
+            ? int.parse(unitControllersList[actualIndex]
+                    .text
+                    .toString()
+                    .split(".")[0]) -
+                1
+            : 0;
+        unitControllersList[actualIndex].text = txt.toString();
+      }
+
+      if (txt >= 0.001) {
+        schemesList[index].units =
+            double.parse(unitControllersList[actualIndex].text);
+        schemesListAfterFilter[actualIndex].units =
+            double.parse(unitControllersList[actualIndex].text);
+      } else {
+        isAddBtnSelected[actualIndex] = true;
+        isAddQtyEnable[actualIndex] = false;
+        schemesList[index].units = 0;
+        unitControllersList[actualIndex].text = "0";
+        schemesListAfterFilter[actualIndex].units = 0;
+      }
+      updateSchemeValueAndEL();
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
+  }
+
+  Future<void> increaseSchemeThroughTextfield(
+      String value, int index, int actualIndex) async {
+    if (await _connectionInfo.isConnected) {
+      var txt;
+      if (!unitControllersList[actualIndex].text.toString().endsWith(".")) {
+        if (value.isNotEmpty && double.parse(value.toString()) >= 0.001) {
+          if (double.parse(unitControllersList[actualIndex].text) != 0) {
+            if (unitControllersList[actualIndex]
+                    .text
+                    .toString()
+                    .contains('.') &&
+                unitControllersList[actualIndex]
+                        .text
+                        .toString()
+                        .split(".")[1]
+                        .length !=
+                    0) {
+              var unitsDecimalCount;
+              String str = unitControllersList[actualIndex].text.toString();
+              var qtyArray = str.split('.');
+              unitsDecimalCount = qtyArray[1];
+              if (unitsDecimalCount.toString().length > 3) {
+                txt = double.parse(unitControllersList[actualIndex].text);
+                unitControllersList[actualIndex].text = txt.toStringAsFixed(3);
+              }
+            }
+            isAddBtnSelected[actualIndex] = false;
+            isAddQtyEnable[actualIndex] = true;
+            schemesList[index].units =
+                double.parse(unitControllersList[actualIndex].text);
+            schemesListAfterFilter[actualIndex].units =
+                double.parse(unitControllersList[actualIndex].text);
+            updateSchemeValueAndEL();
+          } else {
+            isAddBtnSelected[actualIndex] = true;
+            isAddQtyEnable[actualIndex] = false;
+            updateSchemeValueAndEL();
+          }
+        } else {
+          if (unitControllersList[actualIndex].text.isEmpty ||
+              unitControllersList[actualIndex].text == ".0" ||
+              unitControllersList[actualIndex].text == ".00" ||
+              unitControllersList[actualIndex].text == "0" ||
+              unitControllersList[actualIndex].text == "0." ||
+              unitControllersList[actualIndex].text == "0.0" ||
+              unitControllersList[actualIndex].text == "0.00") {
+            focusNode[actualIndex].addListener(() {
+              if (unitControllersList[actualIndex].text.isEmpty ||
+                  unitControllersList[actualIndex].text == ".0" ||
+                  unitControllersList[actualIndex].text == ".00" ||
+                  unitControllersList[actualIndex].text == "0" ||
+                  unitControllersList[actualIndex].text == "0." ||
+                  unitControllersList[actualIndex].text == "0.0" ||
+                  unitControllersList[actualIndex].text == "0.00") {
+                if (focusNode[actualIndex].hasFocus) {
+                  focusNode[actualIndex].requestFocus();
+                } else {
+                  FocusScope.of(Get.context!).unfocus();
+                  focusNode[actualIndex].unfocus();
+                  isAddBtnSelected[actualIndex] = true;
+                  isAddQtyEnable[actualIndex] = false;
+                  updateSchemeValueAndEL();
+                }
+              }
+            });
+          } else {
+            FocusScope.of(Get.context!).unfocus();
+            isAddBtnSelected[actualIndex] = true;
+            isAddQtyEnable[actualIndex] = false;
+            updateSchemeValueAndEL();
+          }
+        }
+      } else {
+        var value;
+        value = unitControllersList[actualIndex].text;
+        focusNode[actualIndex].addListener(() {
+          if (unitControllersList[actualIndex].text.toString().endsWith('.')) {
+            if (focusNode[actualIndex].hasFocus) {
+              focusNode[actualIndex].requestFocus();
+            } else {
+              if (value.toString().split(".")[0].isEmpty) {
+                isAddBtnSelected[actualIndex] = true;
+                isAddQtyEnable[actualIndex] = false;
+                unitControllersList[actualIndex].text = "0.0";
+                updateSchemeValueAndEL();
+              } else if (unitControllersList[actualIndex]
+                  .text
+                  .toString()
+                  .endsWith('.')) {
+                value = int.parse(unitControllersList[actualIndex]
+                    .text
+                    .toString()
+                    .split(".")[0]);
+                unitControllersList[actualIndex].text = value.toString();
+              }
+            }
+          }
+        });
+      }
+    } else {
+      Utility.showToastMessage(Strings.no_internet_message);
+    }
+  }
+
+  Future<void> increaseorAddScheme(int index, int actualIndex) async {
+    if (await _connectionInfo.isConnected) {
+      FocusScope.of(Get.context!).unfocus();
+      var txt;
+      if (unitControllersList[actualIndex].text.toString().contains('.') &&
+          unitControllersList[actualIndex]
+                  .text
+                  .toString()
+                  .split(".")[1]
+                  .length !=
+              0) {
+        var unitsDecimalCount;
+        String str = unitControllersList[actualIndex].text.toString();
+        var qtyArray = str.split('.');
+        unitsDecimalCount = qtyArray[1];
+        if (int.parse(unitsDecimalCount) == 0) {
+          txt = double.parse(unitControllersList[actualIndex].text) + 1;
+          unitControllersList[actualIndex].text = txt.toString();
+        } else {
+          if (unitsDecimalCount.toString().length == 1) {
+            txt = double.parse(unitControllersList[actualIndex].text) + .1;
+            unitControllersList[actualIndex].text = txt.toStringAsFixed(1);
+          } else if (unitsDecimalCount.toString().length == 2) {
+            txt = double.parse(unitControllersList[actualIndex].text) + .01;
+            unitControllersList[actualIndex].text = txt.toStringAsFixed(2);
+          } else {
+            txt = double.parse(unitControllersList[actualIndex].text) + .001;
+            unitControllersList[actualIndex].text = txt.toStringAsFixed(3);
+          }
+        }
+      } else {
+        txt = unitControllersList[actualIndex].text.isNotEmpty
+            ? int.parse(unitControllersList[actualIndex]
+                    .text
+                    .toString()
+                    .split(".")[0]) +
+                1
+            : 0;
+        unitControllersList[actualIndex].text = txt.toString();
+      }
+
       schemesList[index].units =
           double.parse(unitControllersList[actualIndex].text);
       schemesListAfterFilter[actualIndex].units =

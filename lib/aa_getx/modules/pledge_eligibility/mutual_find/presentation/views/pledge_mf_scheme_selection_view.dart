@@ -25,11 +25,13 @@ class PledgeMfSchemeSelectionView
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: colorBg,
-        appBar: buildBar(context),
-        body: schemeSelectionBody(),
+      child: Obx(
+        ()=> Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: colorBg,
+          appBar: buildBar(context),
+          body: schemeSelectionBody(),
+        ),
       ),
     );
   }
@@ -619,77 +621,7 @@ class PledgeMfSchemeSelectionView
                 onPressed: () async {
                   Utility.isNetworkConnection().then((isNetwork) {
                     if (isNetwork) {
-                      FocusScope.of(Get.context!).unfocus();
-                      var txt;
-                      if (controller.unitControllersList[actualIndex].text
-                              .toString()
-                              .contains('.') &&
-                          controller.unitControllersList[actualIndex].text
-                                  .toString()
-                                  .split(".")[1]
-                                  .length !=
-                              0) {
-                        var unitsDecimalCount;
-                        String str = controller
-                            .unitControllersList[actualIndex].text
-                            .toString();
-                        var qtyArray = str.split('.');
-                        unitsDecimalCount = qtyArray[1];
-                        if (int.parse(unitsDecimalCount) == 0) {
-                          txt = double.parse(controller
-                                  .unitControllersList[actualIndex].text) -
-                              1;
-                          controller.unitControllersList[actualIndex].text =
-                              txt.toString();
-                        } else {
-                          if (unitsDecimalCount.toString().length == 1) {
-                            txt = double.parse(controller
-                                    .unitControllersList[actualIndex].text) -
-                                .1;
-                            controller.unitControllersList[actualIndex].text =
-                                txt.toStringAsFixed(1);
-                          } else if (unitsDecimalCount.toString().length == 2) {
-                            txt = double.parse(controller
-                                    .unitControllersList[actualIndex].text) -
-                                .01;
-                            controller.unitControllersList[actualIndex].text =
-                                txt.toStringAsFixed(2);
-                          } else {
-                            txt = double.parse(controller
-                                    .unitControllersList[actualIndex].text) -
-                                .001;
-                            controller.unitControllersList[actualIndex].text =
-                                txt.toStringAsFixed(3);
-                          }
-                        }
-                      } else {
-                        txt = controller.unitControllersList[actualIndex].text
-                                .isNotEmpty
-                            ? int.parse(controller
-                                    .unitControllersList[actualIndex].text
-                                    .toString()
-                                    .split(".")[0]) -
-                                1
-                            : 0;
-                        controller.unitControllersList[actualIndex].text =
-                            txt.toString();
-                      }
-
-                      if (txt >= 0.001) {
-                        controller.schemesList[index].units = double.parse(
-                            controller.unitControllersList[actualIndex].text);
-                        controller.schemesListAfterFilter[actualIndex].units =
-                            double.parse(controller
-                                .unitControllersList[actualIndex].text);
-                      } else {
-                        controller.isAddBtnSelected[actualIndex] = true;
-                        controller.isAddQtyEnable[actualIndex] = false;
-                        controller.schemesList[index].units = 0;
-                        controller.unitControllersList[actualIndex].text = "0";
-                        controller.schemesListAfterFilter[actualIndex].units =
-                            0;
-                      }
-                     controller.updateSchemeValueAndEL();
+                      controller.DecreaseOrRemoveScheme(index,actualIndex);
                     } else {
                       Utility.showToastMessage(Strings.no_internet_message);
                     }
@@ -713,136 +645,7 @@ class PledgeMfSchemeSelectionView
                   ],
                   style: boldTextStyle_18,
                   onChanged: (value) {
-                    var txt;
-                    if (!controller.unitControllersList[actualIndex].text
-                        .toString()
-                        .endsWith(".")) {
-                      if (value.isNotEmpty &&
-                          double.parse(value.toString()) >= 0.001) {
-                        if (double.parse(controller
-                                .unitControllersList[actualIndex].text) !=
-                            0) {
-                          if (controller.unitControllersList[actualIndex].text
-                                  .toString()
-                                  .contains('.') &&
-                              controller.unitControllersList[actualIndex].text
-                                      .toString()
-                                      .split(".")[1]
-                                      .length !=
-                                  0) {
-                            var unitsDecimalCount;
-                            String str = controller
-                                .unitControllersList[actualIndex].text
-                                .toString();
-                            var qtyArray = str.split('.');
-                            unitsDecimalCount = qtyArray[1];
-                            if (unitsDecimalCount.toString().length > 3) {
-                              txt = double.parse(controller
-                                  .unitControllersList[actualIndex].text);
-                              controller.unitControllersList[actualIndex].text =
-                                  txt.toStringAsFixed(3);
-                            }
-                          }
-                          controller.isAddBtnSelected[actualIndex] = false;
-                          controller.isAddQtyEnable[actualIndex] = true;
-                          controller.schemesList[index].units = double.parse(
-                              controller.unitControllersList[actualIndex].text);
-                          controller.schemesListAfterFilter[actualIndex].units =
-                              double.parse(controller
-                                  .unitControllersList[actualIndex].text);
-                         controller.updateSchemeValueAndEL();
-                        } else {
-                          controller.isAddBtnSelected[actualIndex] = true;
-                          controller.isAddQtyEnable[actualIndex] = false;
-                         controller.updateSchemeValueAndEL();
-                        }
-                      } else {
-                        if (controller.unitControllersList[actualIndex].text
-                                .isEmpty ||
-                            controller.unitControllersList[actualIndex].text ==
-                                ".0" ||
-                            controller.unitControllersList[actualIndex].text ==
-                                ".00" ||
-                            controller
-                                    .unitControllersList[actualIndex].text ==
-                                "0" ||
-                            controller.unitControllersList[actualIndex].text ==
-                                "0." ||
-                            controller.unitControllersList[actualIndex].text ==
-                                "0.0" ||
-                            controller.unitControllersList[actualIndex].text ==
-                                "0.00") {
-                          controller.focusNode[actualIndex].addListener(() {
-                            if (controller.unitControllersList[actualIndex].text
-                                    .isEmpty ||
-                                controller.unitControllersList[actualIndex]
-                                        .text ==
-                                    ".0" ||
-                                controller.unitControllersList[actualIndex]
-                                        .text ==
-                                    ".00" ||
-                                controller.unitControllersList[actualIndex]
-                                        .text ==
-                                    "0" ||
-                                controller.unitControllersList[actualIndex]
-                                        .text ==
-                                    "0." ||
-                                controller.unitControllersList[actualIndex]
-                                        .text ==
-                                    "0.0" ||
-                                controller.unitControllersList[actualIndex]
-                                        .text ==
-                                    "0.00") {
-                              if (controller.focusNode[actualIndex].hasFocus) {
-                                controller.focusNode[actualIndex]
-                                    .requestFocus();
-                              } else {
-                                FocusScope.of(Get.context!).unfocus();
-                                controller.focusNode[actualIndex].unfocus();
-                                controller.isAddBtnSelected[actualIndex] = true;
-                                controller.isAddQtyEnable[actualIndex] = false;
-                              controller.updateSchemeValueAndEL();
-                              }
-                            }
-                          });
-                        } else {
-                          FocusScope.of(Get.context!).unfocus();
-                          controller.isAddBtnSelected[actualIndex] = true;
-                          controller.isAddQtyEnable[actualIndex] = false;
-                        controller.updateSchemeValueAndEL();
-                        }
-                      }
-                    } else {
-                      var value;
-                      value = controller.unitControllersList[actualIndex].text;
-                      controller.focusNode[actualIndex].addListener(() {
-                        if (controller.unitControllersList[actualIndex].text
-                            .toString()
-                            .endsWith('.')) {
-                          if (controller.focusNode[actualIndex].hasFocus) {
-                            controller.focusNode[actualIndex].requestFocus();
-                          } else {
-                            if (value.toString().split(".")[0].isEmpty) {
-                              controller.isAddBtnSelected[actualIndex] = true;
-                              controller.isAddQtyEnable[actualIndex] = false;
-                              controller.unitControllersList[actualIndex].text =
-                                  "0.0";
-                            controller.updateSchemeValueAndEL();
-                            } else if (controller
-                                .unitControllersList[actualIndex].text
-                                .toString()
-                                .endsWith('.')) {
-                              value = int.parse(controller
-                                  .unitControllersList[actualIndex].text
-                                  .toString()
-                                  .split(".")[0]);
-                              controller.unitControllersList[actualIndex].text =
-                                  value.toString();
-                            }
-                          }
-                        }
-                      });
-                    }
+                   controller.increaseSchemeThroughTextfield(value,index,actualIndex);
                   },
                 ),
               ),
@@ -857,74 +660,7 @@ class PledgeMfSchemeSelectionView
                   child: Icon(Icons.add, color: colorBlack, size: 18),
                 ),
                 onPressed: () async {
-                  Utility.isNetworkConnection().then((isNetwork) {
-                    if (isNetwork) {
-                      FocusScope.of(Get.context!).unfocus();
-                      var txt;
-                      if (controller.unitControllersList[actualIndex].text
-                              .toString()
-                              .contains('.') &&
-                          controller.unitControllersList[actualIndex].text
-                                  .toString()
-                                  .split(".")[1]
-                                  .length !=
-                              0) {
-                        var unitsDecimalCount;
-                        String str = controller
-                            .unitControllersList[actualIndex].text
-                            .toString();
-                        var qtyArray = str.split('.');
-                        unitsDecimalCount = qtyArray[1];
-                        if (int.parse(unitsDecimalCount) == 0) {
-                          txt = double.parse(controller
-                                  .unitControllersList[actualIndex].text) +
-                              1;
-                          controller.unitControllersList[actualIndex].text =
-                              txt.toString();
-                        } else {
-                          if (unitsDecimalCount.toString().length == 1) {
-                            txt = double.parse(controller
-                                    .unitControllersList[actualIndex].text) +
-                                .1;
-                            controller.unitControllersList[actualIndex].text =
-                                txt.toStringAsFixed(1);
-                          } else if (unitsDecimalCount.toString().length == 2) {
-                            txt = double.parse(controller
-                                    .unitControllersList[actualIndex].text) +
-                                .01;
-                            controller.unitControllersList[actualIndex].text =
-                                txt.toStringAsFixed(2);
-                          } else {
-                            txt = double.parse(controller
-                                    .unitControllersList[actualIndex].text) +
-                                .001;
-                            controller.unitControllersList[actualIndex].text =
-                                txt.toStringAsFixed(3);
-                          }
-                        }
-                      } else {
-                        txt = controller.unitControllersList[actualIndex].text
-                                .isNotEmpty
-                            ? int.parse(controller
-                                    .unitControllersList[actualIndex].text
-                                    .toString()
-                                    .split(".")[0]) +
-                                1
-                            : 0;
-                        controller.unitControllersList[actualIndex].text =
-                            txt.toString();
-                      }
-
-                      controller.schemesList[index].units = double.parse(
-                          controller.unitControllersList[actualIndex].text);
-                      controller.schemesListAfterFilter[actualIndex].units =
-                          double.parse(
-                              controller.unitControllersList[actualIndex].text);
-                    controller.updateSchemeValueAndEL();
-                    } else {
-                      Utility.showToastMessage(Strings.no_internet_message);
-                    }
-                  });
+                 controller.increaseorAddScheme(index,actualIndex);
                 },
               ),
             ],

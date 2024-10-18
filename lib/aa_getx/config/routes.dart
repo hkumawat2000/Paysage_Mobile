@@ -1,7 +1,9 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/bindings/account_settings_bindings.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_settings_screen.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/bindings/approved_securities_list_bindings.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/bindings/approved_shares_and_mf_bindings.dart';
+import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/views/approved_securities_view.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/views/approved_shares_view.dart';
 import 'package:lms/aa_getx/modules/account_statement/presentation/views/loan_statement_view.dart';
 import 'package:lms/aa_getx/modules/bank/presentation/bindings/add_bank_binding.dart';
@@ -160,6 +162,7 @@ const String contactUsThankYouView = "contact-us-thank-you-view";
 const String feedbackView = "feedback-view";
 const String pledgeMfSchemeSelection = "pledge-mf-scheme-selection";
 const String mfViewVaultDetailsScreen = "mf-view-vault-details-screen";
+const String approvedSecuritiesView = "approved-shares-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -438,9 +441,15 @@ List<GetPage> routes = [
     page: () => PledgeMfSchemeSelectionView(),
     binding: PledgeMfBindings(),
   ),
+  //
    GetPage(
     name: '/$mfViewVaultDetailsScreen',
     page: () => MfViewVaultDetailsView(),
   ),
-  
+  //ApprovedSecuritiesView
+  GetPage(
+    name: '/$approvedSecuritiesView',
+    page: () => ApprovedSecuritiesView(),
+    binding: ApprovedSecuritiesListBindings(),
+  ),
 ];

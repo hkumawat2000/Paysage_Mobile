@@ -34,76 +34,78 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: controller.scaffoldKey,
-      backgroundColor: colorBg,
-      appBar: AppBar(
+    return Obx(
+      () => Scaffold(
+        key: controller.scaffoldKey,
         backgroundColor: colorBg,
-        elevation: 0.0,
-        title: appBarTitle,
-        leading: IconButton(
-          icon: ArrowToolbarBackwardNavigation(),
-          onPressed: () => Navigator.pop(context),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: actionIcon,
-            onPressed: () {
-              if (controller.currentInstrument.isNotEmpty) {
-                commonDialog(Strings.instrument_selection, 0);
-              } else {
-                //setState(() {
-                if (this.actionIcon.icon == Icons.search) {
-                  this.actionIcon = Icon(Icons.close, color: colorGrey);
-                  this.appBarTitle = TextFormField(
-                    onChanged: (value) {
-                      controller.isComingFromSearch.value = true;
-                      controller.isMoreData.value = true;
-                      controller.searchName.value =
-                          controller.searchController.text.trim().toString();
-                      filterSearchResults();
-                    },
-                    controller: controller.searchController,
-                    focusNode: controller.focusNode,
-                    style: TextStyle(
-                      color: appTheme,
-                    ),
-                    decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.symmetric(vertical: 5),
-                        hintText: Strings.search,
-                        hintStyle: TextStyle(color: colorGrey)),
-                  );
-                  controller.focusNode.requestFocus();
+        appBar: AppBar(
+          backgroundColor: colorBg,
+          elevation: 0.0,
+          title: appBarTitle,
+          leading: IconButton(
+            icon: ArrowToolbarBackwardNavigation(),
+            onPressed: () => Navigator.pop(context),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: actionIcon,
+              onPressed: () {
+                if (controller.currentInstrument.isNotEmpty) {
+                  commonDialog(Strings.instrument_selection, 0);
                 } else {
-                  controller.focusNode.unfocus();
-                  controller.start.value = 0;
-                  controller.searchStart.value = 0;
-                  controller.searchController.clear();
-                  controller.searchName.value = '';
-                  filterSearchResults();
-                  this.actionIcon = Icon(
-                    Icons.search,
-                    color: colorGrey,
-                  );
-                  this.appBarTitle = Text("");
+                  //setState(() {
+                  if (this.actionIcon.icon == Icons.search) {
+                    this.actionIcon = Icon(Icons.close, color: colorGrey);
+                    this.appBarTitle = TextFormField(
+                      onChanged: (value) {
+                        controller.isComingFromSearch.value = true;
+                        controller.isMoreData.value = true;
+                        controller.searchName.value =
+                            controller.searchController.text.trim().toString();
+                        filterSearchResults();
+                      },
+                      controller: controller.searchController,
+                      focusNode: controller.focusNode,
+                      style: TextStyle(
+                        color: appTheme,
+                      ),
+                      decoration: InputDecoration(
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(vertical: 5),
+                          hintText: Strings.search,
+                          hintStyle: TextStyle(color: colorGrey)),
+                    );
+                    controller.focusNode.requestFocus();
+                  } else {
+                    controller.focusNode.unfocus();
+                    controller.start.value = 0;
+                    controller.searchStart.value = 0;
+                    controller.searchController.clear();
+                    controller.searchName.value = '';
+                    filterSearchResults();
+                    this.actionIcon = Icon(
+                      Icons.search,
+                      color: colorGrey,
+                    );
+                    this.appBarTitle = Text("");
+                  }
+                  // });
                 }
-                // });
-              }
-            },
-          ),
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          detailsWidget(),
-          SizedBox(height: 10),
-          Expanded(
-            child: controller.currentInstrument.isNotEmpty
-                ? getApprovalSecuritiesList()
-                : Container(),
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            detailsWidget(),
+            SizedBox(height: 10),
+            Expanded(
+              child: controller.currentInstrument.isNotEmpty
+                  ? getApprovalSecuritiesList()
+                  : Container(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -256,7 +258,8 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
   Widget getApprovalSecuritiesList() {
     return StreamBuilder(
       stream: controller.listSecurityCategory,
-      builder: (context, AsyncSnapshot<ApprovedSecuritiesDataResponseEntity> snapshot) {
+      builder: (context,
+          AsyncSnapshot<ApprovedSecuritiesDataResponseEntity> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data == null) {
             return _buildNoDataWidget();
@@ -272,7 +275,8 @@ class ApprovedSecuritiesView extends GetView<ApprovedSecuritiesController> {
     );
   }
 
-  Widget getAllApprovedList(List<ApprovedSecuritiesListResponseEntity> snapshot) {
+  Widget getAllApprovedList(
+      List<ApprovedSecuritiesListResponseEntity> snapshot) {
     return snapshot.length == 0
         ? Center(child: Text(Strings.no_result_found))
         : ListView.builder(

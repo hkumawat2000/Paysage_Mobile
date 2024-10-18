@@ -88,6 +88,7 @@ class ApprovedSharesController extends GetxController {
   Future<void> onMutualFundClick() async {
     if (await connectionInfo.isConnected) {
       if (camsEmail.value.isNotEmpty) {
+        Get.toNamed(pledgeMfSchemeSelection);
         //TODO
         // Navigator.push(
         //     context,
@@ -115,23 +116,22 @@ class ApprovedSharesController extends GetxController {
   }
 
   Future<void> handleClickForApprovedShares() async {
+    print('object Internet');
     if (await connectionInfo.isConnected) {
+      print('object Internet 1');
       //     // Firebase Event
-          Map<String, dynamic> parameter = new Map<
-              String,
-              dynamic>();
-          parameter[Strings.mobile_no] = mobileNumber.value;
-          parameter[Strings.email] = emailId.value;
-          parameter[Strings.date_time] =
-              getCurrentDateAndTime();
-          firebaseEvent(
-              Strings.approved_securities_opened, parameter);
-          //TODO Navigate
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (BuildContext context) =>
-          //             ApprovedSecuritiesScreen()));
+      Map<String, dynamic> parameter = new Map<String, dynamic>();
+      parameter[Strings.mobile_no] = mobileNumber.value;
+      parameter[Strings.email] = emailId.value;
+      parameter[Strings.date_time] = getCurrentDateAndTime();
+      firebaseEvent(Strings.approved_securities_opened, parameter);
+      Get.toNamed(approvedSecuritiesView);
+      //TODO Navigate
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (BuildContext context) =>
+      //             ApprovedSecuritiesScreen()));
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }

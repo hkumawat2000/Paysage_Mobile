@@ -83,7 +83,10 @@ class ChangePassowrdController extends GetxController {
         } else if (response is DataFailed) {
           if (response.error!.statusCode == 403) {
             commonDialog(Strings.session_timeout, 4);
-          } else {
+          } else if(response.error!.statusCode == 417){
+            Utility.showToastMessage(response.error!.message);
+          }
+          else {
             Map<String, dynamic> parameters = new Map<String, dynamic>();
             parameters[Strings.mobile_no] = mobile;
             parameters[Strings.email] = email;

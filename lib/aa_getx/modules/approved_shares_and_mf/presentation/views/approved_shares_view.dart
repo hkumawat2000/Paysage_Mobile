@@ -236,20 +236,26 @@ class ApprovedSharesView extends GetView<ApprovedSharesController> {
                 ),
 
                 SizedBox(height: 50),
-                RichText(
-                  text: TextSpan(
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () async {
-                        controller.handleClickForApprovedShares();
-                      },
-                    text: Strings.click_here,
-                    style: TextStyle(color: Colors.blue),
-                    children: [
-                      TextSpan(
-                        text: Strings.approved_text,
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    print('object');
+                    controller.handleClickForApprovedShares();
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      // recognizer: TapGestureRecognizer()
+                      //   ..onTap = () async {
+                      //     controller.handleClickForApprovedShares();
+                      //   },
+                      text: Strings.click_here,
+                      style: TextStyle(color: Colors.blue),
+                      children: [
+                        TextSpan(
+                          text: Strings.approved_text,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

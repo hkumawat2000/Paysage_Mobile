@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/modules/kyc/data/data_sources/kyc_data_source.dart';
@@ -10,6 +11,10 @@ import 'package:lms/aa_getx/modules/kyc/presentation/controllers/kyc_controller.
 class KycBindings extends Bindings {
   @override
   void dependencies() {
+    Get.lazyPut<ConnectionInfoImpl>(
+          () => ConnectionInfoImpl(Connectivity()),
+    );
+
     Get.lazyPut<KycDataSourceImpl>(
       () => KycDataSourceImpl(),
     );
