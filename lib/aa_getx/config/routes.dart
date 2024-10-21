@@ -98,6 +98,8 @@ import 'package:lms/aa_getx/modules/risk_profile/presentation/bindings/risk_prof
 import 'package:lms/aa_getx/modules/risk_profile/presentation/views/risk_profile_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/binding/common_webview_binding.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
+import 'package:lms/aa_getx/modules/youtube_video_player/presentation/bindings/youtube_player_binding.dart';
+import 'package:lms/aa_getx/modules/youtube_video_player/presentation/view/youtube_video_view.dart';
 
 const String splashView = "splash-view";
 const String jailBreakView = "jail-break-view";
@@ -117,7 +119,7 @@ const String registrationSuccessfulView = "registration-successful-view";
 const String kycView = "kyc-view";
 const String kycConsentView = "kyc-conset-view";
 const String kycAddressView = "kyc-address-view";
-const String youtubeVideoPlayer = "youtube-video-player";
+const String youtubeVideoView = "youtube-video-view";
 const String notificationView = "notification-view";
 const String moreView = "more-view";
 const String singleMyActiveLoanView = "single-my-active-loan-view";
@@ -245,10 +247,11 @@ List<GetPage> routes = [
     page: () => KycAddressScreen(),
     binding: KycAddressBindings(),
   ),
-  // GetPage(
-  //   name: '/$youtubeVideoPlayer',
-  //   page: () => YoutubeVideoPlayerView(),
-  // ),
+  GetPage(
+    name: '/$youtubeVideoView',
+    page: () => YoutubeVideoPlayerView(),
+    binding: YoutubePlayerBinding()
+  ),
   GetPage(
     name: '/$notificationView',
     page: () => NotificationView(),

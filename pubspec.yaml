@@ -100,7 +100,7 @@ dependencies:
 #  slide_countdown_clock: ^1.0.3
 #  flutter_jailbreak_detection: ^1.7.0
   safe_device: ^1.1.2
-  youtube_player_flutter: ^9.0.1
+  youtube_player_flutter: ^8.1.0
   share_plus: ^9.0.0
   image_picker: ^1.0.8
   image_cropper: ^5.0.1

@@ -27,6 +27,7 @@ import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecas
 import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/mf_invoke_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
+import 'package:lms/aa_getx/modules/youtube_video_player/presentation/arguments/youtube_player_arguments.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -1065,7 +1066,7 @@ class HomeController extends GetxController{
     });
   }
 
-  Future goToYoutubeVideoPlayer()  async {
+  Future goToYoutubeVideoPlayer(String videoID, String title, )  async {
     Preferences preferences = Preferences();
     String email = await preferences.getEmail();
     String? mobile = await preferences.getMobile();
@@ -1078,6 +1079,14 @@ class HomeController extends GetxController{
         parameters[Strings.date_time] = getCurrentDateAndTime();
         firebaseEvent(Strings.youtube_video_play, parameters);
         ///todo: uncomment below code after YoutubeVideoPlayer is developed
+
+        Get.toNamed(youtubeVideoView, arguments: YoutubePlayerArgument(
+          videoID: videoID,
+          title: title,
+          videoIDList: videoIDList,
+          titleList: videoNameList,
+        ));
+
         // Navigator.push(
         //     context,
         //     MaterialPageRoute(
