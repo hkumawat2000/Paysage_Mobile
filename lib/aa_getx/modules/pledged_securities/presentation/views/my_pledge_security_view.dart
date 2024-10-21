@@ -429,7 +429,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
                                   : Strings.invoke,
                               style: TextStyle(fontSize: 12.0),
                             ),
-                            onPressed: ()=>controller.pressDownSellOrInvokeClicked(),
+                            onPressed: ()=>controller.pressDownSellOrInvokeClicked(index),
                           ),
                         ),
                       ],
