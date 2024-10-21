@@ -36,9 +36,11 @@ class LoanWithdrawView extends GetView<LoanWithdrawController> {
             ),
             backgroundColor: colorBg,
           ),
-          body: controller.isLoanDataAvailable.isTrue
-              ? withdrawLoanDetails()
-              : Container()),
+          body: Obx(
+            () => controller.isLoanDataAvailable.isTrue
+                ? withdrawLoanDetails()
+                : Center(child: Text(Strings.please_wait)),
+          )),
     );
   }
 

@@ -98,6 +98,8 @@ import 'package:lms/aa_getx/modules/risk_profile/presentation/bindings/risk_prof
 import 'package:lms/aa_getx/modules/risk_profile/presentation/views/risk_profile_view.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/binding/common_webview_binding.dart';
 import 'package:lms/aa_getx/modules/webview/presentation/views/common_webview_view.dart';
+import 'package:lms/aa_getx/modules/withdraw/presentation/bindings/loan_withdraw_bindings.dart';
+import 'package:lms/aa_getx/modules/withdraw/presentation/views/loan_withdraw_view.dart';
 import 'package:lms/aa_getx/modules/youtube_video_player/presentation/bindings/youtube_player_binding.dart';
 import 'package:lms/aa_getx/modules/youtube_video_player/presentation/view/youtube_video_view.dart';
 
@@ -136,6 +138,7 @@ const String myPledgedSecuritiesView = "my-pledged-securities-view";
 const String accountSettingsView = "account-settings-view";
 const String approvedSharesView = "approved-shares-view";
 const String paymentView = "payment-view";
+const String withdrawView = "withdraw-view";
 const String loanStatementView = "loan-statement-view";
 const String addBank = "add-bank";
 const String downloadStatementView = "download-statement-view";
@@ -319,6 +322,11 @@ List<GetPage> routes = [
     name: '/$paymentView',
     page: () => PaymentView(),
     binding: PaymentBinding(),
+  ),
+  GetPage(
+    name: '/$withdrawView',
+    page: () => LoanWithdrawView(),
+    binding: LoanWithdrawBindings(),
   ),
   GetPage(
     name: '/$loanStatementView',

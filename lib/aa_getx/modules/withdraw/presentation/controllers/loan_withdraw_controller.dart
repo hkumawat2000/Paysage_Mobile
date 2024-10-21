@@ -47,12 +47,12 @@ class LoanWithdrawController extends GetxController {
 
   @override
   void onInit() {
+    getLoanWithdrawDetails();
     super.onInit();
   }
 
   Future<void> getLoanWithdrawDetails() async {
     if (await _connectionInfo.isConnected) {
-      showDialogLoading(Strings.please_wait);
       WithdrawLoanDetailsRequestEntity withdrawLoanDetailsRequestDataEntity =
           WithdrawLoanDetailsRequestEntity(
         loanName: loanWithdrawArguments.loanName,
@@ -64,42 +64,19 @@ class LoanWithdrawController extends GetxController {
             withdrawLoanDetailsRequestEntity:
                 withdrawLoanDetailsRequestDataEntity),
       );
-      Get.back();
+      isLoanDataAvailable(true);
       if (response is DataSuccess) {
         if (response.data!.loanWithDrawDetailDataResponseEntity != null) {
-          loanWithDrawDetailDataResponseEntity.value =
-              response.data!.loanWithDrawDetailDataResponseEntity!;
-          availableAmount.value = roundDouble(
-              response.data!.loanWithDrawDetailDataResponseEntity!
-                  .loanDataResponseEntity!.amountAvailableForWithdrawal!
-                  .toDouble(),
-              2);
-          loanBalance.value = response
-              .data!
-              .loanWithDrawDetailDataResponseEntity!
-              .loanDataResponseEntity!
-              .balance!
-              .toDouble();
-          drawingPower.value = response
-              .data!
-              .loanWithDrawDetailDataResponseEntity!
-              .loanDataResponseEntity!
-              .drawingPowerStr
-              .toString();
+          loanWithDrawDetailDataResponseEntity.value = response.data!.loanWithDrawDetailDataResponseEntity!;
+          availableAmount.value = roundDouble(response.data!.loanWithDrawDetailDataResponseEntity!.loanDataResponseEntity!.amountAvailableForWithdrawal!.toDouble(), 2);
+          loanBalance.value = response.data!.loanWithDrawDetailDataResponseEntity!.loanDataResponseEntity!.balance!.toDouble();
+          drawingPower.value = response.data!.loanWithDrawDetailDataResponseEntity!.loanDataResponseEntity!.drawingPowerStr.toString();
 
-          if (response.data!.loanWithDrawDetailDataResponseEntity!.banks !=
-                  null &&
-              response.data!.loanWithDrawDetailDataResponseEntity!.banks!
-                      .length !=
-                  0) {
-            bankName.value = response
-                .data!.loanWithDrawDetailDataResponseEntity!.banks![0].bank!;
-            accountNumber.value = response.data!
-                .loanWithDrawDetailDataResponseEntity!.banks![0].accountNumber!;
-            bankAccountName.value = response
-                .data!.loanWithDrawDetailDataResponseEntity!.banks![0].name!;
+          if (response.data!.loanWithDrawDetailDataResponseEntity!.banks != null && response.data!.loanWithDrawDetailDataResponseEntity!.banks!.length != 0) {
+            bankName.value = response.data!.loanWithDrawDetailDataResponseEntity!.banks![0].bank!;
+            accountNumber.value = response.data!.loanWithDrawDetailDataResponseEntity!.banks![0].accountNumber!;
+            bankAccountName.value = response.data!.loanWithDrawDetailDataResponseEntity!.banks![0].name!;
           }
-          isLoanDataAvailable.value = true;
         }
       } else if (response is DataFailed) {
         if (response.error!.statusCode == 403) {

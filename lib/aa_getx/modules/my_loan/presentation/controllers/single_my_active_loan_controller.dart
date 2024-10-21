@@ -12,6 +12,7 @@ import 'package:lms/aa_getx/modules/my_loan/domain/entities/all_loan_names_respo
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_usecase.dart';
 import 'package:lms/aa_getx/modules/my_loan/presentation/arguments/margin_shortfall_arguments.dart';
 import 'package:lms/aa_getx/modules/payment/presentation/arguments/payment_arguments.dart';
+import 'package:lms/aa_getx/modules/withdraw/presentation/arguments/loan_withdraw_arguments.dart';
 import 'package:lms/util/Preferences.dart';
 import 'package:lms/util/Utility.dart';
 import 'package:cron/cron.dart';
@@ -217,11 +218,9 @@ class SingleMyActiveLoanController extends GetxController {
               loanDetailData.value.loan!.balance! > 0) {
             commonDialog("Account debit freeze\nWithdrawal disabled", 0);
           } else {
-            /// todo: uncomment and change following code after LoanWithdrawScreen page is completed
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext contex) => LoanWithdrawScreen(loanNumber)));
+            Get.toNamed(withdrawView, arguments: LoanWithdrawArguments(
+              loanName: loanNumber.value
+            ));
           }
         } else {
           Utility.showToastMessage(Strings.no_internet_message);
