@@ -408,7 +408,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
                                   : "Revoke",
                               style: TextStyle(fontSize: 12.0),
                             ),
-                            onPressed: ()=>controller.pressDownUnpledgeOrRevokeClicked(),
+                            onPressed: ()=>controller.pressDownUnpledgeOrRevokeClicked(index),
                           ),
                         ),
                         SizedBox(

@@ -303,11 +303,19 @@ class MyPledgeSecurityController extends GetxController{
     });
   }
 
- void pressDownUnpledgeOrRevokeClicked(){
+ void pressDownUnpledgeOrRevokeClicked(int index){
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         if (unPledgeMarginShortFallMsg.isEmpty) {
           if (isUnpledge.value) {
+
+            if(loanType == Strings.shares) {
+              Get.toNamed(unpledgeSharesView, arguments: SellCollateralArguments(loanNo: loanName.value, isComingFor: Strings.single, isin: allPledgedSecurities[index].isin!, loanType: loanType.value));
+            } else {
+              Get.toNamed(mfRevokeView, arguments: MfInvokeArguments(loanNo: loanName.value, isComingFor: Strings.single, isin: allPledgedSecurities[index].isin!, folio: allPledgedSecurities[index].folio!));
+            }
+
+
             if (loanType == Strings.shares) {
               ///todo: uncomment following code after UnpledgeSharesScreen in developed
               // Navigator.push(
