@@ -75,17 +75,12 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                     padding: const EdgeInsets.only(left: 16.0, top: 15),
                     child: Row(
                       children: <Widget>[
-                        controller.transactionsList != null
-                            ? scripsNameText(
-                            controller.transactionsList!.length !=
-                                0
-                                ? Strings.recent_transactions
-                                : "")
-                            : Container(),
+                        scripsNameText(controller.transactionsList.length != 0
+                                ? Strings.recent_transactions : "")
                       ],
                     ),
                   ),
-                  controller.transactionsList != null ? recentTransactionList() : Container(),
+                  recentTransactionList(),
                   SizedBox(
                     height: 80,
                   ),
@@ -478,8 +473,7 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                 ),
               )
             : Container(),
-        controller.totalCollateralValue != null
-            ? Padding(
+        Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Row(
                   children: <Widget>[
@@ -565,10 +559,8 @@ class SingleMyActiveLoanView extends GetView<SingleMyActiveLoanController> {
                     ),
                   ],
                 ),
-              )
-            : Container(),
-        controller.interest != null &&
-                controller.interest.value!.totalInterestAmt != 0
+              ),
+        controller.interest != null && controller.interest.value!.totalInterestAmt != 0
             ? Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Row(

@@ -52,7 +52,7 @@ class SingleMyActiveLoanController extends GetxController {
   RxBool isMarginShortFall = false.obs;
   RxBool isTimerDone = false.obs;
   RxBool isActionTaken = false.obs;
-  RxDouble? totalCollateralValue;
+  RxDouble totalCollateralValue = 0.0.obs;
   // int hours = 0, min = 0, sec = 0;
   RxInt hours = 0.obs;
   RxInt min = 0.obs;
@@ -65,7 +65,7 @@ class SingleMyActiveLoanController extends GetxController {
   RxString loanType = "".obs;
   RxString schemeType = "".obs;
   var minimumCashAmount;
-  List<TransactionsEntity>? transactionsList;
+  RxList<TransactionsEntity> transactionsList = <TransactionsEntity>[].obs;
 
   @override
   void onInit() {
@@ -144,41 +144,26 @@ class SingleMyActiveLoanController extends GetxController {
           loanBalance.value = loanDetailData.value.loan!.balance!;
           loans.value = loanDetailsResponse.data!.data!.loan;
           loanNumber.value = loanDetailsResponse.data!.data!.loan!.name!;
-          loanType.value =
-              loanDetailsResponse.data!.data!.loan!.instrumentType ?? "";
-          schemeType.value =
-              loanDetailsResponse.data!.data!.loan!.schemeType ?? "";
-          totalCollateralValue?.value = loanDetailData.value.loan!.totalCollateralValue ?? 0.0;
+          loanType.value = loanDetailsResponse.data!.data!.loan!.instrumentType ?? "";
+          schemeType.value = loanDetailsResponse.data!.data!.loan!.schemeType ?? "";
+          totalCollateralValue.value = loanDetailData.value.loan!.totalCollateralValue ?? 0.0;
+          transactionsList.addAll(loanDetailData.value.transactions!);
           if (loanDetailsResponse.data!.data!.marginShortfall != null) {
             isMarginShortFall.value = true;
-            marginShortfall.value =
-                loanDetailsResponse.data!.data!.marginShortfall!;
+            marginShortfall.value = loanDetailsResponse.data!.data!.marginShortfall!;
             minimumCashAmount = marginShortfall.value.minimumCashAmount;
-            transactionsList = loanDetailData.value.transactions;
-            if (loanDetailsResponse
-                    .data!.data!.marginShortfall!.deadlineInHrs !=
-                null) {
-              if (loanDetailsResponse
-                      .data!.data!.marginShortfall!.deadlineInHrs ==
-                  "00:00:00") {
+            if (loanDetailsResponse.data!.data!.marginShortfall!.deadlineInHrs != null) {
+              if (loanDetailsResponse.data!.data!.marginShortfall!.deadlineInHrs == "00:00:00") {
                 isTimerDone.value = true;
               }
-              if (loanDetailsResponse.data!.data!.marginShortfall!.status ==
-                  "Request Pending") {
+              if (loanDetailsResponse.data!.data!.marginShortfall!.status == "Request Pending") {
                 isActionTaken.value = true;
               }
 
-              hours.value = int.parse(loanDetailsResponse
-                  .data!.data!.marginShortfall!.deadlineInHrs!
-                  .split(":")[0]);
-              min.value = int.parse(loanDetailsResponse
-                  .data!.data!.marginShortfall!.deadlineInHrs!
-                  .split(":")[1]);
-              sec.value = int.parse(loanDetailsResponse
-                  .data!.data!.marginShortfall!.deadlineInHrs!
-                  .split(":")[2]);
-              isTodayHoliday = loanDetailsResponse
-                  .data!.data!.marginShortfall!.isTodayHoliday!;
+              hours.value = int.parse(loanDetailsResponse.data!.data!.marginShortfall!.deadlineInHrs!.split(":")[0]);
+              min.value = int.parse(loanDetailsResponse.data!.data!.marginShortfall!.deadlineInHrs!.split(":")[1]);
+              sec.value = int.parse(loanDetailsResponse.data!.data!.marginShortfall!.deadlineInHrs!.split(":")[2]);
+              isTodayHoliday = loanDetailsResponse.data!.data!.marginShortfall!.isTodayHoliday!;
             } else {
               isActionTaken.value = true;
               isTimerDone.value = true;
