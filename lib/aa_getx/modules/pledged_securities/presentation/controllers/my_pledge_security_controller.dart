@@ -15,6 +15,8 @@ import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_u
 import 'package:lms/aa_getx/modules/pledged_securities/data/models/request/my_pledged_securities_request_model.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/domain/entities/my_pledged_securities_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/get_my_pledged_securities_usecase.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/mf_invoke_arguments.dart';
+import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
 import 'package:lms/network/requestbean/SellCollateralRequestBean.dart';
 import 'package:lms/network/requestbean/UnpledgeRequestBean.dart';
 import 'package:lms/pledged_securities/MyPledgedSecuritiesBloc.dart';
@@ -278,21 +280,23 @@ class MyPledgeSecurityController extends GetxController{
         if(isSellCollateral.value){
           if(!isSellTriggered.value){
             if(loanType == Strings.shares){
-              ///todo: uncomment following code after SellCollateralScreen in developed
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext context) =>
-              //             SellCollateralScreen(loanName,
-              //                 Strings.all, "", loanType!)));
-            }else{
-              ///todo: uncomment following code after MFInvokeScreen in developed
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext context) =>
-              //             MFInvokeScreen(loanName,
-              //                 Strings.all, "", "")));
+              Get.toNamed(sellCollateralView,
+                arguments: SellCollateralArguments(
+                  loanNo: loanName.value,
+                  isComingFor: Strings.all,
+                  isin: "",
+                  loanType: loanType.value,
+                ),
+              );
+            } else {
+              Get.toNamed(mfInvokeView,
+                arguments: MfInvokeArguments(
+                  loanNo: loanName.value,
+                  isComingFor: Strings.all,
+                  isin: "",
+                  folio: "",
+                ),
+              );
             }
           } else {
             commonDialog( Strings.sale_triggered_small, 0);
