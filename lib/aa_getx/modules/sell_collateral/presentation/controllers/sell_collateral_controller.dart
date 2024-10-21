@@ -285,13 +285,11 @@ class SellCollateralController extends GetxController{
   addButtonClicked(int actualIndex, int index) {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        //setState(() {
-          Get.focusScope?.unfocus();
-          isAddBtnShow[actualIndex] = false;
-          qtyControllers[actualIndex].text = "1";
-          myPledgedSecurityList[index].pledgedQuantity = 1.0;
-          sellCalculationHandling();
-        //});
+        Get.focusScope?.unfocus();
+        isAddBtnShow[actualIndex] = false;
+        qtyControllers[actualIndex].text = "1";
+        myPledgedSecurityList[index].pledgedQuantity = 1.0;
+        sellCalculationHandling();
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }
