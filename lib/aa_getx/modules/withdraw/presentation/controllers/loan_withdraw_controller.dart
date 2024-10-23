@@ -116,8 +116,6 @@ class LoanWithdrawController extends GetxController {
           firebaseEvent(Strings.withdraw_otp_sent, parameter);
           Get.bottomSheet(
             backgroundColor: Colors.transparent,
-            enableDrag: false,
-            isDismissible: false,
             isScrollControlled: true,
             LoanWithdrawOtpView(
               loanName: loanWithdrawArguments.loanName,

@@ -25,7 +25,7 @@ class LoanWithdrawOtpController extends GetxController {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Timer? _timer;
-  RxInt start = 0.obs;
+  RxInt start = 120.obs;
   String? otpValue;
   Preferences _preferences = Preferences();
   String? mobileExist, firebase_token;
@@ -36,8 +36,8 @@ class LoanWithdrawOtpController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     initSmsListener();
+    startTime();
     super.onInit();
   }
 
@@ -148,6 +148,20 @@ class LoanWithdrawOtpController extends GetxController {
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }
+  }
+
+  Future<void> resendOtpClicked() async {
+    Utility.isNetworkConnection().then((isNetwork) {
+      if (isNetwork) {
+        otpTextController.clear();
+        requestWithdrawOtpOnRetry();
+        start.value = 120;
+        retryAvailable.value = false;
+        isResendOTPClickable.value = true;
+      } else {
+        showSnackBar(scaffoldKey);
+      }
+    });
   }
 
   Future<void> requestWithdrawOtpOnRetry() async {
