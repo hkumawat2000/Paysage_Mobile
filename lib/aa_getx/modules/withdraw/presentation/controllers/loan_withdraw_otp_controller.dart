@@ -94,7 +94,7 @@ class LoanWithdrawOtpController extends GetxController {
             WithdrawOtpRequestEntity(
           loanName: loanName,
           bankAccountName: bankName,
-          amount: amount,
+          amount: double.parse(amount.toString()),
           otp: otpValue!,
         );
 

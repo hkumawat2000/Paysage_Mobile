@@ -5,7 +5,7 @@ import 'package:lms/aa_getx/modules/withdraw/domain/entities/request/withdraw_ot
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class WithdrawOtpRequestModel {
   String loanName;
-  String amount;
+  double amount;
   String bankAccountName;
   String otp;
   WithdrawOtpRequestModel({
@@ -27,7 +27,7 @@ class WithdrawOtpRequestModel {
   factory WithdrawOtpRequestModel.fromMap(Map<String, dynamic> map) {
     return WithdrawOtpRequestModel(
       loanName: map['loan_name'] as String,
-      amount: map['amount'] as String,
+      amount: map['amount'] as double,
       bankAccountName: map['bank_account_name'] as String,
       otp: map['otp'] as String,
     );
@@ -40,7 +40,7 @@ class WithdrawOtpRequestModel {
   factory WithdrawOtpRequestModel.fromEntity(WithdrawOtpRequestEntity withdrawOtpRequestEntity) {
     return WithdrawOtpRequestModel(
       loanName: withdrawOtpRequestEntity.loanName,
-      amount: withdrawOtpRequestEntity.amount,
+      amount: double.parse(withdrawOtpRequestEntity.amount.toString()),
       bankAccountName: withdrawOtpRequestEntity.bankAccountName,
       otp: withdrawOtpRequestEntity.otp,
     );

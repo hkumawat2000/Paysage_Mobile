@@ -62,7 +62,7 @@ class LoanWithdrawDatasourcecDataSourceImpl
     Dio dio = await getBaseDio();
     try {
       final response = await dio.post(
-        Apis.consentDetails,
+        Apis.withdrawRequest,
         data: withdrawOtpRequestDataModel.toJson(),
       );
       if (response.statusCode == 200) {

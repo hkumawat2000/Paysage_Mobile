@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class WithdrawOtpRequestEntity {
   String loanName;
-  String amount;
+  double amount;
   String bankAccountName;
   String otp;
 
