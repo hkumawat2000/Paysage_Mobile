@@ -11,9 +11,9 @@ class DeleteNotificationRequest {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['isForRead'] = isForRead;
-    data['isForClear'] = isForClear;
-    data['notificationName'] = notificationName;
+    data['is_for_read'] = isForRead;
+    data['is_for_clear'] = isForClear;
+    data['notification_name'] = notificationName;
     return data;
   }
 

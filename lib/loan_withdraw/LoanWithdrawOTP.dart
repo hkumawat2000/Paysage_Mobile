@@ -115,11 +115,8 @@ class WithdrawOTPVerificationState extends State<WithdrawOTPVerification>
           bottomNavigationBar: AnimatedPadding(
             duration: Duration(milliseconds: 150),
             curve: Curves.easeOut,
-            padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Container(
-                // height: 369,
-                // width: 375,
                 decoration: new BoxDecoration(
                   color: colorBg,
                   borderRadius: new BorderRadius.only(

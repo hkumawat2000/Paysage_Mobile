@@ -3301,8 +3301,6 @@ class VideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
-      // child: GestureDetector(
-      // child: RaisedButton(
       child: Card(
         elevation: 2.0,
         color: colorLightGray,
@@ -3323,10 +3321,7 @@ class VideoCard extends StatelessWidget {
               decoration: new BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(
-                      'https://i3.ytimg.com/vi/${videoID}/maxresdefault.jpg'
-                    // 'https://i.ytimg.com/vi/${videoID}/hqdefault.jpg'
-                    // 'https://i3.ytimg.com/vi/${videoID}/mqdefault.jpg'
+                  image: NetworkImage('https://i3.ytimg.com/vi/${videoID}/maxresdefault.jpg'
                   ),
                 ),
                 color: colorWhite,
@@ -3359,11 +3354,7 @@ class VideoCard extends StatelessWidget {
               ),
             ),
             TextButton(
-              //TODO:
-              // splashColor: Colors.transparent,
-              // shape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(10)),
-              onPressed: ()=> controller!.goToYoutubeVideoPlayer(),
+              onPressed: ()=> controller!.goToYoutubeVideoPlayer(videoID!, title!),
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
@@ -3372,20 +3363,6 @@ class VideoCard extends StatelessWidget {
           ]),
         ),
       ),
-      //   onTap: () {
-      //     Utility.isNetworkConnection().then((isNetwork) {
-      //       if (isNetwork) {
-      //         Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) => VideoPlayerScreen(
-      //                     videoID, title, videoIDList, titleList)));
-      //       } else {
-      //         Utility.showToastMessage(Strings.no_internet_message);
-      //       }
-      //     });
-      //   },
-      // ),
     );
   }
 }

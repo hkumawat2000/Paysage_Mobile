@@ -40,12 +40,13 @@ class UnpledgeSharesController extends GetxController{
   Rx<UnpledgeDataEntity> unpledgeData = new UnpledgeDataEntity().obs;
   List<double>? unpledgeQtyList;
   UnpledgeDetailsResponseEntity? unpledgeDetailsResponse;
+  RxBool isAPIRespond = false.obs;
   RxBool checkBoxValue = false.obs;
   Widget appBarTitle = new Text("", style: new TextStyle(color: Colors.white));
   Icon actionIcon = new Icon(Icons.search, color: appTheme, size: 25);
   TextEditingController textController = TextEditingController();
   List<TextEditingController> qtyControllers = [];
-  List<bool> isAddBtnShow = [];
+  RxList<bool> isAddBtnShow = <bool>[].obs;
   List<FocusNode> focusNode = [];
   SellCollateralArguments pageArguments = Get.arguments;
   FocusNode focusNodes = FocusNode();
@@ -72,9 +73,8 @@ class UnpledgeSharesController extends GetxController{
         LoanDetailsRequestEntity loanDetailsRequestEntity =
         LoanDetailsRequestEntity(loanName: loan_name);
         DataState<UnpledgeDetailsResponseEntity> response =
-        await _getUnpledgeDetailsUseCase.call(GetLoanDetailsParams(
-            loanDetailsRequestEntity: loanDetailsRequestEntity));
-
+        await _getUnpledgeDetailsUseCase.call(GetLoanDetailsParams(loanDetailsRequestEntity: loanDetailsRequestEntity));
+        isAPIRespond(true);
         if (response is DataSuccess) {
           if(response.data!.unpledgeData!.unpledge != null)  {
             unpledgeDetailsResponse = response.data!;
@@ -405,14 +405,12 @@ class UnpledgeSharesController extends GetxController{
   addButtonClicked(int index, int actualIndex)  {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
-        //setState(() {
-          Get.focusScope?.unfocus();
-          isAddBtnShow[actualIndex] = false;
-          qtyControllers[actualIndex].text = "1";
-          unpledgeItemsList[index].pledgedQuantity = 1.0;
-          selectedScrips = selectedScrips + 1;
-          unpledgeCalculationHandling();
-        //});
+        Get.focusScope?.unfocus();
+        isAddBtnShow[actualIndex] = false;
+        qtyControllers[actualIndex].text = "1";
+        unpledgeItemsList[index].pledgedQuantity = 1.0;
+        selectedScrips = selectedScrips + 1;
+        unpledgeCalculationHandling();
       } else {
         Utility.showToastMessage(Strings.no_internet_message);
       }

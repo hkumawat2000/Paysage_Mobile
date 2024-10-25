@@ -1,45 +1,40 @@
-import 'package:lms/aa_getx/modules/withdraw/domain/entities/loan_withdraw_response_entity.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/widgets.dart';
+import 'package:lms/aa_getx/modules/withdraw/data/loan_withdraw_response_entity.dart';
 
 class LoanWithdrawResponseModel {
   String? message;
-  LoanWithDrawDetailDataResponseModel? loanWithDrawDetailDataResponseModel;
+  Data? data;
 
-  LoanWithdrawResponseModel(
-      {this.message, this.loanWithDrawDetailDataResponseModel});
+  LoanWithdrawResponseModel({this.message, this.data});
 
   LoanWithdrawResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    loanWithDrawDetailDataResponseModel =
-    json['data'] != null
-        ? new LoanWithDrawDetailDataResponseModel.fromJson(
-        json['data'])
-        : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
-    if (this.loanWithDrawDetailDataResponseModel != null) {
-      data['LoanWithDrawDetailDataResponseModel'] =
-          this.loanWithDrawDetailDataResponseModel!.toJson();
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 
   LoanWithdrawResponseEntity toEntity() => LoanWithdrawResponseEntity(
-    message: message,
-    loanWithDrawDetailDataResponseEntity:
-    loanWithDrawDetailDataResponseModel?.toEntity(),
-  );
+        message: message,
+        data: data?.toEntity(),
+      );
 }
 
-class LoanWithDrawDetailDataResponseModel {
+class Data {
   Loan? loan;
   List<Banks>? banks;
 
-  LoanWithDrawDetailDataResponseModel({this.loan, this.banks});
+  Data({this.loan, this.banks});
 
-  LoanWithDrawDetailDataResponseModel.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     loan = json['loan'] != null ? new Loan.fromJson(json['loan']) : null;
     if (json['banks'] != null) {
       banks = <Banks>[];
@@ -60,9 +55,8 @@ class LoanWithDrawDetailDataResponseModel {
     return data;
   }
 
-  LoanWithDrawDetailDataResponseEntity toEntity() =>
-      LoanWithDrawDetailDataResponseEntity(
-        loanDataResponseEntity: loan?.toEntity(),
+  DataEntity toEntity() => DataEntity(
+        loan: loan?.toEntity(),
         banks: banks?.map((x) => x.toEntity()).toList(),
       );
 }
@@ -75,24 +69,24 @@ class Loan {
   String? modifiedBy;
   int? docstatus;
   int? idx;
-  double? totalCollateralValue;
+  int? totalCollateralValue;
   String? totalCollateralValueStr;
-  double? drawingPower;
+  int? drawingPower;
   String? drawingPowerStr;
   String? lender;
-  double? sanctionedLimit;
+  int? sanctionedLimit;
   String? sanctionedLimitStr;
   double? balance;
   String? balanceStr;
   int? isClosed;
   String? customer;
   String? customerName;
-  double? availableTopupAmt;
-  double? actualDrawingPower;
+  int? availableTopupAmt;
+  int? actualDrawingPower;
   String? expiryDate;
   String? loanAgreement;
   String? slCialEntries;
-  double? marginShortfallAmount;
+  int? marginShortfallAmount;
   String? instrumentType;
   String? schemeType;
   int? isEligibleForInterest;
@@ -101,7 +95,7 @@ class Loan {
   double? baseInterest;
   double? baseInterestConfig;
   double? baseInterestAmount;
-  double? interestDue;
+  int? interestDue;
   double? penalInterestCharges;
   double? totalInterestInclPenalDue;
   double? rebateInterest;
@@ -122,56 +116,56 @@ class Loan {
 
   Loan(
       {this.name,
-        this.owner,
-        this.creation,
-        this.modified,
-        this.modifiedBy,
-        this.docstatus,
-        this.idx,
-        this.totalCollateralValue,
-        this.totalCollateralValueStr,
-        this.drawingPower,
-        this.drawingPowerStr,
-        this.lender,
-        this.sanctionedLimit,
-        this.sanctionedLimitStr,
-        this.balance,
-        this.balanceStr,
-        this.isClosed,
-        this.customer,
-        this.customerName,
-        this.availableTopupAmt,
-        this.actualDrawingPower,
-        this.expiryDate,
-        this.loanAgreement,
-        this.slCialEntries,
-        this.marginShortfallAmount,
-        this.instrumentType,
-        this.schemeType,
-        this.isEligibleForInterest,
-        this.isIrregular,
-        this.isPenalize,
-        this.baseInterest,
-        this.baseInterestConfig,
-        this.baseInterestAmount,
-        this.interestDue,
-        this.penalInterestCharges,
-        this.totalInterestInclPenalDue,
-        this.rebateInterest,
-        this.rebateInterestConfig,
-        this.rebateInterestAmount,
-        this.interestOverdue,
-        this.dayPastDue,
-        this.customBaseInterest,
-        this.oldInterest,
-        this.wefDate,
-        this.isDefault,
-        this.customRebateInterest,
-        this.oldRebateInterest,
-        this.oldWefDate,
-        this.doctype,
-        this.items,
-        this.amountAvailableForWithdrawal});
+      this.owner,
+      this.creation,
+      this.modified,
+      this.modifiedBy,
+      this.docstatus,
+      this.idx,
+      this.totalCollateralValue,
+      this.totalCollateralValueStr,
+      this.drawingPower,
+      this.drawingPowerStr,
+      this.lender,
+      this.sanctionedLimit,
+      this.sanctionedLimitStr,
+      this.balance,
+      this.balanceStr,
+      this.isClosed,
+      this.customer,
+      this.customerName,
+      this.availableTopupAmt,
+      this.actualDrawingPower,
+      this.expiryDate,
+      this.loanAgreement,
+      this.slCialEntries,
+      this.marginShortfallAmount,
+      this.instrumentType,
+      this.schemeType,
+      this.isEligibleForInterest,
+      this.isIrregular,
+      this.isPenalize,
+      this.baseInterest,
+      this.baseInterestConfig,
+      this.baseInterestAmount,
+      this.interestDue,
+      this.penalInterestCharges,
+      this.totalInterestInclPenalDue,
+      this.rebateInterest,
+      this.rebateInterestConfig,
+      this.rebateInterestAmount,
+      this.interestOverdue,
+      this.dayPastDue,
+      this.customBaseInterest,
+      this.oldInterest,
+      this.wefDate,
+      this.isDefault,
+      this.customRebateInterest,
+      this.oldRebateInterest,
+      this.oldWefDate,
+      this.doctype,
+      this.items,
+      this.amountAvailableForWithdrawal});
 
   Loan.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -290,29 +284,58 @@ class Loan {
     return data;
   }
 
-  LoanDataResponseEntity toEntity() =>
-      LoanDataResponseEntity(
+  LoanEntity toEntity() => LoanEntity(
         name: name,
         owner: owner,
         creation: creation,
         modified: modified,
         modifiedBy: modifiedBy,
-        idx: idx,
         docstatus: docstatus,
+        idx: idx,
         totalCollateralValue: totalCollateralValue,
+        totalCollateralValueStr: totalCollateralValueStr,
         drawingPower: drawingPower,
         drawingPowerStr: drawingPowerStr,
         lender: lender,
         sanctionedLimit: sanctionedLimit,
+        sanctionedLimitStr: sanctionedLimitStr,
         balance: balance,
         balanceStr: balanceStr,
+        isClosed: isClosed,
         customer: customer,
+        customerName: customerName,
+        availableTopupAmt: availableTopupAmt,
+        actualDrawingPower: actualDrawingPower,
         expiryDate: expiryDate,
         loanAgreement: loanAgreement,
+        slCialEntries: slCialEntries,
+        marginShortfallAmount: marginShortfallAmount,
+        instrumentType: instrumentType,
+        schemeType: schemeType,
+        isEligibleForInterest: isEligibleForInterest,
+        isIrregular: isIrregular,
+        isPenalize: isPenalize,
+        baseInterest: baseInterest,
+        baseInterestConfig: baseInterestConfig,
+        baseInterestAmount: baseInterestAmount,
+        interestDue: interestDue,
+        penalInterestCharges: penalInterestCharges,
+        totalInterestInclPenalDue: totalInterestInclPenalDue,
+        rebateInterest: rebateInterest,
+        rebateInterestConfig: rebateInterestConfig,
+        rebateInterestAmount: rebateInterestAmount,
+        interestOverdue: interestOverdue,
+        dayPastDue: dayPastDue,
+        customBaseInterest: customBaseInterest,
+        oldInterest: oldInterest,
+        wefDate: wefDate,
+        isDefault: isDefault,
+        customRebateInterest: customRebateInterest,
+        oldRebateInterest: oldRebateInterest,
+        oldWefDate: oldWefDate,
         doctype: doctype,
         items: items?.map((x) => x.toEntity()).toList(),
         amountAvailableForWithdrawal: amountAvailableForWithdrawal,
-
       );
 }
 
@@ -327,12 +350,15 @@ class Items {
   String? isin;
   String? securityName;
   String? securityCategory;
-  double? pledgedQuantity;
-  double? eligiblePercentage;
-  double? eligibleAmount;
-  double? price;
-  double? amount;
+  int? pledgedQuantity;
+  int? eligiblePercentage;
+  int? eligibleAmount;
+  int? price;
+  int? amount;
   String? type;
+  Null? folio;
+  Null? amcCode;
+  Null? amcImage;
   String? psn;
   String? parent;
   String? parentfield;
@@ -341,26 +367,29 @@ class Items {
 
   Items(
       {this.name,
-        this.owner,
-        this.creation,
-        this.modified,
-        this.modifiedBy,
-        this.docstatus,
-        this.idx,
-        this.isin,
-        this.securityName,
-        this.securityCategory,
-        this.pledgedQuantity,
-        this.eligiblePercentage,
-        this.eligibleAmount,
-        this.price,
-        this.amount,
-        this.type,
-        this.psn,
-        this.parent,
-        this.parentfield,
-        this.parenttype,
-        this.doctype});
+      this.owner,
+      this.creation,
+      this.modified,
+      this.modifiedBy,
+      this.docstatus,
+      this.idx,
+      this.isin,
+      this.securityName,
+      this.securityCategory,
+      this.pledgedQuantity,
+      this.eligiblePercentage,
+      this.eligibleAmount,
+      this.price,
+      this.amount,
+      this.type,
+      this.folio,
+      this.amcCode,
+      this.amcImage,
+      this.psn,
+      this.parent,
+      this.parentfield,
+      this.parenttype,
+      this.doctype});
 
   Items.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -379,6 +408,9 @@ class Items {
     price = json['price'];
     amount = json['amount'];
     type = json['type'];
+    folio = json['folio'];
+    amcCode = json['amc_code'];
+    amcImage = json['amc_image'];
     psn = json['psn'];
     parent = json['parent'];
     parentfield = json['parentfield'];
@@ -404,6 +436,9 @@ class Items {
     data['price'] = this.price;
     data['amount'] = this.amount;
     data['type'] = this.type;
+    data['folio'] = this.folio;
+    data['amc_code'] = this.amcCode;
+    data['amc_image'] = this.amcImage;
     data['psn'] = this.psn;
     data['parent'] = this.parent;
     data['parentfield'] = this.parentfield;
@@ -412,25 +447,30 @@ class Items {
     return data;
   }
 
-  ItemsResponseEntity toEntity() =>
-      ItemsResponseEntity(
+  ItemsEntity toEntity() => ItemsEntity(
         name: name,
         owner: owner,
         creation: creation,
         modified: modified,
         modifiedBy: modifiedBy,
-        parent: parent,
-        parentfield: parentfield,
-        parenttype: parenttype,
-        idx: idx,
         docstatus: docstatus,
+        idx: idx,
         isin: isin,
         securityName: securityName,
         securityCategory: securityCategory,
         pledgedQuantity: pledgedQuantity,
+        eligiblePercentage: eligiblePercentage,
+        eligibleAmount: eligibleAmount,
         price: price,
         amount: amount,
+        type: type,
+        folio: folio ?? null,
+        amcCode: amcCode ?? null,
+        amcImage: amcImage ?? null,
         psn: psn,
+        parent: parent,
+        parentfield: parentfield,
+        parenttype: parenttype,
         doctype: doctype,
       );
 }
@@ -473,39 +513,39 @@ class Banks {
 
   Banks(
       {this.name,
-        this.creation,
-        this.modified,
-        this.modifiedBy,
-        this.owner,
-        this.docstatus,
-        this.idx,
-        this.bankStatus,
-        this.bank,
-        this.branch,
-        this.accountNumber,
-        this.ifsc,
-        this.bankCode,
-        this.city,
-        this.state,
-        this.isDefault,
-        this.isSparkDefault,
-        this.pennyRequestId,
-        this.bankTransactionStatus,
-        this.accountHolderName,
-        this.personalizedCheque,
-        this.bankAddress,
-        this.contact,
-        this.accountType,
-        this.micr,
-        this.bankMode,
-        this.bankZipCode,
-        this.district,
-        this.notificationSent,
-        this.isRepeated,
-        this.isMismatched,
-        this.parent,
-        this.parentfield,
-        this.parenttype});
+      this.creation,
+      this.modified,
+      this.modifiedBy,
+      this.owner,
+      this.docstatus,
+      this.idx,
+      this.bankStatus,
+      this.bank,
+      this.branch,
+      this.accountNumber,
+      this.ifsc,
+      this.bankCode,
+      this.city,
+      this.state,
+      this.isDefault,
+      this.isSparkDefault,
+      this.pennyRequestId,
+      this.bankTransactionStatus,
+      this.accountHolderName,
+      this.personalizedCheque,
+      this.bankAddress,
+      this.contact,
+      this.accountType,
+      this.micr,
+      this.bankMode,
+      this.bankZipCode,
+      this.district,
+      this.notificationSent,
+      this.isRepeated,
+      this.isMismatched,
+      this.parent,
+      this.parentfield,
+      this.parenttype});
 
   Banks.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -583,32 +623,40 @@ class Banks {
     return data;
   }
 
-  BanksResponseEntity toEntity() =>
-      BanksResponseEntity(
+  BanksEntity toEntity() => BanksEntity(
         name: name,
         creation: creation,
         modified: modified,
         modifiedBy: modifiedBy,
         owner: owner,
         docstatus: docstatus,
-        parent: parent,
-        parentfield: parentfield,
-        parenttype: parenttype,
         idx: idx,
+        bankStatus: bankStatus,
         bank: bank,
         branch: branch,
         accountNumber: accountNumber,
         ifsc: ifsc,
-        bankCode: bankCode,
+        bankCode: bankCode ?? null,
         city: city,
-        state: state,
+        state: state ?? null,
         isDefault: isDefault,
-        bankAddress: bankAddress,
-        contact: contact,
+        isSparkDefault: isSparkDefault ?? null,
+        pennyRequestId: pennyRequestId,
+        bankTransactionStatus: bankTransactionStatus,
+        accountHolderName: accountHolderName,
+        personalizedCheque: personalizedCheque,
+        bankAddress: bankAddress ?? null,
+        contact: contact ?? null,
         accountType: accountType,
-        micr: micr,
-        bankMode: bankMode,
-        bankZipCode: bankZipCode,
-        district: district,
+        micr: micr ?? null,
+        bankMode: bankMode ?? null,
+        bankZipCode: bankZipCode ?? null,
+        district: district ?? null,
+        notificationSent: notificationSent,
+        isRepeated: isRepeated,
+        isMismatched: isMismatched,
+        parent: parent,
+        parentfield: parentfield,
+        parenttype: parenttype,
       );
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:lms/aa_getx/core/error/dio_error_handler.dart';
 import 'package:lms/aa_getx/core/error/exception.dart';
@@ -60,7 +62,7 @@ class LoanWithdrawDatasourcecDataSourceImpl
     Dio dio = await getBaseDio();
     try {
       final response = await dio.post(
-        Apis.consentDetails,
+        Apis.withdrawRequest,
         data: withdrawOtpRequestDataModel.toJson(),
       );
       if (response.statusCode == 200) {

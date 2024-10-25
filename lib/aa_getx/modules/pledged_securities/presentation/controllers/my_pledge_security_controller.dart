@@ -178,16 +178,9 @@ class MyPledgeSecurityController extends GetxController{
         if(unPledgeMarginShortFallMsg.isEmpty){
           if(isUnpledge.value){
             if(loanType == Strings.shares) {
-              ///todo: uncomment following code after UnpledgeSharesScreen in developed
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext context) => UnpledgeSharesScreen(loanName, Strings.all, "", loanType!)));
+              Get.toNamed(unpledgeSharesView, arguments: SellCollateralArguments(loanNo: loanName.value, isComingFor: Strings.all, isin: "", loanType: loanType.value));
             } else {
-              ///todo: uncomment following code after MFRevokeScreen in developed
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (BuildContext context) =>
-              //         MFRevokeScreen(loanName, Strings.all, "", "")));
+              Get.toNamed(mfRevokeView, arguments: MfInvokeArguments(loanNo: loanName.value, isComingFor: Strings.all, isin: "", folio: ""));
             }
           } else {
             commonDialog(loanType == Strings.shares ? Strings.unpledge_request_pending : Strings.revoke_request_pending, 0);
@@ -310,11 +303,19 @@ class MyPledgeSecurityController extends GetxController{
     });
   }
 
- void pressDownUnpledgeOrRevokeClicked(){
+ void pressDownUnpledgeOrRevokeClicked(int index){
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         if (unPledgeMarginShortFallMsg.isEmpty) {
           if (isUnpledge.value) {
+
+            if(loanType == Strings.shares) {
+              Get.toNamed(unpledgeSharesView, arguments: SellCollateralArguments(loanNo: loanName.value, isComingFor: Strings.single, isin: allPledgedSecurities[index].isin!, loanType: loanType.value));
+            } else {
+              Get.toNamed(mfRevokeView, arguments: MfInvokeArguments(loanNo: loanName.value, isComingFor: Strings.single, isin: allPledgedSecurities[index].isin!, folio: allPledgedSecurities[index].folio!));
+            }
+
+
             if (loanType == Strings.shares) {
               ///todo: uncomment following code after UnpledgeSharesScreen in developed
               // Navigator.push(
@@ -401,41 +402,31 @@ class MyPledgeSecurityController extends GetxController{
     });
   }
 
-  void pressDownSellOrInvokeClicked()  {
+  void pressDownSellOrInvokeClicked(int index)  {
     Utility.isNetworkConnection().then((isNetwork) {
       if (isNetwork) {
         if (isSellCollateral.value) {
           if (!isSellTriggered.value) {
-            if (loanType == Strings.shares) {
-              ///todo: uncomment following code after SellCollateralScreen in developed
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext
-              //         context) =>
-              //             SellCollateralScreen(
-              //                 loanName,
-              //                 Strings.single,
-              //                 allPledgedSecurities[
-              //                 index]
-              //                     .isin!,
-              //                 loanType!)));
+
+
+            if(loanType == Strings.shares){
+              Get.toNamed(sellCollateralView,
+                arguments: SellCollateralArguments(
+                  loanNo: loanName.value,
+                  isComingFor: Strings.single,
+                  isin: allPledgedSecurities[index].isin!,
+                  loanType: loanType.value,
+                ),
+              );
             } else {
-              ///todo: uncomment following code after MFInvokeScreen in developed
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (BuildContext
-              //         context) =>
-              //             MFInvokeScreen(
-              //                 loanName,
-              //                 Strings.single,
-              //                 allPledgedSecurities[
-              //                 index]
-              //                     .isin!,
-              //                 allPledgedSecurities[
-              //                 index]
-              //                     .folio!)));
+              Get.toNamed(mfInvokeView,
+                arguments: MfInvokeArguments(
+                  loanNo: loanName.value,
+                  isComingFor: Strings.single,
+                  isin: allPledgedSecurities[index].isin!,
+                  folio: allPledgedSecurities[index].folio!,
+                ),
+              );
             }
           } else {
             commonDialog(

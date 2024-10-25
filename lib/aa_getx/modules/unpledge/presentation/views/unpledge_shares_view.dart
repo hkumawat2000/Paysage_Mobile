@@ -13,23 +13,18 @@ class UnpledgeSharesView extends GetView<UnpledgeSharesController>{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Obx(
-          ()=> Scaffold(
-          key: controller.scaffoldKey,
-          resizeToAvoidBottomInset: false,
-          backgroundColor: colorBg,
-          appBar: buildBar(context),
-          body: controller.unpledgeDetailsResponse != null
-             // ? controller.unpledgeDetailsResponse!.data!.unpledge != null
-              ? controller.unpledgeDetailsResponse!.unpledgeData!.unpledge != null
-              ? allUnpledgeData()
-              : Center(child: Text(Strings.no_loan))
-              : Center(child: Text(Strings.please_wait))
+        () => Scaffold(
+            key: controller.scaffoldKey,
+            resizeToAvoidBottomInset: false,
+            backgroundColor: colorBg,
+            appBar: buildBar(context),
+            body: controller.isAPIRespond.isTrue
+                ? allUnpledgeData()
+                : Center(child: Text(Strings.please_wait)),
+        ),
       ),
-     ),
     );
   }
 
@@ -38,7 +33,7 @@ class UnpledgeSharesView extends GetView<UnpledgeSharesController>{
       behavior: new ScrollBehavior(),
       //..buildViewportChrome(context, Container(), AxisDirection.down),
       child: NestedScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: AlwaysScrollableScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverList(

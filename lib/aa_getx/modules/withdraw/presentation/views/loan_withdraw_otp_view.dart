@@ -87,11 +87,8 @@ class _LoanWithdrawOtpViewState extends State<LoanWithdrawOtpView>
         bottomNavigationBar: AnimatedPadding(
           duration: Duration(milliseconds: 150),
           curve: Curves.easeOut,
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Container(
-            // height: 369,
-            // width: 375,
             decoration: new BoxDecoration(
               color: colorWhite,
               borderRadius: new BorderRadius.only(
@@ -106,23 +103,10 @@ class _LoanWithdrawOtpViewState extends State<LoanWithdrawOtpView>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                      height: 40,
+                      height: 30,
                     ),
-                    Text(
-                      Strings.otp_verification,
-                      style: TextStyle(
-                          color: appTheme,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: HeadingSubHeadingWidget(Strings.otp_verification,
-                          "Enter OTP to confirm your application for loan withdraw (sent to your registered mobile number)"),
-                    ),
+                    HeadingSubHeadingWidget(Strings.otp_verification,
+                        "Enter OTP to confirm your application for loan withdraw (sent to your registered mobile number)"),
                     SizedBox(
                       height: 39,
                     ),
@@ -258,8 +242,6 @@ class _LoanWithdrawOtpViewState extends State<LoanWithdrawOtpView>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                              "${otpVerificationController.isResendOTPClickable.value}"),
                           Padding(
                             padding: const EdgeInsets.only(left: 20, right: 20),
                             child: AbsorbPointer(
