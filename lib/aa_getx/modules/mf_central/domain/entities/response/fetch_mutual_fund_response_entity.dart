@@ -28,6 +28,7 @@ class FetchMutualFundResponseDataEntity {
   String? lastNavDate;
   String? isDemat;
   String? assetType;
+  int? isAllowed;
   String? isin;
   String? nomineeStatus;
   String? taxStatus;
@@ -55,6 +56,7 @@ class FetchMutualFundResponseDataEntity {
         this.lastNavDate,
         this.isDemat,
         this.assetType,
+        this.isAllowed,
         this.isin,
         this.nomineeStatus,
         this.taxStatus,

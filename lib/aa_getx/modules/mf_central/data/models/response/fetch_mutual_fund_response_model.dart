@@ -54,6 +54,7 @@ class FetchMutualFundResponseData {
   String? lastNavDate;
   String? isDemat;
   String? assetType;
+  int? isAllowed;
   String? isin;
   String? nomineeStatus;
   String? taxStatus;
@@ -81,6 +82,7 @@ class FetchMutualFundResponseData {
         this.lastNavDate,
         this.isDemat,
         this.assetType,
+        this.isAllowed,
         this.isin,
         this.nomineeStatus,
         this.taxStatus,
@@ -108,6 +110,7 @@ class FetchMutualFundResponseData {
     lastNavDate = json['lastNavDate'];
     isDemat = json['isDemat'];
     assetType = json['assetType'];
+    isAllowed = json['IsAllowed'];
     isin = json['isin'];
     nomineeStatus = json['nomineeStatus'];
     taxStatus = json['taxStatus'];
@@ -137,6 +140,7 @@ class FetchMutualFundResponseData {
     data['lastNavDate'] = this.lastNavDate;
     data['isDemat'] = this.isDemat;
     data['assetType'] = this.assetType;
+    data['IsAllowed'] = this.isAllowed;
     data['isin'] = this.isin;
     data['nomineeStatus'] = this.nomineeStatus;
     data['taxStatus'] = this.taxStatus;
