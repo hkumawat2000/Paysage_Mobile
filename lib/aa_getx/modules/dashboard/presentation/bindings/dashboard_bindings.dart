@@ -23,6 +23,7 @@ import 'package:lms/aa_getx/modules/notification/domain/usecases/delete_clear_no
 import 'package:lms/aa_getx/modules/pledged_securities/data/data_sources/pledged_securities_api.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/data/repositories/pledged_securities_repository_impl.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/get_my_pledged_securities_usecase.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/loan_closer_usecase.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/controllers/my_pledge_security_controller.dart';
 
 class DashboardBindings extends Bindings {
@@ -119,11 +120,14 @@ class DashboardBindings extends Bindings {
 
     Get.lazyPut<GetMyPledgedSecuritiesUseCase>(()=>GetMyPledgedSecuritiesUseCase(Get.find<PledgedSecuritiesRepositoryImpl>()));
 
+    Get.lazyPut<LoanCloserUsecase>(() => LoanCloserUsecase(Get.find<PledgedSecuritiesRepositoryImpl>()));
+
     Get.lazyPut<MyPledgeSecurityController>(() => MyPledgeSecurityController(
         Get.find<ConnectionInfo>(),
         Get.find<GetAllLoansNamesUseCase>(),
         Get.find<GetLoanDetailsUseCase>(),
-        Get.find<GetMyPledgedSecuritiesUseCase>()));
+        Get.find<GetMyPledgedSecuritiesUseCase>(),
+        Get.find<LoanCloserUsecase>()));
 
     /// Single my active loan bindings
     Get.lazyPut<SingleMyActiveLoanController>(() =>

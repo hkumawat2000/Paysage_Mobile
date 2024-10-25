@@ -13,8 +13,11 @@ import 'package:lms/aa_getx/modules/more/domain/usecases/get_loan_details_usecas
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/all_loan_names_response_entity.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_usecase.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/data/models/request/my_pledged_securities_request_model.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/domain/entities/request/loan_closer_request_entity.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/domain/entities/response/loan_closer_response_entity.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/domain/entities/response/my_pledged_securities_details_response_entity.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/get_my_pledged_securities_usecase.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/loan_closer_usecase.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/mf_invoke_arguments.dart';
 import 'package:lms/aa_getx/modules/sell_collateral/presentation/arguments/sell_collateral_arguments.dart';
 import 'package:lms/network/requestbean/SellCollateralRequestBean.dart';
@@ -26,9 +29,10 @@ class MyPledgeSecurityController extends GetxController{
   final GetAllLoansNamesUseCase _getAllLoansNamesUseCase;
   final GetLoanDetailsUseCase _getLoanDetailsUseCase;
   final GetMyPledgedSecuritiesUseCase _getMyPledgedSecuritiesUseCase;
+  final LoanCloserUsecase _loanCloserUsecase;
 
   MyPledgeSecurityController(this._connectionInfo,
-      this._getAllLoansNamesUseCase, this._getLoanDetailsUseCase, this._getMyPledgedSecuritiesUseCase);
+      this._getAllLoansNamesUseCase, this._getLoanDetailsUseCase, this._getMyPledgedSecuritiesUseCase, this._loanCloserUsecase);
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final myPledgedSecuritiesBloc = MyPledgedSecuritiesBloc();
@@ -472,7 +476,22 @@ class MyPledgeSecurityController extends GetxController{
     });
   }
 
-  loanCloserClick(){
-
+  loanCloserClick() async {
+    DataState<LoanCloserResponseEntity> response = await _loanCloserUsecase.call(
+      LoanCloserRequestParams(
+        loanCloserRequestEntity: LoanCloserRequestEntity(
+          loanNo: loanName.value
+        ),
+      ),
+    );
+    if(response is DataSuccess){
+      pullRefresh();
+    } else if (response is DataFailed) {
+      if (response.error!.statusCode == 403) {
+        commonDialog(Strings.session_timeout, 4);
+      } else {
+        Utility.showToastMessage(response.error!.message);
+      }
+    }
   }
 }
