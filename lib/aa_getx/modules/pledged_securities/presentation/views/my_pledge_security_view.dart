@@ -63,8 +63,7 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
                     elevation: 1.0,
                     child: MaterialButton(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-                      onPressed: () {
-                      },
+                      onPressed: () => controller.loanCloserClick(),
                       child: Text(
                         "Loan Close",
                         style: buttonTextWhite,
