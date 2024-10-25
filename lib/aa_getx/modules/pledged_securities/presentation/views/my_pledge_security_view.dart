@@ -42,15 +42,52 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
             ),
             myPledgedSecuritiesCard(),
             myPledgedSecuritiesOption(),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(14, 20, 15, 8),
-              child: Row(
-                children: [
-                  Text(controller.loanType == Strings.shares ? 'Security' : 'Schemes', style:boldTextStyle_18),
-                ],
-              ),
+            controller.allPledgedSecurities.length == 0
+                ?
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(height: 30),
+                Text("Do you want to close your Loan ?", style:boldTextStyle_18),
+                SizedBox(height: 20),
+                Container(
+                  height: 50,
+                  // width: 140,
+                  child: Material(
+                    color: appTheme,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(35),
+                    ),
+                    elevation: 1.0,
+                    child: MaterialButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
+                      onPressed: () {
+                      },
+                      child: Text(
+                        "Loan Close",
+                        style: buttonTextWhite,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+                :
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(14, 20, 15, 8),
+                  child: Row(
+                    children: [
+                      Text(controller.loanType == Strings.shares ? 'Security' : 'Schemes', style:boldTextStyle_18),
+                    ],
+                  ),
+                ),
+                myPledgedSecuritiesList(),
+              ],
             ),
-            myPledgedSecuritiesList(),
             SizedBox(height: 70)
           ],
         ) :
