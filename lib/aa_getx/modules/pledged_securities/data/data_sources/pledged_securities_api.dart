@@ -36,8 +36,8 @@ class PledgedSecuritiesApiImpl extends PledgedSecuritiesApi with BaseDio{
   Future<LoanCloserResponseModel> loanCloser(LoanCloserRequestModel loanCloserRequestModel) async {
     Dio dio = await getBaseDio();
     try {
-      final response = await dio.get(Apis.loanCloser,
-          queryParameters: loanCloserRequestModel.toJson());
+      final response = await dio.post(Apis.loanCloser,
+          data: loanCloserRequestModel.toJson());
       if (response.statusCode == 200) {
         return LoanCloserResponseModel.fromJson(response.data);
       } else {
