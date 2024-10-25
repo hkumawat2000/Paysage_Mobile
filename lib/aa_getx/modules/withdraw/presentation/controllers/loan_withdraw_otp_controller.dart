@@ -3,10 +3,12 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/preferences.dart';
+import 'package:lms/aa_getx/modules/dashboard/presentation/arguments/dashboard_arguments.dart';
 import 'package:lms/aa_getx/modules/my_loan/domain/entities/common_response_entities.dart';
 import 'package:lms/aa_getx/modules/withdraw/domain/entities/request/withdraw_otp_request_entity.dart';
 import 'package:lms/aa_getx/modules/withdraw/domain/usecases/create_withdraw_request_usecase.dart';
@@ -117,15 +119,10 @@ class LoanWithdrawOtpController extends GetxController {
           firebaseEvent(Strings.withdraw_success, parameter);
 
           Utility.showToastMessage(Strings.payment_successful);
-
-//TODO Navigate to Success screen
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (BuildContext context) => LoanWithdrawSuccess(
-          //             value.data!.loanTransactionName!,
-          //             widget.amount,
-          //             value.message!)));
+          Get.offAllNamed(dashboardView, arguments: DashboardArguments(
+            isFromPinScreen: false,
+            selectedIndex: 0,
+          ));
         } else if (response is DataFailed) {
           if (response.error!.statusCode == 403) {
             commonDialog(Strings.session_timeout, 4);
