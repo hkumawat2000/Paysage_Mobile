@@ -41,9 +41,11 @@ import 'package:lms/aa_getx/modules/login/presentation/screens/otp_verify_screen
 import 'package:lms/aa_getx/modules/login/presentation/screens/pin_screen.dart';
 import 'package:lms/aa_getx/modules/login/presentation/screens/terms_and_conditions_webview.dart';
 import 'package:lms/aa_getx/modules/mf_central/domain/entities/response/mf_send_otp_response_entity.dart';
+import 'package:lms/aa_getx/modules/mf_central/presentation/bindings/eligible_mutual_fund_binding.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/bindings/fetch_mutual_fund_binding.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/bindings/mutual_fund_consent_binding.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/bindings/mutual_fund_otp_binding.dart';
+import 'package:lms/aa_getx/modules/mf_central/presentation/views/eligible_mutual_fund_view.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/views/fetch_mutual_fund_view.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/views/mutual_fund_consent_view.dart';
 import 'package:lms/aa_getx/modules/mf_central/presentation/views/mutual_fund_otp_view.dart';
@@ -152,6 +154,7 @@ const String mfInvokeView = "mf-invoke-view";
 const String mutualFundConsentView = "mutual-fund-consent-view";
 const String fetchMutualFundView = "fetch-mutual-fund-view";
 const String mutualFundOtpView = "mutual-fund-otp-view";
+const String eligibleMutualFundView = "eligible-mutual-fund-view";
 const String riskProfileView = "risk-profile-view";
 LoginSubmitResquestEntity? loginSubmitRequestEntity;
 // const String sellCollateralView = "sell-collateral-view";
@@ -394,6 +397,11 @@ List<GetPage> routes = [
     name: '/$mutualFundOtpView',
     page: () => MutualFundOtpView(MutualFundSendOtpDataEntity()),
     binding: MutualFundOtpBinding(),
+  ),
+  GetPage(
+    name: '/$eligibleMutualFundView',
+    page: () => EligibleMutualFundView(),
+    binding: EligibleMutualFundBinding(),
   ),
   GetPage(
     name: '/$riskProfileView',
