@@ -13,6 +13,7 @@ class MyPledgedSecuritiesDataEntity {
   double? drawingPower;
   String? drawingPowerStr;
   double? balance;
+  int? isClosed;
   int? numberOfScrips;
   List<AllPledgedSecuritiesEntity>? allPledgedSecurities;
   int? sellCollateral;
@@ -31,6 +32,7 @@ class MyPledgedSecuritiesDataEntity {
         this.totalValue,
         this.drawingPower,
         this.balance,
+        this.isClosed,
         this.numberOfScrips,
         this.allPledgedSecurities,
         this.sellCollateral,

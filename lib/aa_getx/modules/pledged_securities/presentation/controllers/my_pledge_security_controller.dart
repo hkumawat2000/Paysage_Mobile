@@ -54,6 +54,7 @@ class MyPledgeSecurityController extends GetxController{
   RxString unPledgeMarginShortFallMsg="".obs;
   RxString loanType="".obs;
   RxString schemeType = "".obs;
+  RxBool isLoanClosed = false.obs;
 
   @override
   void onInit() {
@@ -112,6 +113,7 @@ class MyPledgeSecurityController extends GetxController{
           selectedScrips.value = pledgedResponse.value!.myPledgedSecuritiesData!.numberOfScrips.toString();
           drawingPower.value = pledgedResponse.value!.myPledgedSecuritiesData!.drawingPower ?? 0.0;
           loanBalance.value = pledgedResponse.value!.myPledgedSecuritiesData!.balance ?? 0.0;
+          isLoanClosed.value = pledgedResponse.value!.myPledgedSecuritiesData!.isClosed == 1 ? true : false;
           // allPledgedSecurities = pledgedResponse.data.allPledgedSecurities;
 
           for(int i=0; i< pledgedResponse.value!.myPledgedSecuritiesData!.allPledgedSecurities!.length; i++){

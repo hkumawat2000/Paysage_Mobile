@@ -43,7 +43,9 @@ class MyPledgeSecurityView extends GetView<MyPledgeSecurityController>{
             myPledgedSecuritiesCard(),
             myPledgedSecuritiesOption(),
             controller.allPledgedSecurities.length == 0
-                ?
+                ? controller.isLoanClosed.isTrue ?
+            Text("Loan Closed !", style:boldTextStyle_18)
+                :
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

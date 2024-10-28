@@ -45,6 +45,7 @@ class MyPledgedSecuritiesData {
   double? drawingPower;
   String? drawingPowerStr;
   double? balance;
+  int? isClosed;
   int? numberOfScrips;
   List<AllPledgedSecurities>? allPledgedSecurities;
   int? sellCollateral;
@@ -63,6 +64,7 @@ class MyPledgedSecuritiesData {
         this.totalValue,
         this.drawingPower,
         this.balance,
+        this.isClosed,
         this.numberOfScrips,
         this.allPledgedSecurities,
         this.sellCollateral,
@@ -82,6 +84,7 @@ class MyPledgedSecuritiesData {
     drawingPower = json['drawing_power'];
     drawingPowerStr = json['drawing_power_str'];
     balance = json['balance'];
+    isClosed = json['is_closed'];
     numberOfScrips = json['number_of_scrips'];
     if (json['all_pledged_securities'] != null) {
       allPledgedSecurities = <AllPledgedSecurities>[];
@@ -109,6 +112,7 @@ class MyPledgedSecuritiesData {
     data['drawing_power'] = this.drawingPower;
     data['drawing_power_str'] = this.drawingPowerStr;
     data['balance'] = this.balance;
+    data['is_closed'] = this.isClosed;
     data['number_of_scrips'] = this.numberOfScrips;
     if (this.allPledgedSecurities != null) {
       data['all_pledged_securities'] =
@@ -135,6 +139,7 @@ class MyPledgedSecuritiesData {
         drawingPower: drawingPower,
         drawingPowerStr: drawingPowerStr,
         balance: balance,
+        isClosed: isClosed,
         numberOfScrips: numberOfScrips,
         allPledgedSecurities: allPledgedSecurities?.map((x) => x.toEntity()).toList(),
         sellCollateral: sellCollateral,
@@ -156,6 +161,7 @@ class MyPledgedSecuritiesData {
       drawingPower: myPledgedSecuritiesData.drawingPower != null ? myPledgedSecuritiesData.drawingPower as double : null,
       drawingPowerStr: myPledgedSecuritiesData.drawingPowerStr != null ? myPledgedSecuritiesData.drawingPowerStr as String : null,
       balance: myPledgedSecuritiesData.balance != null ? myPledgedSecuritiesData.balance as double : null,
+      isClosed: myPledgedSecuritiesData.isClosed != null ? myPledgedSecuritiesData.isClosed as int : null,
       numberOfScrips: myPledgedSecuritiesData.numberOfScrips != null ? myPledgedSecuritiesData.numberOfScrips as int : null,
       allPledgedSecurities: myPledgedSecuritiesData.allPledgedSecurities != null ? List<AllPledgedSecurities>.from((myPledgedSecuritiesData.allPledgedSecurities as List<dynamic>).map<AllPledgedSecurities?>((x) => AllPledgedSecurities.fromEntity(x as AllPledgedSecuritiesEntity),),) : null,
       sellCollateral: myPledgedSecuritiesData.sellCollateral != null ? myPledgedSecuritiesData.sellCollateral as int : null,
