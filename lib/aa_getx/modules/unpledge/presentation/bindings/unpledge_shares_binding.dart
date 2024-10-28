@@ -5,6 +5,8 @@ import 'package:lms/aa_getx/modules/unpledge/data/data_source/unpledge_data_sour
 import 'package:lms/aa_getx/modules/unpledge/data/repositories/unpledge_repository_impl.dart';
 import 'package:lms/aa_getx/modules/unpledge/domain/usecases/get_unpledge_details_usecase.dart';
 import 'package:lms/aa_getx/modules/unpledge/domain/usecases/request_unpledge_otp_usecase.dart';
+import 'package:lms/aa_getx/modules/unpledge/domain/usecases/unpledge_request_usecase.dart';
+import 'package:lms/aa_getx/modules/unpledge/presentation/controllers/unpledge_otp_verification_controller.dart';
 import 'package:lms/aa_getx/modules/unpledge/presentation/controllers/unpledge_shares_controller.dart';
 
 class UnpledgeSharesBinding extends Bindings{
@@ -22,6 +24,14 @@ class UnpledgeSharesBinding extends Bindings{
       Get.find<ConnectionInfo>(),
       Get.find<GetUnpledgeDetailsUseCase>(),
       Get.find<RequestUnpledgeOtpUseCase>(),
+    ));
+
+    Get.lazyPut<UnpledgeRequestUsecase>(()=>UnpledgeRequestUsecase(Get.find<UnpledgeRepositoryImpl>()));
+
+    Get.lazyPut<UnpledgeOtpVerificationController>(() => UnpledgeOtpVerificationController(
+      Get.find<ConnectionInfo>(),
+      Get.find<RequestUnpledgeOtpUseCase>(),
+      Get.find<UnpledgeRequestUsecase>(),
     ));
   }
 

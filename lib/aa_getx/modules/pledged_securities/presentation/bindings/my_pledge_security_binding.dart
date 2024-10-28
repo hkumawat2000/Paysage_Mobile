@@ -10,6 +10,7 @@ import 'package:lms/aa_getx/modules/my_loan/domain/usecases/get_all_loans_name_u
 import 'package:lms/aa_getx/modules/pledged_securities/data/data_sources/pledged_securities_api.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/data/repositories/pledged_securities_repository_impl.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/get_my_pledged_securities_usecase.dart';
+import 'package:lms/aa_getx/modules/pledged_securities/domain/usecases/loan_closer_usecase.dart';
 import 'package:lms/aa_getx/modules/pledged_securities/presentation/controllers/my_pledge_security_controller.dart';
 
 class MyPledgeSecurityBinding extends Bindings{
@@ -36,8 +37,16 @@ class MyPledgeSecurityBinding extends Bindings{
 
     Get.lazyPut<GetMyPledgedSecuritiesUseCase>(()=>GetMyPledgedSecuritiesUseCase(Get.find<PledgedSecuritiesRepositoryImpl>()));
 
+    Get.lazyPut<LoanCloserUsecase>(() => LoanCloserUsecase(Get.find<PledgedSecuritiesRepositoryImpl>()));
+
     Get.lazyPut<MyPledgeSecurityController>(
-            () => MyPledgeSecurityController(Get.find<ConnectionInfo>(),Get.find<GetAllLoansNamesUseCase>(), Get.find<GetLoanDetailsUseCase>(), Get.find<GetMyPledgedSecuritiesUseCase>()));
+            () => MyPledgeSecurityController(
+                Get.find<ConnectionInfo>(),
+                Get.find<GetAllLoansNamesUseCase>(),
+                Get.find<GetLoanDetailsUseCase>(),
+                Get.find<GetMyPledgedSecuritiesUseCase>(),
+              Get.find<LoanCloserUsecase>(),
+            ));
 
   }
 }
