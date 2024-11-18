@@ -14,11 +14,11 @@ class RegistrationView extends GetView<RegistrationController>{
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-        canPop: false,
-        onPopInvoked: (_) =>  OnBackPress.onBackPressDialog(1,Strings.exit_app),
-        child: GestureDetector(
-          onTap: ()=> controller.removeOverlay(),
+    return GestureDetector(
+      onTap: () => Get.focusScope?.unfocus(),
+      child: PopScope(
+          canPop: false,
+          onPopInvoked: (_) =>  OnBackPress.onBackPressDialog(1,Strings.exit_app),
           child: Scaffold(
             key: controller.scaffoldKey,
             backgroundColor: colorBg,
@@ -51,10 +51,10 @@ class RegistrationView extends GetView<RegistrationController>{
                       height: 20,
                     ),
                     mobileFeild(),
-//                  SizedBox(
-//                    height: 20,
-//                  ),
-//                  referCodeFeild(),
+          //                  SizedBox(
+          //                    height: 20,
+          //                  ),
+          //                  referCodeFeild(),
                     SizedBox(
                       height: 50,
                     ),
@@ -143,7 +143,7 @@ class RegistrationView extends GetView<RegistrationController>{
 
           ),
           ),
-        ),
+      ),
     );
   }
 

@@ -343,6 +343,7 @@ class AddBankController extends GetxController {
   void reEnterAccNumberOnChanged() {
      //setState(() {
       isVisible.value = true;
+      getSubmitValidation();
       reEnterAccNumberController.text.isEmpty
           ? reEnterAccNumberValidator.value = false
           : reEnterAccNumberValidator.value = true;
@@ -360,6 +361,7 @@ class AddBankController extends GetxController {
   void accNumberOnChanged() {
     //setState(() {
       isVisible.value = true;
+      getSubmitValidation();
       accNumberController.text.isEmpty
           ? accNumberValidator.value = false
           : accNumberValidator.value = true;
@@ -377,6 +379,7 @@ class AddBankController extends GetxController {
   void accHolderNameOnChanged()  {
     //setState(() {
       isVisible.value = true;
+      getSubmitValidation();
       accHolderNameController.text.isEmpty
           ? accHolderNameValidator.value = false
           : accHolderNameValidator.value = true;
@@ -385,6 +388,7 @@ class AddBankController extends GetxController {
 
   void ifscOnChanged(String value, FocusNode fieldFocusNode)  {
     //setState(() {
+    getSubmitValidation();
       if (iFSCController.text != value.toUpperCase())
         iFSCController.value = iFSCController.value
             .copyWith(text: value.toUpperCase());
@@ -420,16 +424,16 @@ class AddBankController extends GetxController {
    // });
   }
 
-  bool getSubmitValidation() {
+  RxBool getSubmitValidation() {
     if(bankController.text.toString().trim().isNotEmpty &&
         iFSCController.text.toString().trim().isNotEmpty &&
         accHolderNameController.text.toString().trim().isNotEmpty &&
         accNumberController.text.toString().trim().isNotEmpty &&
         reEnterAccNumberController.text.toString().trim().isNotEmpty &&
         !reEnterAccNumberIsCorrect.value && cropMb != null && imageInMb.isTrue){
-      return true;
+      return true.obs;
     } else {
-      return false;
+      return false.obs;
     }
   }
 }

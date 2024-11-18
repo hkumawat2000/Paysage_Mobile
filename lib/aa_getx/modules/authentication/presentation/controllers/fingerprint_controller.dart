@@ -18,23 +18,16 @@ class FingerPrintController extends GetxController{
     if(!consentForBiometric) {
       FingerPrintController controller = FingerPrintController();
       permissionDialog(controller);
-    }else{
-      // showModalBottomSheet(
-      //     backgroundColor: Colors.transparent,
-      //     context: context,
-      //     isScrollControlled: true,
-      //     isDismissible: false,
-      //     enableDrag: false,
-      //     builder: (BuildContext bc) {
-      //       return EnableFingerPrintDialog(widget.isForOfflineCustomer, widget.isLoanOpen);
-      //     });
+    } else {
       Get.bottomSheet(
         EnableFingerPrintDialog(),
         isDismissible: false,
         settings: RouteSettings(
-            arguments: SetPinArgs(
-                isForOfflineCustomer: setPinArgs.isForOfflineCustomer,
-                isLoanOpen: setPinArgs.isLoanOpen)),
+          arguments: SetPinArgs(
+            isForOfflineCustomer: setPinArgs.isForOfflineCustomer,
+            isLoanOpen: setPinArgs.isLoanOpen,
+          ),
+        ),
         backgroundColor: Colors.transparent,
         isScrollControlled: true,
         enableDrag: false,

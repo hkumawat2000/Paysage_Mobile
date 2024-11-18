@@ -20,7 +20,7 @@ class AddBankView extends GetView<AddBankController>{
     final theme = Theme.of(context);
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        Get.focusScope!.unfocus();
       },
       child: Scaffold(
         backgroundColor: colorBg,
@@ -563,43 +563,45 @@ class AddBankView extends GetView<AddBankController>{
 
   Widget submitButton() {
     return Center(
-      child: AbsorbPointer(
-        absorbing: controller.getSubmitValidation()
-            ? false
-            : true,
-        child: Container(
-          height: 45,
-          width: 120,
-          child: Material(
-            color: controller.getSubmitValidation()
-                ? appTheme
-                : colorLightGray,
-            shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-            elevation: 1.0,
-            child: MaterialButton(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-              minWidth: Get.mediaQuery.size.width,
-              onPressed: () {
-                Utility.isNetworkConnection().then((isNetwork) async {
-                  if (isNetwork) {
-                    Get.focusScope?.unfocus();
-                    if (controller.bankController.text.toString().trim().isNotEmpty) {
-                      if (controller.accHolderNameValidator == true &&
-                          controller.accNumberValidator == true &&
-                          controller.reEnterAccNumberValidator == true &&
-                          controller.iFSCValidator == true && controller.imageInMb.isTrue) {
-                        controller.validateBank();
+      child: Obx(
+        () => AbsorbPointer(
+          absorbing: controller.getSubmitValidation().value
+              ? false
+              : true,
+          child: Container(
+            height: 45,
+            width: 120,
+            child: Material(
+              color: controller.getSubmitValidation().value
+                  ? appTheme
+                  : colorLightGray,
+              shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
+              elevation: 1.0,
+              child: MaterialButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
+                minWidth: Get.mediaQuery.size.width,
+                onPressed: () {
+                  Utility.isNetworkConnection().then((isNetwork) async {
+                    if (isNetwork) {
+                      Get.focusScope?.unfocus();
+                      if (controller.bankController.text.toString().trim().isNotEmpty) {
+                        if (controller.accHolderNameValidator == true &&
+                            controller.accNumberValidator == true &&
+                            controller.reEnterAccNumberValidator == true &&
+                            controller.iFSCValidator == true && controller.imageInMb.isTrue) {
+                          controller.validateBank();
+                        }
                       }
+                    } else {
+                      Utility.showToastMessage(Strings.no_internet_message);
                     }
-                  } else {
-                    Utility.showToastMessage(Strings.no_internet_message);
-                  }
-                });
-              },
-              child: Text(
-                Strings.submit,
-                style: TextStyle(color: Colors.white),
+                  });
+                },
+                child: Text(
+                  Strings.submit,
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),

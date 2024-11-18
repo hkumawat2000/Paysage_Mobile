@@ -25,7 +25,7 @@ class EnableFingerPrintController extends GetxController
   @override
   void onInit() {
     isFingerPrintSupport();
-    _getAvailableSupport();
+    getAvailableSupport();
     super.onInit();
     _animationController = AnimationController(
       vsync: this,
@@ -38,12 +38,12 @@ class EnableFingerPrintController extends GetxController
     isFingerSupport = await utility.getBiometricsSupport();
   }
 
-  Future<void> _getAvailableSupport() async {
+  Future<void> getAvailableSupport() async {
     try {
       availableBiometricType = await _localAuthentication.getAvailableBiometrics();
-      debugPrint("availableBuimetricType ==> $availableBiometricType");
+      debugPrint("availableBiometricType ==> $availableBiometricType");
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("Exception : ${e.toString()}");
     }
     return;
   }

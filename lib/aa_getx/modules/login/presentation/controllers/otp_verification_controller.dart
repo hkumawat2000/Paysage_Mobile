@@ -76,7 +76,7 @@ class OtpVerificationController extends GetxController {
 
   String get timerString {
     Duration duration = Duration(seconds: start.value);
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    return '${(duration.inMinutes).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   Future<void> initSmsListener() async {
