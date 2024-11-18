@@ -1,6 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/bindings/account_settings_bindings.dart';
 import 'package:lms/aa_getx/modules/account_settings/presentation/views/account_settings_screen.dart';
+import 'package:lms/aa_getx/modules/additional_account_details/presentation/bindings/additional_account_details_bindings.dart';
+import 'package:lms/aa_getx/modules/additional_account_details/presentation/views/additional_account_details_view.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/bindings/approved_securities_list_bindings.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/bindings/approved_shares_and_mf_bindings.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/presentation/views/approved_securities_view.dart';
@@ -163,6 +165,7 @@ const String feedbackView = "feedback-view";
 const String pledgeMfSchemeSelection = "pledge-mf-scheme-selection";
 const String mfViewVaultDetailsScreen = "mf-view-vault-details-screen";
 const String approvedSecuritiesView = "approved-shares-view";
+const String additionalAccountDetails = "additional-account-details-view";
 LoginSubmitResquestEntity? loginSubmitResquestEntity;
 
 List<GetPage> routes = [
@@ -451,5 +454,10 @@ List<GetPage> routes = [
     name: '/$approvedSecuritiesView',
     page: () => ApprovedSecuritiesView(),
     binding: ApprovedSecuritiesListBindings(),
+  ),
+  GetPage(
+    name: '/$additionalAccountDetails',
+    page: () => AdditionalAccountDetailsView(),
+    binding: AdditionalAccountDetailsBindings(),
   ),
 ];

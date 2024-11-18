@@ -22,7 +22,7 @@ class MutualFundConsentController extends GetxController {
     super.onInit();
   }
 
-  getMfCentralOTP() async {
+  Future<void> getMfCentralOTP() async {
     if (await _connectionInfo.isConnected) {
       showDialogLoading(Strings.please_wait);
       DataState<MutualFundSendOtpResponseEntity> response = await mutualFundOtpSendUsecase.call();

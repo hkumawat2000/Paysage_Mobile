@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
+import 'package:lms/aa_getx/config/routes.dart';
 import 'package:lms/aa_getx/core/constants/strings.dart';
 import 'package:lms/aa_getx/core/utils/common_widgets.dart';
 import 'package:lms/aa_getx/core/utils/connection_info.dart';
@@ -71,13 +72,26 @@ class AdditionalAccountDetailsController extends GetxController {
               .call(AdditionalAccountDetailsParams(
         accountdetailsRequestEntity: additionalAccountdetailsRequestEntity,
       ));
-
-      if(response is DataSuccess){
-
-      }else if (response is DataFailed){
-
+      Get.back();
+      if (response is DataSuccess) {
+        preferences.setCamsEmail(mycamsEmailId);
+        Utility.showToastMessage("Verified successfully");
+        if (arguments.isSkip == 1 || arguments.isSkip == 2) {
+          Get.offNamed(dashboardView);
+        } else if (arguments.isSkip == 3) {
+          Get.toNamed(pledgeMfSchemeSelection);
+        } else if (arguments.isSkip == 4) {
+          Get.back();
+        }
+      } else if (response is DataFailed) {
+        if (response.error!.statusCode == 403) {
+          commonDialog(Strings.session_timeout, 4);
+        } else {
+          Utility.showToastMessage(response.error!.message);
+        }
       }
     } else {
+      Get.back();
       Utility.showToastMessage(Strings.no_internet_message);
     }
   }

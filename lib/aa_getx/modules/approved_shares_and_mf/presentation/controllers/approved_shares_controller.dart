@@ -9,6 +9,7 @@ import 'package:lms/aa_getx/core/utils/connection_info.dart';
 import 'package:lms/aa_getx/core/utils/data_state.dart';
 import 'package:lms/aa_getx/core/utils/preferences.dart';
 import 'package:lms/aa_getx/core/utils/utility.dart';
+import 'package:lms/aa_getx/modules/additional_account_details/presentation/arguments/additional_account_details_arguments.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/entities/demat_account_response_entity.dart';
 import 'package:lms/aa_getx/modules/approved_shares_and_mf/domain/usecases/get_demat_account_details_usecase.dart';
 import 'package:lms/approved_securities/ApprovedSecuritiesScreen.dart';
@@ -89,18 +90,16 @@ class ApprovedSharesController extends GetxController {
     if (await connectionInfo.isConnected) {
       if (camsEmail.value.isNotEmpty) {
         Get.toNamed(pledgeMfSchemeSelection);
-        //TODO
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) => MFSchemeSelectionScreen()));
       } else {
-        //TODO
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (BuildContext context) =>
-        //             AdditionalAccountDetailScreen(3, "", "", "")));
+        Get.toNamed(
+          additionalAccountDetails,
+          arguments: AdditionalAccountDetailsArguments(
+            isSkip: 3,
+            loanApplicationStatus: "",
+            loanName: "",
+            instrumentType: "",
+          ),
+        );
       }
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
@@ -126,12 +125,6 @@ class ApprovedSharesController extends GetxController {
       parameter[Strings.date_time] = getCurrentDateAndTime();
       firebaseEvent(Strings.approved_securities_opened, parameter);
       Get.toNamed(approvedSecuritiesView);
-      //TODO Navigate
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (BuildContext context) =>
-      //             ApprovedSecuritiesScreen()));
     } else {
       Utility.showToastMessage(Strings.no_internet_message);
     }

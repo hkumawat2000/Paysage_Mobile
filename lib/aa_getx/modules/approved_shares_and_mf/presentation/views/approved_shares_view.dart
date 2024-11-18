@@ -14,255 +14,255 @@ class ApprovedSharesView extends GetView<ApprovedSharesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: controller.scaffoldKey,
-      backgroundColor: colorBg,
-      body: Column(
-        children: <Widget>[
-          SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              IconButton(
-                icon: ArrowToolbarBackwardNavigation(),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-            child: Column(
+        key: controller.scaffoldKey,
+        backgroundColor: colorBg,
+        body: Column(
+          children: <Widget>[
+            SizedBox(height: 30),
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    headingText(Strings.pledge_securities),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        Strings.pledge_securities_sub_heading,
-                        style: mediumTextStyle_16_gray,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: appTheme,
-                          ),
-                          width: 157,
-                          height: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 30.95, left: 20),
-                                  child: Image.asset(
-                                    AssetsImagePath.shares,
-                                    width: 34.57,
-                                    height: 52.51,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, bottom: 20.0),
-                                  child: Text(
-                                    Strings.shares,
-                                    style: extraBoldTextStyle_18_white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          controller.onSharesClick();
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: GestureDetector(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: red,
-                          ),
-                          width: 157,
-                          height: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 34.0, left: 21.02),
-                                  child: Image.asset(
-                                    AssetsImagePath.mutual_fund,
-                                    width: 48,
-                                    height: 48.01,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, bottom: 20.0),
-                                  child: Text(
-                                    Strings.mutual_fund,
-                                    style: extraBoldTextStyle_18_white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          controller.onMutualFundClick();
-                        },
-                      ),
-                    )
-                  ],
-                ),
-
-                SizedBox(height: 20),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: appTheme,
-                          ),
-                          width: 157,
-                          height: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 30.95, left: 20),
-                                  child: Image.asset(
-                                    AssetsImagePath.ic_reports,
-                                    color: colorWhite,
-                                    width: 50.57,
-                                    height: 52.51,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, bottom: 20.0),
-                                  child: Text(
-                                    Strings.mf_central_mutual_fund,
-                                    style: extraBoldTextStyle_18_white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          controller.onMfCentralClick();
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: GestureDetector(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: colorTransparent,
-                          ),
-                          width: 157,
-                          height: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                // Padding(
-                                //   padding: const EdgeInsets.only(
-                                //       top: 34.0, left: 21.02),
-                                //   child: Image.asset(
-                                //     AssetsImagePath.mutual_fund,
-                                //     width: 48,
-                                //     height: 48.01,
-                                //   ),
-                                // ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(
-                                //       left: 20.0, bottom: 20.0),
-                                //   child: Text(
-                                //     Strings.mutual_fund,
-                                //     style: extraBoldTextStyle_18_white,
-                                //   ),
-                                // ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          controller.onMutualFundClick();
-                        },
-                      ),
-                    )
-                  ],
-                ),
-
-                SizedBox(height: 50),
-                GestureDetector(
-                  onTap: () {
-                    print('object');
-                    controller.handleClickForApprovedShares();
+                IconButton(
+                  icon: ArrowToolbarBackwardNavigation(),
+                  onPressed: () {
+                    Navigator.pop(context);
                   },
-                  child: RichText(
-                    text: TextSpan(
-                      // recognizer: TapGestureRecognizer()
-                      //   ..onTap = () async {
-                      //     controller.handleClickForApprovedShares();
-                      //   },
-                      text: Strings.click_here,
-                      style: TextStyle(color: Colors.blue),
-                      children: [
-                        TextSpan(
-                          text: Strings.approved_text,
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
-          )
-        ],
-      ),
-    );
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      headingText(Strings.pledge_securities),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          Strings.pledge_securities_sub_heading,
+                          style: mediumTextStyle_16_gray,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: appTheme,
+                            ),
+                            width: 157,
+                            height: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 30.95, left: 20),
+                                    child: Image.asset(
+                                      AssetsImagePath.shares,
+                                      width: 34.57,
+                                      height: 52.51,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, bottom: 20.0),
+                                    child: Text(
+                                      Strings.shares,
+                                      style: extraBoldTextStyle_18_white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            controller.onSharesClick();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: red,
+                            ),
+                            width: 157,
+                            height: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 34.0, left: 21.02),
+                                    child: Image.asset(
+                                      AssetsImagePath.mutual_fund,
+                                      width: 48,
+                                      height: 48.01,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, bottom: 20.0),
+                                    child: Text(
+                                      Strings.mutual_fund,
+                                      style: extraBoldTextStyle_18_white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            controller.onMutualFundClick();
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+      
+                  SizedBox(height: 20),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: appTheme,
+                            ),
+                            width: 157,
+                            height: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 30.95, left: 20),
+                                    child: Image.asset(
+                                      AssetsImagePath.ic_reports,
+                                      color: colorWhite,
+                                      width: 50.57,
+                                      height: 52.51,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, bottom: 20.0),
+                                    child: Text(
+                                      Strings.mf_central_mutual_fund,
+                                      style: extraBoldTextStyle_18_white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            controller.onMfCentralClick();
+                          },
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: GestureDetector(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              color: colorTransparent,
+                            ),
+                            width: 157,
+                            height: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //       top: 34.0, left: 21.02),
+                                  //   child: Image.asset(
+                                  //     AssetsImagePath.mutual_fund,
+                                  //     width: 48,
+                                  //     height: 48.01,
+                                  //   ),
+                                  // ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //       left: 20.0, bottom: 20.0),
+                                  //   child: Text(
+                                  //     Strings.mutual_fund,
+                                  //     style: extraBoldTextStyle_18_white,
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            controller.onMutualFundClick();
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+      
+                  SizedBox(height: 50),
+                  GestureDetector(
+                    onTap: () {
+                      print('object');
+                      controller.handleClickForApprovedShares();
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                        // recognizer: TapGestureRecognizer()
+                        //   ..onTap = () async {
+                        //     controller.handleClickForApprovedShares();
+                        //   },
+                        text: Strings.click_here,
+                        style: TextStyle(color: Colors.blue),
+                        children: [
+                          TextSpan(
+                            text: Strings.approved_text,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      );
   }
 }

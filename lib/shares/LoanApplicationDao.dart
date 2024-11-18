@@ -181,7 +181,7 @@ class LoanApplicationDao extends BaseDio {
       } else {
         wrapper.isSuccessFull = false;
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response == null) {
         wrapper.isSuccessFull = false;
         wrapper.errorMessage = Strings.server_error_message;
